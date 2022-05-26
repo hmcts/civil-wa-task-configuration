@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="wa-task-completion-ia-asylum" name="Task completion DMN">
+    <decisionTable id="DecisionTable_01re27m" hitPolicy="COLLECT">
+      <input id="eventId" label="Event ID" biodi:width="614">
+        <inputExpression id="LiteralExpression_1ngg489" typeRef="string">
+          <text>eventId</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Task Type" name="taskType" typeRef="string" biodi:width="282" />
+      <output id="OutputClause_1mldd9e" label="Completion Mode" name="completionMode" typeRef="string" />
+      <rule id="DecisionRule_12eenty">
+        <inputEntry id="UnaryTests_17cg7de">
+          <text>"requestRespondentEvidence"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lk4wxe">
+          <text>"reviewTheAppeal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ap1s9l">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q8g2nu">
+        <inputEntry id="UnaryTests_0htkc9k">
+          <text>"requestCaseBuilding","requestReasonsForAppeal","sendDirection"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pxkm8l">
+          <text>"reviewRespondentEvidence"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15mqpgr">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0x1cjp2">
+        <inputEntry id="UnaryTests_1bjqbmz">
+          <text>"requestRespondentReview","requestCaseEdit"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g232ye">
+          <text>"reviewAppealSkeletonArgument"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nx8xz4">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1v9cegc">
+        <inputEntry id="UnaryTests_1ckmgqx">
+          <text>"requestResponseReview","sendDirectionWithQuestions","requestCmaRequirements"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11wnabl">
+          <text>"reviewReasonsForAppeal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0um7can">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0vuq3ym">
+        <inputEntry id="UnaryTests_025guv0">
+          <text>"requestResponseReview","sendDirectionWithQuestions","requestCmaRequirements"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03hy3xh">
+          <text>"reviewClarifyingQuestionsAnswers"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kdk8vs">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19m181l">
+        <inputEntry id="UnaryTests_1fa5tqp">
+          <text>"markEvidenceAsReviewed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15ivr9l">
+          <text>"reviewAdditionalEvidence"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wfwufd">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ermjaa">
+        <inputEntry id="UnaryTests_10jbxe2">
+          <text>"markEvidenceAsReviewed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ej8jjr">
+          <text>"reviewAdditionalHomeOfficeEvidence"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0im41fd">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0h6mspv">
+        <inputEntry id="UnaryTests_1pwjkzs">
+          <text>"uploadAdditionalEvidenceHomeOffice"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o15bhr">
+          <text>"reviewAdditionalHomeOfficeEvidence"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15x2og0">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19ss4q7">
+        <inputEntry id="UnaryTests_013vo07">
+          <text>"reviewCmaRequirements"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18245xl">
+          <text>"reviewCmaRequirements"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mtu3yn">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0o92uh9">
+        <inputEntry id="UnaryTests_1f7l7or">
+          <text>"updateDetailsAfterCma"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xushlk">
+          <text>"attendCma"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0y7rujr">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_103goea">
+        <inputEntry id="UnaryTests_0su2akh">
+          <text>"requestResponseAmend","requestResponseReview"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gfe3at">
+          <text>"reviewRespondentResponse"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11q8q8f">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nsu5se">
+        <inputEntry id="UnaryTests_0t2iptq">
+          <text>"reviewHearingRequirements"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04kx78n">
+          <text>"reviewHearingRequirements"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14xv3h2">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0z5xy01">
+        <inputEntry id="UnaryTests_0iji488">
+          <text>"createCaseSummary"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1j4sst9">
+          <text>"createCaseSummary"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1sfxkbw">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vs7030">
+        <inputEntry id="UnaryTests_0w4ligs">
+          <text>"generateHearingBundle"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fyq8it">
+          <text>"createHearingBundle"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_111ql3o">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mw2ara">
+        <inputEntry id="UnaryTests_0jn2e7x">
+          <text>"decisionAndReasonsStarted"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q0zt8z">
+          <text>"startDecisionsAndReasonsDocument"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16xfnyx">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tvqgcw">
+        <inputEntry id="UnaryTests_1lm3kb6">
+          <text>"recordAllocatedJudge"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lpt12w">
+          <text>"allocateFtpaToJudge"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lp2uyq">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gdgm8a">
+        <inputEntry id="UnaryTests_16tdmu0">
+          <text>"changeDirectionDueDate"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pk9d8p">
+          <text>"decideOnTimeExtension"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01skism">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kc79q7">
+        <inputEntry id="UnaryTests_1v8q84b">
+          <text>"decideAnApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16t2jen">
+          <text>"processApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mv1jjs">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00ego89">
+        <inputEntry id="UnaryTests_0mupz2m">
+          <text>"requestRespondentEvidence","requestCaseBuilding","requestReasonsForAppeal","sendDirection","requestRespondentReview","requestCaseEdit","sendDirectionWithQuestions","requestCmaRequirements","reviewCmaRequirements","updateDetailsAfterCma","requestResponseAmend","reviewHearingRequirements","createCaseSummary","generateHearingBundle","decisionAndReasonsStarted","recordAllocatedJudge","changeDirectionDueDate","decideAnApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qvmdyv">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tkxwpo">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="wa-task-completion-ia-asylum">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.8.1">
+  <decision id="wa-task-configuration-ia-asylum" name="Task configuration DMN">
+    <decisionTable id="DecisionTable_14cx079" hitPolicy="COLLECT">
+      <input id="InputClause_1gxyo7f" label="CCD Case Data" camunda:inputVariable="caseData">
+        <inputExpression id="LiteralExpression_0mra7c4" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1gmuynt" label="Task type" biodi:width="433" camunda:inputVariable="taskType">
+        <inputExpression id="LiteralExpression_06iiuqg" typeRef="string">
+          <text>if(taskAttributes != null and taskAttributes.taskType != null) then
+            taskAttributes. taskType
+else if(taskType != null) then
+           taskType
+else
+null</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Name" name="name" typeRef="string" />
+      <output id="OutputClause_021y3bb" label="Value" name="value" typeRef="string" biodi:width="416" />
+      <rule id="DecisionRule_0u7yi27">
+        <inputEntry id="UnaryTests_03ky0ek">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03q2nz0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nkps91">
+          <text>"caseName"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06tqng3">
+          <text>caseData.appellantGivenNames + " " + caseData.appellantFamilyName</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oagl97">
+        <inputEntry id="UnaryTests_0mkzt2r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1esseck">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0selern">
+          <text>"appealType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0t707ev">
+          <text>if caseData.appealType = "refusalOfHumanRights" then "Human rights" else if caseData.appealType = "refusalOfEu" then "EEA" else if caseData.appealType = "deprivation" then "DoC" else if caseData.appealType = "protection" then "Protection" else if caseData.appealType = "revocationOfProtection" then "Revocation" else ""</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r3u9cf">
+        <inputEntry id="UnaryTests_1bqxdqr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wxfevs">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0etwrk3">
+          <text>"region"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05korws">
+          <text>if (caseData.caseManagementLocation != null and caseData.caseManagementLocation.region != null) then caseData.caseManagementLocation.region else "1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06fd9qz">
+        <inputEntry id="UnaryTests_0slfog9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u21xrs">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kun6mv">
+          <text>"location"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jj1wzo">
+          <text>if (caseData.caseManagementLocation != null and caseData.caseManagementLocation.baseLocation != null) then caseData.caseManagementLocation.baseLocation else "765324"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1oirne1">
+        <inputEntry id="UnaryTests_04xtpdu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ssoq5v">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lvlmxm">
+          <text>"locationName"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xp4dc7">
+          <text>if (caseData.caseManagementLocation != null and caseData.caseManagementLocation.baseLocation != null  and caseData.staffLocation != null) then caseData.staffLocation else "Taylor House"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03afipt">
+        <inputEntry id="UnaryTests_0aqybrx">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nmr895">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04r7w97">
+          <text>"caseManagementCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_099dwbs">
+          <text>if (caseData.caseManagementCategory !=null and caseData.caseManagementCategory.value.code = "refusalOfHumanRights") then "Human rights"
+else if (caseData.caseManagementCategory !=null and caseData.caseManagementCategory.value.code = "refusalOfEu") then "EEA"
+else if (caseData.caseManagementCategory !=null and caseData.caseManagementCategory.value.code = "deprivation") then "DoC"
+else if (caseData.caseManagementCategory !=null and caseData.caseManagementCategory.value.code = "protection") then "Protection"
+else if (caseData.caseManagementCategory !=null and caseData.caseManagementCategory.value.code = "revocationOfProtection") then "Revocation"
+else if caseData.appealType = "refusalOfHumanRights" then "Human rights"
+else if caseData.appealType = "refusalOfEu" then "EEA"
+else if caseData.appealType = "deprivation" then "DoC"
+else if caseData.appealType = "protection" then "Protection"
+else if caseData.appealType = "revocationOfProtection" then "Revocation" else ""</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ikmf14">
+        <inputEntry id="UnaryTests_0epux74">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y3kj1v">
+          <text>"arrangeOfflinePayment","markCaseAsPaid"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rvgay2">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zoponq">
+          <text>"routine_work"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1csczvs">
+        <inputEntry id="UnaryTests_0wmnz5z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gm06lg">
+          <text>"reviewTheAppeal",
+            "followUpOverdueRespondentEvidence",
+            "reviewRespondentEvidence",
+            "followUpOverdueCaseBuilding",
+            "reviewAppealSkeletonArgument",
+            "followUpOverdueReasonsForAppeal",
+            "reviewReasonsForAppeal",
+            "followUpOverdueClarifyingAnswers",
+            "reviewClarifyingAnswers",
+            "followUpOverdueRespondentReview",
+            "reviewRespondentResponse",
+            "followUpOverdueCMARequirements",
+            "reviewCmaRequirements",
+            "reviewAdditionalEvidence",
+            "reviewAdditionalHomeOfficeEvidence",
+            "reviewAdditionalAppellantEvidence",
+            "reviewAddendumHomeOfficeEvidence",
+            "reviewAddendumAppellantEvidence",
+            "reviewAddendumEvidence",
+            "processReviewDecisionApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0omxasv">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mfd2ul">
+          <text>"decision_making_work"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03n8x3v">
+        <inputEntry id="UnaryTests_0u2qxu3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ps3x4j">
+          <text>"addListingDate","createHearingBundle","reviewHearingBundle","generateDraftDecisionAndReasons","uploadDecision","uploadHearingRecording","updateHearingRequirements","editListing",
+             "followUpOverdueHearingRequirements","reviewHearingRequirements"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0c3eia6">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19poitv">
+          <text>"hearing_work"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mgtmkd">
+        <inputEntry id="UnaryTests_0mpogvu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uoqs4p">
+          <text>"processApplication","processHearingRequirementsApplication","processHearingCentreApplication","processApplicationToExpedite","processApplicationToTransfer",
+"processApplicationForTimeExtension","processApplicationToWithdraw","processAppealDetailsApplication","processLinkedCaseApplication","processReinstatementApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qi2rsb">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1spq9ei">
+          <text>"applications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00yasz5">
+        <inputEntry id="UnaryTests_0zfo8ln">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04wtfxs">
+          <text>"allocationFTPAToJudge","decideOnFTPA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ywf3hm">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jcwzi7">
+          <text>"upper_tribunal"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dhhpyl">
+        <inputEntry id="UnaryTests_13pqmkc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10f3uas">
+          <text>"processApplication","reviewTheAppeal","decideOnTimeExtension","reviewRespondentEvidence","reviewAppealSkeletonArgument","reviewReasonsForAppeal","reviewClarifyingQuestionsAnswers","reviewCmaRequirements","attendCma","reviewRespondentResponse","createCaseSummary","createHearingBundle","startDecisionsAndReasonsDocument","reviewHearingRequirements","followUpOverdueRespondentEvidence","followUpOverdueCaseBuilding","followUpOverdueReasonsForAppeal","followUpOverdueClarifyingAnswers","followUpOverdueCmaRequirements","followUpOverdueRespondentReview","followUpOverdueHearingRequirements","followUpNonStandardDirection","followUpNoticeOfChange","reviewAdditionalEvidence","reviewAdditionalHomeOfficeEvidence","reviewSpecificAccessRequestLegalOps"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05l5bvs">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18y163a">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01muxrj">
+        <inputEntry id="UnaryTests_0ullysh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1glizm3">
+          <text>"arrangeOfflinePayment","markCaseAsPaid","addListingDate","allocateHearingJudge","uploadHearingRecording","
+reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1131kat">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0el7tae">
+          <text>"ADMIN"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01cmxvs">
+        <inputEntry id="UnaryTests_1np8ii5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15ftuu0">
+          <text>"reviewHearingBundle","generateDraftDecisionAndReasons","uploadDecision","reviewAddendumHomeOfficeEvidence","reviewAddendumAppellantEvidence","reviewAddendumEvidence","
+reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15nowth">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cn9cb2">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0dkaz16">
+        <inputEntry id="UnaryTests_1y7mx6x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1up0ed8">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ahc8rm">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_154wrdc">
+          <text>if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "processApplication" or taskType != null and taskType = "processApplication")
+then "[Decide an application](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/decideAnApplication)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewTheAppeal" or taskType != null and taskType = "reviewTheAppeal")
+then "[Request respondent evidence](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestRespondentEvidence)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "decideOnTimeExtension" or taskType != null and taskType ="decideOnTimeExtension")
+then "[Change the direction due date](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/changeDirectionDueDate)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewRespondentEvidence" or taskType != null and taskType ="reviewRespondentEvidence")
+then
+"[Request case building](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestCaseBuilding)&lt;br /&gt;[Request reasons for appeal](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestReasonsForAppeal)&lt;br /&gt;[Send non-standard direction](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/sendDirection)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewAppealSkeletonArgument" or taskType != null and taskType ="reviewAppealSkeletonArgument")
+then "[Request respondent review](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestRespondentReview)&lt;br /&gt;[Request case edit](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestCaseEdit)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewReasonsForAppeal" or taskType != null and taskType ="reviewReasonsForAppeal")
+then "[Request respondent review](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestRespondentReview)&lt;br /&gt;[Send direction with questions](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/sendDirectionWithQuestions)&lt;br /&gt;[Request CMA requirements](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestCmaRequirements)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewClarifyingQuestionsAnswers" or taskType != null and taskType ="reviewClarifyingQuestionsAnswers")
+then "[Request respondent review](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestRespondentReview)&lt;br /&gt;[Send direction with questions](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/sendDirectionWithQuestions)&lt;br /&gt;[Request CMA requirements](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestCmaRequirements)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewCmaRequirements" or taskType != null and taskType = "reviewCmaRequirements")
+then "[Review CMA Requirements](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/reviewCmaRequirements)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "attendCma" or taskType != null and taskType = "attendCma")
+then "[Update case details after CMA](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/updateDetailsAfterCma)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewRespondentResponse" or taskType != null and taskType = "reviewRespondentResponse")
+then "[Review Home Office response](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestResponseReview)&lt;br /&gt;[Amend appeal response](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/requestResponseAmend)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "createCaseSummary" or taskType != null and taskType = "createCaseSummary")
+then "[Create case summary](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/createCaseSummary)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "createHearingBundle" or taskType != null and taskType = "createHearingBundle")
+then "[Generate the hearing bundle](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/generateHearingBundle)&lt;br /&gt;[Customise the hearing bundle](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/customiseHearingBundle)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "startDecisionsAndReasonsDocument" or taskType != null and taskType ="startDecisionsAndReasonsDocument")
+then "[Start decision and reasons document](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/decisionAndReasonsStarted/decisionAndReasonsStartedcaseIntroduction)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewHearingRequirements" or taskType != null and taskType = "reviewHearingRequirements")
+then "[Review hearing requirements](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/reviewHearingRequirements)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewAdditionalEvidence" or taskType != null and taskType ="reviewAdditionalEvidence")
+then "[Review evidence](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/markEvidenceAsReviewed)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewAdditionalHomeOfficeEvidence" or taskType != null and taskType ="reviewAdditionalHomeOfficeEvidence")	 then "[Review evidence](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/markEvidenceAsReviewed)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "arrangeOfflinePayment" or taskType != null and taskType ="arrangeOfflinePayment") then "[Mark the appeal as paid](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/markAppealPaid)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "markCaseAsPaid" or taskType != null and taskType ="markCaseAsPaid") then "[Mark the appeal as paid](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/markAppealPaid)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "addListingDate" or taskType != null and taskType ="addListingDate")	then "[List the case](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/listCase)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "allocateHearingJudge" or taskType != null and taskType ="allocateHearingJudge") then "[Allocate Hearing Judge](/role-access/allocate-role/allocate?caseId=${[CASE_REFERENCE]}&amp;roleCategory=${[JUDICIAL]})"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "uploadHearingRecording" or taskType != null and taskType = "uploadHearingRecording") then "[Upload the hearing recording](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/uploadHearingRecording)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "generateDraftDecisionAndReasons" or taskType != null and taskType = "generateDraftDecisionAndReasons")	then "[Generate the draft decisions and reasons document](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/generateDecisionAndReasons)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewAddendumHomeOfficeEvidence" or taskType != null and taskType = "reviewAddendumHomeOfficeEvidence") then "[Review evidence](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/markEvidenceAsReviewed)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewAddendumAppellantEvidence" or taskType != null and taskType = "reviewAddendumAppellantEvidence") then "[Review evidence](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/markEvidenceAsReviewed)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewAddendumEvidence" or taskType != null and taskType = "reviewAddendumEvidence") then "[Review evidence](/case/IA/Asylum/${[CASE_REFERENCE]}/trigger/markEvidenceAsReviewed)"
+else ""</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fpew6w">
+        <inputEntry id="UnaryTests_1dsxa1j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ul72fr">
+          <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestLegalOps","reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1f53slh">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0huw4e7">
+          <text>"access-requests"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1ifewa3">
+      <dmndi:DMNShape id="DMNShape_0ijg0or" dmnElementRef="wa-task-configuration-ia-asylum">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
