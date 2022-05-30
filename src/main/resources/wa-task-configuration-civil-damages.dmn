@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="wa-task-configuration-civil-damages" name="Task configuration DMN">
+    <decisionTable id="DecisionTable_14cx079" hitPolicy="COLLECT">
+      <input id="InputClause_1gxyo7f" label="CCD Case Data" camunda:inputVariable="caseData">
+        <inputExpression id="LiteralExpression_0mra7c4" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1gmuynt" label="Task type" biodi:width="433" camunda:inputVariable="taskType">
+        <inputExpression id="LiteralExpression_06iiuqg" typeRef="string">
+          <text>if(taskAttributes != null and taskAttributes.taskType != null) then
+            taskAttributes. taskType
+else if(taskType != null) then
+           taskType
+else
+null</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Name" name="name" typeRef="string" />
+      <output id="OutputClause_021y3bb" label="Value" name="value" typeRef="string" biodi:width="416" />
+      <rule id="DecisionRule_0u7yi27">
+        <inputEntry id="UnaryTests_03ky0ek">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03q2nz0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nkps91">
+          <text>"caseName"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06tqng3">
+          <text>if (caseData.applicant2 != null) then caseData.applicant1.partyName + " &amp; " + caseData.applicant2.partyName  else caseData.applicant1.partyName</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06i1dbt">
+        <inputEntry id="UnaryTests_06lsqf6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jh2uw3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hlpex4">
+          <text>"region"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hbq6kx">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gfyyox">
+        <inputEntry id="UnaryTests_1g9ak7z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_093v5ie">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1m67fwy">
+          <text>"appealType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16hpb86">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oagl97">
+        <inputEntry id="UnaryTests_0mkzt2r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1esseck">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0selern">
+          <text>"caseManagementCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0t707ev">
+          <text>"Civil"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r3u9cf">
+        <inputEntry id="UnaryTests_1bqxdqr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wxfevs">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0etwrk3">
+          <text>"location"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05korws">
+          <text>if (caseData.hearingSupportRequirementsDJ.hearingPreferredLocation != null) then caseData.hearingSupportRequirementsDJ.hearingPreferredLocation else "1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06fd9qz">
+        <inputEntry id="UnaryTests_0slfog9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u21xrs">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kun6mv">
+          <text>"locationName"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jj1wzo">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1oirne1">
+        <inputEntry id="UnaryTests_04xtpdu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ssoq5v">
+          <text>"summaryJudgmentDirections"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lvlmxm">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xp4dc7">
+          <text>"decision_making_work"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03afipt">
+        <inputEntry id="UnaryTests_0aqybrx">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nmr895">
+          <text>"reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04r7w97">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_099dwbs">
+          <text>"access_requests"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ikmf14">
+        <inputEntry id="UnaryTests_0epux74">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y3kj1v">
+          <text>"summaryJudgmentDirections", "reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rvgay2">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zoponq">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1csczvs">
+        <inputEntry id="UnaryTests_0wmnz5z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gm06lg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0omxasv">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mfd2ul">
+          <text>if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "summaryJudgmentDirections" or taskType != null and taskType = "summaryJudgmentDirections")
+then "[Directions (Provisional Summary Judgment)](/case/Ci vil/Damages/${[CASE_REFERENCE]}/trigger/summaryJudgmentDirections)"
+else if (taskAttributes != null and taskAttributes.taskType != null and taskAttributes.taskType = "reviewTheAppeal" or taskType != null and taskType = "reviewSpecificAccessRequestJudiciary")
+then "[Review Access Request](/case/Civil/Damages/${[CASE_REFERENCE]}/trigger/reviewSpecificAccessRequestJudiciary)"
+else ""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1ifewa3">
+      <dmndi:DMNShape id="DMNShape_0ijg0or" dmnElementRef="wa-task-configuration-civil-damages">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
