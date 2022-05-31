@@ -46,7 +46,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                                 "name", "task-supervisor",
                                 "value", "Read,Manage,Own,Cancel",
                                 "roleCategory", "JUDICIAL"
-                            ))) )
+                            ))))
                     );
     }
 
