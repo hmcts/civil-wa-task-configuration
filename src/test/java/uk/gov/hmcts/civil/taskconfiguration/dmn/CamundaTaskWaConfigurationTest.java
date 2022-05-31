@@ -41,7 +41,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "'', ''"
     }, nullValues = "NULL_VALUE")
     void when_caseData_then_return_expected_name_and_value_rows(String appealType, String expectedAppealType) {
-        VariableMap inputVariables = new VariableMapImpl();
+
         Map<String, Object> caseData = new HashMap<>(); // allow null values
         //caseData.put("appealType", appealType);
         caseData.put("applicant1", Map.of(
@@ -56,11 +56,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "hearingPreferredLocation", "Location"
 
         ));
-
+        VariableMap inputVariables = new VariableMapImpl();
         caseData.put("description", null);
         inputVariables.putValue("caseData", caseData);
-
-
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
