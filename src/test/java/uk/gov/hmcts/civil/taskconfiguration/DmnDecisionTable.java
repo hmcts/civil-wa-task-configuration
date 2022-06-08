@@ -4,23 +4,24 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum DmnDecisionTable {
 
-    WA_TASK_COMPLETION_CIVIL_DAMAGES("wa-task-completion-civil-damages",
-                                     "wa-task-completion-civil-damages.dmn"),
+    WA_TASK_COMPLETION_CIVIL_DAMAGES("wa-task-completion-CIVIL-CIVIL",
+                                     "wa-task-completion-CIVIL-CIVIL.dmn"
+    ),
     WA_TASK_PERMISSIONS_CIVIL_DAMAGES(
-        "wa-task-permissions-civil-damages",
-        "wa-task-permissions-civil-damages.dmn"
+        "wa-task-permissions-CIVIL-CIVIL",
+        "wa-task-permissions-CIVIL-CIVIL.dmn"
     ),
     WA_TASK_CONFIGURATION_CIVIL_DAMAGES(
-        "wa-task-configuration-civil-damages",
-        "wa-task-configuration-civil-damages.dmn"
+        "wa-task-configuration-CIVIL-CIVIL",
+        "wa-task-configuration-CIVIL-CIVIL.dmn"
     ),
     WA_TASK_CANCELLATION_CIVIL_DAMAGES(
-        "wa-task-cancellation-civil-damages",
-        "wa-task-cancellation-civil-damages.dmn"
+        "wa-task-cancellation-CIVIL-CIVIL",
+            "wa-task-cancellation-CIVIL-CIVIL.dmn"
     ),
     WA_TASK_INITIATION_CIVIL_DAMAGES(
-        "wa-task-initiation-civil-damages",
-        "wa-task-initiation-civil-damages.dmn"
+        "wa-task-initiation-CIVIL-CIVIL",
+        "wa-task-initiation-CIVIL-CIVIL.dmn"
     );
 
     @JsonValue
