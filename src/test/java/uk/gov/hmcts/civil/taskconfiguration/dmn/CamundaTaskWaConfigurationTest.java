@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
@@ -76,7 +77,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "value", "Firstname LastName & Firstname LastName"
         )));
 
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+        assertFalse(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "location",
             "value", "Location"
         )));
