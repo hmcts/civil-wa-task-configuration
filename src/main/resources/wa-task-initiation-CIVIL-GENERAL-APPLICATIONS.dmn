@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="wa-task-initiation-CIVIL-GENERALAPPPLICATION" name="GA Task initiation DMN">
+    <informationRequirement id="InformationRequirement_1l4k5xb">
+      <requiredDecision href="#IsUrgentApplication" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_141h4ty" hitPolicy="COLLECT">
+      <input id="Input_1" label="Event Id" camunda:inputVariable="eventId">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1nfh2bs" label="Post event state" camunda:inputVariable="postEventState">
+        <inputExpression id="LiteralExpression_1gb5t24" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1ukgfnb" label="Urgent Application" camunda:inputVariable="isUrgentApp">
+        <inputExpression id="LiteralExpression_1pj1pl1" typeRef="boolean" expressionLanguage="javascript">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Task Id" name="taskId" typeRef="string" />
+      <output id="OutputClause_07cuas3" label="Name" name="name" typeRef="string" />
+      <output id="OutputClause_07d7qb5" label="Delay Duration" name="delayDuration" typeRef="integer" />
+      <output id="OutputClause_0mj26qe" label="Working Days Allowed" name="workingDaysAllowed" typeRef="integer" />
+      <output id="OutputClause_1o4gc2a" label="Process Categories Identifiers" name="processCategories" typeRef="string" />
+      <rule id="DecisionRule_14dik0z">
+        <inputEntry id="UnaryTests_0dkuvgc">
+          <text>"GENERAL_APP_SUBMISSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yqhtgd">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ty10cg">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0evsk0b">
+          <text>"DecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_148hrke">
+          <text>"Application for Summ J/ment 
+Application for Ext of Time
+Application to Strike Out
+Application for Relief from Sanctions
+Application for Stay Claim
+Application for Amend Statement of Case"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ai2zhl">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_069ab0r">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0q33jzi">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="IsUrgentApplication" name="Decide Urgent Application">
+    <variable id="InformationItem_0jcy1ab" name="isUrgentApp" typeRef="boolean" />
+    <literalExpression id="LiteralExpression_08e0s35" expressionLanguage="javascript">
+      <text>generalAppUrgencyRequirement.generalAppUrgency</text>
+    </literalExpression>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="wa-task-initiation-CIVIL-GENERALAPPPLICATION">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0s5zzak" dmnElementRef="InformationRequirement_1l4k5xb">
+        <di:waypoint x="250" y="290" />
+        <di:waypoint x="250" y="180" />
+        <di:waypoint x="250" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1bxs6p5" dmnElementRef="IsUrgentApplication">
+        <dc:Bounds height="80" width="180" x="160" y="290" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
