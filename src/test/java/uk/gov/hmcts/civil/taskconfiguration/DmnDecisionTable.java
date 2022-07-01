@@ -24,12 +24,15 @@ public enum DmnDecisionTable {
         "wa-task-initiation-CIVIL-CIVIL.dmn"
     ),
     WA_TASK_INITIATION_CIVIL_GENERALAPPLICATION(
-        "wa-task-initiation-CIVIL-GENERALAPPPLICATION",
-            "wa-task-initiation-CIVIL-GENERALAPPPLICATION.dmn"
+        "wa-task-initiation-CIVIL-GENERALAPPLICATION",
+            "wa-task-initiation-CIVIL-GENERALAPPLICATION.dmn"
     ),
     WA_TASK_CANCELLATION_CIVIL_GENERALAPPLICATION(
         "wa-task-cancellation-CIVIL-GENERALAPPLICATION",
         "wa-task-cancellation-CIVIL-GENERALAPPLICATION.dmn"
+    ),
+    WA_TASK_COMPLETION_CIVIL_GENERALAPPLICATION("wa-task-completion-CIVIL-GENERALAPPLICATION",
+                                     "wa-task-completion-CIVIL-GENERALAPPLICATION.dmn"
     );
 
     @JsonValue
