@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="wa-task-configuration-CIVIL-CIVIL" name="Task configuration DMN">
+    <decisionTable id="DecisionTable_14cx079" hitPolicy="COLLECT">
+      <input id="InputClause_1gxyo7f" label="CCD Case Data" camunda:inputVariable="caseData">
+        <inputExpression id="LiteralExpression_0mra7c4" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1gmuynt" label="Task type" biodi:width="433" camunda:inputVariable="taskType">
+        <inputExpression id="LiteralExpression_06iiuqg" typeRef="string">
+          <text>if(taskAttributes != null and taskAttributes.taskType != null) then
+            taskAttributes. taskType
+else if(taskType != null) then
+           taskType
+else
+null</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Name" name="name" typeRef="string" />
+      <output id="OutputClause_021y3bb" label="Value" name="value" typeRef="string" biodi:width="416" />
+      <rule id="DecisionRule_0u7yi27">
+        <inputEntry id="UnaryTests_03ky0ek">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03q2nz0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nkps91">
+          <text>"caseName"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06tqng3">
+          <text>if (caseData.claimant2PartyName != null) then caseData.claimant1PartyName + " &amp; " + caseData.claimant2PartyName  else caseData.claimant1PartyName</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oagl97">
+        <inputEntry id="UnaryTests_0mkzt2r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1esseck">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0selern">
+          <text>"caseManagementCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0t707ev">
+          <text>"Civil"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r3u9cf">
+        <inputEntry id="UnaryTests_1bqxdqr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wxfevs">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0etwrk3">
+          <text>"location"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05korws">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06fd9qz">
+        <inputEntry id="UnaryTests_0slfog9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u21xrs">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kun6mv">
+          <text>"locationName"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jj1wzo">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1oirne1">
+        <inputEntry id="UnaryTests_04xtpdu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ssoq5v">
+          <text>"DecideOnApplication", "RevisitApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lvlmxm">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xp4dc7">
+          <text>"decision_making_work"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03afipt">
+        <inputEntry id="UnaryTests_0aqybrx">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nmr895">
+          <text>"ReviewApplication", "ReviewRevisitedApplication", "ReceivePaymentForApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04r7w97">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_099dwbs">
+          <text>"routine_work"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03uisoi">
+        <inputEntry id="UnaryTests_0g9ghuq">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mcj95m">
+          <text>"ScheduleApplicationHearing"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vtaf2j">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0j5g990">
+          <text>"hearing_work"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ikmf14">
+        <inputEntry id="UnaryTests_0epux74">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y3kj1v">
+          <text>"DecideOnApplication", "RevisitApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rvgay2">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zoponq">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0p76zqg">
+        <inputEntry id="UnaryTests_1f0q0ge">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_168luoe">
+          <text>"DecideOnApplication", "RevisitApplication", "reviewSpecificAccessRequestLegalOps"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kp0xk7">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tvhz53">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0lhjqgd">
+        <inputEntry id="UnaryTests_11stdsd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vklwoo">
+          <text>"ReviewApplication", "ReviewRevisitedApplication", "ReceivePaymentForApplication", "ScheduleApplicationHearing", "reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13szol7">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pyx561">
+          <text>"ADMINISTRATOR"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rzdr9w">
+        <inputEntry id="UnaryTests_1dm4v3f">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11f8zor">
+          <text>"reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestAdmin", "reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04kkt3t">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1l3cp0e">
+          <text>"access_requests"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1csczvs">
+        <inputEntry id="UnaryTests_0wmnz5z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gm06lg">
+          <text>"ReviewApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0omxasv">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mfd2ul">
+          <text> "[ReviewApplication](/case/Civil/GeneralApplication/${[CASE_REFERENCE]}/trigger/ReviewApplication)"
+
+</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qigiox">
+        <inputEntry id="UnaryTests_1ex2frh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g40t2r">
+          <text>"ReviewRevisitedApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10gzkv0">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mvc4ym">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01rfuq4">
+        <inputEntry id="UnaryTests_1esu5qo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nnp59g">
+          <text>"DecideOnApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wuhmpa">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1p3qoe7">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0irm78j">
+        <inputEntry id="UnaryTests_0g24848">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jke7ot">
+          <text>"RevisitApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08vtj4q">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1iyad2y">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tkykto">
+        <inputEntry id="UnaryTests_1vjut82">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03jpws6">
+          <text>"ReceivePaymentForApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_111tzxr">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ifiavr">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1g2b2gn">
+        <inputEntry id="UnaryTests_1ghxkt9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_029f81d">
+          <text>"ScheduleApplicationHearing"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xw202y">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0in7bwa">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0og2crb">
+        <inputEntry id="UnaryTests_0enwp5n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d0wuqe">
+          <text>"reviewSpecificAccessRequestLegalOps"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1enqoja">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lf7u9m">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qb2jtl">
+        <inputEntry id="UnaryTests_1yy7c11">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0axfrri">
+          <text>"reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lwxqe1">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rgusxr">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11m31rg">
+        <inputEntry id="UnaryTests_18uh5f9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rj4oyo">
+          <text>"reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0appni9">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qxjq2e">
+          <text>"[Specific Access Request (Judiciary)](/case/Civil/GeneralApplication/${[CASE_REFERENCE]}/trigger/reviewSpecificAccessRequestJudiciary)"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1ifewa3">
+      <dmndi:DMNShape id="DMNShape_0ijg0or" dmnElementRef="wa-task-configuration-CIVIL-CIVIL">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
