@@ -1,30 +1,21 @@
-package uk.gov.hmcts.civil.taskconfiguration.dmnGA;
+package uk.gov.hmcts.civil.taskconfiguration.dmnga;
 
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
-import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
+public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @BeforeAll
     public static void initialization() {
@@ -32,7 +23,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_urgent_GA_CREATION() {
+    void when_taskId_then_return_decision_making_work_for_urgent_ga_creation() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -53,7 +44,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_nonurgent_GA_CREATION() {
+    void when_taskId_then_return_decision_making_work_for_nonurgent_ga_creation() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -74,7 +65,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_RESPOND_TO_APP() {
+    void when_taskId_then_return_decision_making_work_for_respond_to_app() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -92,7 +83,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_urgent_RESPOND_TO_JUDGE_WRITTEN_REPRESENTATION() {
+    void when_taskId_then_return_decision_making_work_for_urgent_respond_to_judge_written_rep() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> caseData = new HashMap<>();
@@ -113,7 +104,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_nonurgent_RESPOND_TO_JUDGE_WRITTEN_REPRESENTATION() {
+    void when_taskId_then_return_decision_making_work_for_nonurgent_respond_to_judge_written_rep() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> caseData = new HashMap<>();
@@ -134,7 +125,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_urgent_RESPOND_TO_JUDGE_DIRECTIONS() {
+    void when_taskId_then_return_decision_making_work_for_urgent_respond_to_judge_directions() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> caseData = new HashMap<>();
@@ -155,7 +146,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_nonurgent_RESPOND_TO_JUDGE_DIRECTIONS() {
+    void when_taskId_then_return_decision_making_work_for_nonurgent_respond_to_judge_directions() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> caseData = new HashMap<>();
@@ -176,7 +167,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_urgent_RESPOND_TO_JUDGE_ADDITIONAL_INFO() {
+    void when_taskId_then_return_decision_making_work_for_urgent_respond_to_judge_addln_info() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> caseData = new HashMap<>();
@@ -197,7 +188,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_nonurgent_RESPOND_TO_JUDGE_ADDITIONAL_INFO() {
+    void when_taskId_then_return_decision_making_work_for_nonurgent_respond_to_judge_addln_info() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> caseData = new HashMap<>();
@@ -218,7 +209,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_urgent_LISTED_FOR_A_HEARING() {
+    void when_taskId_then_return_decision_making_work_for_urgent_listed_for_hearing() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -239,7 +230,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_nonurgent_LISTED_FOR_A_HEARING() {
+    void when_taskId_then_return_decision_making_work_for_nonurgent_listed_for_hearing() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -260,7 +251,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_urgent_ADDITIONAL_RESPONSE_TIME_EXPIRED() {
+    void when_taskId_then_return_decision_making_work_for_urgent_addln_response_time_expired() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> caseData = new HashMap<>();
@@ -281,7 +272,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_taskId_then_return_decision_making_work_for_nonurgent_ADDITIONAL_RESPONSE_TIME_EXPIRED() {
+    void when_taskId_then_return_decision_making_work_for_nonurgent_addln_response_time_expired() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> caseData = new HashMap<>();
@@ -302,7 +293,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_ADDITIONAL_RESPONSE_TIME_EXPIRED_for_urgent_app_post_event_RESPOND_TO_JUDGE_ADDITIONAL_INFO() {
+    void when_addln_respose_time_expired_for_urgent_app_post_event_respond_to_judge_addln_info() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -323,7 +314,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_ADDITIONAL_RESPONSE_TIME_EXPIRED_for_nonurgent_app_post_event_RESPOND_TO_JUDGE_ADDITIONAL_INFO() {
+    void when_addln_respose_time_expired_for_nonurgent_app_post_event_respond_to_judge_addln_info() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -344,7 +335,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_ADDITIONAL_RESPONSE_TIME_EXPIRED_for_urgent_app_post_event_RESPOND_TO_JUDGE_DIRECTIONS() {
+    void when_addln_respose_time_expired_for_urgent_app_post_event_respond_judge_directions() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -365,7 +356,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_ADDITIONAL_RESPONSE_TIME_EXPIRED_for_nonurgent_app_post_event_RESPOND_TO_JUDGE_DIRECTIONS() {
+    void when_addln_respose_time_expired_for_nonurgent_app_post_event_respond_judge_directions() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -386,7 +377,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_ADDITIONAL_RESPONSE_TIME_EXPIRED_for_urgent_app_post_event_RESPOND_TO_JUDGE_WRITTEN_REP() {
+    void when_addln_respose_time_expired_for_urgent_app_post_event_respond_to_judege_written_rep() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();
@@ -407,7 +398,7 @@ public class CamundaGASubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_ADDITIONAL_RESPONSE_TIME_EXPIRED_for_nonurgent_app_post_event_RESPOND_TO_JUDGE_WRITTEN_REP() {
+    void when_addln_respose_time_expired_for_nonurgent_app_post_event_respond_to_judege_written_rep() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> caseData = new HashMap<>();

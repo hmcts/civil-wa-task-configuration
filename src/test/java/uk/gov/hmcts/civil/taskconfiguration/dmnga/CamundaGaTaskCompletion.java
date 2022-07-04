@@ -1,4 +1,4 @@
-package uk.gov.hmcts.civil.taskconfiguration.dmnGA;
+package uk.gov.hmcts.civil.taskconfiguration.dmnga;
 
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
@@ -21,7 +21,7 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class CamundaGATaskCompletion extends DmnDecisionTableBaseUnitTest {
+public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
 
     @BeforeAll
     public static void initialization() {

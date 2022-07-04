@@ -1,4 +1,4 @@
-package uk.gov.hmcts.civil.taskconfiguration.dmnGA;
+package uk.gov.hmcts.civil.taskconfiguration.dmnga;
 
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
@@ -19,7 +19,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable.WA_TASK_CANCELLATION_CIVIL_GENERALAPPLICATION;
 
-public class CamundaGATaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
+public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
 
     @BeforeAll
     public static void initialization() {
