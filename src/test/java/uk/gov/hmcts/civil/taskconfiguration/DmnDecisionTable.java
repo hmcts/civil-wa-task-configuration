@@ -33,6 +33,9 @@ public enum DmnDecisionTable {
     ),
     WA_TASK_COMPLETION_CIVIL_GENERALAPPLICATION("wa-task-completion-CIVIL-GENERALAPPLICATION",
                                      "wa-task-completion-CIVIL-GENERALAPPLICATION.dmn"
+    ),
+    WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION("wa-task-permissions-CIVIL-GENERALAPPLICATION",
+                                                "wa-task-permissions-CIVIL-GENERALAPPLICATION.dmn"
     );
 
     @JsonValue
