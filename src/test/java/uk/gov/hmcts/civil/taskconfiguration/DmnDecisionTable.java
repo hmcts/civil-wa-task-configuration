@@ -22,6 +22,10 @@ public enum DmnDecisionTable {
     WA_TASK_INITIATION_CIVIL_DAMAGES(
         "wa-task-initiation-CIVIL-CIVIL",
         "wa-task-initiation-CIVIL-CIVIL.dmn"
+    ),
+    WA_TASK_CONFIGURATION_CIVIL_GENERALAPPLICATION(
+            "wa-task-configuration-CIVIL-GENERALAPPLICATION",
+            "wa-task-configuration-CIVIL-GENERALAPPLICATION.dmn"
     );
 
     @JsonValue
