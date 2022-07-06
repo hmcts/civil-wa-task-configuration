@@ -41,7 +41,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                     )),
                 Arguments.of(
-                    "ADDITIONAL_RESPONSE_TIME_EXPIRED",
+                    "REVIEW_ADDITIONAL_RESPONSE_TIME_EXPIRED",
                     asList(
                         Map.of(
                             "taskType", "ReviewRevisitedApplication",

@@ -301,7 +301,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "generalAppUrgency", "Yes"
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", "REVIEW_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "RESPOND_TO_JUDGE_ADDITIONAL_INFO");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -322,7 +322,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "generalAppUrgency", "No"
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", "REVIEW_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "RESPOND_TO_JUDGE_ADDITIONAL_INFO");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -343,7 +343,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "generalAppUrgency", "Yes"
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", "REVIEW_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "RESPOND_TO_JUDGE_DIRECTIONS");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -364,7 +364,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "generalAppUrgency", "No"
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", "REVIEW_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "RESPOND_TO_JUDGE_DIRECTIONS");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -385,7 +385,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "generalAppUrgency", "Yes"
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", "REVIEW_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "RESPOND_TO_JUDGE_WRITTEN_REPRESENTATION");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -406,7 +406,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "generalAppUrgency", "No"
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", "REVIEW_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "RESPOND_TO_JUDGE_WRITTEN_REPRESENTATION");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);

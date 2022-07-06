@@ -29,13 +29,12 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
     @ParameterizedTest
     @MethodSource("scenarioProviderProceedsInHeritage")
     void given_multiple_event_ids_should_evaluate_dmn_proceeds_in_heritage(String fromState,
-                                                      String eventId,
-                                                      String state,
+                                                      String eventId, String toState,
                                                       List<Map<String, Object>> expectedDmnOutcome) {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("fromState", fromState);
+        inputVariables.putValue("fromState", "");
         inputVariables.putValue("event", eventId);
-        inputVariables.putValue("state", state);
+        inputVariables.putValue("toState", toState);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -51,15 +50,15 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         );
         return Stream.of(
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "caseproceedsinCaseman", "any state",
+                "any state", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
             ),
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "caseproceedsinCaseman", "",
+                "", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
             ),
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "caseproceedsinCaseman", null,
+                null, "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
 
             )
@@ -69,13 +68,12 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
     @ParameterizedTest
     @MethodSource("scenarioProviderCaseDismissed")
     void given_multiple_event_ids_should_evaluate_dmn_for_case_dismissed(String fromState,
-                                                      String eventId,
-                                                      String state,
+                                                      String eventId, String toState,
                                                       List<Map<String, Object>> expectedDmnOutcome) {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("fromState", fromState);
+        inputVariables.putValue("fromState", "");
+        inputVariables.putValue("toState", toState);
         inputVariables.putValue("event", eventId);
-        inputVariables.putValue("state", state);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -91,15 +89,15 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         );
         return Stream.of(
             Arguments.of(
-                "CASE_DISMISSED", "caseDismissed", "any state",
+                "any state", "caseDismissed", "CASE_DISMISSED",
                 outcome
             ),
             Arguments.of(
-                "CASE_DISMISSED", "caseDismissed", "",
+                "", "caseDismissed", "CASE_DISMISSED",
                 outcome
             ),
             Arguments.of(
-                "CASE_DISMISSED", "caseDismissed", null,
+                null, "caseDismissed", "CASE_DISMISSED",
                 outcome
 
             )
@@ -109,13 +107,12 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
     @ParameterizedTest
     @MethodSource("scenarioProviderCaseClosed")
     void given_multiple_event_ids_should_evaluate_dmn_for_case_closed(String fromState,
-                                                                         String eventId,
-                                                                         String state,
+                                                                         String eventId, String toState,
                                                                          List<Map<String, Object>> expectedDmnOutcome) {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("fromState", fromState);
+        inputVariables.putValue("fromState", "");
+        inputVariables.putValue("toState", toState);
         inputVariables.putValue("event", eventId);
-        inputVariables.putValue("state", state);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -131,15 +128,15 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         );
         return Stream.of(
             Arguments.of(
-                "CASE_CLOSED", "caseClosed", "any state",
+                "any state", "caseClosed", "CASE_CLOSED",
                 outcome
             ),
             Arguments.of(
-                "CASE_CLOSED", "caseClosed", "",
+                "", "caseClosed", "CASE_CLOSED",
                 outcome
             ),
             Arguments.of(
-                "CASE_CLOSED", "caseClosed", null,
+                null, "caseClosed", "CASE_CLOSED",
                 outcome
 
             )
