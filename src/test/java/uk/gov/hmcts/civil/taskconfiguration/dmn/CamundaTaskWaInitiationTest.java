@@ -28,7 +28,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource("scenarioProvider")
+    @MethodSource({"scenarioProvider","scenarioProviderSDO"})
     void given_input_should_return_outcome_dmn(String eventId,
                                                       String postEventState,
                                                       Map<String, ? extends Serializable> expectedDmnOutcome) {
@@ -56,11 +56,27 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioProviderSdo() {
+        return Stream.of(
+            Arguments.of(
+                "ViewAndRespondToDefence", "JUDICAL_REFERRAL", "RefertoJudge",
+                "StandardDirectionOrder", "CASE_PROGRESSION",
+                Map.of(
+                    "taskId", "FastTrackDirections","SmallClaimsTrackDirections",
+                    "LegalAdviserSmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral","ScheduleAHearing",
+                    "name", "Directions (Provisional Small claims track)",
+                    "workingDaysAllowed", 5,
+                    "processCategories","standardDirectionsOrder"
+                )
+            )
+        );
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(1));
+        assertThat(logic.getRules().size(), is(4));
 
     }
 }

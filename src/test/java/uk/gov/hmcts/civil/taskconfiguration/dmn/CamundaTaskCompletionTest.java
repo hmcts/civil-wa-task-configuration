@@ -47,8 +47,68 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> scenarioProviderSdo() {
+
+        return Stream.of(
+            Arguments.of(
+                "ViewAndRespondToDefence",
+                asList(
+                    Map.of(
+                        "taskType", "FastTrackDirections", "SmallClaimsTrackDirections",
+                        "LegalAdviserSmallClaimsTrackDirections",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    static Stream<Arguments> scenarioProviderSdo1() {
+
+        return Stream.of(
+            Arguments.of(
+                "DrawDirectionsOrderJudge",
+                asList(
+                    Map.of(
+                        "taskType", "ScheduleAHearing",
+                        "completionMode", "Auto"
+                    )
+                    )
+            )
+        );
+    }
+
+    static Stream<Arguments> scenarioProviderSdo2() {
+
+        return Stream.of(
+            Arguments.of(
+                "RefertoJudge",
+                asList(
+                    Map.of(
+                        "taskType", "SmallClaimsTrackDirectionsReferral",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    static Stream<Arguments> scenarioProviderSdo3() {
+
+        return Stream.of(
+            Arguments.of(
+                "RefertoJudge", "ViewAndRespondToDefence", "DrawDirectionsOrderJudge",
+                asList(
+                    Map.of(
+                    )
+                )
+            )
+        );
+    }
+
     @ParameterizedTest(name = "event id: {0}")
-    @MethodSource("scenarioProvider")
+    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1", "scenarioProviderSdo2",
+        "scenarioProviderSdo2"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
@@ -62,7 +122,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(2));
+        assertThat(logic.getRules().size(), is(6));
 
     }
 
