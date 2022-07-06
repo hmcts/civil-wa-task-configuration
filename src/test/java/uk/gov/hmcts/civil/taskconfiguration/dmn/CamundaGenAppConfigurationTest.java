@@ -142,9 +142,39 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
+        "reviewSpecificAccessRequestLegalOps"
+    })
+    void when_taskId_then_return_roleCategory_single(String taskType) {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+        caseData.put("workAllocationLocation", "workAllocationLocation");
+        caseData.put("workAllocationLocationName", "workAllocationLocationName");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+
+        System.out.println(roleCategoryResultList);
+        assertThat(roleCategoryResultList.size(), is(1));
+
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "LEGAL_OPERATIONS"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "DecideOnApplication", "RevisitApplication"
     })
-    void when_taskId_then_return_roleCategory(String taskType) {
+    void when_taskId_then_return_roleCategory_multiple(String taskType) {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
         caseData.put("claimant2PartyName", "claimant2PartyName");
