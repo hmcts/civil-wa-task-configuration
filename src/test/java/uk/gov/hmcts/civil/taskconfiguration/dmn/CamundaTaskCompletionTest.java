@@ -54,8 +54,9 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                 "ViewAndRespondToDefence",
                 asList(
                     Map.of(
-                        "taskType", "FastTrackDirections", "SmallClaimsTrackDirections",
-                        "LegalAdviserSmallClaimsTrackDirections",
+                        "taskType", "FastTrackDirections",
+                         "SmallClaimsTrackDirections",
+                         "LegalAdviserSmallClaimsTrackDirections",
                         "completionMode", "Auto"
                     )
                 )
