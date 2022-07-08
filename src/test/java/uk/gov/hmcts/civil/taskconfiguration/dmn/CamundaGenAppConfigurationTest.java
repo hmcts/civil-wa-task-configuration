@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
@@ -32,7 +33,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(20));
+        assertThat(logic.getRules().size(), is(23));
     }
 
 
@@ -121,7 +122,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "DecideOnApplication"
+            "JudgeDecideOnApplication"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -172,7 +173,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "DecideOnApplication", "RevisitApplication"
+        "JudgeDecideOnApplication", "JudgeRevisitApplication"
     })
     void when_taskId_then_return_roleCategory_multiple(String taskType) {
         Map<String, Object> caseData = new HashMap<>();
@@ -192,13 +193,13 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
             .collect(Collectors.toList());
 
         System.out.println(roleCategoryResultList);
-        assertThat(roleCategoryResultList.size(), is(2));
+        assertThat(roleCategoryResultList.size(), is(1));
 
         assertTrue(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
             "value", "JUDICIAL"
         )));
-        assertTrue(roleCategoryResultList.contains(Map.of(
+        assertFalse(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
             "value", "LEGAL_OPERATIONS"
         )));
