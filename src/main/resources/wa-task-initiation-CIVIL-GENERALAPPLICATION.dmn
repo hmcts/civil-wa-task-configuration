@@ -12,6 +12,11 @@
           <text></text>
         </inputExpression>
       </input>
+      <input id="InputClause_0im9c9k" label="Work Allocation Location CCMCC" camunda:inputVariable="isWALocationCCMCC">
+        <inputExpression id="LiteralExpression_0p78tj5" typeRef="boolean">
+          <text>if(caseData.isCcmccLocation = "Yes") then true else false</text>
+        </inputExpression>
+      </input>
       <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="343" />
       <output id="OutputClause_07cuas3" label="Name" name="name" typeRef="string" biodi:width="674" />
       <output id="OutputClause_07d7qb5" label="Delay Duration" name="delayDuration" typeRef="integer" biodi:width="150" />
@@ -24,17 +29,20 @@
         <inputEntry id="UnaryTests_0yqhtgd">
           <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1cbssw4">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0evsk0b">
-          <text>if(caseData.workAllocationLocation = "CCMCC") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
+          <text>if(caseData.isCcmccLocation = "Yes") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_148hrke">
-          <text>if(count(caseData.generalAppType.types) = 1 and caseData.workAllocationLocation = "CCMCC") then "Review Application for " + caseData.generalAppType.types[1] else if(count(caseData.generalAppType.types) = 1 and caseData.workAllocationLocation != "CCMCC") then "Application for " + caseData.generalAppType.types[1] else if(caseData.workAllocationLocation = "CCMCC") then "Review Application for multiple types" else "Application for multiple types"</text>
+          <text>if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation = "Yes") then "Review Application for " + caseData.generalAppType.types[1] else if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation != "Yes") then "Application for " + caseData.generalAppType.types[1] else if(caseData.isCcmccLocation = "Yes") then "Review Application for multiple types" else "Application for multiple types"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0ai2zhl">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_069ab0r">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.workAllocationLocation != "CCMCC") then 5 else 10</text>
+          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.isCcmccLocation != "Yes") then 5 else 10</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0q33jzi">
           <text>"generalApplications"</text>
@@ -47,17 +55,20 @@
         <inputEntry id="UnaryTests_1mb0k8z">
           <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_11feqba">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1o6zjii">
-          <text>if(caseData.workAllocationLocation = "CCMCC") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
+          <text>if(caseData.isCcmccLocation = "Yes") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0m528r1">
-          <text>if(count(caseData.generalAppType.types) = 1 and caseData.workAllocationLocation = "CCMCC") then "Review Application for " + caseData.generalAppType.types[1] else if(count(caseData.generalAppType.types) = 1 and caseData.workAllocationLocation != "CCMCC") then "Application for " + caseData.generalAppType.types[1] else if(caseData.workAllocationLocation = "CCMCC") then "Review Application for multiple types" else "Application for multiple types"</text>
+          <text>if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation = "Yes") then "Review Application for " + caseData.generalAppType.types[1] else if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation != "Yes") then "Application for " + caseData.generalAppType.types[1] else if(caseData.isCcmccLocation = "Yes") then "Review Application for multiple types" else "Application for multiple types"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0hxe724">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0vnloi3">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.workAllocationLocation != "CCMCC") then 5 else 10</text>
+          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.isCcmccLocation != "Yes") then 5 else 10</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0w9wcmv">
           <text>"generalApplications"</text>
@@ -70,17 +81,20 @@
         <inputEntry id="UnaryTests_1d4zxl7">
           <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_05bnxd7">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_16ocdm8">
-          <text>if(caseData.workAllocationLocation = "CCMCC") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
+          <text>if(caseData.isCcmccLocation = "Yes") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_17c15v0">
-          <text>if(count(caseData.generalAppType.types) = 1 and caseData.workAllocationLocation = "CCMCC") then "Review Application for " + caseData.generalAppType.types[1] else if(count(caseData.generalAppType.types) = 1 and caseData.workAllocationLocation != "CCMCC") then "Application for " + caseData.generalAppType.types[1] else if(caseData.workAllocationLocation = "CCMCC") then "Review Application for multiple types" else "Application for multiple types"</text>
+          <text>if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation = "Yes") then "Review Application for " + caseData.generalAppType.types[1] else if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation != "Yes") then "Application for " + caseData.generalAppType.types[1] else if(caseData.isCcmccLocation = "Yes") then "Review Application for multiple types" else "Application for multiple types"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_03x8azl">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1mge8aq">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.workAllocationLocation != "CCMCC") then 5 else 10</text>
+          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.isCcmccLocation != "Yes") then 5 else 10</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0t8y9vl">
           <text>"generalApplications"</text>
@@ -93,17 +107,20 @@
         <inputEntry id="UnaryTests_1pss91y">
           <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1iw0vla">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0knc9sq">
-          <text>if(caseData.workAllocationLocation = "CCMCC") then "ReviewRevisitedApplication" else "JudgeRevisitApplication"</text>
+          <text>if(caseData.isCcmccLocation = "Yes") then "ReviewRevisitedApplication" else "JudgeRevisitApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1qnhryy">
-          <text>if(caseData.workAllocationLocation = "CCMCC") then "Review Revisited Application" else "Revist Application"</text>
+          <text>if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation = "Yes") then "Review " + caseData.generalAppType.types[1] + " - revisited " + caseData.judicialDecision.decision else if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation != "Yes") then caseData.generalAppType.types[1] + " - revisited " + caseData.judicialDecision.decision else if(caseData.isCcmccLocation = "Yes") then "Review Application for multiple types" + " - revisited " + caseData.judicialDecision.decision else "Application for multiple types" + " - revisited " + caseData.judicialDecision.decision</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0wi1eyk">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bhhney">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.workAllocationLocation != "CCMCC") then 5 else 10</text>
+          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.isCcmccLocation != "Yes") then 5 else 10</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_15e6jor">
           <text>"generalApplications"</text>
@@ -116,11 +133,14 @@
         <inputEntry id="UnaryTests_1sdea79">
           <text>"LISTED_FOR_A_HEARING"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_043l8j2">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1ebwxnh">
           <text>"ScheduleApplicationHearing"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0pxrx7y">
-          <text>"Application Hearing Schdeduled"</text>
+          <text>"Application Hearing Scheduled"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1ezlv5f">
           <text></text>
@@ -138,6 +158,9 @@
         </inputEntry>
         <inputEntry id="UnaryTests_12l47d4">
           <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18aixvg">
+          <text>true</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1of2xt6">
           <text>"JudgeDecideOnApplication"</text>
@@ -162,6 +185,9 @@
         <inputEntry id="UnaryTests_0k9rkqy">
           <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0idyn49">
+          <text>true</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1aqk958">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -185,6 +211,9 @@
         <inputEntry id="UnaryTests_04ip11f">
           <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1iliayu">
+          <text>true</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1xux7kg">
           <text>"LegalAdvisorDecideOnApplication"</text>
         </outputEntry>
@@ -207,6 +236,9 @@
         </inputEntry>
         <inputEntry id="UnaryTests_0nr1jgo">
           <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08poceq">
+          <text>true</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_14djwpz">
           <text>"LegalAdvisorRevisitApplication"</text>
