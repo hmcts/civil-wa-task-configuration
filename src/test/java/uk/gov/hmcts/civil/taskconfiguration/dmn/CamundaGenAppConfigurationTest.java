@@ -44,13 +44,15 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "'', ''"
     }, nullValues = "NULL_VALUE")
     void when_caseData_then_return_expected_name_and_value_rows(String appealType, String expectedAppealType) {
-
         Map<String, Object> caseData = new HashMap<>(); // allow null values
         //caseData.put("appealType", appealType);
         caseData.put("claimant1PartyName", "claimant1PartyName");
         caseData.put("claimant2PartyName", "claimant2PartyName");
-        caseData.put("workAllocationLocation", "workAllocationLocation");
-        caseData.put("workAllocationLocationName", "workAllocationLocationName");
+        caseData.put("caseManagementLocation", Map.of(
+                "region", "4",
+                "baseLocation", "574546"
+
+        ));
 
         VariableMap inputVariables = new VariableMapImpl();
         caseData.put("description", null);
@@ -68,12 +70,12 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "location",
-            "value", "workAllocationLocation"
+            "value", "574546"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "locationName",
-            "value", "workAllocationLocationName"
+            "value", ""
         )));
     }
 
@@ -83,8 +85,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
         caseData.put("claimant2PartyName", "claimant2PartyName");
-        caseData.put("workAllocationLocation", "workAllocationLocation");
-        caseData.put("workAllocationLocationName", "workAllocationLocationName");
+        caseData.put("caseManagementLocation", Map.of(
+                "region", "4",
+                "baseLocation", "574546"
+
+        ));
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -114,8 +119,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
         caseData.put("claimant2PartyName", "claimant2PartyName");
-        caseData.put("workAllocationLocation", "workAllocationLocation");
-        caseData.put("workAllocationLocationName", "workAllocationLocationName");
+        caseData.put("caseManagementLocation", Map.of(
+                "region", "4",
+                "baseLocation", "574546"
+
+        ));
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -149,8 +157,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
         caseData.put("claimant2PartyName", "claimant2PartyName");
-        caseData.put("workAllocationLocation", "workAllocationLocation");
-        caseData.put("workAllocationLocationName", "workAllocationLocationName");
+        caseData.put("caseManagementLocation", Map.of(
+                "region", "4",
+                "baseLocation", "574546"
+
+        ));
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -179,8 +190,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
         caseData.put("claimant2PartyName", "claimant2PartyName");
-        caseData.put("workAllocationLocation", "workAllocationLocation");
-        caseData.put("workAllocationLocationName", "workAllocationLocationName");
+        caseData.put("caseManagementLocation", Map.of(
+                "region", "4",
+                "baseLocation", "574546"
+
+        ));
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
