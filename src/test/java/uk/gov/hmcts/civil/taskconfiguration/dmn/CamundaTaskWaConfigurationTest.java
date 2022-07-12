@@ -58,46 +58,38 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "hearingPreferredLocation", "Location"
 
         ));
-
         caseData.put("applicantPreferredCourt", Map.of(
             "partyType", "INDIVIDUAL"
 
         ));
-
         caseData.put("applicantPreferredCourt", Map.of(
             "partyType", "SOLE_TRADER"
 
         ));
-
         caseData.put("applicantPreferredCourt", Map.of(
             "partyType", "COMPANY"
 
         ));
-
         caseData.put("applicantPreferredCourt", Map.of(
             "partyType", "ORGANISATION"
 
         ));
-
         caseData.put("hearingBaseLocation", Map.of(
             "partyType", "MultiPartyScenario"
 
         ));
-
         caseData.put("hearingBaseLocation", Map.of(
             "partyType", "RefertoJudge"
 
         ));
 
+        caseData.put("hearingBaseLocation", "Location");
         VariableMap inputVariables = new VariableMapImpl();
         caseData.put("description", null);
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "name", "appealType",
-            "value", expectedAppealType
-        )));
+
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "caseManagementCategory",
@@ -111,7 +103,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertFalse(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "location",
-            "value", "Location"
+            "value", "1"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
