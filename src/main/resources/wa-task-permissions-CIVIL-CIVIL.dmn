@@ -2,7 +2,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-permissions-CIVIL-CIVIL" name="Permissions DMN">
     <decisionTable id="DecisionTable_1pr5oic" hitPolicy="RULE ORDER">
-      <input id="InputClause_12crj6e" label="Task Type" camunda:inputVariable="taskType">
+      <input id="InputClause_12crj6e" label="Task Type" biodi:width="752" camunda:inputVariable="taskType">
         <inputExpression id="LiteralExpression_11cu08d" typeRef="string" expressionLanguage="feel">
           <text>if(taskAttributes != null and taskAttributes.taskType != null) then
             taskAttributes. taskType
@@ -39,7 +39,7 @@ else
           <text>"Read,Manage,Cancel"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0kwn52e">
-          <text>"JUDICIAL"</text>
+          <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1lnhuev">
           <text></text>
@@ -111,42 +111,10 @@ else
           <text>true</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1rsrhdr">
-        <description>supervisor task permissions</description>
-        <inputEntry id="UnaryTests_07a8zbj">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0gboqo4">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0rs3ess">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0kguowr">
-          <text>"task-supervisor"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1wpcqht">
-          <text>"Read,Manage,Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0tgcdpq">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1h9k0di">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0r6fg35">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1dcx33y">
-          <text>false</text>
-        </outputEntry>
-      </rule>
       <rule id="DecisionRule_1p2g9bi">
         <description>Judge task permissions</description>
         <inputEntry id="UnaryTests_0yy7exs">
-          <text>"FastTrackDirections",
-      "SmallClaimsTrackDirections",
-      "SmallClaimsTrackDirectionsReferral"</text>
+          <text>"FastTrackDirections","SmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1mcklji">
           <text></text>
@@ -173,10 +141,70 @@ else
           <text>false</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0254yxh">
+        <description>Legal Advisor permissions</description>
+        <inputEntry id="UnaryTests_091tmhe">
+          <text>"FastTrackDirections","SmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14ob8rm">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15o5suu">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wfgj70">
+          <text>"legal-advisor"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0medjv2">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02mex8h">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mj3tqk">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04fqpcn">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lwwqyd">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0594k6d">
+        <description>Hearing Admin permissions</description>
+        <inputEntry id="UnaryTests_15o8x9s">
+          <text>"FastTrackDirections","SmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0apgflo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15n1qfn">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1a9b2rg">
+          <text>"hearing-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0u97sbz">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lkadwh">
+          <text>"ADMINISTRATOR"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wbp8z8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ha1yjk">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bk8ufp">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_1w548yu">
         <description>Legal Adviser task permissions</description>
         <inputEntry id="UnaryTests_1tewgb6">
-          <text>"LegalAdviserSmallClaimsTrackDirections"</text>
+          <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_06lubiz">
           <text></text>
@@ -200,6 +228,66 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0sheezr">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bpuft4">
+        <description>Legal Advisor permissions</description>
+        <inputEntry id="UnaryTests_146in3s">
+          <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dxickx">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0tgdjw1">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qb3lar">
+          <text>"legal-advisor"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xtow6i">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bmmxv3">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0twkmdy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ipqr88">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p6llgs">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0nifadj">
+        <description>Listing Officer Task permissions</description>
+        <inputEntry id="UnaryTests_1rxdiv5">
+          <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00fcfe7">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qbbj1u">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ultoty">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18dptwp">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qexv98">
+          <text>"ADMINISTRATOR"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qwge64">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zviiwj">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10fqcv7">
           <text>false</text>
         </outputEntry>
       </rule>
@@ -234,6 +322,7 @@ else
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1b6gjrp">
+        <description>Legal Advisor permissions</description>
         <inputEntry id="UnaryTests_01cspst">
           <text>"ScheduleAHearing"</text>
         </inputEntry>
@@ -250,7 +339,7 @@ else
           <text>"Read,Own,Manage,Cancel"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0dfwdw8">
-          <text>"ADMINISTRATOR"</text>
+          <text>"LEGAL_OPERATIONS"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1dolrke">
           <text></text>
@@ -293,7 +382,7 @@ else
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1rnsc92">
-        <description></description>
+        <description>Listing Officer Task permissions</description>
         <inputEntry id="UnaryTests_19oqa8f">
           <text>"ReviewSpecificAccessRequestsLegalOps"</text>
         </inputEntry>
@@ -323,6 +412,7 @@ else
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0slz0e7">
+        <description>Legal Advisor permissions</description>
         <inputEntry id="UnaryTests_05ad2fm">
           <text>"ReviewSpecificAccessRequestsLegalOps"</text>
         </inputEntry>
@@ -339,7 +429,7 @@ else
           <text>"Read,Own,Manage,Cancel"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_10xb26l">
-          <text>"ADMINISTRATOR"</text>
+          <text>"LEGAL_OPERATIONS"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_172atan">
           <text></text>
@@ -348,7 +438,7 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0pr7cj7">
-          <text></text>
+          <text>false</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_15ihmyq">
@@ -442,6 +532,7 @@ else
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1ci6882">
+        <description>Legal Advisor permissions</description>
         <inputEntry id="UnaryTests_09fy1gm">
           <text>"ReviewSpecificAccessRequestsAdmin"</text>
         </inputEntry>
@@ -458,7 +549,7 @@ else
           <text>"Read,Own,Manage,Cancel"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1xv34o1">
-          <text>"ADMINISTRATOR"</text>
+          <text>"LEGAL_OPERATIONS"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1qlxw82">
           <text></text>
@@ -471,6 +562,7 @@ else
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0t9kmhu">
+        <description>Listing Officer Task permissions</description>
         <inputEntry id="UnaryTests_1czvavy">
           <text>"ReviewSpecificAccessRequestsAdmin"</text>
         </inputEntry>
@@ -530,6 +622,7 @@ else
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1jgsp2i">
+        <description>Legal Advisor permissions</description>
         <inputEntry id="UnaryTests_0e7my3l">
           <text>"reviewSpecificAcesssRequestJudiciary"</text>
         </inputEntry>
@@ -546,7 +639,7 @@ else
           <text>"Read,Own,Manage,Cancel"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_09v9t5s">
-          <text>"ADMINISTRATOR"</text>
+          <text>"LEGAL_OPERATIONS"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0hl04g8">
           <text></text>
@@ -555,10 +648,11 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0fmx1o7">
-          <text></text>
+          <text>false</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_01jpds7">
+        <description>Listing Officer Task permissions</description>
         <inputEntry id="UnaryTests_0pp91xm">
           <text>"reviewSpecificAcesssRequestJudiciary"</text>
         </inputEntry>
@@ -584,7 +678,7 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0vm21b4">
-          <text></text>
+          <text>false</text>
         </outputEntry>
       </rule>
     </decisionTable>

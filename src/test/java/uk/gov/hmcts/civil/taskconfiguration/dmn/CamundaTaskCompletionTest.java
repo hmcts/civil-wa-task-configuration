@@ -13,11 +13,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -48,68 +50,55 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     }
 
     static Stream<Arguments> scenarioProviderSdo() {
-
         return Stream.of(
             Arguments.of(
                 "ViewAndRespondToDefence",
                 asList(
                     Map.of(
                         "taskType", "FastTrackDirections",
-                         "SmallClaimsTrackDirections",
-                         "LegalAdviserSmallClaimsTrackDirections",
                         "completionMode", "Auto"
-                    )
+                    ),
+                    Map.of(
+                        "taskType", "SmallClaimsTrackDirections",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "LegalAdviserSmallClaimsTrackDirections",
+                        "completionMode", "Auto"
+                    ),
+                    Collections.emptyMap()
+
                 )
-            )
-        );
-    }
-
-    static Stream<Arguments> scenarioProviderSdo1() {
-
-        return Stream.of(
+            ),
             Arguments.of(
                 "DrawDirectionsOrderJudge",
                 asList(
                     Map.of(
                         "taskType", "ScheduleAHearing",
                         "completionMode", "Auto"
-                    )
-                    )
-            )
-        );
-    }
-
-    static Stream<Arguments> scenarioProviderSdo2() {
-
-        return Stream.of(
+                    ),
+                    Collections.emptyMap()
+                )
+            ),
             Arguments.of(
                 "RefertoJudge",
                 asList(
                     Map.of(
                         "taskType", "SmallClaimsTrackDirectionsReferral",
                         "completionMode", "Auto"
-                    )
+                    ),
+                    Collections.emptyMap()
                 )
-            )
-        );
-    }
-
-    static Stream<Arguments> scenarioProviderSdo3() {
-
-        return Stream.of(
+            ),
             Arguments.of(
-                "RefertoJudge", "ViewAndRespondToDefence", "DrawDirectionsOrderJudge",
-                asList(
-                    Map.of(
-                    )
-                )
+                "unknownEvent",
+                emptyList()
             )
         );
     }
 
     @ParameterizedTest(name = "event id: {0}")
-    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1", "scenarioProviderSdo2",
-        "scenarioProviderSdo2"})
+    @MethodSource({"scenarioProvider", "scenarioProviderSdo"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
@@ -123,7 +112,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(6));
+        assertThat(logic.getRules().size(), is(8));
 
     }
 

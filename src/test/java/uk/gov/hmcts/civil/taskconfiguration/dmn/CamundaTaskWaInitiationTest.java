@@ -28,10 +28,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioProvider","scenarioProviderSDO"})
+    @MethodSource("scenarioProvider")
     void given_input_should_return_outcome_dmn(String eventId,
-                                                      String postEventState,
-                                                      Map<String, ? extends Serializable> expectedDmnOutcome) {
+                                               String postEventState,
+                                               Map<String, ? extends Serializable> expectedDmnOutcome) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", postEventState);
@@ -51,22 +51,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                     "name", "Directions (Provisional Summary Judgment)",
                     "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
-                )
-            )
-        );
-    }
-
-    public static Stream<Arguments> scenarioProviderSdo() {
-        return Stream.of(
-            Arguments.of(
-                "ViewAndRespondToDefence", "JUDICAL_REFERRAL", "RefertoJudge",
-                "StandardDirectionOrder", "CASE_PROGRESSION",
-                Map.of(
-                    "taskId", "FastTrackDirections","SmallClaimsTrackDirections",
-                    "LegalAdviserSmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral","ScheduleAHearing",
-                    "name", "Directions (Provisional Small claims track)",
-                    "workingDaysAllowed", 5,
-                    "processCategories","standardDirectionsOrder"
                 )
             )
         );

@@ -199,9 +199,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "summaryJudgmentDirections", "reviewSpecificAccessRequestJudiciary", "FastTrackDirections",
-        "SmallClaimsTrackDirections", "LegalAdviserSmallClaimsTrackDirections", "SmallClaimsTrackDirectionsReferral",
-        "ScheduleAHearing", "reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestAdmin"
+        "summaryJudgmentDirections", "reviewSpecificAccessRequestJudiciary"
     })
     void when_taskId_then_return_roleCategory(String taskType) {
         Map<String, Object> caseData = new HashMap<>();
@@ -224,23 +222,13 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             .filter((r) -> r.containsValue("roleCategory"))
             .collect(Collectors.toList());
 
-        //System.out.println(workTypeResultList);
-        //assertThat(workTypeResultList.size(), is(1));
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
 
-        /*assertTrue(workTypeResultList.contains(Map.of(
+        assertTrue(workTypeResultList.contains(Map.of(
             "name", "roleCategory",
             "value", "JUDICIAL"
         )));
-
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "roleCategory",
-            "value", "ADMINISTRATOR"
-        )));
-
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "roleCategory",
-            "value", "LEGAL_OPERATIONS"
-        )));*/
 
     }
 
