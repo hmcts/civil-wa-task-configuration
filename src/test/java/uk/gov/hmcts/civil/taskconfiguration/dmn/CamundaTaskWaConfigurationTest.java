@@ -89,13 +89,15 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "appealType",
+            "value", expectedAppealType
+        )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "caseManagementCategory",
             "value", "Civil"
         )));
-
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "caseName",
             "value", "Firstname LastName & Firstname LastName"
@@ -205,7 +207,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         ));
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
-        System.out.println("taskType:" + taskType);
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
