@@ -4,24 +4,24 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum DmnDecisionTable {
 
-    WA_TASK_COMPLETION_CIVIL_DAMAGES("wa-task-completion-CIVIL-CIVIL",
-                                     "wa-task-completion-CIVIL-CIVIL.dmn"
+    WA_TASK_COMPLETION_CIVIL_DAMAGES("wa-task-completion-civil-civil",
+                                     "wa-task-completion-civil-civil.dmn"
     ),
     WA_TASK_PERMISSIONS_CIVIL_DAMAGES(
-        "wa-task-permissions-CIVIL-CIVIL",
-        "wa-task-permissions-CIVIL-CIVIL.dmn"
+        "wa-task-permissions-civil-civil",
+        "wa-task-permissions-civil-civil.dmn"
     ),
     WA_TASK_CONFIGURATION_CIVIL_DAMAGES(
-        "wa-task-configuration-CIVIL-CIVIL",
-        "wa-task-configuration-CIVIL-CIVIL.dmn"
+        "wa-task-configuration-civil-civil",
+        "wa-task-configuration-civil-civil.dmn"
     ),
     WA_TASK_CANCELLATION_CIVIL_DAMAGES(
-        "wa-task-cancellation-CIVIL-CIVIL",
-            "wa-task-cancellation-CIVIL-CIVIL.dmn"
+        "wa-task-cancellation-civil-civil",
+        "wa-task-cancellation-civil-civil.dmn"
     ),
     WA_TASK_INITIATION_CIVIL_DAMAGES(
-        "wa-task-initiation-CIVIL-CIVIL",
-        "wa-task-initiation-CIVIL-CIVIL.dmn"
+        "wa-task-initiation-civil-civil",
+        "wa-task-initiation-civil-civil.dmn"
     ),
     WA_TASK_INITIATION_CIVIL_GENERALAPPLICATION(
         "wa-task-initiation-CIVIL-GENERALAPPLICATION",

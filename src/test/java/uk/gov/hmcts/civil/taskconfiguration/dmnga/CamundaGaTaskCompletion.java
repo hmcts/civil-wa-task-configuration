@@ -32,47 +32,57 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
 
         return Stream.of(
             Arguments.of(
-                "GENERAL_APPLICATION_CREATION",
+                "JUDGE_MAKES_DECISION",
                 asList(
                     Map.of(
-                        "taskType", "ReviewApplication",
+                        "taskType", "JudgeDecideOnApplication",
                         "completionMode", "Auto"
                     ),
                     Map.of(
-                    )),
+                        "taskType", "LegalAdvisorDecideOnApplication",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "JudgeRevisitApplication",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "LegalAdvisorRevisitApplication",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                    ))),
                 Arguments.of(
-                    "ADDITIONAL_RESPONSE_TIME_EXPIRED",
+                    "HEARING_READINESS",
                     asList(
-                        Map.of(
-                            "taskType", "ReviewRevisitedApplication",
-                            "completionMode", "Auto"
-                        ),
-                        Map.of(
-                        ))),
-                Arguments.of(
-                    "GENERAL_APPLICATION_CREATION",
-                    asList(
-                        Map.of(
-                        ))),
-                Arguments.of(
-                    "JUDGE_MAKES_DECISION",
-                    asList(
-                        Map.of(
-                            "taskType", "DecideOnApplication",
-                            "completionMode", "Auto"
-                        ),
                         Map.of(
                             "taskType", "ScheduleApplicationHearing",
                             "completionMode", "Auto"
+                        ),
+                        Map.of(
                         ))),
                 Arguments.of(
-                    "RESPOND_TO_APPLICATION",
+                    "REFER_TO_JUDGE",
                     asList(
                         Map.of(
-                            "taskType", "RevisitApplication",
+                            "taskType", "ReviewApplication",
+                            "completionMode", "Auto"
+                        ),
+                        Map.of(
+                            "taskType", "ReviewRevisitedApplication",
+                            "completionMode", "Auto"
+                        ))),
+                Arguments.of(
+                    "REFER_TO_LEGAL_ADVISOR",
+                    asList(
+                        Map.of(
+                            "taskType", "ReviewApplication",
+                            "completionMode", "Auto"
+                        ),
+                        Map.of(
+                            "taskType", "ReviewRevisitedApplication",
                             "completionMode", "Auto"
                         )))
-            )
         );
     }
 
@@ -91,7 +101,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(7));
+        assertThat(logic.getRules().size(), is(11));
 
     }
 }
