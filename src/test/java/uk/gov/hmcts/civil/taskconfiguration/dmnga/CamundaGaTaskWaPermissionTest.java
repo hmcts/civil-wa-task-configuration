@@ -62,10 +62,13 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     }
 
     @SuppressWarnings("checkstyle:indentation")
-    @Test
-    void given_reviewRevisitedApplication_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "ReviewApplication", "ReviewRevisitedApplication"
+    })
+    void given_reviewRevisitedApplication_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", "ReviewRevisitedApplication"));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
