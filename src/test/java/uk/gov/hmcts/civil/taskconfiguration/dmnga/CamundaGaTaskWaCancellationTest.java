@@ -50,15 +50,15 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         );
         return Stream.of(
             Arguments.of(
-                "any state", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                "any state", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE",
                 outcome
             ),
             Arguments.of(
-                "", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                "", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE",
                 outcome
             ),
             Arguments.of(
-                null, "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                null, "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE",
                 outcome
 
             )
