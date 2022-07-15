@@ -219,7 +219,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "autoAssignable", false
             ),
             Map.of(
-                "roleName", "Judge",
+                "roleName", "judge",
                 "value", "Read,Manage,Own,Cancel",
                 "roleCategory", "JUDICIAL",
                 "authorisations", "294",
