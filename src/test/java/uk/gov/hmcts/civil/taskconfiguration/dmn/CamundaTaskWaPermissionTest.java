@@ -78,7 +78,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "roleCategory", "JUDICIAL"
             ),
             Map.of(
-                "name", "Judge",
+                "name", "judge",
                 "value", "Read,Manage,Own,Cancel",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
