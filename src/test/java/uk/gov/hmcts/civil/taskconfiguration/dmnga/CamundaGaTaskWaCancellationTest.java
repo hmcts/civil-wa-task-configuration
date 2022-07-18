@@ -27,84 +27,6 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
     }
 
     @ParameterizedTest
-    @MethodSource("scenarioProviderProceedsInHeritage")
-    void given_multiple_event_ids_should_evaluate_dmn_proceeds_in_heritage(String fromState,
-                                                      String eventId, String toState,
-                                                      List<Map<String, Object>> expectedDmnOutcome) {
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("fromState", "");
-        inputVariables.putValue("event", eventId);
-        inputVariables.putValue("toState", toState);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        assertThat(dmnDecisionTableResult.getResultList(), is(expectedDmnOutcome));
-    }
-
-    public static Stream<Arguments> scenarioProviderProceedsInHeritage() {
-        List<Map<String, String>> outcome = List.of(
-            Map.of(
-                "action", "Cancel",
-                "processCategories", "generalApplications"
-            )
-        );
-        return Stream.of(
-            Arguments.of(
-                "any state", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE",
-                outcome
-            ),
-            Arguments.of(
-                "", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE",
-                outcome
-            ),
-            Arguments.of(
-                null, "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE",
-                outcome
-
-            )
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource("scenarioProviderCaseDismissed")
-    void given_multiple_event_ids_should_evaluate_dmn_for_case_dismissed(String fromState,
-                                                      String eventId, String toState,
-                                                      List<Map<String, Object>> expectedDmnOutcome) {
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("fromState", "");
-        inputVariables.putValue("toState", toState);
-        inputVariables.putValue("event", eventId);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        assertThat(dmnDecisionTableResult.getResultList(), is(expectedDmnOutcome));
-    }
-
-    public static Stream<Arguments> scenarioProviderCaseDismissed() {
-        List<Map<String, String>> outcome = List.of(
-            Map.of(
-                "action", "Cancel",
-                "processCategories", "generalApplications"
-            )
-        );
-        return Stream.of(
-            Arguments.of(
-                "any state", "caseDismissed", "CASE_DISMISSED",
-                outcome
-            ),
-            Arguments.of(
-                "", "caseDismissed", "CASE_DISMISSED",
-                outcome
-            ),
-            Arguments.of(
-                null, "caseDismissed", "CASE_DISMISSED",
-                outcome
-
-            )
-        );
-    }
-
-    @ParameterizedTest
     @MethodSource("scenarioProviderCaseClosed")
     void given_multiple_event_ids_should_evaluate_dmn_for_case_closed(String fromState,
                                                                          String eventId, String toState,
@@ -128,15 +50,15 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         );
         return Stream.of(
             Arguments.of(
-                "any state", "caseClosed", "CASE_CLOSED",
+                "any state", "MAIN_CASE_CLOSED", "CASE_CLOSED",
                 outcome
             ),
             Arguments.of(
-                "", "caseClosed", "CASE_CLOSED",
+                "", "MAIN_CASE_CLOSED", "CASE_CLOSED",
                 outcome
             ),
             Arguments.of(
-                null, "caseClosed", "CASE_CLOSED",
+                null, "MAIN_CASE_CLOSED", "CASE_CLOSED",
                 outcome
 
             )
@@ -149,7 +71,7 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(3));
+        assertThat(logic.getRules().size(), is(1));
     }
 
 

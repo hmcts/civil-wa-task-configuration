@@ -51,6 +51,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ),
                     Map.of(
+                        "completionMode", "Auto"
                     ))),
                 Arguments.of(
                     "HEARING_READINESS",
@@ -60,6 +61,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                             "completionMode", "Auto"
                         ),
                         Map.of(
+                            "completionMode", "Auto"
                         ))),
                 Arguments.of(
                     "REFER_TO_JUDGE",
