@@ -81,7 +81,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "name", "judge",
                 "value", "Read,Manage,Own,Cancel",
                 "roleCategory", "JUDICIAL",
-                "authorisations","294",
+                "authorisations","315,316,294",
                 "assignmentPriority",1,
                 "autoAssignable", false
             )
