@@ -35,8 +35,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                         "autoAssignable", false,
                         "name", "task-supervisor",
-                        "value", "Read,Manage,Cancel",
-                        "roleCategory", "JUDICIAL"
+                        "value", "Read,Manage,Cancel"
                     )),
                     Arguments.of(
                         "null",
@@ -100,7 +99,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "autoAssignable", false,
                 "name", "task-supervisor",
-                "roleCategory","JUDICIAL",
                 "value", "Read,Manage,Cancel"
             ),
             Map.of(
