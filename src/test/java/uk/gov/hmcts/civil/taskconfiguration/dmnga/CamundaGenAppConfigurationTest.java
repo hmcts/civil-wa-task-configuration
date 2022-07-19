@@ -160,8 +160,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         ));
         caseData.put("caseManagementCategory", Map.of(
                 "value", Map.of("code", "e9f6b8b8-c9ed-4092-945a-0c67edbcfb3c", "label", "GA"),
-                "list_items", List.of
-                        (Map.of("code", "e9f6b8b8-c9ed-4092-945a-0c67edbcfb3c", "label", "GA"))));
+                "list_items", List.of(Map.of(
+                        "code", "e9f6b8b8-c9ed-4092-945a-0c67edbcfb3c", "label", "GA"))));
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
