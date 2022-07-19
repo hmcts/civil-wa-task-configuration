@@ -50,15 +50,15 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         );
         return Stream.of(
             Arguments.of(
-                "any state", "MAIN_CASE_CLOSED", "CASE_CLOSED",
+                "any state", "MAIN_CASE_CLOSED", "APPLICATION_CLOSED",
                 outcome
             ),
             Arguments.of(
-                "", "MAIN_CASE_CLOSED", "CASE_CLOSED",
+                "", "MAIN_CASE_CLOSED", "APPLICATION_CLOSED",
                 outcome
             ),
             Arguments.of(
-                null, "MAIN_CASE_CLOSED", "CASE_CLOSED",
+                null, "MAIN_CASE_CLOSED", "APPLICATION_CLOSED",
                 outcome
 
             )
