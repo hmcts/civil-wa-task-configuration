@@ -105,7 +105,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertFalse(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "location",
-            "value", "1"
+            "value", "Location"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
