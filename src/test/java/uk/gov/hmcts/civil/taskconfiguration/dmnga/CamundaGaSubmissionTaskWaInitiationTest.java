@@ -465,7 +465,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "JUDGE_MAKES_DECISION");
-        inputVariables.putValue("postEventState", "LISTED_FOR_A_HEARING");
+        inputVariables.putValue("postEventState", "LISTING_FOR_A_HEARING");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -485,7 +485,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "JUDGE_MAKES_DECISION");
-        inputVariables.putValue("postEventState", "LISTED_FOR_A_HEARING");
+        inputVariables.putValue("postEventState", "LISTING_FOR_A_HEARING");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
