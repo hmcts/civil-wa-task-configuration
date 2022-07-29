@@ -48,28 +48,28 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     private static final Map<String, Serializable> hearingCentreAdmin = Map.of(
         "autoAssignable", false,
         "name", "hearing-centre-admin",
-        "roleCategory", "ADMINISTRATOR",
+        "roleCategory", "ADMIN",
         "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> nbcTeamLeader = Map.of(
         "autoAssignable", false,
         "name", "nbc-team-leader",
-        "roleCategory", "ADMINISTRATOR",
+        "roleCategory", "ADMIN",
         "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> hearingCentreTeamleader = Map.of(
         "autoAssignable", false,
         "name", "hearing-centre-team-leader",
-        "roleCategory", "ADMINISTRATOR",
+        "roleCategory", "ADMIN",
         "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> ctscTeamLeader = Map.of(
         "autoAssignable", false,
         "name", "ctsc-team-leader",
-        "roleCategory", "ADMINISTRATOR",
+        "roleCategory", "ADMIN",
         "value", "Read,Own,Manage,Cancel"
     );
 
@@ -78,7 +78,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "assignmentPriority", 1,
         "authorisations", "294",
         "name", "leadership-judge",
-        "roleCategory", "ADMINISTRATOR",
+        "roleCategory", "ADMIN",
         "value", "Read,Own,Manage,Cancel"
     );
 
@@ -238,7 +238,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "name", "hearing-centre-admin",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             )
         )));
@@ -271,7 +271,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "name", "hearing-centre-admin",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             )
         )));
@@ -298,7 +298,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "name", "hearing-centre-admin",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             ),
             Map.of(
@@ -331,13 +331,13 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "name", "nbc-team-leader",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "hearing-centre-admin",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             ),
             Map.of(
@@ -370,19 +370,19 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "name", "hearing-centre-team-leader",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "ctsc-team-leader",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "nbc-team-leader",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             ),
             Map.of(
@@ -394,7 +394,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "name", "hearing-centre-admin",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             )
         )));
@@ -435,7 +435,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "name", "hearing-centre-admin",
                 "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMINISTRATOR",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             )
         )));

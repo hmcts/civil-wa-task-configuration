@@ -26,7 +26,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioProvider","scenarioProviderSdo"})
+    @MethodSource({"scenarioProvider","scenarioProviderSdo","scenarioProviderSdo1"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -89,12 +89,36 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioProviderSdo1() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Reconfigure",
+                "processCategories", "standardDirectionsOrder"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "any state", "ViewAndRespondToDefence", "any state",
+                outcome
+            ),
+            Arguments.of(
+                "any state", "ViewAndRespondToDefence", "",
+                outcome
+            ),
+            Arguments.of(
+                "any state", "ViewAndRespondToDefence", null,
+                outcome
+
+            )
+        );
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(2));
+        assertThat(logic.getRules().size(), is(3));
     }
 }
