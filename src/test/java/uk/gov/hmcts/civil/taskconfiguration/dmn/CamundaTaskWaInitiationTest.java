@@ -45,7 +45,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     public static Stream<Arguments> scenarioProvider() {
         return Stream.of(
             Arguments.of(
-                "DEFAULT_JUDGEMENT", "JUDICAL_REFERRAL",
+                "DEFAULT_JUDGEMENT", "JUDICIAL_REFERRAL",
                 Map.of(
                     "taskId", "summaryJudgmentDirections",
                     "name", "Directions (Provisional Summary Judgment)",
