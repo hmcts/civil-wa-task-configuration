@@ -1,5 +1,7 @@
 package uk.gov.hmcts.civil.taskconfiguration.dmn;
 
+import lombok.Builder;
+import lombok.Value;
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
@@ -11,6 +13,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,6 +93,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "region", "1"
 
         ));
+
+        caseData.put("nextHearingId", "nextHearingId");
+
+        caseData.put("nextHearingDate", "nextHearingDate");
 
         VariableMap inputVariables = new VariableMapImpl();
         caseData.put("description", null);
@@ -477,5 +484,35 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    @Value
+    @Builder
+    private static class Scenario {
+        Map<String, Object> caseData;
+        Map<String, Object> taskAttributes;
+        String expectedAppealTypeValue;
+        String expectedRegionValue;
+        String expectedDescriptionValue;
+        String expectedNextHearingIdValue;
+        String expectedNextHearingDateValue;
+    }
+
+    private void getExpectedValue(List<Map<String, String>> rules, String name, String value) {
+        Map<String, String> rule = new HashMap<>();
+        rule.put("name", name);
+        rule.put("value", value);
+        rules.add(rule);
+    }
+
+    private List<Map<String, String>> getExpectedValues(Scenario scenario) {
+        List<Map<String, String>> rules = new ArrayList<>();
+
+        getExpectedValue(rules, "appealType", scenario.getExpectedAppealTypeValue());
+        getExpectedValue(rules, "region", scenario.getExpectedRegionValue());
+        getExpectedValue(rules, "description", scenario.getExpectedDescriptionValue());
+        getExpectedValue(rules, "nextHearingId", scenario.getExpectedNextHearingIdValue());
+        getExpectedValue(rules, "nextHearingDate", scenario.getExpectedNextHearingDateValue());
+
+        return rules;
+    }
 }
 
