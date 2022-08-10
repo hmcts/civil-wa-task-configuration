@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-ga-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="wa-task-permissions-CIVIL-GENERALAPPLICATION" name="Permissions DMN">
+    <decisionTable id="DecisionTable_1pr5oic" hitPolicy="RULE ORDER">
+      <input id="InputClause_12crj6e" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
+        <inputExpression id="LiteralExpression_11cu08d" typeRef="string" expressionLanguage="feel">
+          <text>if(taskAttributes != null and taskAttributes.taskType != null) then
+            taskAttributes. taskType
+else
+"r1"</text>
+        </inputExpression>
+      </input>
+      <input id="Input_1" label="Case Data" camunda:inputVariable="case">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1q156ce" label="Case Access Category" name="caseAccessCategory" typeRef="string" />
+      <output id="Output_1" label="Role Name" name="roleName" typeRef="string" />
+      <output id="OutputClause_1mzxe7i" label="Value" name="value" typeRef="string" biodi:width="297" />
+      <output id="OutputClause_05whhwf" label="RoleCategory" name="roleCategory" typeRef="string" />
+      <output id="OutputClause_16bocer" label="Authorisations" name="authorisations" typeRef="string" />
+      <output id="OutputClause_1n914lw" label="Assignment Priority" name="assignmentPriority" typeRef="integer" />
+      <output id="OutputClause_04cbxc1" label="Auto Assignable" name="autoAssignable" typeRef="boolean" />
+      <rule id="DecisionRule_1qgauo9">
+        <description>supervisor task permissions</description>
+        <inputEntry id="UnaryTests_11b5xoq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gz9teq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dh1n4d">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1y8d1zx">
+          <text>"task-supervisor"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14kh2zl">
+          <text>"Read,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kwn52e">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lnhuev">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nvmdla">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0sjafmb">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1oidr26">
+        <description>CCMCC/CCBC triage task</description>
+        <inputEntry id="UnaryTests_16k71ta">
+          <text>"ReviewApplication", "ReviewRevisitedApplication"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_157u17i">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ydq6ch">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gb5ncn">
+          <text>"national-business-centre"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ol61oi">
+          <text>"Read,Manage,Own,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hfm2b0">
+          <text>"ADMINISTRATOR"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ie9ylr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0k28x8f">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10a3neq">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0beinmy">
+        <description>Judge task permissions</description>
+        <inputEntry id="UnaryTests_1lf9wxj">
+          <text>"JudgeDecideOnApplication", "JudgeRevisitApplication"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07695pp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wsbt0n">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pg8tc5">
+          <text>"judge"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nfbkfm">
+          <text>"Read,Manage,Own,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_101dajb">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nmopt1">
+          <text>"294"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lgi2ux">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13jgl0u">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14xxrl9">
+        <description>Legal Adviser task permissions</description>
+        <inputEntry id="UnaryTests_1c89qp6">
+          <text>"LegalAdvisorDecideOnApplication", "LegalAdvisorRevisitApplication"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0441soa">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kwr6qt">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0d0n26m">
+          <text>"tribunal-caseworker"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0oti3q0">
+          <text>"Read,Manage,Own,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0v2ygvv">
+          <text>"LEGAL OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pjb1zc">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lku1zz">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f6jmzy">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03pnfh8">
+        <description>Caseworker  task permissions</description>
+        <inputEntry id="UnaryTests_1ossj9o">
+          <text>"ScheduleApplicationHearing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0occzoo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g6zwdd">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0766p7u">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gda35a">
+          <text>"Read,Manage,Own,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0uxj36c">
+          <text>"ADMINISTRATOR"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_188mn11">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hkzpbs">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0a25vtn">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bkys5l">
+        <description>Access request for Legal Advisors</description>
+        <inputEntry id="UnaryTests_1gn8h7a">
+          <text>"ReviewSpecificAccessRequestsLegalOps"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ij8wb6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1119acn">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bpjv4g">
+          <text>"hearing-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yibbro">
+          <text>"Read,Manage,Own,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_034v126">
+          <text>"ADMINISTRATOR"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jiaudv">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1a2uhjs">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i1ovac">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16iier0">
+        <description>Access request for Legal Advisors</description>
+        <inputEntry id="UnaryTests_18dpkrl">
+          <text>"ReviewSpecificAccessRequestsAdmin"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_062cb8o">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0peyr5y">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mjpxac">
+          <text>"hearing-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_114mu7q">
+          <text>"Read,Manage,Own,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0f2b3jg">
+          <text>"ADMINISTRATOR"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lrhslc">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04ybq52">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1igq3e3">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0m5dgzc">
+        <description>Access request for CTSC</description>
+        <inputEntry id="UnaryTests_0vr3e4v">
+          <text>"ReviewSpecificAccessRequestsAdmin"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v39vce">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1x1155h">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0c1jz6a">
+          <text>"ctsc-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0g4q5oh">
+          <text>"Read,Manage,Own,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0sq2e6v">
+          <text>"ADMINISTRATOR"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03qxlp4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09c89o4">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vz4xvd">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gt5229">
+        <description>Access request for CCMCC/CCBC</description>
+        <inputEntry id="UnaryTests_0uvu7f3">
+          <text>"ReviewSpecificAccessRequestsAdmin"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15kuqa4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_173hje2">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nq0lml">
+          <text>"nbc-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11ndpjo">
+          <text>"Read,Manage,Own,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kiba63">
+          <text>"ADMINISTRATOR"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18g10z0">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05u02iu">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1orziaq">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="wa-task-permissions-CIVIL-GENERALAPPLICATION">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
