@@ -72,7 +72,9 @@ null</text>
           <text>"caseManagementCategory"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0t707eva">
-          <text>"Civil"</text>
+          <text> if (caseData.caseManagementCategory !=null and caseData.caseManagementCategory.value.code =
+                        "Civil") then
+    "Civil" else "Civil"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0r3u9cfa">
@@ -122,13 +124,27 @@ null</text>
           <text>-</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0nmr8951">
-          <text>"reviewSpecificAccessRequestJudiciary"</text>
+          <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_04r7w971">
           <text>"workType"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_099dwbsa">
           <text>"access_requests"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0h7g1h5">
+        <inputEntry id="UnaryTests_13vdio9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b24qcm">
+          <text>"transferCaseOffline"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1unwcmq">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19vcvnp">
+          <text>"hearing_work"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0ikmf141">
@@ -143,6 +159,21 @@ null</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0zoponqa">
           <text>"JUDICIAL"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bp7i19">
+        <inputEntry id="UnaryTests_02epjn7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00px7ye">
+          <text>"transferCaseOffline",
+"reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1koffim">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08tro47">
+          <text>"ADMINISTRATOR"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1csczvsa">
@@ -171,6 +202,34 @@ null</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0qxjq2ea">
           <text>"[Review Access Request](/cases/case-details/${[CASE_REFERENCE]}/trigger/reviewSpecificAccessRequestJudiciary)" </text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07sfe12">
+        <inputEntry id="UnaryTests_11ymv3k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gkhh0f">
+          <text>"transferCaseOffline"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0k6dfjb">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02fnvsj">
+          <text>"[Take case offline](/cases/case-details/${[CASE_REFERENCE]}/trigger/TAKE_CASE_OFFLINE/TAKE_CASE_OFFLINE)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0lzr418">
+        <inputEntry id="UnaryTests_08ykobf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06mr79w">
+          <text>"reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1px72mi">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0snsh38">
+          <text>"[Review Access Request](/cases/case-details/${[CASE_REFERENCE]}/trigger/reviewSpecificAccessRequestAdmin)" </text>
         </outputEntry>
       </rule>
     </decisionTable>
