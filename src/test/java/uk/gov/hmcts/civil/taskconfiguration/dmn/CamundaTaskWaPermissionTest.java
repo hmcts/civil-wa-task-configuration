@@ -162,10 +162,9 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false,
                 "name", "task-supervisor",
                 "value", "Read,Manage,Cancel"
-
             ),
             Map.of(
-                "name", "Judge",
+                "name", "judge",
                 "value", "Read,Manage,Own,Cancel",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
