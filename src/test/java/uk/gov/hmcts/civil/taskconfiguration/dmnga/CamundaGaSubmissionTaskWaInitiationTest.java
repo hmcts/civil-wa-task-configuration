@@ -36,7 +36,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "types", asList("SUMMARY_JUDGEMENT")
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERAL_APPLICATION_CREATION");
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -62,7 +62,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERAL_APPLICATION_CREATION");
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -87,7 +87,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "types", asList("SUMMARY_JUDGEMENT")
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERAL_APPLICATION_CREATION");
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -113,7 +113,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERAL_APPLICATION_CREATION");
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
