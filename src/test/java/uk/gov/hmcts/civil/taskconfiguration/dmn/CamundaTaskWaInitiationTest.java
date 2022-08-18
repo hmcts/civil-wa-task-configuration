@@ -45,10 +45,19 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     public static Stream<Arguments> scenarioProvider() {
         return Stream.of(
             Arguments.of(
-                "DEFAULT_JUDGEMENT", "JUDICAL_REFERRAL",
+                "DEFAULT_JUDGEMENT", "JUDICIAL_REFERRAL",
                 Map.of(
                     "taskId", "summaryJudgmentDirections",
                     "name", "Directions (Provisional Summary Judgment)",
+                    "workingDaysAllowed", 5,
+                    "processCategories","defaultJudgment"
+                )
+            ),
+            Arguments.of(
+                "STANDARD_DIRECTION_ORDER_DJ", "CASE_PROGRESSION",
+                Map.of(
+                    "taskId", "transferCaseOffline",
+                    "name", "Transfer Case Offline",
                     "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
                 )
@@ -60,7 +69,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(1));
+        assertThat(logic.getRules().size(), is(2));
 
     }
 }
