@@ -32,7 +32,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
 
         return Stream.of(
             Arguments.of(
-                "JUDGE_MAKES_DECISION",
+                "MAKE_DECISION",
                 asList(
                     Map.of(
                         "taskType", "JudgeDecideOnApplication",
