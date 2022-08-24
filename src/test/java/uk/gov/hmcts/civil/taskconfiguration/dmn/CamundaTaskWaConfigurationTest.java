@@ -1,5 +1,7 @@
 package uk.gov.hmcts.civil.taskconfiguration.dmn;
 
+import lombok.Builder;
+import lombok.Value;
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
@@ -11,6 +13,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(15));
+        assertThat(logic.getRules().size(), is(35));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -59,6 +62,35 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "region", "1"
 
         ));
+        caseData.put("hearingSupportRequirementsDJ", Map.of(
+            "hearingPreferredLocation", "Location"
+
+        ));
+        caseData.put("applicantPreferredCourt", Map.of(
+            "partyType", "INDIVIDUAL"
+
+        ));
+        caseData.put("applicantPreferredCourt", Map.of(
+            "partyType", "SOLE_TRADER"
+
+        ));
+        caseData.put("applicantPreferredCourt", Map.of(
+            "partyType", "COMPANY"
+
+        ));
+        caseData.put("applicantPreferredCourt", Map.of(
+            "partyType", "ORGANISATION"
+
+        ));
+        caseData.put("hearingBaseLocation", Map.of(
+            "partyType", "MultiPartyScenario"
+
+        ));
+        caseData.put("hearingBaseLocation", Map.of(
+            "partyType", "RefertoJudge"
+
+        ));
+        caseData.put("hearingBaseLocation", "Location");
 
         VariableMap inputVariables = new VariableMapImpl();
         caseData.put("description", null);
@@ -197,5 +229,280 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    @Test
+    void when_taskId_then_return_Access_requests_forsdo() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "reviewSpecificAccessRequestLegalOps"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "access_requests",
+            "canReconfigure", "true"
+        )));
+    }
+
+    @Test
+    void when_taskId_then_return_Access_requests_foradmin() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "reviewSpecificAccessRequestAdmin"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(2));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "access_requests",
+            "canReconfigure", "true"
+        )));
+    }
+
+    @Test
+    void when_taskId_then_return_Access_requests_forjudi() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "reviewSpecificAcesssRequestJudiciary"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "access_requests",
+            "canReconfigure", "true"
+        )));
+    }
+
+    @Test
+    void when_taskId_then_return_decision_making_work_forsdo() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "FastTrackDirections"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "decision_making_work",
+            "canReconfigure", "true"
+        )));
+    }
+
+    @Test
+    void when_taskId_then_return_decision_making_work_smallclaims() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "SmallClaimsTrackDirections"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "decision_making_work",
+            "canReconfigure", "true"
+        )));
+    }
+
+    @Test
+    void when_taskId_then_return_decision_making_work_legaladv() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "LegalAdviserSmallClaimsTrackDirections"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "decision_making_work",
+            "canReconfigure", "true"
+        )));
+    }
+
+    @Test
+    void when_taskId_then_return_decision_making_work_sctdrefe() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "SmallClaimsTrackDirectionsReferral"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "decision_making_work",
+            "canReconfigure", "true"
+        )));
+    }
+
+    @Value
+    @Builder
+    private static class Scenario {
+        Map<String, Object> caseData;
+        Map<String, Object> taskAttributes;
+        String expectedAppealTypeValue;
+        String expectedRegionValue;
+        String expectedDescriptionValue;
+        String expectedNextHearingIdValue;
+        String expectedNextHearingDateValue;
+    }
+
+    private void getExpectedValue(List<Map<String, String>> rules, String name, String value) {
+        Map<String, String> rule = new HashMap<>();
+        rule.put("name", name);
+        rule.put("value", value);
+        rules.add(rule);
+    }
+
+    private List<Map<String, String>> getExpectedValues(Scenario scenario) {
+        List<Map<String, String>> rules = new ArrayList<>();
+
+        getExpectedValue(rules, "appealType", scenario.getExpectedAppealTypeValue());
+        getExpectedValue(rules, "region", scenario.getExpectedRegionValue());
+        getExpectedValue(rules, "description", scenario.getExpectedDescriptionValue());
+        getExpectedValue(rules, "nextHearingId", scenario.getExpectedNextHearingIdValue());
+        getExpectedValue(rules, "nextHearingDate", scenario.getExpectedNextHearingDateValue());
+
+        return rules;
+    }
 }
 

@@ -65,12 +65,60 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioProviderSdo() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "standardDirectionsOrder"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "any state", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                outcome
+            ),
+            Arguments.of(
+                "", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                outcome
+            ),
+            Arguments.of(
+                null, "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                outcome
+
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioProviderSdo1() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Reconfigure",
+                "processCategories", "standardDirectionsOrder"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "any state", "ViewAndRespondToDefence", "any state",
+                outcome
+            ),
+            Arguments.of(
+                "any state", "ViewAndRespondToDefence", "",
+                outcome
+            ),
+            Arguments.of(
+                "any state", "ViewAndRespondToDefence", null,
+                outcome
+
+            )
+        );
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(1));
+        assertThat(logic.getRules().size(), is(3));
     }
 }
