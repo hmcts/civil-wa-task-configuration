@@ -98,15 +98,15 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "any state", "ViewAndRespondToDefence", "any state",
+                "any state", "VIEW_AND_RESPOND_TO_DEFENCE", "any state",
                 outcome
             ),
             Arguments.of(
-                "any state", "ViewAndRespondToDefence", "",
+                "any state", "VIEW_AND_RESPOND_TO_DEFENCE", "",
                 outcome
             ),
             Arguments.of(
-                "any state", "ViewAndRespondToDefence", null,
+                "any state", "VIEW_AND_RESPOND_TO_DEFENCE", null,
                 outcome
 
             )
