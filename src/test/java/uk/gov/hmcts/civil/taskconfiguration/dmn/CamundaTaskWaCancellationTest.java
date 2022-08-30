@@ -6,9 +6,7 @@ import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
 import java.util.List;
@@ -27,9 +25,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
 
 //    @ParameterizedTest
 //    @MethodSource("scenarioProvider")
-    void given_multiple_event_ids_should_evaluate_dmn(String fromState,
-                                                      String eventId,
-                                                      String state,
+    void given_multiple_event_ids_should_evaluate_dmn(String fromState, String eventId, String state,
                                                       List<Map<String, Object>> expectedDmnOutcome) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("fromState", fromState);
