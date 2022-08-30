@@ -25,8 +25,8 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         CURRENT_DMN_DECISION_TABLE = WA_TASK_CANCELLATION_CIVIL_DAMAGES;
     }
 
-    @ParameterizedTest
-    @MethodSource("scenarioProvider")
+//    @ParameterizedTest
+//    @MethodSource("scenarioProvider")
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
