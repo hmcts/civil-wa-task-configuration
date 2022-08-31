@@ -6,7 +6,9 @@ import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
 import java.util.List;
@@ -23,9 +25,11 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         CURRENT_DMN_DECISION_TABLE = WA_TASK_CANCELLATION_CIVIL_DAMAGES;
     }
 
-//    @ParameterizedTest
-//    @MethodSource("scenarioProvider")
-    void given_multiple_event_ids_should_evaluate_dmn(String fromState, String eventId, String state,
+    @ParameterizedTest
+    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1"})
+    void given_multiple_event_ids_should_evaluate_dmn(String fromState,
+                                                      String eventId,
+                                                      String state,
                                                       List<Map<String, Object>> expectedDmnOutcome) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("fromState", fromState);
@@ -46,15 +50,15 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "caseproceedsinCaseman", "any state",
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "any state",
                 outcome
             ),
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "caseproceedsinCaseman", "",
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "",
                 outcome
             ),
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "caseproceedsinCaseman", null,
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", null,
                 outcome
 
             )
@@ -70,15 +74,15 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "any state", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                "any state", "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
             ),
             Arguments.of(
-                "", "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                "", "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
             ),
             Arguments.of(
-                null, "caseproceedsinCaseman", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                null, "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
 
             )
