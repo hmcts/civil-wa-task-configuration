@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-initiation-civil-generalapplication" name="GA Task initiation DMN">
     <decisionTable id="DecisionTable_141h4ty" hitPolicy="COLLECT">
       <input id="Input_1" label="Event Id" camunda:inputVariable="eventId">
@@ -33,16 +33,16 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0evsk0b">
-          <text>if(caseData.isCcmccLocation = "Yes") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
+          <text>if(additionalData.Data.isCcmccLocation = "Yes") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_148hrke">
-          <text>if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation = "Yes") then "Review Application for " + lower case(replace(caseData.generalAppType.types[1], "_"," ")) else if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation != "Yes") then "Application for " + lower case(replace(caseData.generalAppType.types[1], "_"," ")) else if(caseData.isCcmccLocation = "Yes") then "Review Application for multiple types" else "Application for multiple types"</text>
+          <text>if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation = "Yes") then "Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation != "Yes") then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(additionalData.Data.isCcmccLocation = "Yes") then "Review Application for multiple types" else "Application for multiple types"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0ai2zhl">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_069ab0r">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.isCcmccLocation != "Yes") then 5 else 10</text>
+          <text>if(additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency != null and  additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then 2 else if(additionalData.Data.isCcmccLocation != "Yes") then 5 else 10   </text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0q33jzi">
           <text>"generalApplications"</text>
@@ -59,16 +59,16 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1o6zjii">
-          <text>if(caseData.isCcmccLocation = "Yes") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
+          <text>if(additionalData.Data.isCcmccLocation = "Yes") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0m528r1">
-          <text>if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation = "Yes") then "Review Application for " + lower case(replace(caseData.generalAppType.types[1], "_"," ")) else if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation != "Yes") then "Application for " + lower case(replace(caseData.generalAppType.types[1], "_"," ")) else if(caseData.isCcmccLocation = "Yes") then "Review Application for multiple types" else "Application for multiple types"</text>
+          <text>if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation = "Yes") then "Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation != "Yes") then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(additionalData.Data.isCcmccLocation = "Yes") then "Review Application for multiple types" else "Application for multiple types"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0hxe724">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0vnloi3">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.isCcmccLocation != "Yes") then 5 else 10</text>
+          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(additionalData.Data.isCcmccLocation != "Yes") then 5 else 10</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0w9wcmv">
           <text>"generalApplications"</text>
@@ -85,16 +85,16 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_16ocdm8">
-          <text>if(caseData.isCcmccLocation = "Yes") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
+          <text>if(additionalData.Data.isCcmccLocation = "Yes") then "ReviewApplication" else "JudgeDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_17c15v0">
-          <text>if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation = "Yes") then "Review Application for " + lower case(replace(caseData.generalAppType.types[1], "_"," ")) else if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation != "Yes") then "Application for " + lower case(replace(caseData.generalAppType.types[1], "_"," ")) else if(caseData.isCcmccLocation = "Yes") then "Review Application for multiple types" else "Application for multiple types"</text>
+          <text>if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation = "Yes") then "Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation != "Yes") then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(additionalData.Data.isCcmccLocation = "Yes") then "Review Application for multiple types" else "Application for multiple types"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_03x8azl">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1mge8aq">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.isCcmccLocation != "Yes") then 5 else 10</text>
+          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(additionalData.Data.isCcmccLocation != "Yes") then 5 else 10</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0t8y9vl">
           <text>"generalApplications"</text>
@@ -111,16 +111,16 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0knc9sq">
-          <text>if(caseData.isCcmccLocation = "Yes") then "ReviewRevisitedApplication" else "JudgeRevisitApplication"</text>
+          <text>if(additionalData.Data.isCcmccLocation = "Yes") then "ReviewRevisitedApplication" else "JudgeRevisitApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1qnhryy">
-          <text>if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation = "Yes") then "Review " + lower case(replace(caseData.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(caseData.judicialDecision.decision, "_"," ")) else if(count(caseData.generalAppType.types) = 1 and caseData.isCcmccLocation != "Yes") then lower case(replace(caseData.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(caseData.judicialDecision.decision, "_"," ")) else if(caseData.isCcmccLocation = "Yes") then "Review Application for multiple types" + " - revisited " + lower case(replace(caseData.judicialDecision.decision, "_"," ")) else "Application for multiple types" + " - revisited " + lower case(replace(caseData.judicialDecision.decision, "_"," "))</text>
+          <text>if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation = "Yes") then "Review " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," ")) else if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation != "Yes") then lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," ")) else if(additionalData.Data.isCcmccLocation = "Yes") then "Review Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," ")) else "Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0wi1eyk">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bhhney">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(caseData.isCcmccLocation != "Yes") then 5 else 10</text>
+          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else if(additionalData.Data.isCcmccLocation != "Yes") then 5 else 10</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_15e6jor">
           <text>"generalApplications"</text>
@@ -146,7 +146,7 @@
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1qniso1">
-          <text>if(caseData.generalAppUrgencyRequirement != null) then if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 10 else 2 else 0</text>
+          <text>if(additionalData.Data.generalAppUrgencyRequirement != null) then if(additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 10 else 2 else 0</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1nt85v3">
           <text>"generalApplications"</text>
@@ -166,13 +166,13 @@
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0dck0nn">
-          <text>if(count(caseData.generalAppType.types) = 1) then "Application for " + lower case(replace(caseData.generalAppType.types[1], "_"," ")) else  "Application for multiple types"</text>
+          <text>if(count(additionalData.Data.generalAppType.types) = 1) then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else  "Application for multiple types"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_02t5nzl">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0yep7sh">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 5</text>
+          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 5</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_12qyt8k">
           <text>"generalApplications"</text>
@@ -192,13 +192,13 @@
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0rmawnf">
-          <text>if(count(caseData.generalAppType.types) = 1) then lower case(replace(caseData.generalAppType.types[1], "_"," ")) + " - revisited " + caseData.judicialDecision.decision else  "Application for multiple types" + " - revisited " + lower case(replace(caseData.judicialDecision.decision, "_"," "))</text>
+          <text>if(count(additionalData.Data.generalAppType.types) = 1) then lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " - revisited " + additionalData.Data.judicialDecision.decision else  "Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_19g7ba0">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0kon3qa">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 5</text>
+          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 5</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_16lvamm">
           <text>"generalApplications"</text>
@@ -218,13 +218,13 @@
           <text>"LegalAdvisorDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0a13tto">
-          <text>if(count(caseData.generalAppType.types) = 1) then "Application for " + lower case(replace(caseData.generalAppType.types[1], "_"," ")) else  "Application for multiple types"</text>
+          <text>if(count(additionalData.Data.generalAppType.types) = 1) then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else  "Application for multiple types"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1romc32">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0a64ko7">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 5</text>
+          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 5</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1lybp22">
           <text>"generalApplications"</text>
@@ -244,13 +244,13 @@
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0234rk8">
-          <text>if(count(caseData.generalAppType.types) = 1) then lower case(replace(caseData.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(caseData.judicialDecision.decision, "_"," ")) else   "Application for multiple types" + " - revisited " + lower case(replace(caseData.judicialDecision.decision, "_"," "))</text>
+          <text>if(count(additionalData.Data.generalAppType.types) = 1) then lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," ")) else   "Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_14c0okc">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1fos3m6">
-          <text>if(caseData.generalAppUrgencyRequirement != null and caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 5</text>
+          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 5</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_07wv3rh">
           <text>"generalApplications"</text>
