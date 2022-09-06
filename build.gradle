@@ -205,8 +205,6 @@ dependencyManagement {
       entry 'logback-core'
     }
 
-    //CVE-2021-22060
-    dependency group: 'org.springframework', name: 'spring-core', version: '5.3.15'
 
   }
 }
@@ -221,6 +219,7 @@ def versions = [
   junit           : '5.7.2',
   junitPlatform   : '1.8.1',
   reformLogging   : '5.1.7',
+  springBoot         : springBoot.class.package.implementationVersion,
   springfoxSwagger: '2.9.2',
   camunda         : '7.15.0',
   pitest          : '1.5.2',
@@ -252,19 +251,17 @@ dependencies {
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
   implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.reformLogging
 
-  implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: versions.log4j
-  implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: versions.log4j
 
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: versions.tomcat
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: versions.tomcat
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.18.0'
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.18.0'
+
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.63'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.0-M16'
 
   implementation group: 'org.camunda.bpm', name: 'camunda-external-task-client', version: versions.camunda
 
   annotationProcessor 'org.projectlombok:lombok:1.18.24'
   compileOnly 'org.projectlombok:lombok:1.18.24'
-
-  testCompile group: 'org.pitest', name: 'pitest', version: versions.pitest
-  testCompile 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.5.2'
 
   testCompile "org.junit.vintage:junit-vintage-engine:${versions.junit}"
   testCompile group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: versions.sonarPitest
