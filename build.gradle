@@ -3,13 +3,13 @@ plugins {
   id 'checkstyle'
   id 'pmd'
   id 'jacoco'
-  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-  id 'org.springframework.boot' version '2.4.12'
-  id 'com.github.ben-manes.versions' version '0.38.0'
-  id 'org.owasp.dependencycheck' version '6.1.6'
-  id 'org.sonarqube' version '3.2.0'
+  id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+  id 'org.springframework.boot' version '2.5.14'
+  id 'com.github.ben-manes.versions' version '0.42.0'
+  id 'org.owasp.dependencycheck' version '7.1.1'
+  id 'org.sonarqube' version '3.4.0.2513'
   id 'info.solidsoft.pitest' version '1.5.2'
-  id 'io.freefair.lombok' version '5.3.0'
+  id 'io.freefair.lombok' version '5.3.3.3'
 }
 
 group = 'uk.gov.hmcts.reform'
@@ -36,14 +36,14 @@ sourceSets {
     resources.srcDir file('src/functionalTest/resources')
   }
 
-  integrationTest {
-    java {
-      compileClasspath += main.output
-      runtimeClasspath += main.output
-      srcDir file('src/integrationTest/java')
-    }
-    resources.srcDir file('src/integrationTest/resources')
-  }
+//  integrationTest {
+//    java {
+//      compileClasspath += main.output
+//      runtimeClasspath += main.output
+//      srcDir file('src/integrationTest/java')
+//    }
+//    resources.srcDir file('src/integrationTest/resources')
+//  }
 
   smokeTest {
     java {
@@ -77,14 +77,14 @@ task functional(type: Test) {
   testClassesDirs = sourceSets.functionalTest.output.classesDirs
   classpath = sourceSets.functionalTest.runtimeClasspath
 }
-
-task integration(type: Test) {
-  description = "Runs integration tests"
-  group = "Verification"
-  testClassesDirs = sourceSets.integrationTest.output.classesDirs
-  classpath = sourceSets.integrationTest.runtimeClasspath
-  failFast = true
-}
+//
+//task integration(type: Test) {
+//  description = "Runs integration tests"
+//  group = "Verification"
+//  testClassesDirs = sourceSets.integrationTest.output.classesDirs
+//  classpath = sourceSets.integrationTest.runtimeClasspath
+//  failFast = true
+//}
 
 task smoke(type: Test) {
   description = "Runs Smoke Tests"
@@ -95,7 +95,7 @@ task smoke(type: Test) {
 task tests {
   description = "Runs junit , integration and functional tests"
   group = "Verification"
-  dependsOn test, integration, smoke, functional
+  dependsOn test,  smoke, functional
 }
 
 checkstyle {
@@ -122,7 +122,7 @@ jacocoTestCoverageVerification {
 }
 
 jacocoTestReport {
-  executionData(test, integration)
+  executionData(test)
   reports {
     xml.enabled = true
     csv.enabled = false
@@ -146,7 +146,7 @@ pitest {
 project.tasks['pitest'].group = "Verification"
 
 
-project.tasks['sonarqube'].dependsOn test, integration, jacocoTestReport
+project.tasks['sonarqube'].dependsOn test, jacocoTestReport
 
 sonarqube {
   properties {
@@ -205,8 +205,6 @@ dependencyManagement {
       entry 'logback-core'
     }
 
-    //CVE-2021-22060
-    dependency group: 'org.springframework', name: 'spring-core', version: '5.3.15'
 
   }
 }
@@ -219,8 +217,9 @@ repositories {
 
 def versions = [
   junit           : '5.7.2',
-  junitPlatform   : '1.7.2',
+  junitPlatform   : '1.8.1',
   reformLogging   : '5.1.7',
+  springBoot         : springBoot.class.package.implementationVersion,
   springfoxSwagger: '2.9.2',
   camunda         : '7.15.0',
   pitest          : '1.5.2',
@@ -252,19 +251,19 @@ dependencies {
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
   implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.reformLogging
 
-  implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: versions.log4j
-  implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: versions.log4j
 
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: versions.tomcat
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: versions.tomcat
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.18.0'
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.18.0'
+
+  implementation 'org.yaml:snakeyaml:1.31'
+
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.63'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.0-M16'
 
   implementation group: 'org.camunda.bpm', name: 'camunda-external-task-client', version: versions.camunda
 
-  annotationProcessor 'org.projectlombok:lombok:1.18.20'
-  compileOnly 'org.projectlombok:lombok:1.18.20'
-
-  testCompile group: 'org.pitest', name: 'pitest', version: versions.pitest
-  testCompile 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.5.2'
+  annotationProcessor 'org.projectlombok:lombok:1.18.24'
+  compileOnly 'org.projectlombok:lombok:1.18.24'
 
   testCompile "org.junit.vintage:junit-vintage-engine:${versions.junit}"
   testCompile group: 'org.codehaus.sonar-plugins', name: 'sonar-pitest-plugin', version: versions.sonarPitest
@@ -278,9 +277,9 @@ dependencies {
   testImplementation group: 'org.camunda.bpm.assert', name: 'camunda-bpm-assert', version: '8.0.0'
   testImplementation group: 'org.camunda.bpm', name: 'camunda-engine', version: versions.camunda
   testImplementation group: 'com.h2database', name: 'h2', version: '1.4.200'
-
-  integrationTestImplementation sourceSets.main.runtimeClasspath
-  integrationTestImplementation sourceSets.test.runtimeClasspath
+//
+//  integrationTestImplementation sourceSets.main.runtimeClasspath
+//  integrationTestImplementation sourceSets.test.runtimeClasspath
 
   functionalTestImplementation sourceSets.main.runtimeClasspath
 
