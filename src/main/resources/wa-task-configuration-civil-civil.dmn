@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-configuration-civil-civil" name="Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -276,31 +276,6 @@ null</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1tkqdq3">
           <text></text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_09qdpo3">
-        <description></description>
-        <inputEntry id="UnaryTests_0wa7rr6">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_16tmohd">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1iw7ohp">
-          <text>"location"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_097s21u">
-          <text>if (caseData.caseManagementLocation != null) then caseData.caseManagementLocation.baseLocation
-else if (party.type != null and party.type="INDIVIDUAL") then "applicantPreferredCourt"
-else if (party.type != null and party.type="SOLE_TRADER") then "applicantPreferredCourt"
-else if (party.type != null and party.type="COMPANY") then "defendantPreferredCourt"
-else if (party.type != null and party.type="ORGANISATION") then "applicantPreferredCourt"
-else if (party.type != null and party.type="MultiPartyScenario") then "hearingBaseLocation"
-else if (claim != null and claim=smallTrack and totalClaimAmount &lt; 1000) then "hearingBaseLocation"
-else if (party.type !=null and party.type="RefertoJudge")  then "hearingBaseLocation" else ""</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0cmlbd2">
-          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_03x676a">
