@@ -9,10 +9,26 @@ def s2sServiceName = "wa_camunda_pipeline_upload"
 def tenantId = "civil"
 def branchesToSync = ['demo', 'perftest']
 
+ def secrets = [
+    'civil-${env}': [
+      secret('microservicekey-civil-service', 'S2S_SECRET')
+    ]
+  ]
+
 withCamundaOnlyPipeline(type, product, component, s2sServiceName, tenantId) {
+  
+  loadVaultSecrets(secrets)
+  enableFullFunctionalTest()
 
-
-
+  before('functionalTest:aat') {
+    env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    env.URL="https://manage-case.aat.platform.hmcts.net/"
+    env.IDAM_API_URL = "https://idam-api.aat.platform.hmcts.net"
+    env.SERVICE_AUTH_PROVIDER_API_BASE_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+    env.CCD_DATA_STORE_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
+    env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
+    env.CIVIL_SERVICE_URL="http://civil-service-aat.service.core-compute-aat.internal"
+  }
 
   // Sync environment specific branches with master branch
   syncBranchesWithMaster(branchesToSync)
