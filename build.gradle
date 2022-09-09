@@ -71,33 +71,12 @@ test {
   failFast = true
 }
 
-def inStrictOrder(Task... tasks) {
-  for (int i = 0; i < tasks.size() - 1; i++) {
-    tasks[i + 1].mustRunAfter(tasks[i])
-  }
-  return tasks
+task functional(type: Test) {
+  description = "Runs functional tests"
+  group = "Verification"
+  testClassesDirs = sourceSets.functionalTest.output.classesDirs
+  classpath = sourceSets.functionalTest.runtimeClasspath
 }
-
-task pullTestAsset(type: Exec, description: 'Installs Yarn dependencies.') {
-  commandLine './bin/pull-latest-release-asset.sh', 'civil-ccd-definition', 'civil-e2e.zip'
-}
-
-task installDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
-}
-
-task checkDependenciesIntegrity(type: Exec, description: 'Checks integrity of Yarn dependencies.') {
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
-}
-
-task runApiTests(type: Exec, description: 'Runs Api tests.') {
-  commandLine '/usr/bin/yarn', '--silent', 'test:api-dj'
-}
-
-task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(pullTestAsset, installDependencies, checkDependenciesIntegrity, runApiTests))
-}
-
 //
 //task integration(type: Test) {
 //  description = "Runs integration tests"
@@ -140,10 +119,6 @@ jacocoTestCoverageVerification {
       excludes = ["com.gargoylesoftware.htmlunit.javascript.host.css.StyleAttributes"]
     }
   }
-}
-
-jacocoTestReport.dependsOn {
-  subprojects*.test
 }
 
 jacocoTestReport {
@@ -229,6 +204,8 @@ dependencyManagement {
       entry 'logback-classic'
       entry 'logback-core'
     }
+
+
   }
 }
 
