@@ -71,11 +71,11 @@ test {
   failFast = true
 }
 
-task functional(type: Test) {
-  description = "Runs functional tests"
-  group = "Verification"
-  testClassesDirs = sourceSets.functionalTest.output.classesDirs
-  classpath = sourceSets.functionalTest.runtimeClasspath
+def inStrictOrder(Task... tasks) {
+  for (int i = 0; i < tasks.size() - 1; i++) {
+    tasks[i + 1].mustRunAfter(tasks[i])
+  }
+  return tasks
 }
 
 task pullTestAsset(type: Exec, description: 'Installs Yarn dependencies.') {
@@ -95,7 +95,7 @@ task runApiTests(type: Exec, description: 'Runs Api tests.') {
 }
 
 task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(pullTestAsset, installDependencies, checkDependenciesIntegrity, runSpecApiTests, runApiTests))
+  dependsOn(inStrictOrder(pullTestAsset, installDependencies, checkDependenciesIntegrity, runApiTests))
 }
 
 //
@@ -140,6 +140,10 @@ jacocoTestCoverageVerification {
       excludes = ["com.gargoylesoftware.htmlunit.javascript.host.css.StyleAttributes"]
     }
   }
+}
+
+jacocoTestReport.dependsOn {
+  subprojects*.test
 }
 
 jacocoTestReport {
