@@ -9,11 +9,19 @@ def s2sServiceName = "wa_camunda_pipeline_upload"
 def tenantId = "civil"
 def branchesToSync = ['demo', 'perftest']
 
- def secrets = [
-    'civil-${env}': [
-      secret('microservicekey-civil-service', 'S2S_SECRET')
-    ]
+static Map<String, Object> secret(String secretName, String envVariable) {
+  [$class     : 'AzureKeyVaultSecret',
+   secretType : 'Secret',
+   name       : secretName,
+   envVariable: envVariable
   ]
+}
+
+def secrets = [
+  'civil-${env}': [
+    secret('microservicekey-civil-service', 'S2S_SECRET')
+  ]
+]
 
 withCamundaOnlyPipeline(type, product, component, s2sServiceName, tenantId) {
   
