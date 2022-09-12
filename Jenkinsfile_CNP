@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('Infrastructure@Run-FT-On-Camunda-Pipeline')
+@Library('Infrastructure')
 
 def type = "java"
 def product = "civil"
@@ -9,13 +9,8 @@ def s2sServiceName = "wa_camunda_pipeline_upload"
 def tenantId = "civil"
 def branchesToSync = ['demo', 'perftest']
 
-static Map<String, Object> secret(String secretName, String envVariable) {
-  [$class     : 'AzureKeyVaultSecret',
-   secretType : 'Secret',
-   name       : secretName,
-   envVariable: envVariable
-  ]
-}
+withCamundaOnlyPipeline(type, product, component, s2sServiceName, tenantId) {
+
 
 def secrets = [
   's2s-${env}': [
