@@ -9,6 +9,13 @@ def s2sServiceName = "wa_camunda_pipeline_upload"
 def tenantId = "civil"
 def branchesToSync = ['demo', 'perftest']
 
+static Map<String, Object> secret(String secretName, String envVariable) {
+  [$class     : 'AzureKeyVaultSecret',
+   secretType : 'Secret',
+   name       : secretName,
+   envVariable: envVariable
+  ]
+}
 
 def secrets = [
   's2s-${env}': [
