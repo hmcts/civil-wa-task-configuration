@@ -71,33 +71,6 @@ test {
   failFast = true
 }
 
-task functional(type: Test) {
-  description = "Runs functional tests"
-  group = "Verification"
-  testClassesDirs = sourceSets.functionalTest.output.classesDirs
-  classpath = sourceSets.functionalTest.runtimeClasspath
-}
-//
-//task integration(type: Test) {
-//  description = "Runs integration tests"
-//  group = "Verification"
-//  testClassesDirs = sourceSets.integrationTest.output.classesDirs
-//  classpath = sourceSets.integrationTest.runtimeClasspath
-//  failFast = true
-//}
-
-task smoke(type: Test) {
-  description = "Runs Smoke Tests"
-  testClassesDirs = sourceSets.smokeTest.output.classesDirs
-  classpath = sourceSets.smokeTest.runtimeClasspath
-}
-
-task tests {
-  description = "Runs junit , integration and functional tests"
-  group = "Verification"
-  dependsOn test,  smoke, functional
-}
-
 checkstyle {
   maxWarnings = 0
   toolVersion = '8.29'
@@ -158,6 +131,49 @@ sonarqube {
     property "sonar.exclusions", "src/main/java/uk/gov/hmcts/civil/taskconfiguration/config/**," +
       "src/main/java/uk/gov/hmcts/civil/taskconfiguration/Application.java"
   }
+}
+
+task awaitApplicationReadiness(type: Exec, description: 'Awaits until application is ready.') {
+  commandLine './bin/wait-for.sh'
+  commandLine './bin/wait-for.sh', 'manage-case'
+}
+
+task installDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
+  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
+}
+
+task checkDependenciesIntegrity(type: Exec, description: 'Checks integrity of Yarn dependencies.') {
+  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
+}
+
+task lintUserInterfaceTests(type: Exec, description: 'Runs linting of E2E tests.') {
+  commandLine '/usr/bin/yarn', '--silent', 'lint'
+}
+
+task runSmokeTests(type: Exec, description: 'Runs smoke tests.') {
+  commandLine '/usr/bin/yarn', '--silent', 'test:smoke'
+}
+
+task runApiTests(type: Exec, description: 'Runs Api WA functional tests.') {
+  onlyIf {
+    return System.env.ENVIRONMENT == 'preview'
+  }
+  commandLine '/usr/bin/yarn', '--silent', 'test:api-dj'
+}
+
+def inStrictOrder(Task... tasks) {
+  for (int i = 0; i < tasks.size() - 1; i++) {
+    tasks[i + 1].mustRunAfter(tasks[i])
+  }
+  return tasks
+}
+
+task smoke(description: 'Runs the smoke tests.') {
+  dependsOn(inStrictOrder(awaitApplicationReadiness, installDependencies, checkDependenciesIntegrity, lintUserInterfaceTests, runSmokeTests))
+}
+
+task functional(description: 'Runs the functional tests.') {
+  dependsOn(inStrictOrder(awaitApplicationReadiness, installDependencies, checkDependenciesIntegrity, runApiTests))
 }
 
 // before committing a change, make sure task still works
