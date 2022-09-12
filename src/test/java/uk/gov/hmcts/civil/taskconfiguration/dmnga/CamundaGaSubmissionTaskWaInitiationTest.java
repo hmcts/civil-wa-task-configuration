@@ -27,18 +27,20 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_urgent_ga_creation_with_case_loc_ccmcc() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERAL_APPLICATION_CREATION");
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -53,18 +55,22 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_non_urgent_ga_creation_with_case_loc_ccmcc() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERAL_APPLICATION_CREATION");
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -78,18 +84,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_urgent_ga_creation_with_case_loc_local_court() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERAL_APPLICATION_CREATION");
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -104,18 +113,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_non_urgent_ga_creation_with_case_loc_local_court() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERAL_APPLICATION_CREATION");
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -129,18 +141,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_response_nonurgent_app_with_case_loc_ccmcc() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "RESPOND_TO_APPLICATION");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -155,18 +170,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_response_urgent_app_with_case_loc_ccmcc() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "RESPOND_TO_APPLICATION");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -181,18 +199,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_response_nonurgent_app_with_case_loc_local_court() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "RESPOND_TO_APPLICATION");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -207,18 +228,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_response_urgent_app_with_case_loc_local_court() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "RESPOND_TO_APPLICATION");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -233,18 +257,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_await_judicial_decision_nonurgent_app_with_case_loc_ccmcc() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -259,18 +286,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_await_judicial_decision_urgent_app_with_case_loc_ccmcc() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -285,18 +315,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_await_judicial_decision_nonurgent_app_with_case_loc_local_court() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -310,18 +343,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_await_judicial_decision_urgent_app_with_case_loc_local_court() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -336,23 +372,25 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_addln_response_time_expired_nonurgent_app_with_case_loc_ccmcc() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
 
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("judicialDecision", Map.of(
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -369,21 +407,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_addln_response_time_expired_urgent_app_with_case_loc_ccmcc() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -400,21 +441,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_addln_response_time_expired_nonurgent_app_with_case_loc_local_court() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -431,21 +475,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_addln_response_time_expired_urgent_app_with_case_loc_local_court() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -459,14 +506,17 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_taskId_then_return_decision_making_work_for_urgent_listed_for_hearing() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "MAKE_DECISION");
         inputVariables.putValue("postEventState", "LISTING_FOR_A_HEARING");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -479,14 +529,17 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_taskId_then_return_decision_making_work_for_nonurgent_listed_for_hearing() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "MAKE_DECISION");
         inputVariables.putValue("postEventState", "LISTING_FOR_A_HEARING");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -499,21 +552,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_judge_nonurgent_app_for_addln_response_expired() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_JUDGE");
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -530,21 +586,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_judge_urgent_app_for_addln_response_expired() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_JUDGE");
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -557,21 +616,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_judge_nonurgent_app_for_await_judicial_decision() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_JUDGE");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -585,21 +647,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_judge_urgent_app_for_await_judicial_decision() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_JUDGE");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -612,21 +677,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_judge_urgent_app_for_await_judicial_decision_ccmcc_location_no() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_JUDGE");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -638,21 +706,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_legal_advisor_nonurgent_app_for_addln_response_expired() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_LEGAL_ADVISOR");
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -665,21 +736,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_legal_advisor_urgent_app_for_addln_response_expired() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_LEGAL_ADVISOR");
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -692,21 +766,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_legal_Advisor_nonurgent_app_for_await_judicial_decision() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("judicialDecision", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("generalAppType", Map.of(
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_LEGAL_ADVISOR");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -719,21 +796,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_legal_advisor_urgent_app_for_await_judicial_decision() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("judicialDecision", Map.of(
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("isCcmccLocation", "Yes");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "Yes");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_LEGAL_ADVISOR");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -747,21 +827,24 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_refer_to_legal_advisor_urgent_app_for_await_judicial_decision_and_ccmcc_location_false() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "Yes"
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
         ));
-        caseData.put("judicialDecision", Map.of(
+        data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        caseData.put("isCcmccLocation", "No");
-        caseData.put("generalAppType", Map.of(
+        data.put("isCcmccLocation", "No");
+        data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_TO_LEGAL_ADVISOR");
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
-        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();

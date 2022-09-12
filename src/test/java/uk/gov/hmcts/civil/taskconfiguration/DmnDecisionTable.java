@@ -28,18 +28,18 @@ public enum DmnDecisionTable {
             "wa-task-configuration-civil-generalapplication.dmn"
     ),
     WA_TASK_INITIATION_CIVIL_GENERALAPPLICATION(
-        "wa-task-initiation-CIVIL-GENERALAPPLICATION",
-            "wa-task-initiation-CIVIL-GENERALAPPLICATION.dmn"
+        "wa-task-initiation-civil-generalapplication",
+        "wa-task-initiation-civil-generalapplication.dmn"
     ),
     WA_TASK_CANCELLATION_CIVIL_GENERALAPPLICATION(
-        "wa-task-cancellation-CIVIL-GENERALAPPLICATION",
-        "wa-task-cancellation-CIVIL-GENERALAPPLICATION.dmn"
+        "wa-task-cancellation-civil-generalapplication",
+            "wa-task-cancellation-civil-generalapplication.dmn"
     ),
-    WA_TASK_COMPLETION_CIVIL_GENERALAPPLICATION("wa-task-completion-CIVIL-GENERALAPPLICATION",
-                                     "wa-task-completion-CIVIL-GENERALAPPLICATION.dmn"
+    WA_TASK_COMPLETION_CIVIL_GENERALAPPLICATION("wa-task-completion-civil-generalapplication",
+                                                "wa-task-completion-civil-generalapplication.dmn"
     ),
-    WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION("wa-task-permissions-CIVIL-GENERALAPPLICATION",
-                                                 "wa-task-permissions-CIVIL-GENERALAPPLICATION.dmn"
+    WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION("wa-task-permissions-civil-generalapplication",
+                                                 "wa-task-permissions-civil-generalapplication.dmn"
     );
 
     @JsonValue

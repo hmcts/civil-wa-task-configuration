@@ -29,11 +29,11 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
     @ParameterizedTest
     @MethodSource("scenarioProviderCaseClosed")
     void given_multiple_event_ids_should_evaluate_dmn_for_case_closed(String fromState,
-                                                                         String eventId, String toState,
+                                                                         String eventId, String state,
                                                                          List<Map<String, Object>> expectedDmnOutcome) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("fromState", "");
-        inputVariables.putValue("toState", toState);
+        inputVariables.putValue("state", state);
         inputVariables.putValue("event", eventId);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
