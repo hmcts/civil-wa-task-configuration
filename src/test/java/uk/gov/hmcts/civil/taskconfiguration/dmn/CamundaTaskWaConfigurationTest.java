@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(30));
+        assertThat(logic.getRules().size(), is(31));
 
     }
 
@@ -284,6 +284,11 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "reviewSpecificAccessRequestAdmin"
         ));
 
+        inputVariables.putValue("taskAttributes", Map.of(
+            "additionalProperties",
+            "reviewSpecificAccessRequestAdmin"
+        ));
+
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
@@ -291,7 +296,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             .collect(Collectors.toList());
 
         System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.size(), is(0));
 
         assertFalse(workTypeResultList.contains(Map.of(
             "name", "workType",
