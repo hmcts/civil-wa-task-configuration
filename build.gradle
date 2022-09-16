@@ -155,6 +155,10 @@ task runSmokeTests(type: Exec, description: 'Runs smoke tests.') {
 }
 
 task runApiTests(type: Exec, description: 'Runs Api WA functional tests.') {
+  commandLine '/usr/bin/yarn', '--silent', 'test:api-1v1'
+}
+
+task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
     return System.env.ENVIRONMENT == 'preview'
   }
@@ -173,7 +177,7 @@ task smoke(description: 'Runs the smoke tests.') {
 }
 
 task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, installDependencies, checkDependenciesIntegrity, runApiTests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness, installDependencies, checkDependenciesIntegrity, runApiTests, runWATests))
 }
 
 // before committing a change, make sure task still works
