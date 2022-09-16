@@ -12,7 +12,7 @@ fi
 
 serviceToken=$($(realpath $workspace)/bin/utils/idam-lease-service-token.sh civil_service \
   $(docker run --rm toolbelt/oathtool --totp -b ${s2sSecret}))
-filepath="$(realpath $workspace)/src/main/resources"
+filepath="$(realpath $workspace)"
 
 for file in $(find "${filepath}" -type f \( -iname "*.bpmn" -o -iname "*.dmn" \))
 do
