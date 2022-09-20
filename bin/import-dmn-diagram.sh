@@ -14,7 +14,7 @@ serviceToken=$($(realpath $workspace)/bin/utils/idam-lease-service-token.sh civi
   $(docker run --rm toolbelt/oathtool --totp -b ${s2sSecret}))
 dmnFilepath="$(realpath $workspace)/src/main/resources"
 bpmnFilepath="$(realpath $workspace)/camunda"
-if [ -d $(bpmnFilepath) ]
+if [ -d ${bpmnFilepath} ]
 then
   allFiles=$(find ${dmnFilepath} -name '*.dmn')+$(find ${bpmnFilepath} -name '*.bpmn')
 else
