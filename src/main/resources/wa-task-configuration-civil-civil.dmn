@@ -31,7 +31,7 @@ null</text>
           <text>"caseName"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_06tqng31">
-          <text>if (caseData.applicant2 != null) then caseData.applicant1.partyName + " &amp; " + caseData.applicant2.partyName  else caseData.applicant1.partyName</text>
+          <text>if (caseData != null and caseData.applicant2 != null) then caseData.applicant1.partyName + " &amp; " + caseData.applicant2.partyName  else if (caseData != null ) then caseData.applicant1.partyName  else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_02k045u">
           <text></text>
@@ -48,7 +48,7 @@ null</text>
           <text>"region"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1hbq6kxa">
-          <text>if (caseData.caseManagementLocation != null) then caseData.caseManagementLocation.region else ""</text>
+          <text>if (caseData != null and caseData.caseManagementLocation != null) then caseData.caseManagementLocation.region else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0yeq0qz">
           <text></text>
@@ -82,7 +82,7 @@ null</text>
           <text>"caseManagementCategory"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0t707eva">
-          <text> if (caseData.caseManagementCategory !=null and caseData.caseManagementCategory.value.code =
+          <text>if (caseData != null and caseData.caseManagementCategory !=null and caseData.caseManagementCategory.value.code =
                         "Civil") then
     "Civil" else "Civil"</text>
         </outputEntry>
@@ -101,15 +101,7 @@ null</text>
           <text>"location"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_05korwsa">
-          <text>if (caseData.caseManagementLocation!= null) then caseData.caseManagementLocation.baseLocation
-else if (caseData.caseManagementLocation != null) then caseData.caseManagementLocation.baseLocation
-else if (caseData.party.type != null and caseData.party.type="INDIVIDUAL") then "applicantPreferredCourt"
-else if (caseData.party.type != null and caseData.party.type="SOLE_TRADER") then "applicantPreferredCourt"
-else if (caseData.party.type != null and caseData.party.type="COMPANY") then "defendantPreferredCourt"
-else if (caseData.party.type != null and caseData.party.type="ORGANISATION") then "applicantPreferredCourt"
-else if (caseData.party.type != null and caseData.party.type="MultiPartyScenario") then "hearingBaseLocation"
-else if (caseData.claim=smallTrack and caseData.totalClaimAmount &lt; 1000) then "hearingBaseLocation"
-else if (caseData.party.type !=null and caseData.party.type="RefertoJudge")  then "hearingBaseLocation"
+          <text>if (caseData != null and caseData.caseManagementLocation!= null) then caseData.caseManagementLocation.baseLocation
 else "1"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_080fyjd">
@@ -127,7 +119,7 @@ else "1"</text>
           <text>"locationName"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0jj1wzoa">
-          <text>if (caseData.locationName!= null) then caseData.locationName else ""</text>
+          <text>if (caseData != null and caseData.locationName!= null) then caseData.locationName else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_17pzar4">
           <text></text>
@@ -241,7 +233,7 @@ else "1"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0rj4oyoa">
-          <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin"</text>
+          <text>"reviewSpecificAccessRequestJudiciary"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0appni91">
           <text>"description"</text>
@@ -267,6 +259,23 @@ else "1"</text>
           <text>"[Take case offline](/cases/case-details/${[CASE_REFERENCE]}/trigger/TAKE_CASE_OFFLINE/TAKE_CASE_OFFLINE)"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0cxs214">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0lzr418">
+        <inputEntry id="UnaryTests_08ykobf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06mr79w">
+          <text>"reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1px72mi">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0snsh38">
+          <text>"[Review Access Request](/case/CIVIL/Civil/${[CASE_REFERENCE]}/trigger/review-specific-access-request)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tkqdq3">
           <text></text>
         </outputEntry>
       </rule>
@@ -465,37 +474,20 @@ else "1"</text>
           <text>"true"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0vuofl6">
-        <inputEntry id="UnaryTests_0prqbhe">
+      <rule id="DecisionRule_05z60q6">
+        <inputEntry id="UnaryTests_0qbrjp1">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_05765sl">
-          <text></text>
+        <inputEntry id="UnaryTests_05bset4">
+          <text>"reviewSpecificAcesssRequestJudiciary"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0dgc9ln">
-          <text>"next_Hearing_Id"</text>
+        <outputEntry id="LiteralExpression_10bym9y">
+          <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_06vh3e7">
-          <text>if(data.nextHearingDetails.hearingID !=null) then data.nextHearingDetails.hearingID else ""</text>
+        <outputEntry id="LiteralExpression_03xdzsm">
+          <text>"[Review Access Request](/case/Civil/Damages/${[CASE_REFERENCE]}/trigger/reviewSpecificAccessRequestJudiciary)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1sjsx5z">
-          <text>"true"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1ql46mx">
-        <inputEntry id="UnaryTests_0nolme5">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0jxndzu">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1n8h3ep">
-          <text>"next_Hearing_Date"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1or9nz7">
-          <text>if(data.nextHearingDetails.next_hearing_date !=null) then data.nextHearingDetails.next_hearing_date else ""</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0jh3ztf">
+        <outputEntry id="LiteralExpression_0r3hppb">
           <text>"true"</text>
         </outputEntry>
       </rule>
@@ -510,28 +502,11 @@ else "1"</text>
           <text>"additionalProperties_roleAssignmentId"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_01tyu9q">
-          <text>if (taskAttributes != null and taskAttributes.additionalProperties != null and taskAttributes.additionalProperties.roleAssignmentId != null) then taskAttributes.additionalProperties.roleAssignmentId
+          <text>if (taskAttributes != null and taskAttributes.roleAssignmentId != null) then taskAttributes.roleAssignmentId
 else "1234"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0fl1mwv">
           <text>"true"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_068k3k3">
-        <inputEntry id="UnaryTests_1d2gw64">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_12fk8o9">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1lo87f4">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0zr2mid">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0nvyoir">
-          <text></text>
         </outputEntry>
       </rule>
     </decisionTable>
