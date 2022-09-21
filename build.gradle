@@ -139,14 +139,23 @@ task awaitApplicationReadiness(type: Exec, description: 'Awaits until applicatio
 }
 
 task installDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
+  onlyIf {
+    return System.env.ENVIRONMENT == 'preview'
+  }
   commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
 }
 
 task checkDependenciesIntegrity(type: Exec, description: 'Checks integrity of Yarn dependencies.') {
+  onlyIf {
+    return System.env.ENVIRONMENT == 'preview'
+  }
   commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
 }
 
 task lintUserInterfaceTests(type: Exec, description: 'Runs linting of E2E tests.') {
+  onlyIf {
+    return System.env.ENVIRONMENT == 'preview'
+  }
   commandLine '/usr/bin/yarn', '--silent', 'lint'
 }
 
@@ -162,7 +171,7 @@ task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
     return System.env.ENVIRONMENT == 'preview'
   }
-  commandLine '/usr/bin/yarn', '--silent', 'test:api-wa'
+  commandLine '/usr/bin/yarn', '--silent', 'test:api-dj'
 }
 
 def inStrictOrder(Task... tasks) {
