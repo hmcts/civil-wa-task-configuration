@@ -134,10 +134,6 @@ withPipeline(type, product, component) {
   before('smoketest:aat') {
     sh """
       eval \$(./bin/variables/load-aat-environment-variables.sh)
-      ./bin/add-roles.sh
-      ./bin/pull-latest-release-asset.sh civil-ccd-definition civil-ccd-definition.zip
-      ./bin/pull-latest-release-asset.sh civil-ccd-definition civil-e2e.zip
-      ./bin/import-ccd-definition.sh "-e *GAspec.json,*DJspec.json,*-nonprod.json,*DJ.json,*DJ-SDO-nonprod.json,*DJ-nonprod.json"
     """
     env.URL="https://manage-case.aat.platform.hmcts.net"
     env.CIVIL_SERVICE_URL="http://civil-service-aat.service.core-compute-aat.internal"
