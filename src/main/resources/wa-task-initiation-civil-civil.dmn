@@ -71,105 +71,77 @@
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0pra9br">
-          <text>if (caseData.claim=fastTrack and caseData.claimantResponseScenarioFlag=ONE_V_ONE and caseData.respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.applicantsProceedIntention=YES)
+          <text>if (caseData.claim="fastTrack" and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and caseData.respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.applicantsProceedIntention="YES")
 	then "FastTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=NO and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="NO" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
 	then "SmallClaimsTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
 	then "SmallClaimsTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=NO and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=YES)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=fastTrack and caseData.totalClaimAmount &gt; 1000 and caseData.(claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP or claimantResponseScenarioFlag=ONE_V_TWO_TWO_LEGAL_REP) and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.applicantsProceedIntention=YES)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="NO" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="YES")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="fastTrack" and caseData.totalClaimAmount &gt; 1000 and (caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" or caseData.claimantResponseScenarioFlag="ONE_V_TWO_TWO_LEGAL_REP") and caseData.respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.applicantsProceedIntention="YES")
 	then "FastTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.(claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP or claimantResponseScenarioFlag=ONE_V_TWO_TWO_LEGAL_REP) and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=NO and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.(claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP or claimantResponseScenarioFlag=ONE_V_TWO_TWO_LEGAL_REP) and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=YES)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.(claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP or claimantResponseScenarioFlag=ONE_V_TWO_TWO_LEGAL_REP) and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=fastTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.applicantsProceedIntention=YES)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and (caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" or caseData.claimantResponseScenarioFlag="ONE_V_TWO_TWO_LEGAL_REP") and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="NO" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and (caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" or claimantResponseScenarioFlag="ONE_V_TWO_TWO_LEGAL_REP") and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="YES")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and (caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" or claimantResponseScenarioFlag="ONE_V_TWO_TWO_LEGAL_REP") and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="fastTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.applicantsProceedIntention="YES")
 	then "FastTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=NO and caseData.
-	applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.
-	applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="NO" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
 	then "SmallClaimsTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.
-	applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_ONE and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments=YES and caseData.applicantsProceedIntention=YES)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments=YES and caseData.applicantsProceedIntention=YES)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
+	then "SmallClaimsTrackDirections
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
 	then "SmallClaimsTrackDirections"
-else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments=YES and caseData.claimantResponseDocumentsContainsDefenceAndDirectionsDocuments=NO)
+else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments="YES" and caseData.applicantsProceedIntention="YES")
 	then "SmallClaimsTrackDirections"
-else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments=YES and caseData.applicantsProceedIntention=YES)
+else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments="YES" and caseData.applicantsProceedIntention=YES)
 	then "SmallClaimsTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &lt; 1000)
+else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments="YES" and caseData.claimantResponseDocumentsContainsDefenceAndDirectionsDocuments="NO")
+	then "SmallClaimsTrackDirections"
+else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments="YES" and caseData.applicantsProceedIntention="YES")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &lt; 1000)
 	then "LegalAdviserSmallClaimsTrackDirections"
 else
 	""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0qifz32">
-          <text>if (caseData.claim=fastTrack and caseData.claimantResponseScenarioFlag=ONE_V_ONE and caseData.respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.applicantsProceedIntention=YES)
+          <text>if (caseData.claim="fastTrack" and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and caseData.respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.applicantsProceedIntention="YES")
 	then "FastTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=NO and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="NO" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
 	then "SmallClaimsTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
 	then "SmallClaimsTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=NO and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=YES)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=fastTrack and caseData.totalClaimAmount &gt; 1000 and caseData.(claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP or claimantResponseScenarioFlag=ONE_V_TWO_TWO_LEGAL_REP) and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.applicantsProceedIntention=YES)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="NO" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="YES")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="fastTrack" and caseData.totalClaimAmount &gt; 1000 and (caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" or caseData.claimantResponseScenarioFlag="ONE_V_TWO_TWO_LEGAL_REP") and caseData.respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.applicantsProceedIntention="YES")
 	then "FastTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.(claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP or claimantResponseScenarioFlag=ONE_V_TWO_TWO_LEGAL_REP) and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=NO and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.(claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP or claimantResponseScenarioFlag=ONE_V_TWO_TWO_LEGAL_REP) and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=YES)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.(claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP or claimantResponseScenarioFlag=ONE_V_TWO_TWO_LEGAL_REP) and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=fastTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.applicantsProceedIntention=YES)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and (caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" or caseData.claimantResponseScenarioFlag="ONE_V_TWO_TWO_LEGAL_REP") and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="NO" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and (caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" or claimantResponseScenarioFlag="ONE_V_TWO_TWO_LEGAL_REP") and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="YES")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and (caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" or claimantResponseScenarioFlag="ONE_V_TWO_TWO_LEGAL_REP") and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="fastTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.applicantsProceedIntention="YES")
 	then "FastTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=NO and caseData.
-	applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.
-	applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="NO" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
 	then "SmallClaimsTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and
-	respondent1ClaimResponseIntentionType=FULL_DEFENCE and caseData.respondent2ClaimResponseIntentionType=FULL_DEFENCE and caseData.responseClaimMediationSpecRequired=YES and caseData.
-	applicantsProceedIntention=YES and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation=NO)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_ONE and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments=YES and caseData.applicantsProceedIntention=YES)
-	then "SmallClaimsTrackDirections"	
-else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments=YES and caseData.applicantsProceedIntention=YES)
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
+	then "SmallClaimsTrackDirections
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and respondent1ClaimResponseIntentionType="FULL_DEFENCE" and caseData.respondent2ClaimResponseIntentionType="FULL_DEFENCE" and caseData.responseClaimMediationSpecRequired="YES" and caseData.applicantsProceedIntention="YES" and caseData.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation="NO")
 	then "SmallClaimsTrackDirections"
-else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=ONE_V_TWO_ONE_LEGAL_REP and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments=YES and caseData.claimantResponseDocumentsContainsDefenceAndDirectionsDocuments=NO)
+else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_ONE" and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments="YES" and caseData.applicantsProceedIntention="YES")
 	then "SmallClaimsTrackDirections"
-else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag=TWO_V_ONE and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments=YES and caseData.applicantsProceedIntention=YES)
+else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments="YES" and caseData.applicantsProceedIntention=YES)
 	then "SmallClaimsTrackDirections"
-else if (caseData.claim=smallClaimsTrack and caseData.totalClaimAmount &lt; 1000)
+else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="ONE_V_TWO_ONE_LEGAL_REP" and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments="YES" and caseData.claimantResponseDocumentsContainsDefenceAndDirectionsDocuments="NO")
+	then "SmallClaimsTrackDirections"
+else if (caseData.totalClaimAmount &gt; 1000 and caseData.claimantResponseScenarioFlag="TWO_V_ONE" and caseData.defendantResponseDocumentsContainsDefenceAndDirectionsDocuments="YES" and caseData.applicantsProceedIntention="YES")
+	then "SmallClaimsTrackDirections"
+else if (caseData.claim="smallClaimsTrack" and caseData.totalClaimAmount &lt; 1000)
 	then "LegalAdviserSmallClaimsTrackDirections"
 else
 	""</text>
