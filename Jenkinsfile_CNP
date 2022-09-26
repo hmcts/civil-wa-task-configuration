@@ -134,6 +134,8 @@ withPipeline(type, product, component) {
   before('smoketest:aat') {
     sh """
       eval \$(./bin/variables/load-aat-environment-variables.sh)
+      ./bin/pull-latest-release-asset.sh civil-ccd-definition civil-ccd-definition.zip
+      ./bin/pull-latest-release-asset.sh civil-ccd-definition civil-e2e.zip
     """
     env.URL="https://manage-case.aat.platform.hmcts.net"
     env.CIVIL_SERVICE_URL="http://civil-service-aat.service.core-compute-aat.internal"
@@ -155,7 +157,7 @@ withPipeline(type, product, component) {
   }
 
   after('functionalTest:aat') {
-    uploadDmnDiagrams('prod')
+    //Cannot upload to prod untill WA release -- uploadDmnDiagrams('prod')
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
   }
 }
