@@ -146,7 +146,14 @@ task checkDependenciesIntegrity(type: Exec, description: 'Checks integrity of Ya
   commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
 }
 
+task pullTestAsset(type: Exec, description: 'Installs Yarn dependencies.') {
+  commandLine './bin/pull-latest-release-asset.sh', 'civil-ccd-definition', 'civil-e2e.zip'
+}
+
 task lintUserInterfaceTests(type: Exec, description: 'Runs linting of E2E tests.') {
+  onlyIf {
+    return System.env.ENVIRONMENT == 'preview'
+  }
   commandLine '/usr/bin/yarn', '--silent', 'lint'
 }
 
@@ -165,6 +172,13 @@ task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
   commandLine '/usr/bin/yarn', '--silent', 'test:api-dj'
 }
 
+task runNightlyTests(type: Exec, description: 'Runs Api WA functional tests.') {
+  onlyIf {
+    return System.env.ENVIRONMENT == 'demo'
+  }
+  commandLine '/usr/bin/yarn', '--silent', 'test:e2e-wa'
+}
+
 def inStrictOrder(Task... tasks) {
   for (int i = 0; i < tasks.size() - 1; i++) {
     tasks[i + 1].mustRunAfter(tasks[i])
@@ -173,11 +187,11 @@ def inStrictOrder(Task... tasks) {
 }
 
 task smoke(description: 'Runs the smoke tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, installDependencies, checkDependenciesIntegrity, runSmokeTests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness, pullTestAsset, installDependencies, checkDependenciesIntegrity, runSmokeTests))
 }
 
 task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, installDependencies, checkDependenciesIntegrity, runApiTests, runWATests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness, pullTestAsset, installDependencies, checkDependenciesIntegrity, runApiTests, runWATests, runNightlyTests))
 }
 
 // before committing a change, make sure task still works
