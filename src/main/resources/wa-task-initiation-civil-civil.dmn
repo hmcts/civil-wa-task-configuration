@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-initiation-civil-civil" name="Task initiation DMN">
     <decisionTable id="DecisionTable_0jtevuca" hitPolicy="COLLECT">
       <input id="Input_1" label="Event Id" biodi:width="402" camunda:inputVariable="eventId">
@@ -228,6 +228,75 @@ else
         </outputEntry>
         <outputEntry id="LiteralExpression_1rww47i">
           <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14fl80w">
+        <inputEntry id="UnaryTests_1kguqbh">
+          <text>"HEARING_FEE_UNPAID"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nc1mpn">
+          <text>"CASE_DISMISSED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1v1efaw">
+          <text>"removeHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1s739v3">
+          <text>"Case Struck out - Removing Hearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0koli96">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o6exwe">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lkj3ey">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10drivc">
+        <inputEntry id="UnaryTests_1nv8qjb">
+          <text>"ADD_CASE_NOTE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fqmiur">
+          <text>"PREPARE_FOR_HEARING_CONDUCT_HEARING"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04alf90">
+          <text>"preHearingContact"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1n3jtls">
+          <text>"Trial Readiness Check"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16i4s7c">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0yclduk">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ca532o">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18i6w53">
+        <inputEntry id="UnaryTests_17hoc5n">
+          <text>"ADJOURN_ORDER"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rxyrj8">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tgwit2">
+          <text>"adjournedReList"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kc5iue">
+          <text>"Trial Readiness Check"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x2663u">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05tph8s">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13yy9q9">
+          <text>"caseProgression"</text>
         </outputEntry>
       </rule>
     </decisionTable>

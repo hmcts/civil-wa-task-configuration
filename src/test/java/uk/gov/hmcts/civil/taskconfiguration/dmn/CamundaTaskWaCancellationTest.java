@@ -26,7 +26,8 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1"})
+    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1",
+        "scenarioProviderCP","scenarioProviderCP1"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -113,12 +114,60 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioProviderCP() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "caseProgression"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "caseproceedsinCaseman", "any state",
+                outcome
+            ),
+            Arguments.of(
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "caseproceedsinCaseman", "",
+                outcome
+            ),
+            Arguments.of(
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "caseproceedsinCaseman", null,
+                outcome
+
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioProviderCP1() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "caseProgression"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "CASE_DISMISSED", "caseDismissed", "any state",
+                outcome
+            ),
+            Arguments.of(
+                "CASE_DISMISSED", "caseDismissed", "",
+                outcome
+            ),
+            Arguments.of(
+                "CASE_DISMISSED", "caseDismissed", null,
+                outcome
+
+            )
+        );
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(3));
+        assertThat(logic.getRules().size(), is(5));
     }
 }

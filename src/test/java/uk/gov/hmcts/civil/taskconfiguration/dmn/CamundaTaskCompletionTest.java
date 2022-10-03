@@ -109,8 +109,36 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> scenarioProviderCP() {
+        return Stream.of(
+            Arguments.of(
+                "ADD_CASE_NOTE",
+                asList(
+                    Map.of(
+                        "taskType", "removeHearing",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "preHearingContact",
+                        "completionMode", "Auto"
+                    )
+                )
+            ),
+            Arguments.of(
+                "HEARING_SCHEDULED",
+                asList(
+                    Map.of(
+                        "taskType", "adjournedReList",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
     @ParameterizedTest(name = "event id: {0}")
-    @MethodSource({"scenarioProvider"})
+    @MethodSource({"scenarioProvider", "scenarioProviderCP"})
+
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
@@ -124,7 +152,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(10));
+        assertThat(logic.getRules().size(), is(13));
 
     }
 
