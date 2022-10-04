@@ -1,165 +1,293 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
-  <decision id="wa-task-initiation-civil-civil" name="Task initiation DMN">
-    <decisionTable id="DecisionTable_0jtevuca" hitPolicy="COLLECT">
-      <input id="Input_1" label="Event Id" biodi:width="402" camunda:inputVariable="eventId">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="wa-task-initiation-ia-asylum" name="Task initiation DMN">
+    <decisionTable id="DecisionTable_0jtevuc" hitPolicy="COLLECT" biodi:annotationsWidth="400">
+      <input id="Input_1" label="Event Id" biodi:width="319" camunda:inputVariable="eventId">
         <inputExpression id="InputExpression_1" typeRef="string">
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_0gxli971" label="Post event state" biodi:width="235" camunda:inputVariable="postEventState">
-        <inputExpression id="LiteralExpression_0dijl5xa" typeRef="string">
+      <input id="InputClause_0gxli97" label="Post event state" biodi:width="334" camunda:inputVariable="postEventState">
+        <inputExpression id="LiteralExpression_0dijl5x" typeRef="string">
           <text></text>
         </inputExpression>
       </input>
-      <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="275" />
-      <output id="OutputClause_0p5fhhda" label="Name" name="name" typeRef="string" biodi:width="295" />
-      <output id="OutputClause_165p3r31" label="Delay Duration" name="delayDuration" typeRef="integer" />
-      <output id="OutputClause_0i6c6c21" label="Working Days Allowed" name="workingDaysAllowed" typeRef="integer" />
-      <output id="OutputClause_10rno4ca" label="Process Categories Identifiers" name="processCategories" typeRef="string" biodi:width="300" />
-      <rule id="DecisionRule_1fenvxma">
-        <inputEntry id="UnaryTests_09nq8bua">
+      <input id="InputClause_1uc7j9d" label="Allocated Track" camunda:inputVariable="allocatedTrack">
+        <inputExpression id="LiteralExpression_05mizum" typeRef="string">
+          <text>if(additionalData != null
+   and additionalData.Data != null
+   and additionalData.Data.allocatedTrack != null)
+then
+   additionalData.Data.allocatedTrack
+else
+  null</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0fvmzm7">
+          <text>"FAST_CLAIM","SMALL_CLAIM"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1n4wie1" label="Claimant Response Scenario" biodi:width="192" camunda:inputVariable="claimantResponseScenarioFlag">
+        <inputExpression id="LiteralExpression_0yedsv0" typeRef="string">
+          <text>if(additionalData != null
+   and additionalData.Data != null
+   and additionalData.Data.claimantResponseScenarioFlag != null)
+then
+   additionalData.Data.claimantResponseScenarioFlag
+else
+  null</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0worl63">
+          <text>"ONE_V_ONE","ONE_V_TWO_ONE_LEGAL_REP","ONE_V_TWO_TWO_LEGAL_REP","TWO_V_ONE"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0qsxu2k" label="Respondent 1 Intention" camunda:inputVariable="respondent1ClaimResponseIntentionType">
+        <inputExpression id="LiteralExpression_1l9w1nj" typeRef="string">
+          <text>if(additionalData != null
+   and additionalData.Data != null
+   and additionalData.Data.respondent1ClaimResponseIntentionType != null)
+then
+   additionalData.Data.respondent1ClaimResponseIntentionType
+else
+  null</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0uczh8h">
+          <text>"FULL_DEFENCE"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1ta4ib8" label="Respondent 2 Intention" camunda:inputVariable="respondent2ClaimResponseIntentionType">
+        <inputExpression id="LiteralExpression_0i9ea4u" typeRef="string">
+          <text>if(additionalData != null
+   and additionalData.Data != null
+   and additionalData.Data.respondent2ClaimResponseIntentionType != null)
+then
+   additionalData.Data.respondent2ClaimResponseIntentionType
+else
+  null</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_11mksgx">
+          <text>"FULL_DEFENCE"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="368" />
+      <output id="OutputClause_0p5fhhd" label="Name" name="name" typeRef="string" biodi:width="150" />
+      <output id="OutputClause_165p3r3" label="Delay Duration" name="delayDuration" typeRef="integer" biodi:width="232" />
+      <output id="OutputClause_0i6c6c2" label="Working Days Allowed" name="workingDaysAllowed" typeRef="integer" biodi:width="199" />
+      <output id="OutputClause_10rno4c" label="Process Categories Identifiers" name="processCategories" typeRef="string" biodi:width="268" />
+      <rule id="DecisionRule_0v94m45">
+        <inputEntry id="UnaryTests_11gd3zn">
           <text>"DEFAULT_JUDGEMENT"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0aldx9ia">
+        <inputEntry id="UnaryTests_03g01xr">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0tbxmk01">
+        <inputEntry id="UnaryTests_0hs0eyd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0aslhj8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08jtxlj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cxxy1y">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a6pj8u">
           <text>"summaryJudgmentDirections"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_02t95m81">
+        <outputEntry id="LiteralExpression_03dh8iu">
           <text>"Directions (Provisional Summary Judgment)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1x6roa11">
+        <outputEntry id="LiteralExpression_1vdpxb2">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1td2bt71">
+        <outputEntry id="LiteralExpression_0d564h9">
           <text>5</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1m76a0da">
+        <outputEntry id="LiteralExpression_0wg1cc0">
           <text>"defaultJudgment"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0j9sead">
-        <inputEntry id="UnaryTests_1293jnu">
+      <rule id="DecisionRule_1ver3ht">
+        <inputEntry id="UnaryTests_06hj1oy">
           <text>"STANDARD_DIRECTION_ORDER_DJ"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_08ie27o">
-          <text>"CASE_PROGRESSION"</text>
+        <inputEntry id="UnaryTests_1blumk1">
+          <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1ya6amu">
+        <inputEntry id="UnaryTests_1i985r9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1b40kv0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jcg8vp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1opatfx">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18tgbja">
           <text>"transferCaseOffline"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1fvtala">
+        <outputEntry id="LiteralExpression_1verf6a">
           <text>"Transfer Case Offline"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_13xj4hp">
+        <outputEntry id="LiteralExpression_0zzfeai">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_03udh3q">
+        <outputEntry id="LiteralExpression_049leim">
           <text>5</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_02d3axb">
+        <outputEntry id="LiteralExpression_0tcrt19">
           <text>"defaultJudgment"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1myku1b">
-        <inputEntry id="UnaryTests_0qgj225">
+      <rule id="DecisionRule_1fenvxm">
+        <inputEntry id="UnaryTests_09nq8bu">
           <text>"CLAIMANT_RESPONSE"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0xcqpur">
+        <inputEntry id="UnaryTests_0aldx9i">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0pra9br">
+        <inputEntry id="UnaryTests_1gmgxuy">
+          <text>"FAST_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16prx6z">
+          <text>"ONE_V_ONE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rzagfz">
+          <text>"FULL_DEFENCE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nsada9">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0tbxmk0">
+          <text>"FastTrackDirections"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02t95m8">
+          <text>"Fast Track Directions"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x6roa1">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0qifz32">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_168e77o">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0s9xtki">
+        <outputEntry id="LiteralExpression_1td2bt7">
           <text>5</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_12le4fa">
+        <outputEntry id="LiteralExpression_1m76a0d">
           <text>"standardDirectionsOrder"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0wqbkbf">
-        <inputEntry id="UnaryTests_07f12mi">
-          <text>"CLAIMANT_RESPONSE_SPEC"</text>
+      <rule id="DecisionRule_0e7nl51">
+        <inputEntry id="UnaryTests_0qweqhx">
+          <text>"CLAIMANT_RESPONSE"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1jyk8n7">
+        <inputEntry id="UnaryTests_083gmpr">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0ms3jtu">
+        <inputEntry id="UnaryTests_1r0i4ui">
+          <text>"SMALL_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m1kij6">
+          <text>"ONE_V_ONE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04do968">
+          <text>"FULL_DEFENCE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xzogcs">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0tj6epx">
+          <text>"SmallClaimDirections"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hlicwh">
+          <text>"Small Claims Track Directions"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gx02a4">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0hgbnhx">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1nqqsqo">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1ukr12k">
+        <outputEntry id="LiteralExpression_1pqe5r9">
           <text>5</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1w78byu">
+        <outputEntry id="LiteralExpression_17pusd8">
           <text>"standardDirectionsOrder"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0f4e6k0">
-        <inputEntry id="UnaryTests_1b7nbvv">
+      <rule id="DecisionRule_1hwsrwn">
+        <inputEntry id="UnaryTests_0qrtk69">
           <text>"CREATE_SDO"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1c2sind">
+        <inputEntry id="UnaryTests_0ixjfwu">
           <text>"CASE_PROGRESSION"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0weqzlc">
+        <inputEntry id="UnaryTests_19b5h87">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wl086j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06400fr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f6n7t8">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1glb8hn">
           <text>"ScheduleAHearing"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0gn26h8">
+        <outputEntry id="LiteralExpression_1b5ncfu">
           <text>"Schedule a Hearing"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_145fs9w">
+        <outputEntry id="LiteralExpression_1ebxr56">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1e6ujja">
+        <outputEntry id="LiteralExpression_1u5ioe9">
           <text>5</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_061obou">
+        <outputEntry id="LiteralExpression_04i1btm">
           <text>"standardDirectionsOrder"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0m13t1d">
-        <inputEntry id="UnaryTests_0z26sh5">
+      <rule id="DecisionRule_1bnzwv0">
+        <inputEntry id="UnaryTests_1s8g9fk">
           <text>"REFER_TO_JUDGE"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0rd1wy9">
+        <inputEntry id="UnaryTests_0pdrpf0">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_17wa2bw">
+        <inputEntry id="UnaryTests_0ajt9h4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vpt1o2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uf01wh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14oqm5b">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0p2xjdc">
           <text>"SmallClaimsTrackDirectionsReferral"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_06o96hz">
+        <outputEntry id="LiteralExpression_18vacce">
           <text>"Directions (Provisional Small Claims Track) - Referral"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1jqcvsg">
+        <outputEntry id="LiteralExpression_0pmw58v">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1864hb6">
+        <outputEntry id="LiteralExpression_1uuiwa4">
           <text>5</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1rww47i">
+        <outputEntry id="LiteralExpression_1u3ojrd">
           <text>"standardDirectionsOrder"</text>
         </outputEntry>
       </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>
-    <dmndi:DMNDiagram id="DMNDiagram_0b2rkcba">
-      <dmndi:DMNShape id="DMNShape_0wc7glta" dmnElementRef="wa-task-initiation-civil-civil">
+    <dmndi:DMNDiagram id="DMNDiagram_0b2rkcb">
+      <dmndi:DMNShape id="DMNShape_0wc7glt" dmnElementRef="wa-task-initiation-ia-asylum">
         <dc:Bounds height="80" width="180" x="150" y="80" />
       </dmndi:DMNShape>
     </dmndi:DMNDiagram>
