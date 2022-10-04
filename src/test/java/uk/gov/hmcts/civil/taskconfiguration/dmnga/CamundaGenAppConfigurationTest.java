@@ -180,6 +180,43 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void when_locationName_provided_then_return_provided_value() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+        caseData.put("locationName", "CCMCC");
+        caseData.put("caseManagementLocation", Map.of(
+            "region", "4",
+            "baseLocation", "574546"
+
+        ));
+        caseData.put("caseManagementCategory", Map.of(
+            "value", Map.of("code", "e9f6b8b8-c9ed-4092-945a-0c67edbcfb3c", "label", "GA"),
+            "list_items", List.of(Map.of(
+                "code", "e9f6b8b8-c9ed-4092-945a-0c67edbcfb3c", "label", "GA"))));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "JudgeDecideOnApplication"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "locationName",
+            "value", "CCMCC"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "region",
+            "value", "4"
+        )));
+    }
+
+    @Test
     void when_caseMgmtCat_not_provided_then_return_civil() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");

@@ -31,7 +31,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
@@ -60,7 +60,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
@@ -88,7 +88,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
@@ -117,7 +117,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
@@ -145,7 +145,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
@@ -174,7 +174,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
@@ -203,7 +203,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
@@ -232,7 +232,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
         ));
@@ -261,7 +261,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
         ));
@@ -290,7 +290,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
@@ -319,7 +319,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
@@ -347,7 +347,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
@@ -380,7 +380,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
@@ -411,7 +411,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -445,7 +445,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -479,7 +479,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -556,7 +556,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -590,7 +590,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -620,7 +620,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -651,7 +651,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -681,7 +681,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -710,7 +710,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -740,7 +740,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -770,7 +770,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -803,7 +803,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        data.put("isCcmccLocation", "Yes");
+        data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
         ));
@@ -834,7 +834,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
-        data.put("isCcmccLocation", "No");
+        data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
