@@ -2,7 +2,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-permissions-civil-civil" name="Permissions DMN">
     <decisionTable id="DecisionTable_1pr5oica" hitPolicy="RULE ORDER">
-      <input id="InputClause_12crj6ea" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
+      <input id="InputClause_12crj6ea" label="Task Type" camunda:inputVariable="taskType">
         <inputExpression id="LiteralExpression_11cu08da" typeRef="string" expressionLanguage="feel">
           <text>if(taskAttributes != null and taskAttributes.taskType != null) then
             taskAttributes. taskType
@@ -54,10 +54,7 @@ else
       <rule id="DecisionRule_03pnfh81">
         <description>Judge task permissions</description>
         <inputEntry id="UnaryTests_1ossj9oa">
-          <text>"summaryJudgmentDirections",
-"FastTrackDirections",
-"SmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral"</text>
+          <text>"summaryJudgmentDirections"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0occzooa">
           <text></text>
@@ -87,8 +84,7 @@ else
       <rule id="DecisionRule_0dmsdkza">
         <description>Judge access request permissions</description>
         <inputEntry id="UnaryTests_1udo3xna">
-          <text>"ReviewSpecificAccessRequestsLegalOps",
-"ReviewSpecificAcesssRequetJudiciary"</text>
+          <text>"reviewSpecificAccessRequetLegalOps"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0lsitega">
           <text></text>
@@ -118,15 +114,7 @@ else
       <rule id="DecisionRule_1mppa3l">
         <description>Listing Officer task permissions</description>
         <inputEntry id="UnaryTests_05z57xg">
-          <text>"transferCaseOffline",
-"FastTrackDirections",
-"SmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral",
-"LegalAdvisorSmallClaimsTrackDirections",
-"ScheduleAHearing",
-"ReviewSpecificAccessRequestsLegalOps",
-"ReviewSpecificAccessRequestsAdmin",
-"ReviewSpecificAcesssRequetJudiciary"</text>
+          <text>"transferCaseOffline"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0qmd6we">
           <text></text>
@@ -156,7 +144,7 @@ else
       <rule id="DecisionRule_0camg6y">
         <description>Access request for Listing Officers</description>
         <inputEntry id="UnaryTests_0acv1oh">
-          <text>"ReviewSpecificAccessRequestsAdmin"</text>
+          <text>"reviewSpecificAccessRequestAdmin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jhhouw">
           <text></text>
@@ -180,14 +168,13 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0e698xc">
-          <text>false</text>
+          <text>true</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_02kp2g0">
-        <description>
-Access request for CTSC</description>
+        <description>Access request for CTSC</description>
         <inputEntry id="UnaryTests_108wacf">
-          <text>"ReviewSpecificAccessRequestsAdmin"</text>
+          <text>"reviewSpecificAccessRequestAdmin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1m91ucm">
           <text></text>
@@ -215,11 +202,9 @@ Access request for CTSC</description>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1g35rz4">
-        <description>
-Access request for NBC</description>
+        <description>Access request for NBC</description>
         <inputEntry id="UnaryTests_0c7eh1o">
-          <text>"ReviewSpecificAccessRequestsAdmin",
-"ReviewSpecificAccessRequestsLegalOps"</text>
+          <text>"reviewSpecificAccessRequestAdmin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1iqqqpq">
           <text></text>
@@ -246,16 +231,38 @@ Access request for NBC</description>
           <text>false</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1hbtu8f">
+        <inputEntry id="UnaryTests_0oy2d91">
+          <text>"FastTrackDirections","SmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00rr6oz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01p6ul7">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1i2ak5c">
+          <text>"judge"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16tkfcd">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h6bwmb">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_032tw6p">
+          <text>"294"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vnpib8">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cpd9o3">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_14cazlx">
         <inputEntry id="UnaryTests_1iypuy5">
-          <text>"FastTrackDirections",
-"SmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral",
-"LegalAdvisorSmallClaimsTrackDirections",
-"ScheduleAHearing",
-"ReviewSpecificAccessRequestsLegalOps",
-"ReviewSpecificAccessRequestsAdmin",
-"ReviewSpecificAcesssRequetJudiciary"</text>
+          <text>"FastTrackDirections","SmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1amtl8s">
           <text></text>
@@ -267,7 +274,7 @@ Access request for NBC</description>
           <text>"tribunal-caseworker"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1f6dicw">
-          <text>"Read,Manage,Own,Cancel"</text>
+          <text>"Read,Own,Manage,Cancel"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0w7mesw">
           <text>"LEGAL_OPERATIONS"</text>
@@ -282,10 +289,97 @@ Access request for NBC</description>
           <text>false</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_05upq1c">
+        <inputEntry id="UnaryTests_1adsihi">
+          <text>"FastTrackDirections","SmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0udvitg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kuwovo">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gk2nfl">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nraojc">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12z1p23">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zcxsvw">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k9r2nm">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qaa81i">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04fwub5">
+        <inputEntry id="UnaryTests_0g73fzh">
+          <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g3nj2p">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vx6qp3">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19e4qvp">
+          <text>"tribunal-caseworker"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12s7pjo">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05g43n0">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bgqf55">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pzxt3x">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tqy0no">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wi7xdn">
+        <inputEntry id="UnaryTests_06pzuo1">
+          <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03lkamy">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1at67pn">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04ux1qa">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08eebu0">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_069sjy8">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0q4u21e">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fzjo6d">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cdeuyj">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_06hj0n8">
         <description>Access request for Legal Advisors</description>
         <inputEntry id="UnaryTests_119r9nu">
-          <text>"ReviewSpecificAccessRequestsLegalOps"</text>
+          <text>"reviewSpecificAccessRequestLegalOps"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_14wh3rr">
           <text></text>
@@ -297,7 +391,7 @@ Access request for NBC</description>
           <text>"senior-tribunal-caseworker"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0u6oi96">
-          <text>"Read,Manage,Own,Cancel"</text>
+          <text>"Read,Own,Manage,Cancel"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1jtneqz">
           <text>"LEGAL OPERATIONS"</text>
@@ -312,35 +406,353 @@ Access request for NBC</description>
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0kd1zb8">
-        <description>Listing Officer task permissions</description>
-        <inputEntry id="UnaryTests_0ymwnxj">
+      <rule id="DecisionRule_1an83rw">
+        <inputEntry id="UnaryTests_08049bf">
+          <text>"ScheduleAHearing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03vj1jy">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gssyes">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1i6czpx">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cfahk8">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1clrx17">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0b0291h">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h27bka">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bbxzgu">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uopa98">
+        <inputEntry id="UnaryTests_0w7fc3y">
+          <text>"ScheduleAHearing"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03h85bl">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02gvo9j">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cz1q1k">
+          <text>"tribunal-caseworker"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13ghlg1">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16jmqj5">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00tfdma">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kig3ra">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fbw20z">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06jrrfq">
+        <inputEntry id="UnaryTests_00bpxcg">
+          <text>"reviewSpecificAccessRequestLegalOps"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jlf60a">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10wo8yq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kmmuvp">
+          <text>"nbc-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_029au1b">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ozutmd">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0w3lxqi">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0uiwb5r">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0y2wzka">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0v7w0l7">
+        <inputEntry id="UnaryTests_09qh9s5">
+          <text>"reviewSpecificAccessRequestLegalOps"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11h9ybo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kbddqa">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_014nuwz">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1seda7y">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gfmz52">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kgpqsm">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ggvhvy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ywyhp7">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10j1zfj">
+        <inputEntry id="UnaryTests_1bwby5e">
+          <text>"reviewSpecificAccessRequestLegalOps"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gj4l6r">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02emme9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15cnq2n">
+          <text>"tribunal-caseworker"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jwdkle">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06044b2">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_164r9h8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wadj02">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0d8lks9">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wht3h9">
+        <inputEntry id="UnaryTests_146oamg">
+          <text>"reviewSpecificAccessRequestsAdmin"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17q9e0u">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z330p5">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0njvykl">
+          <text>"nbc-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0w7wa7i">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tmv6xy">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1d8brqn">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_077hdg1">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bo8pxf">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qufvwa">
+        <inputEntry id="UnaryTests_0yxkjhi">
+          <text>"reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13q4e59">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06czy3l">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0epsiel">
+          <text>"tribunal-caseworker"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0a5sejn">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qnddpw">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yh4rja">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17cbhwq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gblamd">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0m02pic">
+        <inputEntry id="UnaryTests_04iac69">
+          <text>"reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_082cfte">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1u53l20">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0np75ec">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i61tpe">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02nzhmz">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fddm3n">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m64mpp">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1v1e349">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xaxajj">
+        <inputEntry id="UnaryTests_0djnkag">
+          <text>"reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jja4rb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uput7m">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0b9h1pe">
+          <text>"leadership-judge"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0dy3gtg">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1v5xa3k">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_121hif5">
+          <text>"294"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x5vkoy">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1981fci">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oe7arb">
+        <inputEntry id="UnaryTests_07wni4j">
+          <text>"reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09fi4jb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yn8cvc">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02ahobu">
+          <text>"tribunal-caseworker"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bj8tp8">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1oe78e6">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0f35td2">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12292wc">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0chomar">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kxk83x">
+        <inputEntry id="UnaryTests_0jldz2d">
+          <text>"reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1en1cfg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1x12wb4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1m653k4">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ashlyf">
+          <text>"Read,Own,Manage,Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1awncr5">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01u5bj5">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1szpvm4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0n1khfg">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09hrexb">
+        <inputEntry id="UnaryTests_00ls90f">
           <text>"removeHearing",
 "preHearingContact",
 "adjournedReList"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1jly31p">
+        <inputEntry id="UnaryTests_17bo8l4">
           <text></text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_03bwgea">
+        <outputEntry id="LiteralExpression_1bid8uw">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0ow8asa">
+        <outputEntry id="LiteralExpression_17kuxsa">
           <text>"hearing-centre-admin"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0h1yq1t">
-          <text>"Read,Manage,Own,Cancel"</text>
+        <outputEntry id="LiteralExpression_0ud965h">
+          <text>"Read,Own,Manage,Cancel"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_10pr0zl">
+        <outputEntry id="LiteralExpression_1a9an61">
           <text>"ADMIN"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1djyvwe">
+        <outputEntry id="LiteralExpression_1v3u89l">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0a5ihz6">
+        <outputEntry id="LiteralExpression_0l7k0yh">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1ub5r6q">
+        <outputEntry id="LiteralExpression_1ced1qg">
           <text>false</text>
         </outputEntry>
       </rule>
