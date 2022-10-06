@@ -98,15 +98,15 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "any state", "VIEW_AND_RESPOND_TO_DEFENCE", "any state",
+                "any state", "CLAIMANT_RESPONSE", "any state",
                 outcome
             ),
             Arguments.of(
-                "any state", "VIEW_AND_RESPOND_TO_DEFENCE", "",
+                "any state", "CLAIMANT_RESPONSE", "",
                 outcome
             ),
             Arguments.of(
-                "any state", "VIEW_AND_RESPOND_TO_DEFENCE", null,
+                "any state", "CLAIMANT_RESPONSE", null,
                 outcome
 
             )
@@ -119,6 +119,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(3));
+        assertThat(logic.getRules().size(), is(4));
     }
 }
