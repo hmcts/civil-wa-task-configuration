@@ -9,7 +9,9 @@ import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
@@ -18,9 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -37,7 +41,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(26));
+        assertThat(logic.getRules().size(), is(32));
 
     }
 
@@ -510,6 +514,97 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         getExpectedValue(rules, "nextHearingDate", scenario.getExpectedNextHearingDateValue());
 
         return rules;
+    }
+
+    public static Stream<Arguments> workTypeScenarioProvider() {
+        List<Map<String, String>> routineWork = List.of(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "true"
+        ));
+        List<Map<String, String>> hearingWork = List.of(Map.of(
+            "name", "workType",
+            "value", "hearing_work",
+            "canReconfigure", "true"
+        ));
+
+        return Stream.of(
+            Arguments.of("removeHearing", hearingWork),
+            Arguments.of("adjournedReList", hearingWork),
+            Arguments.of("preHearingContact", routineWork)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("workTypeScenarioProvider")
+    void when_taskId_then_return_workType(String taskType, List<Map<String, String>> expected) {
+        VariableMap inputVariables = new VariableMapImpl();
+
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        assertEquals(expected, workTypeResultList);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "removeHearing", "preHearingContact", "adjournedReList"
+    })
+    void when_taskId_then_return_Admin_role_category(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+
+        assertEquals(1, workTypeResultList.size());
+
+        assertEquals(Map.of(
+            "name", "roleCategory",
+            "value", "ADMIN",
+            "canReconfigure", "true"
+        ), workTypeResultList.get(0));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "removeHearing,"
+            + "[Directions - Provisional Summary Judgment](/cases/case-details/${[CASE_REFERENCE]}/"
+            + "trigger/ADD_CASE_NOTE/ADD_CASE_NOTEremoveHearing)",
+        "preHearingContact,"
+            + "[Directions - Provisional Summary Judgment](/cases/case-details/${[CASE_REFERENCE]}/"
+            + "trigger/ADD_CASE_NOTE/ADD_CASE_NOTEpreHearingContact)",
+        "adjournedReList,"
+            + "[Directions - Provisional Summary Judgment](/cases/case-details/${[CASE_REFERENCE]}/"
+            + "trigger/ADD_CASE_NOTE/ADD_CASE_NOTEadjournedReList)"
+    })
+    void should_return_a_200_description_property(String taskType, String expectedDescription) {
+        VariableMap inputVariables = new VariableMapImpl();
+
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> descriptionList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("description"))
+            .collect(Collectors.toList());
+
+        assertEquals(1, descriptionList.size());
+
+        assertEquals(Map.of(
+            "name", "description",
+            "value", expectedDescription,
+            "canReconfigure","true"
+        ), descriptionList.get(0));
+
     }
 }
 

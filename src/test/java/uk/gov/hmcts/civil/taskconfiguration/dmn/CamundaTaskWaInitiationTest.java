@@ -64,10 +64,59 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource("scenarioProviderCP")
+    static Stream<Arguments> scenarioProviderCP() {
+        return Stream.of(
+            Arguments.of(
+                "HEARING_FEE_UNPAID",
+                "CASE_DISMISSED",
+                null,
+                singletonList(
+                    Map.of(
+                        "taskId", "removeHearing",
+                        "name", "Case Struck out - Removing Hearing",
+
+                        "workingDaysAllowed", 5,
+                        "processCategories", "caseProgression"
+                    )
+                )
+            ),
+            Arguments.of(
+                "Trial Readiness Check",
+                "PREPARE_FOR_HEARING_CONDUCT_HEARING",
+                null,
+                singletonList(
+                    Map.of(
+                        "taskId", "preHearingContact",
+                        "name", "Trial Readiness Check",
+
+                        "workingDaysAllowed", 10,
+                        "processCategories", "caseProgression"
+                    )
+                )
+            ),
+            Arguments.of(
+                "Adjourn_Order",
+                "CASE_PROGRESSION",
+                null,
+                singletonList(
+                    Map.of(
+                        "taskId", "adjournedReList",
+                        "name", "Trial Readiness Check",
+
+                        "workingDaysAllowed", 10,
+                        "processCategories", "caseProgression"
+                    )
+                )
+            )
+        );
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(5));
+        assertThat(logic.getRules().size(), is(8));
     }
 }
