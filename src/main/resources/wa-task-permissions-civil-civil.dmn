@@ -2,7 +2,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-permissions-civil-civil" name="Permissions DMN">
     <decisionTable id="DecisionTable_1pr5oica" hitPolicy="RULE ORDER">
-      <input id="InputClause_12crj6ea" label="Task Type" camunda:inputVariable="taskType">
+      <input id="InputClause_12crj6ea" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
         <inputExpression id="LiteralExpression_11cu08da" typeRef="string" expressionLanguage="feel">
           <text>if(taskAttributes != null and taskAttributes.taskType != null) then
             taskAttributes. taskType
@@ -54,7 +54,10 @@ else
       <rule id="DecisionRule_03pnfh81">
         <description>Judge task permissions</description>
         <inputEntry id="UnaryTests_1ossj9oa">
-          <text>"summaryJudgmentDirections"</text>
+          <text>"summaryJudgmentDirections",
+"FastTrackDirections",
+"SmallClaimsTrackDirections",
+"SmallClaimsTrackDirectionsReferral"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0occzooa">
           <text></text>
@@ -84,7 +87,8 @@ else
       <rule id="DecisionRule_0dmsdkza">
         <description>Judge access request permissions</description>
         <inputEntry id="UnaryTests_1udo3xna">
-          <text>"reviewSpecificAccessRequetLegalOps"</text>
+          <text>"ReviewSpecificAccessRequestLegalOps",
+"ReviewSpecificAcesssRequetJudiciary"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0lsitega">
           <text></text>
@@ -114,7 +118,15 @@ else
       <rule id="DecisionRule_1mppa3l">
         <description>Listing Officer task permissions</description>
         <inputEntry id="UnaryTests_05z57xg">
-          <text>"transferCaseOffline"</text>
+          <text>"transferCaseOffline",
+"FastTrackDirections",
+"SmallClaimsTrackDirections",
+"SmallClaimsTrackDirectionsReferral",
+"LegalAdvisorSmallClaimsTrackDirections",
+"ScheduleAHearing",
+"ReviewSpecificAccessRequestLegalOps",
+"ReviewSpecificAccessRequestAdmin",
+"ReviewSpecificAcesssRequetJudiciary"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0qmd6we">
           <text></text>
@@ -144,7 +156,7 @@ else
       <rule id="DecisionRule_0camg6y">
         <description>Access request for Listing Officers</description>
         <inputEntry id="UnaryTests_0acv1oh">
-          <text>"reviewSpecificAccessRequestAdmin"</text>
+          <text>"ReviewSpecificAccessRequestAdmin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jhhouw">
           <text></text>
@@ -174,7 +186,7 @@ else
       <rule id="DecisionRule_02kp2g0">
         <description>Access request for CTSC</description>
         <inputEntry id="UnaryTests_108wacf">
-          <text>"reviewSpecificAccessRequestAdmin"</text>
+          <text>"ReviewSpecificAccessRequestAdmin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1m91ucm">
           <text></text>
@@ -204,7 +216,9 @@ else
       <rule id="DecisionRule_1g35rz4">
         <description>Access request for NBC</description>
         <inputEntry id="UnaryTests_0c7eh1o">
-          <text>"reviewSpecificAccessRequestAdmin"</text>
+          <text>"ReviewSpecificAccessRequestAdmin",
+"ReviewSpecificAccessRequestLegalOps",
+"reviewSpecificAccessRequestsAdmin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1iqqqpq">
           <text></text>
@@ -231,38 +245,16 @@ else
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1hbtu8f">
-        <inputEntry id="UnaryTests_0oy2d91">
-          <text>"FastTrackDirections","SmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_00rr6oz">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_01p6ul7">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1i2ak5c">
-          <text>"judge"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_16tkfcd">
-          <text>"Read,Own,Manage,Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0h6bwmb">
-          <text>"JUDICIAL"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_032tw6p">
-          <text>"294"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0vnpib8">
-          <text>1</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0cpd9o3">
-          <text>false</text>
-        </outputEntry>
-      </rule>
       <rule id="DecisionRule_14cazlx">
         <inputEntry id="UnaryTests_1iypuy5">
-          <text>"FastTrackDirections","SmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral"</text>
+          <text>"FastTrackDirections",
+"SmallClaimsTrackDirections",
+"SmallClaimsTrackDirectionsReferral",
+"LegalAdvisorSmallClaimsTrackDirections",
+"ScheduleAHearing",
+"ReviewSpecificAccessRequestLegalOps",
+"ReviewSpecificAccessRequestAdmin",
+"ReviewSpecificAcesssRequetJudiciary"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1amtl8s">
           <text></text>
@@ -274,7 +266,7 @@ else
           <text>"tribunal-caseworker"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1f6dicw">
-          <text>"Read,Own,Manage,Cancel"</text>
+          <text>"Read,Manage,Own,Cancel"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0w7mesw">
           <text>"LEGAL_OPERATIONS"</text>
@@ -289,97 +281,10 @@ else
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_05upq1c">
-        <inputEntry id="UnaryTests_1adsihi">
-          <text>"FastTrackDirections","SmallClaimsTrackDirections","SmallClaimsTrackDirectionsReferral"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0udvitg">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0kuwovo">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1gk2nfl">
-          <text>"hearing-centre-admin"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0nraojc">
-          <text>"Read,Own,Manage,Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_12z1p23">
-          <text>"ADMIN"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0zcxsvw">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1k9r2nm">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1qaa81i">
-          <text>false</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_04fwub5">
-        <inputEntry id="UnaryTests_0g73fzh">
-          <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0g3nj2p">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0vx6qp3">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_19e4qvp">
-          <text>"tribunal-caseworker"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_12s7pjo">
-          <text>"Read,Own,Manage,Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_05g43n0">
-          <text>"LEGAL_OPERATIONS"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1bgqf55">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1pzxt3x">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0tqy0no">
-          <text>false</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0wi7xdn">
-        <inputEntry id="UnaryTests_06pzuo1">
-          <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_03lkamy">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1at67pn">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_04ux1qa">
-          <text>"hearing-centre-admin"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_08eebu0">
-          <text>"Read,Own,Manage,Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_069sjy8">
-          <text>"ADMIN"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0q4u21e">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1fzjo6d">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1cdeuyj">
-          <text>false</text>
-        </outputEntry>
-      </rule>
       <rule id="DecisionRule_06hj0n8">
         <description>Access request for Legal Advisors</description>
         <inputEntry id="UnaryTests_119r9nu">
-          <text>"reviewSpecificAccessRequestLegalOps"</text>
+          <text>"ReviewSpecificAccessRequestLegalOps"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_14wh3rr">
           <text></text>
@@ -391,7 +296,7 @@ else
           <text>"senior-tribunal-caseworker"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0u6oi96">
-          <text>"Read,Own,Manage,Cancel"</text>
+          <text>"Read,Manage,Own,Cancel"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1jtneqz">
           <text>"LEGAL OPERATIONS"</text>
