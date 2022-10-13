@@ -308,7 +308,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "ReviewSpecificAcesssRequetJudiciary"
+        "reviewSpecificAcesssRequestJudiciary"
     })
     void given_leadership_judge_role_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
@@ -324,22 +324,11 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "leadership-judge",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "JUDICIAL",
+                "authorisations","294",
                 "assignmentPriority",1,
                 "autoAssignable", true
-            ),
-            Map.of(
-                "name", "hearing-centre-admin",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "tribunal-caseworker",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "LEGAL_OPERATIONS",
-                "autoAssignable", false
             )
         )));
 
