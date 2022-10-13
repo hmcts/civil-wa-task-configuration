@@ -172,7 +172,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
                 "assignmentPriority",1,
@@ -201,22 +201,10 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
                 "assignmentPriority",1,
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "hearing-centre-admin",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "tribunal-caseworker",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "LEGAL_OPERATIONS",
                 "autoAssignable", false
             )
         )));
@@ -242,22 +230,10 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
                 "assignmentPriority",1,
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "hearing-centre-admin",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "tribunal-caseworker",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "LEGAL_OPERATIONS",
                 "autoAssignable", false
             )
         )));
@@ -283,22 +259,10 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
                 "assignmentPriority",1,
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "hearing-centre-admin",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "tribunal-caseworker",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "LEGAL_OPERATIONS",
                 "autoAssignable", false
             )
         )));
@@ -353,7 +317,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "hearing-centre-admin",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
             )
@@ -379,14 +343,8 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             ),
             Map.of(
-                "name", "hearing-centre-admin",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
                 "name", "tribunal-caseworker",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "LEGAL_OPERATIONS",
                 "autoAssignable", false
             )
@@ -413,26 +371,8 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "hearing-centre-admin",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "tribunal-caseworker",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "LEGAL_OPERATIONS",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "hearing-centre-admin",
                 "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "tribunal-caseworker",
-                "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "LEGAL_OPERATIONS",
                 "autoAssignable", false
             )
         )));
@@ -442,7 +382,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "ReviewSpecificAccessRequestAdmin"
+        "ReviewSpecificAccessRequestsAdmin"
     })
     void given_reviewSpeciRequestAdmin_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
@@ -457,33 +397,21 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             ),
             Map.of(
-                "name", "hearing-centre-admin",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
                 "name", "hearing-centre-team-leader",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "ADMIN",
                 "autoAssignable", true
             ),
             Map.of(
                 "name", "ctsc-team-leader",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "nbc-team-leader",
-                "value", "Read,Manage,Own,Cancel",
+                "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "tribunal-caseworker",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "LEGAL_OPERATIONS",
                 "autoAssignable", false
             )
         )));
