@@ -308,7 +308,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "reviewSpecificAcesssRequestJudiciary"
+        "reviewSpecificAccessRequestJudiciary"
     })
     void given_leadership_judge_role_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
