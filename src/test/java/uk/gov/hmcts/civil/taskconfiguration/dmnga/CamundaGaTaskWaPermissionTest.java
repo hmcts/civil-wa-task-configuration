@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -225,6 +226,56 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "authorisations", "294",
                 "assignmentPriority", 1,
                 "autoAssignable", false
+            )
+        )));
+    }
+
+    @Test
+    void given_ReviewApplicationOrder_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "ReviewApplicationOrder"));
+        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "value", "Read,Manage,Cancel",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "national-business-centre",
+                "assignmentPriority", 1,
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Manage,Own,Cancel"
+            )
+        )));
+    }
+
+    @Test
+    void given_ReviewApplicationOrder_taskType_when_ccmccLocation_notExists() {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "ReviewApplicationOrder"));
+        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "value", "Read,Manage,Cancel",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "assignmentPriority", 1,
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Manage,Own,Cancel"
             )
         )));
     }
