@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-ga-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-ga-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-permissions-civil-generalapplication" name="GA Permissions DMN">
     <decisionTable id="DecisionTable_1pr5oic" hitPolicy="RULE ORDER">
       <input id="InputClause_12crj6e" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
@@ -195,7 +195,7 @@ else
       <rule id="DecisionRule_1bkys5l">
         <description>Access request for Legal Advisors</description>
         <inputEntry id="UnaryTests_1gn8h7a">
-          <text>"ReviewSpecificAccessRequestsLegalOps"</text>
+          <text>reviewSpecificAccessRequestsLegalOps"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ij8wb6">
           <text></text>
@@ -207,7 +207,7 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bpjv4g">
-          <text>"hearing-team-leader"</text>
+          <text>"senior-tribunal-caseworker"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1yibbro">
           <text>"Read,Manage,Own,Cancel"</text>
@@ -228,7 +228,7 @@ else
       <rule id="DecisionRule_16iier0">
         <description>Access request for Legal Advisors</description>
         <inputEntry id="UnaryTests_18dpkrl">
-          <text>"ReviewSpecificAccessRequestsAdmin"</text>
+          <text>"reviewSpecificAccessRequestsAdmin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_062cb8o">
           <text></text>
@@ -240,7 +240,7 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1mjpxac">
-          <text>"hearing-team-leader"</text>
+          <text>"nbc-team-leader"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_114mu7q">
           <text>"Read,Manage,Own,Cancel"</text>
@@ -261,7 +261,7 @@ else
       <rule id="DecisionRule_0m5dgzc">
         <description>Access request for CTSC</description>
         <inputEntry id="UnaryTests_0vr3e4v">
-          <text>"ReviewSpecificAccessRequestsAdmin"</text>
+          <text>"reviewSpecificAccessRequestsAdmin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1v39vce">
           <text></text>
@@ -294,7 +294,7 @@ else
       <rule id="DecisionRule_0gt5229">
         <description>Access request for CCMCC/CCBC</description>
         <inputEntry id="UnaryTests_0uvu7f3">
-          <text>"ReviewSpecificAccessRequestsAdmin"</text>
+          <text>"reviewSpecificAccessRequestsAdmin"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_15kuqa4">
           <text></text>
@@ -388,6 +388,40 @@ else
         </outputEntry>
         <outputEntry id="LiteralExpression_1ty9et1">
           <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10b9kli">
+        <description>Judge Access request permissions
+</description>
+        <inputEntry id="UnaryTests_1rnxqek">
+          <text>"reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u3eou5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jmfccz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0f1x2oi">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wlslxs">
+          <text>"leadership-judge"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cijc2m">
+          <text>"Read, Own, Manage,  Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pg405z">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kpsti4">
+          <text>294</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01zsfud">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f34b6m">
+          <text>true</text>
         </outputEntry>
       </rule>
     </decisionTable>
