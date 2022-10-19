@@ -117,7 +117,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     void given_reviewSpecificAccessRequestsLegalOps_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes",
-                                Map.of("taskType", "ReviewSpecificAccessRequestsLegalOps"));
+                                Map.of("taskType", "reviewSpecificAccessRequestLegalOps"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -128,9 +128,9 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "value", "Read,Manage,Cancel"
             ),
             Map.of(
-                "name", "hearing-team-leader",
+                "name", "senior-tribunal-caseworker",
                 "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "ADMIN",
+                "roleCategory", "LEGAL_OPERATIONS",
                 "assignmentPriority",1,
                 "autoAssignable", false
             )
@@ -141,7 +141,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     @Test
     void given_reviewSpecificAccessRequestsAdmin_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", "ReviewSpecificAccessRequestsAdmin"));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "reviewSpecificAccessRequestAdmin"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -152,7 +152,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "value", "Read,Manage,Cancel"
             ),
             Map.of(
-                "name", "hearing-team-leader",
+                "name", "hearing-centre-team-leader",
                 "value", "Read,Manage,Own,Cancel",
                 "roleCategory", "ADMIN",
                 "assignmentPriority",1,
@@ -285,7 +285,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     @CsvSource(value = {
         "reviewSpecificAccessRequestJudiciary"
     })
-    void ReviewSpecificAccessRequestJudiciaryTaskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
+    void reviewSpecificAccessRequestJudiciaryTaskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
 
