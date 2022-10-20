@@ -34,7 +34,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "authorisations", "294",
         "name", "judge",
         "roleCategory", "JUDICIAL",
-        "value", "Read,Manage,Own,Cancel"
+        "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> tribunalCaseworker = Map.of(
@@ -42,35 +42,35 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "authorisations", "294",
         "name", "tribunal-caseworker",
         "roleCategory", "LEGAL_OPERATIONS",
-        "value", "Read,Manage,Own,Cancel"
+        "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> hearingCentreAdmin = Map.of(
         "autoAssignable", false,
         "name", "hearing-centre-admin",
         "roleCategory", "ADMIN",
-        "value", "Read,Manage,Own,Cancel"
+        "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> nbcTeamLeader = Map.of(
         "autoAssignable", false,
         "name", "nbc-team-leader",
         "roleCategory", "ADMIN",
-        "value", "Read,Manage,Own,Cancel"
+        "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> hearingCentreTeamleader = Map.of(
         "autoAssignable", false,
         "name", "hearing-centre-team-leader",
         "roleCategory", "ADMIN",
-        "value", "Read,Manage,Own,Cancel"
+        "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> ctscTeamLeader = Map.of(
         "autoAssignable", false,
         "name", "ctsc-team-leader",
         "roleCategory", "ADMIN",
-        "value", "Read,Manage,Own,Cancel"
+        "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> leadershipJudge = Map.of(
@@ -79,14 +79,14 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "authorisations", "294",
         "name", "leadership-judge",
         "roleCategory", "ADMIN",
-        "value", "Read,Manage,Own,Cancel"
+        "value", "Read,Own,Manage,Cancel"
     );
 
     private static final Map<String, Serializable> seniorTribunal = Map.of(
         "autoAssignable", false,
         "name", "senior-tribunal-caseworker",
         "roleCategory", "ADMIN",
-        "value", "Read,Manage,Own,Cancel"
+        "value", "Read,Own,Manage,Cancel"
     );
 
     @BeforeAll
