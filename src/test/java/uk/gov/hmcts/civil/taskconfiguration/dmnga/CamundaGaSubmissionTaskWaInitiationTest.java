@@ -875,7 +875,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withSDO() {
+    void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withSdo() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("isCcmccLocation", true);
@@ -896,7 +896,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withOutSDO() {
+    void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withOutSdo() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("isCcmccLocation", false);
