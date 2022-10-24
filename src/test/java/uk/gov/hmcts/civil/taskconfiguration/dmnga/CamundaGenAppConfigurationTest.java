@@ -61,21 +61,25 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "caseName",
-            "value", "claimant1PartyName & claimant2PartyName"
+            "value", "claimant1PartyName & claimant2PartyName",
+            "canReconfigure","true"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "caseManagementCategory",
-            "value", "Civil"
+            "value", "Civil",
+            "canReconfigure","true"
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "location",
-            "value", "574546"
+            "value", "574546",
+            "canReconfigure","true"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "locationName",
-            "value", ""
+            "value", "",
+            "canReconfigure","true"
         )));
     }
 
@@ -110,7 +114,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "access_requests"
+            "value", "access_requests",
+            "canReconfigure","true"
         )));
     }
 
@@ -144,7 +149,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "decision_making_work"
+            "value", "decision_making_work",
+            "canReconfigure","true"
         )));
     }
 
@@ -175,7 +181,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
                 "name", "caseManagementCategory",
-                "value", "GA"
+                "value", "GA",
+                "canReconfigure","true"
         )));
     }
 
@@ -207,12 +214,14 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "locationName",
-            "value", "CCMCC"
+            "value", "CCMCC",
+            "canReconfigure","true"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "region",
-            "value", "4"
+            "value", "4",
+            "canReconfigure","true"
         )));
     }
 
@@ -239,7 +248,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
                 "name", "caseManagementCategory",
-                "value", "Civil"
+                "value", "Civil",
+                "canReconfigure","true"
         )));
     }
 
@@ -272,7 +282,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
-            "value", "LEGAL_OPERATIONS"
+            "value", "LEGAL_OPERATIONS",
+            "canReconfigure","true"
         )));
     }
 
@@ -305,11 +316,13 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
-            "value", "JUDICIAL"
+            "value", "JUDICIAL",
+            "canReconfigure","true"
         )));
         assertFalse(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
-            "value", "LEGAL_OPERATIONS"
+            "value", "LEGAL_OPERATIONS",
+            "canReconfigure","true"
         )));
     }
 
@@ -345,11 +358,13 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(roleCategoryResultList.size(), is(1));
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "routine_work"
+            "value", "routine_work",
+            "canReconfigure","true"
         )));
         assertTrue(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
-            "value", "ADMIN"
+            "value", "ADMIN",
+            "canReconfigure","true"
         )));
 
     }
@@ -379,7 +394,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(roleAssignmentIdResultList.contains(Map.of(
             "name", "additionalProperties_roleAssignmentId",
-            "value", "123a-b-456"
+            "value", "123a-b-456",
+            "canReconfigure","true"
         )));
     }
 
@@ -405,7 +421,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(roleAssignmentIdResultList.size(), is(1));
         assertTrue(roleAssignmentIdResultList.contains(Map.of(
             "name", "additionalProperties_roleAssignmentId",
-            "value", "1234"
+            "value", "1234",
+            "canReconfigure","true"
         )));
     }
 }
