@@ -585,14 +585,14 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @CsvSource({
         "removeHearing,"
-            + "[Directions - Provisional Summary Judgment](/cases/case-details/${[CASE_REFERENCE]}/"
-            + "trigger/ADD_CASE_NOTE/ADD_CASE_NOTEremoveHearing)",
+            + "[Case Struck out - Removing Hearing](/cases/case-details/${[CASE_REFERENCE]}/"
+            + "trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)",
         "preHearingContact,"
-            + "[Directions - Provisional Summary Judgment](/cases/case-details/${[CASE_REFERENCE]}/"
-            + "trigger/ADD_CASE_NOTE/ADD_CASE_NOTEpreHearingContact)",
+            + "[Trial Readiness Check](/cases/case-details/${[CASE_REFERENCE]}/"
+            + "trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)",
         "adjournedReList,"
-            + "[Directions - Provisional Summary Judgment](/cases/case-details/${[CASE_REFERENCE]}/"
-            + "trigger/ADD_CASE_NOTE/ADD_CASE_NOTEadjournedReList)"
+            + "[Case Adjourned - Relist Hearing](/cases/case-details/${[CASE_REFERENCE]}/"
+            + "trigger/HEARING_Scheduled/HEARING_Scheduled)"
     })
     void should_return_a_200_description_property(String taskType, String expectedDescription) {
         VariableMap inputVariables = new VariableMapImpl();
@@ -614,4 +614,3 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     }
 }
-
