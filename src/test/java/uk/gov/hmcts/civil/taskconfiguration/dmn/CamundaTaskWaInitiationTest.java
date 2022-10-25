@@ -30,8 +30,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @MethodSource("scenarioProvider")
     void given_input_should_return_outcome_dmn(String eventId,
-                                                      String postEventState,
-                                                      Map<String, ? extends Serializable> expectedDmnOutcome) {
+                                               String postEventState,
+                                               Map<String, ? extends Serializable> expectedDmnOutcome) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", postEventState);
@@ -44,7 +44,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     public static Stream<Arguments> scenarioProvider() {
         return Stream.of(
             Arguments.of(
-                "DEFAULT_JUDGEMENT", "JUDICIAL_REFERRAL",
+                "NOTIFY_INTERIM_JUDGMENT_DEFENDANT", "JUDICIAL_REFERRAL",
                 Map.of(
                     "taskId", "summaryJudgmentDirections",
                     "name", "Directions (Provisional Summary Judgment)",
@@ -60,54 +60,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                     "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
                 )
-            )
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource("scenarioProviderCP")
-    static Stream<Arguments> scenarioProviderCP() {
-        return Stream.of(
+            ),
             Arguments.of(
-                "HEARING_FEE_UNPAID",
-                "CASE_DISMISSED",
-                null,
-                singletonList(
-                    Map.of(
-                        "taskId", "removeHearing",
-                        "name", "Case Struck out - Removing Hearing",
-
-                        "workingDaysAllowed", 5,
-                        "processCategories", "caseProgression"
-                    )
+                "HEARING_FEE_UNPAID", "CASE_DISMISSED",
+                Map.of(
+                    "taskId", "removeHearing",
+                    "name", "Case Struck out - Removing Hearing",
+                    "workingDaysAllowed", 5,
+                    "processCategories", "caseProgression"
                 )
             ),
             Arguments.of(
-                "Trial Readiness Check",
-                "PREPARE_FOR_HEARING_CONDUCT_HEARING",
-                null,
-                singletonList(
-                    Map.of(
-                        "taskId", "preHearingContact",
-                        "name", "Trial Readiness Check",
-
-                        "workingDaysAllowed", 10,
-                        "processCategories", "caseProgression"
-                    )
+                "TRIAL_READY_CHECK", "PREPARE_FOR_HEARING_CONDUCT_HEARING",
+                Map.of(
+                    "taskId", "preHearingContact",
+                    "name", "Trial Readiness Check",
+                    "workingDaysAllowed", 10,
+                    "processCategories", "caseProgression"
                 )
             ),
             Arguments.of(
-                "Adjourn_Order",
-                "CASE_PROGRESSION",
-                null,
-                singletonList(
-                    Map.of(
-                        "taskId", "adjournedReList",
-                        "name", "Trial Readiness Check",
-
-                        "workingDaysAllowed", 10,
-                        "processCategories", "caseProgression"
-                    )
+                "ADJOURN_ORDER", "CASE_PROGRESSION",
+                Map.of(
+                    "taskId", "adjournedReList",
+                    "name", "Case Adjourned - Re-list Hearing",
+                    "workingDaysAllowed", 10,
+                    "processCategories", "caseProgression"
                 )
             )
         );
@@ -117,6 +95,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(8));
+        assertThat(logic.getRules().size(), is(33));
     }
 }

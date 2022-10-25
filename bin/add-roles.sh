@@ -22,9 +22,10 @@
 ./bin/utils/ccd-add-role.sh "RES-SOL-ONE-SPEC-PROFILE"
 ./bin/utils/ccd-add-role.sh "RES-SOL-TWO-UNSPEC-PROFILE"
 ./bin/utils/ccd-add-role.sh "RES-SOL-TWO-SPEC-PROFILE"
+./bin/utils/ccd-add-role.sh "hearing-schedule-access"
 
 roles=("solicitor" "systemupdate" "admin" "staff")
 for role in "${roles[@]}"
 do
   ./bin/utils/ccd-add-role.sh "caseworker-civil-${role}"
-done  
+done
