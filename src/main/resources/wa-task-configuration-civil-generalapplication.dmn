@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-configuration-civil-generalapplication" name="GA Task configuration DMN">
     <decisionTable id="DecisionTable_14cx079" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7f" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -19,6 +19,7 @@ null</text>
       </input>
       <output id="Output_1" label="Name" name="name" typeRef="string" />
       <output id="OutputClause_021y3bb" label="Value" name="value" typeRef="string" biodi:width="416" />
+      <output id="OutputClause_18fdksc" label="Can Reconfigure" name="canReconfigure" typeRef="string" />
       <rule id="DecisionRule_0u7yi27">
         <inputEntry id="UnaryTests_03ky0ek">
           <text></text>
@@ -31,6 +32,9 @@ null</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_06tqng3">
           <text>if (caseData.claimant2PartyName != null) then caseData.claimant1PartyName + " &amp; " + caseData.claimant2PartyName  else caseData.claimant1PartyName</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11ould8">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0oagl97">
@@ -47,6 +51,9 @@ null</text>
           <text>if (caseData.caseManagementCategory != null and caseData.caseManagementCategory.value != null) then caseData.caseManagementCategory.value.label
 else "Civil"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_1vsibtv">
+          <text>"true"</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_0r3u9cf">
         <inputEntry id="UnaryTests_1bqxdqr">
@@ -60,6 +67,9 @@ else "Civil"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_05korws">
           <text>if (caseData.caseManagementLocation != null) then caseData.caseManagementLocation.baseLocation else ""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04gxv05">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_06fd9qz">
@@ -75,19 +85,25 @@ else "Civil"</text>
         <outputEntry id="LiteralExpression_0jj1wzo">
           <text>if (caseData.locationName!= null) then caseData.locationName else ""</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_0kk1l0p">
+          <text>"true"</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_1oirne1">
         <inputEntry id="UnaryTests_04xtpdu">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ssoq5v">
-          <text>"JudgeDecideOnApplication", "JudgeRevisitApplication"</text>
+          <text>"JudgeDecideOnApplication", "JudgeRevisitApplication", "LegalAdvisorDecideOnApplication"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1lvlmxm">
           <text>"workType"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0xp4dc7">
           <text>"decision_making_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rcfl0b">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_03afipt">
@@ -103,6 +119,9 @@ else "Civil"</text>
         <outputEntry id="LiteralExpression_099dwbs">
           <text>"routine_work"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_035v0bw">
+          <text>"true"</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_03uisoi">
         <inputEntry id="UnaryTests_0g9ghuq">
@@ -116,6 +135,9 @@ else "Civil"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0j5g990">
           <text>"hearing_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nl1kei">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0ikmf14">
@@ -131,6 +153,9 @@ else "Civil"</text>
         <outputEntry id="LiteralExpression_0zoponq">
           <text>"JUDICIAL"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_09r69ya">
+          <text>"true"</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_0p76zqg">
         <inputEntry id="UnaryTests_1f0q0ge">
@@ -145,6 +170,9 @@ else "Civil"</text>
         <outputEntry id="LiteralExpression_1tvhz53">
           <text>"LEGAL_OPERATIONS"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_1t2wtct">
+          <text>"true"</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_0lhjqgd">
         <inputEntry id="UnaryTests_11stdsd">
@@ -157,7 +185,10 @@ else "Civil"</text>
           <text>"roleCategory"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0pyx561">
-          <text>"ADMINISTRATOR"</text>
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1e3eec0">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0rzdr9w">
@@ -173,6 +204,9 @@ else "Civil"</text>
         <outputEntry id="LiteralExpression_1l3cp0e">
           <text>"access_requests"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_1ewauxv">
+          <text>"true"</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_1csczvs">
         <inputEntry id="UnaryTests_0wmnz5z">
@@ -185,7 +219,10 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0mfd2ul">
-          <text> "[ReviewApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision"</text>
+          <text> "[ReviewApplication](/cases/case-details/${[CASE_REFERENCE]})"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12xrcn3">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0qigiox">
@@ -199,7 +236,10 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0mvc4ym">
-          <text> "[ReviewRevisitedApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision"</text>
+          <text> "[ReviewApplication](/cases/case-details/${[CASE_REFERENCE]})"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0e1o4b4">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_01rfuq4">
@@ -213,7 +253,10 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1p3qoe7">
-          <text> "[JudgeDecideOnApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision"</text>
+          <text> "[JudgeDecideOnApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0s62uvx">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0irm78j">
@@ -227,7 +270,10 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1iyad2y">
-          <text> "[JudgeRevisitApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision"</text>
+          <text> "[JudgeRevisitApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0c7mx48">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0hywi5h">
@@ -241,7 +287,10 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1m0k5b9">
-          <text> "[LegalAdvisorDecideOnApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision"</text>
+          <text> "[LegalAdvisorDecideOnApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1le6v8b">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1i0twzi">
@@ -255,7 +304,10 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1ykaggy">
-          <text> "[LegalAdvisorRevisitApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision"</text>
+          <text> "[LegalAdvisorRevisitApplication](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialDecision)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17c8we1">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1g2b2gn">
@@ -269,7 +321,10 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0in7bwa">
-          <text>"[ScheduleApplicationHearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialHearingDetailsScreen"</text>
+          <text>"[ScheduleApplicationHearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/MAKE_DECISION/MAKE_DECISIONGAJudicialHearingDetailsScreen)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p8qia5">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0og2crb">
@@ -283,7 +338,11 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0lf7u9m">
-          <text></text>
+          <text>if (taskAttributes != null and taskAttributes.taskId != null and taskAttributes.roleAssignmentId != null) then "[Review Access Request](/role-access/" + taskAttributes.taskId + "/assignment/" + taskAttributes.roleAssignmentId + "/specific-access)"
+else ""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0d0ruof">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0qb2jtl">
@@ -297,7 +356,11 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1rgusxr">
-          <text></text>
+          <text>if (taskAttributes != null and taskAttributes.taskId != null and taskAttributes.roleAssignmentId != null) then "[Review Access Request](/role-access/" + taskAttributes.taskId + "/assignment/" + taskAttributes.roleAssignmentId + "/specific-access)"
+else ""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1drr0o9">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_11m31rg">
@@ -311,7 +374,11 @@ else "Civil"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0qxjq2e">
-          <text>"[Specific Access Request (Judiciary)](/cases/case-details/${[CASE_REFERENCE]}/trigger/reviewSpecificAccessRequestJudiciary)"</text>
+          <text>if (taskAttributes != null and taskAttributes.taskId != null and taskAttributes.roleAssignmentId != null) then "[Review Access Request](/role-access/" + taskAttributes.taskId + "/assignment/" + taskAttributes.roleAssignmentId + "/specific-access)"
+else ""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0drfzel">
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1oyvcsm">
@@ -327,6 +394,9 @@ else "Civil"</text>
         <outputEntry id="LiteralExpression_0ydvnz5">
           <text>if (caseData.caseManagementLocation != null) then caseData.caseManagementLocation.region else ""</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_18shos1">
+          <text>"true"</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_1cle951">
         <inputEntry id="UnaryTests_0b2s9ba">
@@ -340,6 +410,61 @@ else "Civil"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0iu5iyo">
           <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0a82iah">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zk51zl">
+        <inputEntry id="UnaryTests_0tgcamz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t21c24">
+          <text>"ReviewApplicationOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s4gmr4">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zoknll">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1b4yxwx">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jepx4k">
+        <inputEntry id="UnaryTests_0ni19bb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pzbun7">
+          <text>"ReviewApplicationOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kyc52y">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1epre1e">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18epzp7">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1haehra">
+        <inputEntry id="UnaryTests_060gvfo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kcn53t">
+          <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0x5o5ct">
+          <text>"additionalProperties_roleAssignmentId"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f96e9v">
+          <text>if (taskAttributes != null and taskAttributes.roleAssignmentId != null) then taskAttributes.roleAssignmentId
+else "1234"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0n7bqgz">
+          <text>"true"</text>
         </outputEntry>
       </rule>
     </decisionTable>
