@@ -147,15 +147,15 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "CASE_DISMISSED", "CASE_DISMISSED", "any state",
+                "CASE_DISMISSED", "DISMISS_CLAIM", "any state",
                 outcome
             ),
             Arguments.of(
-                "CASE_DISMISSED", "CASE_DISMISSED", "",
+                "CASE_DISMISSED", "DISMISS_CLAIM", "",
                 outcome
             ),
             Arguments.of(
-                "CASE_DISMISSED", "CASE_DISMISSED", null,
+                "CASE_DISMISSED", "DISMISS_CLAIM", null,
                 outcome
 
             )
