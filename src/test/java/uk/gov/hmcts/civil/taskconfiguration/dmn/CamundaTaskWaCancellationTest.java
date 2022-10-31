@@ -35,10 +35,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("fromState", fromState);
         inputVariables.putValue("event", eventId);
         inputVariables.putValue("state", state);
-        System.out.println(">>>>>>>>>>>"+fromState);
-        System.out.println(eventId);
-        System.out.println(state);
-
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         assertThat(dmnDecisionTableResult.getResultList(), is(expectedDmnOutcome));
