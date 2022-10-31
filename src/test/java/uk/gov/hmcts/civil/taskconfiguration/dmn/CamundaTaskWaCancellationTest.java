@@ -35,6 +35,9 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("fromState", fromState);
         inputVariables.putValue("event", eventId);
         inputVariables.putValue("state", state);
+        System.out.println(">>>>>>>>>>>"+fromState);
+        System.out.println(eventId);
+        System.out.println(state);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -49,10 +52,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             )
         );
         return Stream.of(
-            Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "CASE_PROCEEDS_IN_CASEMAN", "any state",
-                outcome
-            ),
             Arguments.of(
                 "PROCEEDS_IN_HERITAGE_SYSTEM", "CASE_PROCEEDS_IN_CASEMAN", "",
                 outcome
@@ -73,10 +72,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             )
         );
         return Stream.of(
-            Arguments.of(
-                "any state", "CASE_PROCEEDS_IN_CASEMANE", "PROCEEDS_IN_HERITAGE_SYSTEM",
-                outcome
-            ),
+
             Arguments.of(
                 "", "CASE_PROCEEDS_IN_CASEMAN", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
@@ -97,10 +93,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             )
         );
         return Stream.of(
-            Arguments.of(
-                "any state", "CLAIMANT_RESPONSE", "any state",
-                outcome
-            ),
+
             Arguments.of(
                 "any state", "CLAIMANT_RESPONSE", "",
                 outcome
