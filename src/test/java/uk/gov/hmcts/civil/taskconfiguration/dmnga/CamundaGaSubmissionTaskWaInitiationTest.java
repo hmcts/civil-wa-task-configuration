@@ -747,7 +747,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(2));
         assertThat(workTypeResultList.get(0).get("name"),
-                   is("Review strike out - "
+                   is("Review strike out App - "
                           + "revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewRevisitedApplication"));
     }
@@ -851,8 +851,8 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(10));
         assertThat(workTypeResultList.get(0).get("name"),
-                   is("Review summary judgement "
-                          + "- revisited make order for written representations"));
+                   is("Review summary judgement App"
+                          + " - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewRevisitedApplication"));
     }
 
@@ -920,7 +920,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(5));
         assertThat(workTypeResultList
                        .get(0).get("name"),
-                   is("strike out - revisited make order for written representations"));
+                   is("strike out App - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
     }
 
@@ -954,7 +954,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(2));
         assertThat(workTypeResultList
                        .get(0).get("name"),
-                   is("summary judgement - revisited make order for written representations"));
+                   is("summary judgement App - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
     }
 
@@ -1219,7 +1219,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("name"), is("summary judgement - "
+                       .get(0).get("name"), is("summary judgement App - "
                                                    + "revisited make order for "
                                                    + "written representations"));
         assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(2));
@@ -1287,7 +1287,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("name"), is("summary judgement - "
+                       .get(0).get("name"), is("summary judgement App - "
                                                    + "revisited make order for "
                                                    + "written representations"));
         assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(5));
@@ -1355,7 +1355,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("name"), is("summary judgement - "
+                       .get(0).get("name"), is("summary judgement App - "
                                                    + "revisited make order for "
                                                    + "written representations"));
         assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(2));
@@ -1423,7 +1423,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("name"), is("summary judgement - "
+                       .get(0).get("name"), is("summary judgement App - "
                                                    + "revisited make order for "
                                                    + "written representations"));
         assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(5));
