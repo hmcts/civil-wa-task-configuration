@@ -883,7 +883,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_SCHEDULER_DEADLINE_STAY_ORDER");
+        inputVariables.putValue("eventId", "END_SCHEDULER_CHECK_STAY_ORDER_DEADLINE");
         inputVariables.putValue("postEventState", "ORDER_MADE");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -904,7 +904,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_SCHEDULER_DEADLINE_STAY_ORDER");
+        inputVariables.putValue("eventId", "END_SCHEDULER_CHECK_STAY_ORDER_DEADLINE");
         inputVariables.putValue("postEventState", "ORDER_MADE");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
