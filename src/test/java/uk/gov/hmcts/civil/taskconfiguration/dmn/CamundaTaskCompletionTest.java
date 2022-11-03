@@ -42,8 +42,8 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "completionMode", "Auto"
-                    )
-
+                    ),
+                    Collections.emptyMap()
                 )
             ),
             Arguments.of(
@@ -54,8 +54,8 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "completionMode", "Auto"
-                    )
-
+                    ),
+                    Collections.emptyMap()
                 )
             )
         );
@@ -64,7 +64,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     static Stream<Arguments> scenarioProviderSdo() {
         return Stream.of(
             Arguments.of(
-                "VIEW_AND_RESPOND_TO_DEFENCE",
+                "CLAIMANT_RESPONSE",
                 asList(
                     Map.of(
                         "taskType", "FastTrackDirections",
