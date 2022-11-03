@@ -85,6 +85,11 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
                 null, "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
 
+            ),
+            Arguments.of(
+                "JUDICIAL_REFERRAL", "REFER_TO_JUDGE", "JUDICIAL_REFERRAL",
+                outcome
+
             )
         );
     }
