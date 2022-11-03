@@ -85,11 +85,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
                 null, "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
 
-            ),
-            Arguments.of(
-                "JUDICIAL_REFERRAL", "REFER_TO_JUDGE", "JUDICIAL_REFERRAL",
-                outcome
-
             )
         );
     }
@@ -97,21 +92,21 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     public static Stream<Arguments> scenarioProviderSdo1() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
-                "action", "Reconfigure",
+                "action", "Cancel",
                 "processCategories", "standardDirectionsOrder"
             )
         );
         return Stream.of(
             Arguments.of(
-                "any state", "CLAIMANT_RESPONSE", "any state",
+                "JUDICIAL_REFERRAL", "REFER_TO_JUDGE", "JUDICIAL_REFERRAL",
                 outcome
             ),
             Arguments.of(
-                "any state", "CLAIMANT_RESPONSE", "",
+                "any state", "REFER_TO_JUDGE", "",
                 outcome
             ),
             Arguments.of(
-                "any state", "CLAIMANT_RESPONSE", null,
+                "any state", "REFER_TO_JUDGE", null,
                 outcome
 
             )
