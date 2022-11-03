@@ -75,7 +75,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ),
                     Map.of(
-                        "taskType", "LegalAdviserSmallClaimsTrackDirections",
+                        "taskType", "LegalAdvisorSmallClaimsTrackDirections",
                         "completionMode", "Auto"
                     ),
                     Collections.emptyMap()
