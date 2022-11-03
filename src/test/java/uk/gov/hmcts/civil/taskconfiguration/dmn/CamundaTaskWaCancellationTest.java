@@ -100,15 +100,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 "JUDICIAL_REFERRAL", "REFER_TO_JUDGE", "JUDICIAL_REFERRAL",
                 outcome
-            ),
-            Arguments.of(
-                "any state", "REFER_TO_JUDGE", "",
-                outcome
-            ),
-            Arguments.of(
-                "any state", "REFER_TO_JUDGE", null,
-                outcome
-
             )
         );
     }
