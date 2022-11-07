@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-initiation-civil-civil" name="Task initiation DMN">
     <decisionTable id="DecisionTable_0jtevuc" hitPolicy="COLLECT" biodi:annotationsWidth="400">
       <input id="Input_1" label="Event Id" biodi:width="319" camunda:inputVariable="eventId">
@@ -79,12 +79,12 @@ else
       <input id="InputClause_0qsxu2k" label="Respondent 1 Intention" camunda:inputVariable="respondent1ClaimResponseIntentionType">
         <inputExpression id="LiteralExpression_1l9w1nj" typeRef="string">
           <text>if(additionalData != null
-   and additionalData.Data != null
-   and additionalData.Data.respondent1ClaimResponseIntentionType != null)
+   and additionalData.Data != null)
 then
-   additionalData.Data.respondent1ClaimResponseIntentionType
-else
-  null
+  if (additionalData.Data.respondent1ClaimResponseIntentionType != null)
+  then additionalData.Data.respondent1ClaimResponseIntentionType
+  else additionalData.Data.respondent1ClaimResponseType
+else null
 
 
 </text>
@@ -96,12 +96,12 @@ else
       <input id="InputClause_1ta4ib8" label="Respondent 2 Intention" camunda:inputVariable="respondent2ClaimResponseIntentionType">
         <inputExpression id="LiteralExpression_0i9ea4u" typeRef="string">
           <text>if(additionalData != null
-   and additionalData.Data != null
-   and additionalData.Data.respondent2ClaimResponseIntentionType != null)
+   and additionalData.Data != null)
 then
-   additionalData.Data.respondent2ClaimResponseIntentionType
-else
-  null</text>
+  if (additionalData.Data.respondent2ClaimResponseIntentionType != null)
+  then additionalData.Data.respondent2ClaimResponseIntentionType
+  else additionalData.Data.respondent2ClaimResponseType
+else null</text>
         </inputExpression>
         <inputValues id="UnaryTests_11mksgx">
           <text>"FULL_DEFENCE"</text>
