@@ -66,7 +66,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                 Map.of(
                     "taskId", "removeHearing",
                     "name", "Case Struck out - Removing Hearing",
-                    "workingDaysAllowed", 5,
+                    "workingDaysAllowed", 2,
                     "processCategories", "caseProgression"
                 )
             ),
