@@ -33,7 +33,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(25));
+        assertThat(logic.getRules().size(), is(26));
     }
 
 
@@ -61,21 +61,25 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "caseName",
-            "value", "claimant1PartyName & claimant2PartyName"
+            "value", "claimant1PartyName & claimant2PartyName",
+            "canReconfigure","true"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "caseManagementCategory",
-            "value", "Civil"
+            "value", "Civil",
+            "canReconfigure","true"
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "location",
-            "value", "574546"
+            "value", "574546",
+            "canReconfigure","true"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "locationName",
-            "value", ""
+            "value", "",
+            "canReconfigure","true"
         )));
     }
 
@@ -110,7 +114,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "access_requests"
+            "value", "access_requests",
+            "canReconfigure","true"
         )));
     }
 
@@ -144,7 +149,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "decision_making_work"
+            "value", "decision_making_work",
+            "canReconfigure","true"
         )));
     }
 
@@ -175,7 +181,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
                 "name", "caseManagementCategory",
-                "value", "GA"
+                "value", "GA",
+                "canReconfigure","true"
         )));
     }
 
@@ -207,12 +214,14 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "locationName",
-            "value", "CCMCC"
+            "value", "CCMCC",
+            "canReconfigure","true"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "region",
-            "value", "4"
+            "value", "4",
+            "canReconfigure","true"
         )));
     }
 
@@ -239,7 +248,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
                 "name", "caseManagementCategory",
-                "value", "Civil"
+                "value", "Civil",
+                "canReconfigure","true"
         )));
     }
 
@@ -272,7 +282,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
-            "value", "LEGAL_OPERATIONS"
+            "value", "LEGAL_OPERATIONS",
+            "canReconfigure","true"
         )));
     }
 
@@ -305,11 +316,13 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
-            "value", "JUDICIAL"
+            "value", "JUDICIAL",
+            "canReconfigure","true"
         )));
         assertFalse(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
-            "value", "LEGAL_OPERATIONS"
+            "value", "LEGAL_OPERATIONS",
+            "canReconfigure","true"
         )));
     }
 
@@ -345,13 +358,72 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(roleCategoryResultList.size(), is(1));
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "routine_work"
+            "value", "routine_work",
+            "canReconfigure","true"
         )));
         assertTrue(roleCategoryResultList.contains(Map.of(
             "name", "roleCategory",
-            "value", "ADMIN"
+            "value", "ADMIN",
+            "canReconfigure","true"
         )));
 
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin",
+        "reviewSpecificAccessRequestLegalOps"
+    })
+    void when_taskId_then_return_roleAssignmentId_isNotNull(String taskType) {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType,
+                                                         "roleAssignmentId","123a-b-456"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> roleAssignmentIdResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("additionalProperties_roleAssignmentId"))
+            .collect(Collectors.toList());
+
+        System.out.println(roleAssignmentIdResultList);
+        assertThat(roleAssignmentIdResultList.size(), is(1));
+
+        assertTrue(roleAssignmentIdResultList.contains(Map.of(
+            "name", "additionalProperties_roleAssignmentId",
+            "value", "123a-b-456",
+            "canReconfigure","true"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin",
+        "reviewSpecificAccessRequestLegalOps"
+    })
+    void when_taskId_then_return_roleAssignmentId_isNull(String taskType) {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> roleAssignmentIdResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("additionalProperties_roleAssignmentId"))
+            .collect(Collectors.toList());
+
+        assertThat(roleAssignmentIdResultList.size(), is(1));
+        assertTrue(roleAssignmentIdResultList.contains(Map.of(
+            "name", "additionalProperties_roleAssignmentId",
+            "value", "1234",
+            "canReconfigure","true"
+        )));
     }
 }
 
