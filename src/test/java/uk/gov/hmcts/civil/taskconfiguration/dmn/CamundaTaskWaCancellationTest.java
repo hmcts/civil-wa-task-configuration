@@ -26,7 +26,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1"})
+    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1", "scenarioProviderCp"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -110,6 +110,30 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             ),
             Arguments.of(
                 "any state", "CLAIMANT_RESPONSE", null,
+                outcome
+
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioProviderCp() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "caseProgression"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "CASE_DISMISSED", "DISMISS_CLAIM", "any state",
+                outcome
+            ),
+            Arguments.of(
+                "CASE_DISMISSED", "DISMISS_CLAIM", "",
+                outcome
+            ),
+            Arguments.of(
+                "CASE_DISMISSED", "DISMISS_CLAIM", null,
                 outcome
 
             )
