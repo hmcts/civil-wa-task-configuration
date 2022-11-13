@@ -26,8 +26,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1",
-        "scenarioProviderSdo2", "scenarioProviderCP"})
+    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -47,6 +46,9 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "defaultJudgment"
+            ),Map.of(
+                "action", "Cancel",
+                "processCategories", "caseProgression"
             )
         );
         return Stream.of(
@@ -114,60 +116,12 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    public static Stream<Arguments> scenarioProviderSdo2() {
-        List<Map<String, String>> outcome = List.of(
-            Map.of(
-                "action", "Reconfigure",
-                "processCategories", "standardDirectionsOrder"
-            )
-        );
-        return Stream.of(
-            Arguments.of(
-                "any state", "CLAIMANT_RESPONSE_SPEC", "any state",
-                outcome
-            ),
-            Arguments.of(
-                "any state", "CLAIMANT_RESPONSE_SPEC", "",
-                outcome
-            ),
-            Arguments.of(
-                "any state", "CLAIMANT_RESPONSE_SPEC", null,
-                outcome
-
-            )
-        );
-    }
-
-    public static Stream<Arguments> scenarioProviderCP() {
-        List<Map<String, String>> outcome = List.of(
-            Map.of(
-                "action", "Cancel",
-                "processCategories", "caseProgression"
-            )
-        );
-        return Stream.of(
-            Arguments.of(
-                "CASE_DISMISSED", "DISMISS_CLAIM", "any state",
-                outcome
-            ),
-            Arguments.of(
-                "CASE_DISMISSED", "DISMISS_CLAIM", "",
-                outcome
-            ),
-            Arguments.of(
-                "CASE_DISMISSED", "DISMISS_CLAIM", null,
-                outcome
-
-            )
-        );
-    }
-
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(5));
+        assertThat(logic.getRules().size(), is(6));
     }
 }

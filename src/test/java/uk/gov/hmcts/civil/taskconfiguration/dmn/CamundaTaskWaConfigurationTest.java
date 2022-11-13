@@ -41,7 +41,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(31));
+        assertThat(logic.getRules().size(), is(30));
 
     }
 
@@ -560,7 +560,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "removeHearing", "preHearingContact", "adjournedReList"
+        "ScheduleAHearing", "reviewSpecificAccessRequestAdmin", "removeHearing", "preHearingContact", "adjournedReList"
     })
     void when_taskId_then_return_Admin_role_category(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
@@ -570,13 +570,13 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("roleCategory"))
+            .filter((r) -> r.containsValue("role_Category"))
             .collect(Collectors.toList());
 
         assertEquals(1, workTypeResultList.size());
 
         assertEquals(Map.of(
-            "name", "roleCategory",
+            "name", "role_Category",
             "value", "ADMIN",
             "canReconfigure", "true"
         ), workTypeResultList.get(0));
