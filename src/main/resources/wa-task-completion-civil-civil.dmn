@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-completion-civil-civil" name="Task completion DMN">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
@@ -128,6 +128,41 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_12otcai">
           <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12ozeva">
+        <description>Event will be triggered via the system, based on a check on the hearing fee and due date</description>
+        <inputEntry id="UnaryTests_1u5om20">
+          <text>"ADD_CASE_NOTE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0itzact">
+          <text>"removeHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10bqhuh">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dd9omi">
+        <description>Event will be triggered via the system, 3 weeks out from the current hearing date listed on the case</description>
+        <inputEntry id="UnaryTests_07jeqjr">
+          <text>"ADD_CASE_NOTE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1b8iz6h">
+          <text>"preHearingContact"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ggijxn">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q9ttby">
+        <inputEntry id="UnaryTests_1hnnppy">
+          <text>"HEARING_SCHEDULED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1a3206d">
+          <text>"adjournedReList"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hgarsh">
+          <text>"Auto"</text>
         </outputEntry>
       </rule>
     </decisionTable>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-cancellation-civil-civil" name="Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -112,6 +112,54 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_03sjyma">
           <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_160c0a1">
+        <description>"If a case is moved offline, then all "caseProgression" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1thpvn1">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15wvjrf">
+          <text>"TAKE_CASE_OFFLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s1vpt3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1w1albg">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04uo05z">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ezc5ks">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ovw0r9">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05ro9dc">
+        <description>"If a case is moved offline, then all "caseProgression" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0jbqda0">
+          <text>"CASE_DISMISSED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_045h1c0">
+          <text>"DISMISS_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kv9s2q">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0m31r79">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1oqt00o">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0w48tzq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0w3cxnb">
+          <text>"caseProgression"</text>
         </outputEntry>
       </rule>
     </decisionTable>
