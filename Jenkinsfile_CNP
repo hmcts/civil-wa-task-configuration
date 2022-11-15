@@ -48,7 +48,16 @@ def uploadDmnDiagrams(String env) {
   dir("${WORKSPACE}/bin") {
     sh """
       eval \$(./variables/load-${env}-environment-variables.sh)
-      ./import-dmn-diagram.sh ${WORKSPACE} ${env}
+      ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
+    """
+  }
+}
+
+def uploadDmnDiagramsPreview(String env, String changeID) {
+  dir("${WORKSPACE}/bin") {
+    sh """
+      eval \$(./variables/load-${env}-environment-variables.sh ${changeID})
+      ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
     """
   }
 }
@@ -118,12 +127,7 @@ withPipeline(type, product, component) {
     env.CCD_DATA_STORE_URL = "https://ccd-data-store-api-civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
     env.CIVIL_SERVICE_URL="https://civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
-    dir("${WORKSPACE}/bin") {
-      sh """
-        eval \$(./variables/load-preview-environment-variables.sh ${CHANGE_ID})
-        ./import-dmn-diagram.sh ${WORKSPACE} preview
-      """
-    }
+    uploadDmnDiagramsPreview('preview',${CHANGE_ID})
   }
 
   after('functionalTest:preview') {

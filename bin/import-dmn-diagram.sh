@@ -3,6 +3,8 @@
 set -eu
 workspace=${1}
 env=${2}
+tenantId=${3}
+product=${4}
 
 s2sSecret=${S2S_SECRET:-AABBCCDDEEFFGGHH}
 
@@ -23,6 +25,8 @@ do
     -H "ServiceAuthorization: Bearer ${serviceToken}" \
     -F "deployment-name=$(basename ${file})" \
     -F "deploy-changed-only=true" \
+    -F "deployment-source=$product" \
+    ${tenant_id:+'-F' "tenant-id=$tenant_id"} \
     -F "file=@${dmnFilepath}/$(basename ${file})")
 
 upload_http_code=$(echo "$uploadResponse" | tail -n1)
@@ -63,7 +67,7 @@ then
   continue;
 
   done
-  exit 0; 
+  exit 0;
 fi
 
 
