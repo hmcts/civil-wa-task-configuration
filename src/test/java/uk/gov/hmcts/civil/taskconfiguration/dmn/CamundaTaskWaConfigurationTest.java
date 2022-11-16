@@ -434,7 +434,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "LegalAdviserSmallClaimsTrackDirections"
+            "LegalAdvisorSmallClaimsTrackDirections"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
