@@ -1543,4 +1543,46 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(10));
     }
 
+    @Test
+    void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withSdo() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("isCcmccLocation", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_SCHEDULER_CHECK_STAY_ORDER_DEADLINE");
+        inputVariables.putValue("postEventState", "ORDER_MADE");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Review Application Order"));
+        assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(10));
+    }
+
+    @Test
+    void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withOutSdo() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("isCcmccLocation", false);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_SCHEDULER_CHECK_STAY_ORDER_DEADLINE");
+        inputVariables.putValue("postEventState", "ORDER_MADE");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Review Application Order"));
+        assertThat(workTypeResultList.get(0).get("workingDaysAllowed"), is(10));
+    }
+
 }
