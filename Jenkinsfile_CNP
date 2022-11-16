@@ -46,6 +46,8 @@ def secrets = [
 
 def uploadDmnDiagrams(String env) {
   dir("${WORKSPACE}/bin") {
+    tenantId = "civil"
+    product = "civil"
     sh """
       eval \$(./variables/load-${env}-environment-variables.sh)
       ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
@@ -55,6 +57,8 @@ def uploadDmnDiagrams(String env) {
 
 def uploadDmnDiagramsPreview(String env, String changeID) {
   dir("${WORKSPACE}/bin") {
+    tenantId = "civil"
+    product = "civil"
     sh """
       eval \$(./variables/load-${env}-environment-variables.sh ${changeID})
       ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
