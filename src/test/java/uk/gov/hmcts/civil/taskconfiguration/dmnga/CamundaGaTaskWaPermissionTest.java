@@ -170,7 +170,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
 
     @SuppressWarnings("checkstyle:indentation")
     @Test
-    void given_reviewSpecificAccessRequestsCTSC_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+    void given_reviewSpecificAccessRequestsCtsc_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", "reviewSpecificAccessRequestCTSC"));
 
