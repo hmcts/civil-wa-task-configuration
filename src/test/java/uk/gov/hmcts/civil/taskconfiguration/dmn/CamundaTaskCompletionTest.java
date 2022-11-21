@@ -47,7 +47,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                 )
             ),
             Arguments.of(
-                "TAKE_CASE_OFFLINE",
+                "CASE_PROCEEDS_IN_CASEMAN",
                 asList(
                     Map.of(
                         "taskType", "transferCaseOffline"
