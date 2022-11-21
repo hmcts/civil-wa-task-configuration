@@ -403,12 +403,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", true
             ),
             Map.of(
-                "name", "ctsc-team-leader",
-                "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", true
-            ),
-            Map.of(
                 "name", "nbc-team-leader",
                 "value", "Read,Own,Manage,Cancel",
                 "roleCategory", "ADMIN",
