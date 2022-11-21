@@ -47,7 +47,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                 "NOTIFY_INTERIM_JUDGMENT_DEFENDANT", "JUDICIAL_REFERRAL",
                 Map.of(
                     "taskId", "summaryJudgmentDirections",
-                    "name", "Directions (Provisional Summary Judgment)",
+                    "name", "Directions after Judgement (Damages)",
                     "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
                 )
