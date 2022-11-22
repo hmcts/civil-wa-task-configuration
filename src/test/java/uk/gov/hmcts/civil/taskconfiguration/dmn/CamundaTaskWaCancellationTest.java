@@ -96,23 +96,14 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     public static Stream<Arguments> scenarioProviderSdo1() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
-                "action", "Reconfigure",
+                "action", "Cancel",
                 "processCategories", "standardDirectionsOrder"
             )
         );
         return Stream.of(
             Arguments.of(
-                "any state", "CLAIMANT_RESPONSE", "any state",
+                "JUDICIAL_REFERRAL", "REFER_TO_JUDGE", "JUDICIAL_REFERRAL",
                 outcome
-            ),
-            Arguments.of(
-                "any state", "CLAIMANT_RESPONSE", "",
-                outcome
-            ),
-            Arguments.of(
-                "any state", "CLAIMANT_RESPONSE", null,
-                outcome
-
             )
         );
     }
@@ -147,6 +138,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(6));
+        assertThat(logic.getRules().size(), is(5));
     }
 }
