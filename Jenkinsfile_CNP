@@ -2,13 +2,11 @@
 
 @Library('Infrastructure')
 
-product = "civil"
-tenantId = "civil"
-
 def type = "java"
 def component = "task-configuration"
 def s2sServiceName = "wa_camunda_pipeline_upload"
 def branchesToSync = ['demo', 'perftest']
+def product = "civil"
 
 static Map<String, Object> secret(String secretName, String envVariable) {
   [$class     : 'AzureKeyVaultSecret',
@@ -47,6 +45,8 @@ def secrets = [
 
 def uploadDmnDiagrams(String env) {
   dir("${WORKSPACE}/bin") {
+    tenantId = "civil"
+    product = "civil"
     sh """
       eval \$(./variables/load-${env}-environment-variables.sh)
       ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
@@ -56,6 +56,8 @@ def uploadDmnDiagrams(String env) {
 
 def uploadDmnDiagramsPreview(String env, String changeID) {
   dir("${WORKSPACE}/bin") {
+    tenantId = "civil"
+    product = "civil"
     sh """
       eval \$(./variables/load-${env}-environment-variables.sh ${changeID})
       ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
