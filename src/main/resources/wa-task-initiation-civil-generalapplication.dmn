@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-initiation-civil-generalapplication" name="GA Task initiation DMN">
     <decisionTable id="DecisionTable_141h4ty" hitPolicy="COLLECT">
       <input id="Input_1" label="Event Id" camunda:inputVariable="eventId">
@@ -134,7 +134,7 @@
           <text>"LISTING_FOR_A_HEARING"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_043l8j2">
-          <text></text>
+          <text>true</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ebwxnh">
           <text>"ScheduleApplicationHearing"</text>
@@ -331,6 +331,32 @@
           <text>10</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0l3fr24">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08aevmg">
+        <inputEntry id="UnaryTests_1bywkb0">
+          <text>"END_JUDGE_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_099us5y">
+          <text>"LISTING_FOR_A_HEARING"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jcysdb">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mcjx82">
+          <text>"ScheduleApplicationHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1l2lr48">
+          <text>"Application Hearing Scheduled"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wp3n8r">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16zkxp1">
+          <text>if(additionalData.Data.generalAppUrgencyRequirement != null) then if(additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency != true ) then 10 else 2 else 0</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12q0asj">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
