@@ -1000,7 +1000,6 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -1024,7 +1023,6 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
