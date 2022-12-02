@@ -165,12 +165,12 @@ task runApiTests(type: Exec, description: 'Runs Api WA functional tests.') {
   commandLine '/usr/bin/yarn', '--silent', 'test:api-1v1'
 }
 
-//task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
-//  onlyIf {
-//    return System.env.ENVIRONMENT == 'preview'
-//  }
-//  commandLine '/usr/bin/yarn', '--silent', 'test:api-dj'
-//}
+task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
+  onlyIf {
+    return System.env.ENVIRONMENT == 'preview'
+  }
+  //commandLine '/usr/bin/yarn', '--silent', 'test:api-dj'
+}
 
 task runNightlyTests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
