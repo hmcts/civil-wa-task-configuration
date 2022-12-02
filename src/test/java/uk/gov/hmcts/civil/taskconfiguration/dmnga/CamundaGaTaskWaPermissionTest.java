@@ -90,34 +90,10 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
 
     @SuppressWarnings("checkstyle:indentation")
     @Test
-    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc() {
+    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", "ScheduleApplicationHearing"));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
-            Map.of(
-                "autoAssignable", false,
-                "name", "task-supervisor",
-                "value", "Read,Manage,Cancel"
-            ),
-            Map.of(
-                "name", "national-business-centre",
-                "value", "Read,Manage,Own,Cancel",
-                "roleCategory", "ADMIN",
-                "assignmentPriority",1,
-                "autoAssignable", false
-            )
-        )));
-    }
-
-    @SuppressWarnings("checkstyle:indentation")
-    @Test
-    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_it_returns_expected_rule_withoutCcmcc() {
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", "ScheduleApplicationHearing"));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
