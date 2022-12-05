@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-initiation-civil-generalapplication" name="GA Task initiation DMN">
     <decisionTable id="DecisionTable_141h4ty" hitPolicy="COLLECT">
       <input id="Input_1" label="Event Id" camunda:inputVariable="eventId">
@@ -12,16 +12,58 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_0im9c9k" label="Work Allocation Location CCMCC" biodi:width="321" camunda:inputVariable="isWALocationCCMCC">
+      <input id="InputClause_0im9c9k" label="Work Allocation Location CCMCC" camunda:inputVariable="isWALocationCCMCC">
         <inputExpression id="LiteralExpression_0p78tj5" typeRef="boolean">
           <text>if(additionalData.Data.isCcmccLocation = true) then true else false</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0xi6cx8" label="Urgent Application" camunda:inputVariable="isUrgentApplication">
+        <inputExpression id="LiteralExpression_02tlso0" typeRef="boolean">
+          <text>if(additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency != null and  additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then true else false</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1b2ab72" label="Single Application" camunda:inputVariable="isSingleApplication">
+        <inputExpression id="LiteralExpression_1lmnvjw" typeRef="boolean">
+          <text>if(count(additionalData.Data.generalAppType.types) = 1) then true else false</text>
         </inputExpression>
       </input>
       <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="343" />
       <output id="OutputClause_07cuas3" label="Name" name="name" typeRef="string" biodi:width="674" />
       <output id="OutputClause_07d7qb5" label="Delay Duration" name="delayDuration" typeRef="integer" biodi:width="150" />
       <output id="OutputClause_0mj26qe" label="Working Days Allowed" name="workingDaysAllowed" typeRef="integer" biodi:width="402" />
-      <output id="OutputClause_1o4gc2a" label="Process Categories Identifiers" name="processCategories" typeRef="string" biodi:width="336" />
+      <output id="OutputClause_1o4gc2a" label="Process Categories Identifiers" name="processCategories" typeRef="string" />
+      <rule id="DecisionRule_0hsopdl">
+        <inputEntry id="UnaryTests_1c9c2xc">
+          <text>"END_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jgy4aq">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ustibx">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10dzh0w">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_156q7p0">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rcddj7">
+          <text> "ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xrsovj">
+          <text>"Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0eff39n">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fwuvpx">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_069zyn2">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_14dik0z">
         <inputEntry id="UnaryTests_0dkuvgc">
           <text>"END_BUSINESS_PROCESS_GASPEC"</text>
@@ -30,73 +72,731 @@
           <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1cbssw4">
-          <text></text>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uw3dnp">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cabfda">
+          <text>false</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0evsk0b">
-          <text>if(additionalData.Data.isCcmccLocation = true) then "ReviewApplication" else "JudgeDecideOnApplication"</text>
+          <text> "ReviewApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_148hrke">
-          <text>if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation = true) then "Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation != true) then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(additionalData.Data.isCcmccLocation = true) then "Review Application for multiple types" else "Application for multiple types"</text>
+          <text>"Review Application for multiple types"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0ai2zhl">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_069ab0r">
-          <text>if(additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency != null and  additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then 2 else if(additionalData.Data.isCcmccLocation != true) then 5 else 10   </text>
+          <text>2</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0q33jzi">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0xbo2xz">
-        <inputEntry id="UnaryTests_0c16j93">
-          <text>"RESPOND_TO_APPLICATION"</text>
+      <rule id="DecisionRule_04ntvvp">
+        <inputEntry id="UnaryTests_1spspgy">
+          <text>"END_BUSINESS_PROCESS_GASPEC"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1mb0k8z">
+        <inputEntry id="UnaryTests_10ggml7">
           <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_11feqba">
-          <text></text>
+        <inputEntry id="UnaryTests_1ybv1qi">
+          <text>true</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1o6zjii">
-          <text>if(additionalData.Data.isCcmccLocation = true) then "ReviewApplication" else "JudgeDecideOnApplication"</text>
+        <inputEntry id="UnaryTests_0jbmy2t">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_140mol8">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10vre8o">
+          <text> "ReviewApplication"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0m528r1">
-          <text>if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation = true) then "Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation != true) then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(additionalData.Data.isCcmccLocation = true) then "Review Application for multiple types" else "Application for multiple types"</text>
+        <outputEntry id="LiteralExpression_18hb6ie">
+          <text>"Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0hxe724">
+        <outputEntry id="LiteralExpression_0d1lnp4">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0vnloi3">
-          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then 2 else if(additionalData.Data.isCcmccLocation != true) then 5 else 10</text>
+        <outputEntry id="LiteralExpression_1wc7yyg">
+          <text>10</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0w9wcmv">
+        <outputEntry id="LiteralExpression_18oqh2r">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0bejdia">
-        <inputEntry id="UnaryTests_1rk9ov0">
-          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+      <rule id="DecisionRule_08epy67">
+        <inputEntry id="UnaryTests_0fkv3pm">
+          <text>"END_BUSINESS_PROCESS_GASPEC"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1d4zxl7">
+        <inputEntry id="UnaryTests_1rwk816">
           <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_05bnxd7">
-          <text></text>
+        <inputEntry id="UnaryTests_0d1dhna">
+          <text>true</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_16ocdm8">
-          <text>if(additionalData.Data.isCcmccLocation = true) then "ReviewApplication" else "JudgeDecideOnApplication"</text>
+        <inputEntry id="UnaryTests_0xvntlb">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07190ni">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o4u826">
+          <text> "ReviewApplication"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_17c15v0">
-          <text>if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation = true) then "Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation != true) then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else if(additionalData.Data.isCcmccLocation = true) then "Review Application for multiple types" else "Application for multiple types"</text>
+        <outputEntry id="LiteralExpression_1l7x7cb">
+          <text>"Review Application for multiple types"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_03x8azl">
+        <outputEntry id="LiteralExpression_01g645z">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1mge8aq">
-          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then 2 else if(additionalData.Data.isCcmccLocation != true) then 5 else 10</text>
+        <outputEntry id="LiteralExpression_1kdi8dk">
+          <text>10</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0t8y9vl">
+        <outputEntry id="LiteralExpression_0z2vhfs">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_046gs9f">
+        <inputEntry id="UnaryTests_1xolm0z">
+          <text>"END_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0j3x4bw">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05vo3wa">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h7qxb8">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c9ft88">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19k6yf0">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0e72giq">
+          <text>"Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kss7kc">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1d82osm">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01w0e9q">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_167rsam">
+        <inputEntry id="UnaryTests_0b2bxqj">
+          <text>"END_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0he81p8">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b78mvy">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kvwute">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04tmwzv">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rq2qff">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0emu147">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1afs5ns">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1emn11b">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19li7yq">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rt9dst">
+        <inputEntry id="UnaryTests_0fwhfrt">
+          <text>"END_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01y87ki">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vo97c9">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yk49gk">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01nchzv">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1clx2to">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0z5gniy">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0irwm27">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rcgdbh">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0g1pv16">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02cq4n1">
+        <inputEntry id="UnaryTests_04f3dej">
+          <text>"END_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ycpwh3">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16bnpjr">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b28fr0">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qpvc1p">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fjn773">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1e6740q">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ico95y">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07r21u9">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17zwv52">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15q9bmz">
+        <inputEntry id="UnaryTests_1hd1pyt">
+          <text>"RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08f55ww">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vthxia">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0302hrj">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zoz5qx">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05v8003">
+          <text> "ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1g0scmf">
+          <text>"Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_155yl92">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1oqpioq">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jda989">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1flux9k">
+        <inputEntry id="UnaryTests_1t59ukh">
+          <text>"RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19d2d90">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z95lop">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lq76jp">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18sxsnd">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03zmerd">
+          <text> "ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_072cd33">
+          <text>"Review Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vmrakl">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pwllf0">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18xnacp">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hkk4wa">
+        <inputEntry id="UnaryTests_0sreiws">
+          <text>"RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wazr2q">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mjq31j">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02ec2tk">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nlp9na">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0s0k0ij">
+          <text> "ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hga4pj">
+          <text>"Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kj0gd6">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rxnagu">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ikdy0r">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04tm92b">
+        <inputEntry id="UnaryTests_0rf4ljl">
+          <text>"RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c7ja1z">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xk5drt">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06zywhz">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_003gn23">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10hjpy7">
+          <text> "ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19wbluf">
+          <text>"Review Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16i9bcg">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lf8jjm">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vcim6h">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19sbnl3">
+        <inputEntry id="UnaryTests_00ukw68">
+          <text>"RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01nq87j">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09kybo3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dsce2v">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01yp2r0">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xlv3zy">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kbfe0b">
+          <text>"Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vwk7he">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0n70a78">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1d4fw8l">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ww9m09">
+        <inputEntry id="UnaryTests_0gf9c9i">
+          <text>"RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e2dmam">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jfboov">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fwbvls">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vtmywz">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0cv70lo">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hmwhhi">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qqfcl4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vceaam">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1txlvcx">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hfyd0g">
+        <inputEntry id="UnaryTests_0k0wvft">
+          <text>"RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_048i7ih">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hvvqdj">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fvuyut">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bbwu2g">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p7yoo6">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01axla2">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bp4e5j">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qoevtl">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09esa07">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xlizoa">
+        <inputEntry id="UnaryTests_0u7iqpz">
+          <text>"RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t5hgy4">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zuoo77">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08d36se">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ljdlcd">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0s6npu2">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00jqpt6">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1r8h2xv">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tojzqg">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06yrxn6">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18boq90">
+        <inputEntry id="UnaryTests_0kbmcww">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12vm9ra">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dvivfh">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_146ew1p">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14xr3g4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tmag0r">
+          <text> "ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09pt53a">
+          <text>"Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0iota0l">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hy2jei">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0410iki">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uyooua">
+        <inputEntry id="UnaryTests_03u9ugh">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r17htd">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jr5wei">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03batjl">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q5hqyh">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02vdl3l">
+          <text> "ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1er2ijz">
+          <text>"Review Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i77hpa">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kxu0ar">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ep0osn">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kt9pll">
+        <inputEntry id="UnaryTests_1w87qev">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_067ru6f">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t7si9l">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_000d7ni">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ihg2fn">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1u5147q">
+          <text> "ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14iwmpg">
+          <text>"Review Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08g9yz2">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1t1wbyo">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bwvfc5">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cu9c84">
+        <inputEntry id="UnaryTests_12ufqcd">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l2kyrh">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ltgrkb">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tpac3j">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01alfle">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dy8lsn">
+          <text> "ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1p9zt6t">
+          <text>"Review Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0daxcdw">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1o421cx">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kbgaql">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08mymun">
+        <inputEntry id="UnaryTests_0j0jjaj">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06oj8ct">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_017zayn">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s6sdr4">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r0ubva">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1byj9oo">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lzs58f">
+          <text>"Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hlab7o">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cipxvk">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kutg6u">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19vi3lp">
+        <inputEntry id="UnaryTests_0ackmsy">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eff4yg">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tcpcdk">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cjd43g">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ttovdo">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hgnh84">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1q9o3o1">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ajgs8n">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0u39lgh">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0evcfdc">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xybomh">
+        <inputEntry id="UnaryTests_09llbvs">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0valmhz">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u5q4qc">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ku09xy">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11nm0xm">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g39o9x">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12am5g8">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01hcxyh">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0eauf3q">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1o8zg2k">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_104thyb">
+        <inputEntry id="UnaryTests_0q7l3ub">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oxpgi1">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s3sho6">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dy9srr">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i0n1fc">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10ylebb">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16eqy2q">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1idqgjk">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11spn96">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14paw9n">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -108,21 +808,251 @@
           <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1iw0vla">
-          <text></text>
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_098pspm">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rdhlvv">
+          <text>true</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0knc9sq">
-          <text>if(additionalData.Data.isCcmccLocation = true) then "ReviewRevisitedApplication" else "JudgeRevisitApplication"</text>
+          <text>"ReviewRevisitedApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1qnhryy">
-          <text>if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation = true) then "Review " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," ")) else if(count(additionalData.Data.generalAppType.types) = 1 and additionalData.Data.isCcmccLocation != true) then lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," ")) else if(additionalData.Data.isCcmccLocation = true) then "Review Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," ")) else "Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+          <text>"Review " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " App" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0wi1eyk">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bhhney">
-          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then 2 else if(additionalData.Data.isCcmccLocation != true) then 5 else 10</text>
+          <text>2</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_15e6jor">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12otwq9">
+        <inputEntry id="UnaryTests_1g7etbv">
+          <text>"CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p3v819">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jebqok">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t62ztt">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uwq6yu">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nrajh1">
+          <text>"ReviewRevisitedApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fw3g13">
+          <text>"Review Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16maoai">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0q0p51w">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o0l9a7">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qwelaf">
+        <inputEntry id="UnaryTests_1cuftro">
+          <text>"CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yx7qs0">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ovnqrx">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14itvtb">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oigeqk">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1piv5mw">
+          <text>"ReviewRevisitedApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xaqg9o">
+          <text>"Review " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " App"  + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qdzi9s">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0grb3pq">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0739zuq">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hc9st5">
+        <inputEntry id="UnaryTests_18sdt3x">
+          <text>"CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07kbvtz">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05v26fh">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07ebxry">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0njv9ja">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0deth6g">
+          <text>"ReviewRevisitedApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mez38q">
+          <text>"Review Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gwb5bg">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18j9gy3">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jv1k7r">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_103mdei">
+        <inputEntry id="UnaryTests_1s5i3c5">
+          <text>"CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14ulubw">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bxucvh">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ork3k7">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yrhfcr">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06fmowc">
+          <text>"JudgeRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i1cmg3">
+          <text>lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " App"  + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nh1jfl">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yipija">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qm17dp">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pxagpr">
+        <inputEntry id="UnaryTests_0eobepv">
+          <text>"CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09if8f7">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a0bfzp">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0he0v75">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zwh1rq">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0klcmvw">
+          <text>"JudgeRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nk8kja">
+          <text>"Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04n861a">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05f9cx9">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09oui4l">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0a46slt">
+        <inputEntry id="UnaryTests_1byowgm">
+          <text>"CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14nn95r">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12t8npb">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ldc8s7">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qsnghc">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13j65ad">
+          <text>"JudgeRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yzxagp">
+          <text>lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " App" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0is9pst">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ckzyaf">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jybe5u">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gkene4">
+        <inputEntry id="UnaryTests_0dvvfcw">
+          <text>"CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_004d9rk">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pootum">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_074fqtn">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tfccot">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1k2c1lu">
+          <text>"JudgeRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15jrugx">
+          <text>"Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gd7ha6">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17wgfih">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ru8sty">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -134,6 +1064,12 @@
           <text>"LISTING_FOR_A_HEARING"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_043l8j2">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ngjp1j">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ybp0jw">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ebwxnh">
@@ -146,9 +1082,105 @@
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1qniso1">
-          <text>if(additionalData.Data.generalAppUrgencyRequirement != null) then if(additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency != true ) then 10 else 2 else 0</text>
+          <text>2</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1nt85v3">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oxv7b5">
+        <inputEntry id="UnaryTests_0zgdkfw">
+          <text>"END_JUDGE_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qh5y1j">
+          <text>"LISTING_FOR_A_HEARING"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t2uv31">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0abfl2z">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13wwmeg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gybrb2">
+          <text>"ScheduleApplicationHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19zz2p4">
+          <text>"Application Hearing Scheduled"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_002jwwf">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0v7uz5z">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cvsrwx">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00v4joe">
+        <inputEntry id="UnaryTests_15paby9">
+          <text>"END_JUDGE_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13z8o0w">
+          <text>"LISTING_FOR_A_HEARING"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xbdxh5">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_063dr89">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14ttx37">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xi5g57">
+          <text>"ScheduleApplicationHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pfnyz2">
+          <text>"Application Hearing Scheduled"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qnk4l5">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cm78oj">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09y6kbc">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mvjmcx">
+        <inputEntry id="UnaryTests_0twrnyc">
+          <text>"END_JUDGE_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1axyh7z">
+          <text>"LISTING_FOR_A_HEARING"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pg2emm">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0540bat">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z9fxnu">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1axlw74">
+          <text>"ScheduleApplicationHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0u4dajr">
+          <text>"Application Hearing Scheduled"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1uo5gwx">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_043sbxh">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ko78xm">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -162,19 +1194,121 @@
         <inputEntry id="UnaryTests_18aixvg">
           <text>true</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0ktuafv">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09mzg49">
+          <text>true</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1of2xt6">
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0dck0nn">
-          <text>if(count(additionalData.Data.generalAppType.types) = 1) then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else  "Application for multiple types"</text>
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) </text>
         </outputEntry>
         <outputEntry id="LiteralExpression_02t5nzl">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0yep7sh">
-          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then 2 else 5</text>
+          <text>2</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_12qyt8k">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_008ycbq">
+        <inputEntry id="UnaryTests_1ll4uj5">
+          <text>"REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xn3asy">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1iz0xl4">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18mq0j9">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qmbnwk">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nkpqnt">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1es3m79">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07jmie4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ahv9vb">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pkcy2g">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1p58ysi">
+        <inputEntry id="UnaryTests_1bf3bnd">
+          <text>"REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bawqyd">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qtgcp4">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pxdlai">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cbeyl6">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gpkqsj">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_184rvoe">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) </text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cyjjfr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05r5v1t">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f79ec9">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0vga334">
+        <inputEntry id="UnaryTests_01l72xp">
+          <text>"REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fskk74">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ztbhvj">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_063khmn">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11or2xi">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ad5zdf">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0siwcvj">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rngf1h">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06u2e5j">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1icsass">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -188,19 +1322,121 @@
         <inputEntry id="UnaryTests_0idyn49">
           <text>true</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_06kugqu">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cq5hfa">
+          <text>true</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1aqk958">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0rmawnf">
-          <text>if(count(additionalData.Data.generalAppType.types) = 1) then lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," ")) else  "Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+          <text>lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " App" + " - revisited " +  lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_19g7ba0">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0kon3qa">
-          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then 2 else 5</text>
+          <text>2</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_16lvamm">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0o77vdq">
+        <inputEntry id="UnaryTests_1fyns32">
+          <text>"REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qicwrz">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h49ic8">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cpfei9">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v68oyz">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zoztfm">
+          <text>"JudgeRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0whqczp">
+          <text>"Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wchugs">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ojnkx2">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gtwxfj">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tng3pb">
+        <inputEntry id="UnaryTests_0r3ot4n">
+          <text>"REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lwucfm">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cbce3a">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_056h103">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mm6e3r">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r35myd">
+          <text>"JudgeRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0irhmg0">
+          <text>lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " App" + " - revisited " +  lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00jfu05">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0x83nbn">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h8m4bq">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1twf5pq">
+        <inputEntry id="UnaryTests_1p3kjef">
+          <text>"REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06l45lm">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06m9426">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vxa2e0">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06t5z4t">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ca2ms6">
+          <text>"JudgeRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17f3wnt">
+          <text>"Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hs7drg">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hcawi0">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pdrbdb">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -214,19 +1450,121 @@
         <inputEntry id="UnaryTests_1iliayu">
           <text>true</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_14juxh5">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_095pz1y">
+          <text>true</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1xux7kg">
           <text>"LegalAdvisorDecideOnApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0a13tto">
-          <text>if(count(additionalData.Data.generalAppType.types) = 1) then "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) else  "Application for multiple types"</text>
+          <text>"Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1romc32">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0a64ko7">
-          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then 2 else 5</text>
+          <text>2</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1lybp22">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0l4p0jo">
+        <inputEntry id="UnaryTests_0xthlmj">
+          <text>"REFER_TO_LEGAL_ADVISOR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19f6vub">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tkq7np">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07vxcmz">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_094kbgz">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ivws79">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kff9dx">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x69fnr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01zq2lk">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0onyxco">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cnasqo">
+        <inputEntry id="UnaryTests_0adqz3d">
+          <text>"REFER_TO_LEGAL_ADVISOR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nhr0o8">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14tctx4">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l4p05f">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wnjz2b">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dl4qrz">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kl1v7t">
+          <text>"Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gaja5c">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i5clbm">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11rgh60">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qjo44f">
+        <inputEntry id="UnaryTests_1c9sqo5">
+          <text>"REFER_TO_LEGAL_ADVISOR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17a4f5b">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_194bnem">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hc24gl">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o751dl">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0y55uxx">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h055dh">
+          <text> "Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0exmvg0">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1j6p0di">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_106bfe2">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -240,19 +1578,121 @@
         <inputEntry id="UnaryTests_08poceq">
           <text>true</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0e9c031">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gsufg6">
+          <text>true</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_14djwpz">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0234rk8">
-          <text>if(count(additionalData.Data.generalAppType.types) = 1) then lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," ")) else   "Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+          <text>lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " App" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_14c0okc">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1fos3m6">
-          <text>if(additionalData.Data.generalAppUrgencyRequirement != null and additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then 2 else 5</text>
+          <text>2</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_07wv3rh">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0t848mj">
+        <inputEntry id="UnaryTests_1qf80zx">
+          <text>"REFER_TO_LEGAL_ADVISOR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0it56c3">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rxpbko">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d4r0vb">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qy0ysu">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ktguv0">
+          <text>"LegalAdvisorRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o0frkd">
+          <text>"Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jwjt3y">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1p8pr02">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0a6sbve">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rk6gla">
+        <inputEntry id="UnaryTests_0ixansf">
+          <text>"REFER_TO_LEGAL_ADVISOR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iotj4j">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13t017d">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17z9ucl">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u14qqp">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h2kzb6">
+          <text>"LegalAdvisorRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07ex8br">
+          <text>lower case(replace(additionalData.Data.generalAppType.types[1], "_"," ")) + " App" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hiw4y3">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0usy45r">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0audsvp">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04xbieu">
+        <inputEntry id="UnaryTests_0prs44x">
+          <text>"REFER_TO_LEGAL_ADVISOR"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0olxjqq">
+          <text>"ADDITIONAL_RESPONSE_TIME_EXPIRED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00viuds">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16l45oh">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cvnaff">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05fbgfk">
+          <text>"LegalAdvisorRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f6nnns">
+          <text>"Application for multiple types" + " - revisited " + lower case(replace(additionalData.Data.judicialDecision.decision, "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bq0gb8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0y2hoos">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nlrt7w">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -264,6 +1704,12 @@
           <text>"ORDER_MADE"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_10qkhkv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yzvhwo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uctdjd">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1l4b7kk">
@@ -282,55 +1728,67 @@
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1mj8q4d">
-        <inputEntry id="UnaryTests_114fmqb">
+      <rule id="DecisionRule_1fcr91e">
+        <inputEntry id="UnaryTests_0abgmsx">
           <text>"END_SCHEDULER_CHECK_STAY_ORDER_DEADLINE"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_19tkjfs">
+        <inputEntry id="UnaryTests_1amrg6w">
           <text>"ORDER_MADE"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0iycduf">
+        <inputEntry id="UnaryTests_1p9p1br">
           <text>true</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1oh7ra5">
+        <inputEntry id="UnaryTests_1lqnjrc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dmg0he">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18du2tv">
           <text>"ReviewApplicationOrder"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_13nl643">
+        <outputEntry id="LiteralExpression_1dxcll7">
           <text>"Review Application Order"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0gbhgid">
+        <outputEntry id="LiteralExpression_0plzddd">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_04ijt1y">
+        <outputEntry id="LiteralExpression_0bl5khz">
           <text>10</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0j6c1so">
+        <outputEntry id="LiteralExpression_1q7wrlo">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_08jb0fc">
-        <inputEntry id="UnaryTests_1v969sx">
+      <rule id="DecisionRule_0vpk27a">
+        <inputEntry id="UnaryTests_01emxnm">
           <text>"END_SCHEDULER_CHECK_STAY_ORDER_DEADLINE"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0qhxa52">
+        <inputEntry id="UnaryTests_04apzof">
           <text>"ORDER_MADE"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1cnx5cu">
+        <inputEntry id="UnaryTests_0taicsb">
           <text>false</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1m38lkv">
+        <inputEntry id="UnaryTests_1ar1dvw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yhpyxp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02nzepj">
           <text>"ReviewApplicationOrder"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0nsv1jd">
+        <outputEntry id="LiteralExpression_0u2rid6">
           <text>"Review Application Order"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1gevq0n">
+        <outputEntry id="LiteralExpression_05rmkgv">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0ko5o4f">
+        <outputEntry id="LiteralExpression_0ygfu41">
           <text>10</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0l3fr24">
+        <outputEntry id="LiteralExpression_102khxe">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
