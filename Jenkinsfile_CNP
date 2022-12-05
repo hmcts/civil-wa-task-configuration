@@ -43,18 +43,7 @@ def secrets = [
   ]
 ]
 
-def uploadDmnDiagrams(String env) {
-  dir("${WORKSPACE}/bin") {
-    tenantId = "civil"
-    product = "civil"
-    sh """
-      eval \$(./variables/load-${env}-environment-variables.sh)
-      ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
-    """
-  }
-}
-
-def uploadDmnDiagramsPreview(String env, String changeID) {
+def uploadDmnDiagrams(String env, String changeID) {
   dir("${WORKSPACE}/bin") {
     tenantId = "civil"
     product = "civil"
@@ -67,7 +56,6 @@ def uploadDmnDiagramsPreview(String env, String changeID) {
 
 withPipeline(type, product, component) {
   pipelineConf = config
-  disableLegacyDeployment()
 
   onPR {
     env.ENVIRONMENT = "preview"
@@ -82,7 +70,7 @@ withPipeline(type, product, component) {
     loadVaultSecrets(secrets)
   }
 
-  after('checkout') {
+  afterSuccess('checkout') {
     onMaster {
       withCredentials([usernamePassword(credentialsId: 'jenkins-github-hmcts-api-token', usernameVariable: 'USERNAME', passwordVariable: 'BEARER_TOKEN')]) {
         try {
@@ -117,23 +105,22 @@ withPipeline(type, product, component) {
       ./bin/import-ccd-definition.sh "-e *-prod.json,*HNL-nonprod.json"
     """
     env.URL="https://xui-civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
-    env.CIVIL_SERVICE_URL="https://civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
-  }
-
-  after('smoketest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/smokeTest/**/*'
-  }
-
-  before('functionalTest:preview') {
     env.IDAM_API_URL = "https://idam-api.aat.platform.hmcts.net"
     env.SERVICE_AUTH_PROVIDER_API_BASE_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
     env.CCD_DATA_STORE_URL = "https://ccd-data-store-api-civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
     env.CIVIL_SERVICE_URL="https://civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
-    uploadDmnDiagramsPreview('preview',"${CHANGE_ID}")
   }
 
-  after('functionalTest:preview') {
+  afterSuccess('smoketest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/smokeTest/**/*'
+  }
+
+  before('functionalTest:preview') {
+    uploadDmnDiagrams('preview',"${CHANGE_ID}")
+  }
+
+  afterSuccess('functionalTest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
   }
 
@@ -144,25 +131,23 @@ withPipeline(type, product, component) {
       ./bin/pull-latest-release-asset.sh civil-ccd-definition civil-e2e.zip
     """
     env.URL="https://manage-case.aat.platform.hmcts.net"
-    env.CIVIL_SERVICE_URL="http://civil-service-aat.service.core-compute-aat.internal"
-  }
-
-  after('smoketest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/smokeTest/**/*'
-  }
-
-  before('functionalTest:aat') {
-    env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
     env.IDAM_API_URL = "https://idam-api.aat.platform.hmcts.net"
     env.SERVICE_AUTH_PROVIDER_API_BASE_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
     env.CCD_DATA_STORE_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
     env.CIVIL_SERVICE_URL="http://civil-service-aat.service.core-compute-aat.internal"
-
-    uploadDmnDiagrams('aat')
   }
 
-  after('functionalTest:aat') {
+  afterSuccess('smoketest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/smokeTest/**/*'
+  }
+
+  before('functionalTest:aat') {
+    env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    uploadDmnDiagrams('aat','')
+  }
+
+  afterSuccess('functionalTest:aat') {
     //Cannot upload to prod untill WA release -- uploadDmnDiagrams('prod')
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
   }
