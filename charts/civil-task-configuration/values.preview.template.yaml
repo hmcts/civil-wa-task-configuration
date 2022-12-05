@@ -1,25 +1,7 @@
 tags:
   civil-ccd-stack: true
 
-postgresql:
-  enabled: true
-  releaseNameOverride: ${SERVICE_NAME}-postgresql
-  image:
-    tag: '11.6.0'
-  resources:
-    requests:
-      cpu: 25m
-  initdbScripts:
-    init.sql: |-
-      CREATE DATABASE cmc WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-      CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-      CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-      CREATE DATABASE "camunda" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-      CREATE DATABASE "role_assignment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-  postgresqlUsername: hmcts
-  postgresqlPassword: hmcts
-  persistence:
-    enabled: false
+
 
 java:
   applicationPort: 4000
@@ -89,6 +71,19 @@ java:
     FEIGN_CLIENT_CONFIG_REMOTEREPOSITORYSERVICE_URL: http://${SERVICE_NAME}-camunda/engine-rest/
     STITCHING_API_ENABLED: false
     POLLING_EVENT_EMITTER_ENABLED: false
+  postgresql:
+    enabled: true
+    releaseNameOverride: ${SERVICE_NAME}-postgresql
+    initdbScripts:
+      init.sql: |-
+        CREATE DATABASE cmc WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+        CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+        CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+        CREATE DATABASE "camunda" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+        CREATE DATABASE "role_assignment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+    auth:
+      username: hmcts
+      password: hmcts
 
 idam-pr:
   releaseNameOverride: ${SERVICE_NAME}-xui-idam-pr
