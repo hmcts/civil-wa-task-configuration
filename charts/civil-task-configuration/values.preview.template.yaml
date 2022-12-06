@@ -71,7 +71,15 @@ java:
     POLLING_EVENT_EMITTER_ENABLED: false
   postgresql:
     enabled: true
-    releaseNameOverride: ${SERVICE_NAME}-postgresql      
+    releaseNameOverride: ${SERVICE_NAME}-postgresql
+    image:
+      tag: '11.6.0'
+    primary:
+      persistence:
+        enabled: false
+      resources:
+        requests:
+          cpu: 25m
     initdb:
         scripts:
           init.sql: |-
