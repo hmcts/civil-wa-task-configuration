@@ -71,14 +71,15 @@ java:
     POLLING_EVENT_EMITTER_ENABLED: false
   postgresql:
     enabled: true
-    releaseNameOverride: ${SERVICE_NAME}-postgresql
-    initdbScripts:
-      init.sql: |-
-        CREATE DATABASE cmc WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-        CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-        CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-        CREATE DATABASE "camunda" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-        CREATE DATABASE "role_assignment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+    releaseNameOverride: ${SERVICE_NAME}-postgresql      
+    initdb:
+        scripts:
+          init.sql: |-
+            CREATE DATABASE cmc WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+            CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+            CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+            CREATE DATABASE "camunda" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+            CREATE DATABASE "role_assignment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
     auth:
       username: hmcts
       password: hmcts
