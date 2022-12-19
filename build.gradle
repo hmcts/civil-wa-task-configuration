@@ -202,6 +202,7 @@ task civilCcdFunctionalTests(description: 'Runs the functional tests.') {
 }
 
 task civilGenAppCcdFunctionalTests(description: 'Runs the functional tests.') {
+  mustRunAfter(runNightlyCivilCCDTaskTests)
   dependsOn(inStrictOrder(pullGeneralAppAsset, installDependencies, checkDependenciesIntegrity, runNightlyGenAppCCDTaskTests))
 }
 
