@@ -138,16 +138,28 @@ task awaitApplicationReadiness(type: Exec, description: 'Awaits until applicatio
   commandLine './bin/wait-for.sh', 'manage-case'
 }
 
+task installDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
+  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
+}
+
+task checkDependenciesIntegrity(type: Exec, description: 'Checks integrity of Yarn dependencies.') {
+  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
+}
+
+task genAppInstallDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
+  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
+}
+
+task genAppCheckDependenciesIntegrity(type: Exec, description: 'Checks integrity of Yarn dependencies.') {
+  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
+}
+
 task pullCCDDefAsset(type: Exec, description: 'Installs Yarn dependencies.') {
   commandLine './bin/pull-latest-civil-ccd-files.sh', 'master'
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
 }
 
 task pullGeneralAppAsset(type: Exec, description: 'Installs Yarn dependencies.') {
   commandLine './bin/pull-latest-general-app-ccd-files.sh', 'master'
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
 }
 
 task lintUserInterfaceTests(type: Exec, description: 'Runs linting of E2E tests.') {
@@ -194,13 +206,13 @@ def inStrictOrder(Task... tasks) {
 }
 
 task smoke(description: 'Runs the smoke tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, pullCCDDefAsset, runSmokeTests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness, pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runSmokeTests))
 }
 
 task functional(description: 'Runs the functional tests.') {
   dependsOn(inStrictOrder(awaitApplicationReadiness, 
-  pullCCDDefAsset, runApiTests, runNightlyCivilCCDTaskTests,
-  pullGeneralAppAsset, runNightlyGenAppCCDTaskTests))
+  pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests,
+  pullGeneralAppAsset, genAppInstallDependencies, genAppCheckDependenciesIntegrity, runNightlyGenAppCCDTaskTests))
 }
 
 // before committing a change, make sure task still works
