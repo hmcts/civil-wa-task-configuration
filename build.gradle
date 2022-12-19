@@ -197,21 +197,14 @@ def inStrictOrder(Task... tasks) {
   return tasks
 }
 
-task civilCcdFunctionalTests(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests))
-}
-
-task civilGenAppCcdFunctionalTests(description: 'Runs the functional tests.') {
-  mustRunAfter(runNightlyCivilCCDTaskTests)
-  dependsOn(inStrictOrder(pullGeneralAppAsset, installDependencies, checkDependenciesIntegrity, runNightlyGenAppCCDTaskTests))
-}
-
 task smoke(description: 'Runs the smoke tests.') {
   dependsOn(inStrictOrder(awaitApplicationReadiness, pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runSmokeTests))
 }
 
 task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, civilCcdFunctionalTests, civilGenAppCcdFunctionalTests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness, 
+  pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests,
+  pullGeneralAppAsset, installDependencies, checkDependenciesIntegrity, runNightlyGenAppCCDTaskTests))
 }
 
 // before committing a change, make sure task still works
