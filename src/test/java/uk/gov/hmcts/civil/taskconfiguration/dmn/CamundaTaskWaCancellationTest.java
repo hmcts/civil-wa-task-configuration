@@ -26,7 +26,13 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1", "scenarioProviderNotSuitableSdo"})
+    @MethodSource({
+        "scenarioProvider",
+        "scenarioProviderSdo1",
+        "scenarioProviderNotSuitableSdo",
+        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem",
+        "scenarioTakesCaseOfflineEventCaseDismissedSystem"
+    })
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -65,11 +71,15 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    public static Stream<Arguments> scenarioProviderSdo() {
+    public static Stream<Arguments> scenarioTakesCaseOfflineEventProceedsInHeritageSystem() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
                 "action", "Cancel",
                 "processCategories", "standardDirectionsOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "reviewCaseFlags"
             )
         );
         return Stream.of(
@@ -84,7 +94,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 null, "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
-
             )
         );
     }
@@ -119,6 +128,23 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioTakesCaseOfflineEventCaseDismissedSystem() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "reviewCaseFlags"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                null,
+                "TAKE_CASE_OFFLINE",
+                "CASE_DISMISSED",
+                outcome
+            )
+        );
+    }
+
 
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
@@ -126,6 +152,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(4));
+        assertThat(logic.getRules().size(), is(6));
     }
 }

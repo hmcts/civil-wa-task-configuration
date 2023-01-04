@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -37,7 +38,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(28));
+        assertThat(logic.getRules().size(), is(30));
 
     }
 
@@ -488,6 +489,45 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    //ReviewCaseFlagsForClaimant
+    @Test
+    void when_taskId_review_case_flags_then_return_expected_decision() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ReviewCaseFlagsForClaimant"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory")
+                            || r.containsValue("description")
+                            || r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+
+        assertThat(workTypeResultList, equalTo(
+            List.of(
+                configDecision("roleCategory", "ADMIN", "true"),
+                configDecision("description", "URL: [Review Case Flags](/cases/case-details/${[CASE_REFERENCE]})", "true"),
+                configDecision("workType", "routine_work", "true")
+            )
+        ));
+    }
+
     @Value
     @Builder
     private static class Scenario {
@@ -503,7 +543,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     private void getExpectedValue(List<Map<String, String>> rules, String name, String value) {
         Map<String, String> rule = new HashMap<>();
         rule.put("name", name);
-        rule.put("value", value);
+        rule.put("value", value);;
         rules.add(rule);
     }
 
@@ -517,6 +557,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         getExpectedValue(rules, "nextHearingDate", scenario.getExpectedNextHearingDateValue());
 
         return rules;
+    }
+
+    private Map<String, String> configDecision(String name, String value, String canReconfigure) {
+        return Map.of("name", name, "value", value, "canReconfigure", canReconfigure);
     }
 }
 
