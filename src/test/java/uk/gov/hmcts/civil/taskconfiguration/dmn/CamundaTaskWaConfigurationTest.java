@@ -522,7 +522,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList, equalTo(
             List.of(
                 configDecision("roleCategory", "ADMIN", "true"),
-                configDecision("description", "URL: [Review Case Flags](/cases/case-details/${[CASE_REFERENCE]})", "true"),
+                configDecision("description",
+                               "URL: [Review Case Flags](/cases/case-details/${[CASE_REFERENCE]})", "true"),
                 configDecision("workType", "routine_work", "true")
             )
         ));
