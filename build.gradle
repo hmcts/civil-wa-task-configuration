@@ -146,8 +146,20 @@ task checkDependenciesIntegrity(type: Exec, description: 'Checks integrity of Ya
   commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
 }
 
-task pullTestAsset(type: Exec, description: 'Installs Yarn dependencies.') {
-  commandLine './bin/pull-latest-release-asset.sh', 'civil-ccd-definition', 'civil-e2e.zip'
+task genAppInstallDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
+  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
+}
+
+task genAppCheckDependenciesIntegrity(type: Exec, description: 'Checks integrity of Yarn dependencies.') {
+  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
+}
+
+task pullCCDDefAsset(type: Exec, description: 'Installs Yarn dependencies.') {
+  commandLine './bin/pull-latest-civil-ccd-files.sh', 'master'
+}
+
+task pullGeneralAppAsset(type: Exec, description: 'Installs Yarn dependencies.') {
+  commandLine './bin/pull-latest-general-app-ccd-files.sh', 'master'
 }
 
 task lintUserInterfaceTests(type: Exec, description: 'Runs linting of E2E tests.') {
@@ -172,11 +184,18 @@ task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
   commandLine '/usr/bin/yarn', '--silent', 'test:api-dj'
 }
 
-task runNightlyTests(type: Exec, description: 'Runs Api WA functional tests.') {
+task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
     return System.env.ENVIRONMENT == 'demo'
   }
   commandLine '/usr/bin/yarn', '--silent', 'test:e2e-wa'
+}
+
+task runNightlyGenAppCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
+  onlyIf {
+    return System.env.ENVIRONMENT == 'demo'
+  }
+  commandLine '/usr/bin/yarn', '--silent', 'test:api-ga-wa'
 }
 
 def inStrictOrder(Task... tasks) {
@@ -187,11 +206,13 @@ def inStrictOrder(Task... tasks) {
 }
 
 task smoke(description: 'Runs the smoke tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, pullTestAsset, installDependencies, checkDependenciesIntegrity, runSmokeTests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness, pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runSmokeTests))
 }
 
 task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, pullTestAsset, installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyTests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness,
+  pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests,
+  pullGeneralAppAsset, genAppInstallDependencies, genAppCheckDependenciesIntegrity, runNightlyGenAppCCDTaskTests))
 }
 
 // before committing a change, make sure task still works
@@ -291,8 +312,8 @@ dependencies {
 
   implementation 'org.yaml:snakeyaml:1.32'
 
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.68'
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.1'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.70'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.4'
 
   implementation group: 'org.camunda.bpm', name: 'camunda-external-task-client', version: versions.camunda
 
