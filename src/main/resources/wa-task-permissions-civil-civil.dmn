@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-permissions-civil-civil" name="Permissions DMN">
     <decisionTable id="DecisionTable_1pr5oica" hitPolicy="RULE ORDER">
       <input id="InputClause_12crj6ea" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
@@ -12,6 +12,11 @@ else
       </input>
       <input id="Input_1" label="Case Data" camunda:inputVariable="case">
         <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1utyk0t" label="Toggle">
+        <inputExpression id="LiteralExpression_0gbt9q1" typeRef="string">
           <text></text>
         </inputExpression>
       </input>
@@ -28,6 +33,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1gz9teqa">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19wsjw8">
+          <text>"WA3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0dh1n4da">
           <text></text>
@@ -51,6 +59,38 @@ else
           <text>false</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1xztblh">
+        <inputEntry id="UnaryTests_18d295j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0885rx3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1klvbi2">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qpvn9c">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0x6tfay">
+          <text>"task-supervisor"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kp60ld">
+          <text>"Read,Manage,Cancel,Unassign,Assign"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fppric">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wkcq6z">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07ufkzh">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0epbx4c">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_03pnfh81">
         <description>Judge task permissions</description>
         <inputEntry id="UnaryTests_1ossj9oa">
@@ -61,6 +101,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0occzooa">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xi7e7q">
+          <text>"WA3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1g6zwdda">
           <text></text>
@@ -84,6 +127,42 @@ else
           <text>false</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0dfap8a">
+        <description>Judge task permissions</description>
+        <inputEntry id="UnaryTests_19lz0tw">
+          <text>"summaryJudgmentDirections",
+"FastTrackDirections",
+"SmallClaimsTrackDirections",
+"SmallClaimsTrackDirectionsReferral"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yktbpf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uop9gg">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fwa733">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rxuur2">
+          <text>"judge"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fdwwko">
+          <text>"Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_034a3j4">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0knahha">
+          <text>"294"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_020ykw7">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0krrp4h">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0dmsdkza">
         <description>Judge access request permissions</description>
         <inputEntry id="UnaryTests_1udo3xna">
@@ -91,6 +170,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0lsitega">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q5lhat">
+          <text>"WA3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1fuxobka">
           <text></text>
@@ -114,6 +196,39 @@ else
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1h4rg1i">
+        <description>Judge access request permissions</description>
+        <inputEntry id="UnaryTests_0w6gh4c">
+          <text>"reviewSpecificAccessRequestJudiciary"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a9dxif">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a9zamy">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wacqbo">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wf18ed">
+          <text>"leadership-judge"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jq3b4v">
+          <text>"Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_055zipl">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_055vfkb">
+          <text>"294"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1esi2oy">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16yrg4d">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_1mppa3l">
         <description>Listing Officer task permissions</description>
         <inputEntry id="UnaryTests_05z57xg">
@@ -121,6 +236,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0qmd6we">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00zufo4">
+          <text>"WA3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1bjak3i">
           <text></text>
@@ -144,6 +262,39 @@ else
           <text>false</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0ftka01">
+        <description>Listing Officer task permissions</description>
+        <inputEntry id="UnaryTests_1fldwdw">
+          <text>"transferCaseOffline","transferCaseOfflineNotSuitableSDO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fkx7qd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hzpfyy">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ymp2vy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_123ytf4">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tjt0gq">
+          <text>"Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11pgp9z">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01iof5i">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lo6chd">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0k5gg8e">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0camg6y">
         <description>Access request for Listing Officers</description>
         <inputEntry id="UnaryTests_0acv1oh">
@@ -151,6 +302,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0jhhouw">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0icmf2i">
+          <text>"WA3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0lswie4">
           <text></text>
@@ -174,6 +328,39 @@ else
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1ci2xjl">
+        <description>Access request for Listing Officers</description>
+        <inputEntry id="UnaryTests_0ksdyzp">
+          <text>"reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_071odfj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0crd9v4">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1649k6k">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rzvjn6">
+          <text>"hearing-centre-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0sfy1uo">
+          <text>"Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0dbd9na">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18umpyv">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ssdf7u">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1y311i3">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_02kp2g0">
         <description>Access request for CTSC</description>
         <inputEntry id="UnaryTests_108wacf">
@@ -181,6 +368,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1m91ucm">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kl476r">
+          <text>"WA3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1y5lq57">
           <text></text>
@@ -204,6 +394,39 @@ else
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1jva49o">
+        <description>Access request for CTSC</description>
+        <inputEntry id="UnaryTests_1ruce8k">
+          <text>"reviewSpecificAccessRequestCTSC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mimojs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oq7x8d">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hwd6zr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zyjorg">
+          <text>"ctsc-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15jwffo">
+          <text>"Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18al16c">
+          <text>"CTSC"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rmcbuh">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17gg8vo">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cec0i4">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_1g35rz4">
         <description>Access request for CCMCC/CCBC</description>
         <inputEntry id="UnaryTests_0c7eh1o">
@@ -211,6 +434,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1iqqqpq">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ygrlp9">
+          <text>"WA3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0z8wmdj">
           <text></text>
@@ -234,6 +460,39 @@ else
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0htcmmm">
+        <description>Access request for CCMCC/CCBC</description>
+        <inputEntry id="UnaryTests_0zmh6yc">
+          <text>"reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08mj722">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vs5owy">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16tr3ml">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1a0i1wp">
+          <text>"nbc-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0e57do3">
+          <text>"Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1u2j4gr">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15zi4ic">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1uyam9o">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1oxgmi5">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_14cazlx">
         <description>Legal Adviser task permissions</description>
         <inputEntry id="UnaryTests_1iypuy5">
@@ -241,6 +500,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1amtl8s">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15m8e7j">
+          <text>"WA3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1dj45bt">
           <text></text>
@@ -264,6 +526,39 @@ else
           <text>false</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0ocsekl">
+        <description>Legal Adviser task permissions</description>
+        <inputEntry id="UnaryTests_0v12vac">
+          <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xoexp9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l0ydfn">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10hhksq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tu3rzf">
+          <text>"tribunal-caseworker"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12lwjaj">
+          <text>"Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kdghdl">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1v0ucrc">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11iltso">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wxfb4g">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_06hj0n8">
         <description>Access request for Legal Advisors</description>
         <inputEntry id="UnaryTests_119r9nu">
@@ -271,6 +566,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_14wh3rr">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cs89ib">
+          <text>"WA3"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0lo7nsy">
           <text></text>
@@ -291,6 +589,39 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1q6vb8l">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ax0pje">
+        <description>Access request for Legal Advisors</description>
+        <inputEntry id="UnaryTests_16vlxt5">
+          <text>"reviewSpecificAccessRequestLegalOps"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hlg78w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bz0sd7">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1x9g90t">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05gzkuw">
+          <text>"senior-tribunal-caseworker"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ams9a2">
+          <text>"Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xckint">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jnvugy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vsj9po">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cj5fqt">
           <text>false</text>
         </outputEntry>
       </rule>

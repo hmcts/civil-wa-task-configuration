@@ -30,11 +30,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @MethodSource("scenarioProvider")
     void given_input_should_return_outcome_dmn(String eventId,
-                                                      String postEventState,
+                                                      String postEventState, String workAllocationToggle,
                                                       Map<String, ? extends Serializable> expectedDmnOutcome) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("workAllocationToggle", workAllocationToggle);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -44,10 +45,19 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     public static Stream<Arguments> scenarioProvider() {
         return Stream.of(
             Arguments.of(
-                "NOTIFY_INTERIM_JUDGMENT_DEFENDANT", "JUDICIAL_REFERRAL",
+                "NOTIFY_INTERIM_JUDGMENT_DEFENDANT", "JUDICIAL_REFERRAL","WA3",
                 Map.of(
                     "taskId", "summaryJudgmentDirections",
                     "name", "Directions (Provisional Summary Judgment)",
+                    "workingDaysAllowed", 5,
+                    "processCategories","defaultJudgment"
+                )
+            ),
+            Arguments.of(
+                "NOTIFY_INTERIM_JUDGMENT_DEFENDANT", "JUDICIAL_REFERRAL","WA3.5",
+                Map.of(
+                    "taskId", "summaryJudgmentDirections",
+                    "name", "Directions after Judgment (Damages)",
                     "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
                 )

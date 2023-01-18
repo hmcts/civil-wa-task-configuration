@@ -519,4 +519,3 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         return rules;
     }
 }
-
