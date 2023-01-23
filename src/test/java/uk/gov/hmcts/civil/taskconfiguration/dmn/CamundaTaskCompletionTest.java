@@ -13,13 +13,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -42,8 +40,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "completionMode", "Auto"
-                    ),
-                    Collections.emptyMap()
+                    )
                 )
             ),
             Arguments.of(
@@ -54,8 +51,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "completionMode", "Auto"
-                    ),
-                    Collections.emptyMap()
+                    )
                 )
             )
         );
@@ -64,7 +60,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     static Stream<Arguments> scenarioProviderSdo() {
         return Stream.of(
             Arguments.of(
-                "CLAIMANT_RESPONSE",
+                "CREATE_SDO",
                 asList(
                     Map.of(
                         "taskType", "FastTrackDirections",
@@ -78,33 +74,63 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                         "taskType", "LegalAdvisorSmallClaimsTrackDirections",
                         "completionMode", "Auto"
                     ),
-                    Collections.emptyMap()
-
+                    Map.of(
+                        "taskType", "SmallClaimsTrackDirectionsReferral",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
                 )
             ),
             Arguments.of(
-                "DrawDirectionsOrderJudge",
+                "NotSuitable_SDO",
                 asList(
                     Map.of(
-                        "taskType", "ScheduleAHearing",
+                        "taskType", "FastTrackDirections",
                         "completionMode", "Auto"
                     ),
-                    Collections.emptyMap()
+                    Map.of(
+                        "taskType", "SmallClaimsTrackDirections",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "SmallClaimsTrackDirectionsReferral",
+                        "completionMode", "Auto"
+                    )
                 )
             ),
             Arguments.of(
                 "REFER_TO_JUDGE",
                 asList(
                     Map.of(
+                        "taskType", "LegalAdvisorSmallClaimsTrackDirections",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
                         "taskType", "SmallClaimsTrackDirectionsReferral",
                         "completionMode", "Auto"
                     ),
-                    Collections.emptyMap()
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
                 )
             ),
             Arguments.of(
-                "unknownEvent",
-                emptyList()
+                "CLAIMANT_RESPONSE",
+                asList(
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
+                )
+            ),
+            Arguments.of(
+                "CLAIMANT_RESPONSE_SPEC",
+                asList(
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
+                )
             )
         );
     }
@@ -114,7 +140,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 "ADD_CASE_NOTE",
                 asList(
-                    Collections.emptyMap(),
                     Map.of(
                         "taskType", "removeHearing",
                         "completionMode", "Auto"
@@ -128,7 +153,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 "HEARING_SCHEDULED",
                 asList(
-                    Collections.emptyMap(),
                     Map.of(
                         "taskType", "adjournedReList",
                         "completionMode", "Auto"
@@ -139,12 +163,22 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest(name = "event id: {0}")
-    @MethodSource({"scenarioProvider", "scenarioProviderCP"})
-
+    @MethodSource({"scenarioProvider",  "scenarioProviderCP"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioProviderSdo"})
+    void given_event_ids_should_evaluate_sdo_dmn(String eventId, List<Map<String, String>> expectation) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        System.out.println(eventId);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
     }
@@ -154,7 +188,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(14));
+        assertThat(logic.getRules().size(), is(13));
 
     }
 

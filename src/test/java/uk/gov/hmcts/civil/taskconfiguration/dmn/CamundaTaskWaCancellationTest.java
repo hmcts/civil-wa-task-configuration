@@ -26,7 +26,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioProvider", "scenarioProviderSdo", "scenarioProviderSdo1"})
+    @MethodSource({"scenarioProvider"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -46,6 +46,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "defaultJudgment"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "standardDirectionsOrder"
             ),
             Map.of(
                 "action", "Cancel",
@@ -78,32 +82,17 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "any state", "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "any state",
                 outcome
             ),
             Arguments.of(
-                "", "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "",
                 outcome
             ),
             Arguments.of(
-                null, "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", null,
                 outcome
 
-            )
-        );
-    }
-
-    public static Stream<Arguments> scenarioProviderSdo1() {
-        List<Map<String, String>> outcome = List.of(
-            Map.of(
-                "action", "Cancel",
-                "processCategories", "standardDirectionsOrder"
-            )
-        );
-        return Stream.of(
-            Arguments.of(
-                "JUDICIAL_REFERRAL", "REFER_TO_JUDGE", "JUDICIAL_REFERRAL",
-                outcome
             )
         );
     }
