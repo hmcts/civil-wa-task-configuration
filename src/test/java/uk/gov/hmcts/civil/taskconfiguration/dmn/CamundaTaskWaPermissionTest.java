@@ -89,20 +89,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "value", "Read,Own,Manage,Cancel"
     );
 
-    private static final Map<String, Serializable> hearingCentreAdminCP = Map.of(
-        "autoAssignable", false,
-        "name", "hearing-centre-admin",
-        "roleCategory", "ADMIN",
-        "value", "Read,Manage,Own,Cancel"
-    );
-
-    private static final Map<String, Serializable> hearingCentreTeamleaderCP = Map.of(
-        "autoAssignable", false,
-        "name", "hearing-centre-team-leader",
-        "roleCategory", "ADMIN",
-        "value", "Read,Manage,Own,Cancel"
-    );
-
     @BeforeAll
     public static void initialization() {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_PERMISSIONS_CIVIL_DAMAGES;
@@ -117,7 +103,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                         "autoAssignable", false,
                         "name", "task-supervisor",
-                        "value", "Read,Manage,Cancel"
+                        "value", "Read,Manage,Cancel,Unassign,Assign"
                     )),
                 Arguments.of(
                     "null",
@@ -125,7 +111,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                         Map.of(
                             "autoAssignable", false,
                             "name", "task-supervisor",
-                            "value", "Read,Manage,Cancel",
+                            "value", "Read,Manage,Cancel,Unassign,Assign",
                             "roleCategory", "JUDICIAL"
                         ))))
         );
@@ -139,7 +125,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                         "autoAssignable", false,
                         "name", "task-supervisor",
-                        "value", "Read,Manage,Cancel"
+                        "value", "Read,Manage,Cancel,Unassign,Assign"
                     )),
                 Arguments.of(
                     "null",
@@ -147,7 +133,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                         Map.of(
                             "autoAssignable", false,
                             "name", "task-supervisor",
-                            "value", "Read,Manage,Cancel"
+                            "value", "Read,Manage,Cancel,Unassign,Assign"
                         )
                     )
                 )
@@ -181,12 +167,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Own,Manage,Cancel",
+                "value", "Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
                 "assignmentPriority",1,
@@ -210,12 +196,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Own,Manage,Cancel",
+                "value", "Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
                 "assignmentPriority",1,
@@ -239,12 +225,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Own,Manage,Cancel",
+                "value", "Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
                 "assignmentPriority",1,
@@ -268,12 +254,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Own,Manage,Cancel",
+                "value", "Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
                 "assignmentPriority",1,
@@ -297,12 +283,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "leadership-judge",
-                "value", "Read,Own,Manage,Cancel",
+                "value", "Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete",
                 "roleCategory", "JUDICIAL",
                 "authorisations","294",
                 "assignmentPriority",1,
@@ -315,7 +301,8 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "transferCaseOffline"
+        "transferCaseOffline", "transferCaseOfflineNotSuitableSDO", "removeHearing",
+        "preHearingContact", "adjournedReList"
     })
     void given_transferCaseOffline_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
@@ -326,12 +313,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "hearing-centre-admin",
-                "value", "Read,Own,Manage,Cancel",
+                "value", "Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
             )
@@ -353,12 +340,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "tribunal-caseworker",
-                "value", "Read,Own,Manage,Cancel",
+                "value", "Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete",
                 "roleCategory", "LEGAL_OPERATIONS",
                 "autoAssignable", false
             )
@@ -369,7 +356,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "ScheduleAHearing",  "removeHearing", "preHearingContact", "adjournedReList"
+        "ScheduleAHearing"
     })
     void given_scheduleAHearing_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
@@ -380,13 +367,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "hearing-centre-admin",
-                "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMIN",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
                 "autoAssignable", false
             )
         )));
@@ -407,24 +388,18 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
                 "autoAssignable", false
             ),
             Map.of(
                 "name", "hearing-centre-team-leader",
-                "value", "Read,Own,Manage,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", true
-            ),
-            Map.of(
-                "name", "ctsc-team-leader",
-                "value", "Read,Own,Manage,Cancel",
+                "value", "Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete",
                 "roleCategory", "ADMIN",
                 "autoAssignable", true
             ),
             Map.of(
                 "name", "nbc-team-leader",
-                "value", "Read,Own,Manage,Cancel",
+                "value", "Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete",
                 "roleCategory", "ADMIN",
                 "autoAssignable", true
             )
