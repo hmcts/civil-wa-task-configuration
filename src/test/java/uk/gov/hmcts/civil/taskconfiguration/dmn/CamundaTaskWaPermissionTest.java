@@ -105,16 +105,16 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                         "name", "task-supervisor",
                         "value", "Read,Manage,Cancel,Unassign,Assign"
                     )),
-                Arguments.of(
-                    "null",
-                    asList(
-                        Map.of(
-                            "autoAssignable", false,
-                            "name", "task-supervisor",
-                            "value", "Read,Manage,Cancel,Unassign,Assign",
-                            "roleCategory", "JUDICIAL"
-                        ))))
-        );
+                    Arguments.of(
+                        "null",
+                        asList(
+                            Map.of(
+                                "autoAssignable", false,
+                                "name", "task-supervisor",
+                                "value", "Read,Manage,Cancel,Unassign,Assign",
+                                "roleCategory", "JUDICIAL"
+                            ))))
+                    );
     }
 
     public static Stream<Arguments> genericScenarioProvider() {
