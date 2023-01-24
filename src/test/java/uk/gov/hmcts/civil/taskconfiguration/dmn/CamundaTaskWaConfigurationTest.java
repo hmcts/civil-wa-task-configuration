@@ -41,8 +41,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(30));
-
+        assertThat(logic.getRules().size(), is(31));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -438,7 +437,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "LegalAdviserSmallClaimsTrackDirections"
+            "LegalAdvisorSmallClaimsTrackDirections"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -570,13 +569,13 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("role_Category"))
+            .filter((r) -> r.containsValue("roleCategory"))
             .collect(Collectors.toList());
 
         assertEquals(1, workTypeResultList.size());
 
         assertEquals(Map.of(
-            "name", "role_Category",
+            "name", "roleCategory",
             "value", "ADMIN",
             "canReconfigure", "true"
         ), workTypeResultList.get(0));
