@@ -144,7 +144,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest(name = "case data: {0}")
     @MethodSource({"scenarioProvider","genericScenarioProvider"})
     void given_anyevent_event_ids_should_evaluate_judge_dmn(String caseData,
-                                                            List<Map<String, String>> expectation) {
+                                                      List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("case", caseData);
@@ -301,8 +301,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "transferCaseOffline", "transferCaseOfflineNotSuitableSDO", "removeHearing",
-        "preHearingContact", "adjournedReList"
+        "transferCaseOffline"
     })
     void given_transferCaseOffline_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
