@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-configuration-civil-civil" name="Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -164,7 +164,10 @@ else "1"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0b24qcm">
-          <text>"transferCaseOffline", "transferCaseOfflineNotSuitableSDO"</text>
+          <text>"transferCaseOffline",
+"transferCaseOfflineNotSuitableSDO",
+"removeHearing",
+"adjournedReList"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1unwcmq">
           <text>"workType"</text>
@@ -361,7 +364,10 @@ else ""</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0byfs3s">
           <text>"ScheduleAHearing",
-"reviewSpecificAccessRequestAdmin"</text>
+"reviewSpecificAccessRequestAdmin",
+"removeHearing",
+"preHearingContact",
+"adjournedReList"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0sbobgy">
           <text>"roleCategory"</text>
@@ -491,6 +497,74 @@ else "1234"</text>
 else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bwos3u">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19359cn">
+        <inputEntry id="UnaryTests_1rrj1o8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ymnii2">
+          <text>"preHearingContact"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jevwmm">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10heazd">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12vzl3l">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18p2ixx">
+        <inputEntry id="UnaryTests_13jnl8x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r65hgj">
+          <text>"removeHearing"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g9uml7">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0swwvwa">
+          <text>"[Case Struck out - Removing Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0w4tgmh">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wswf52">
+        <inputEntry id="UnaryTests_19v2znt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jml1xx">
+          <text>"preHearingContact"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0f6q1mf">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0my9ca9">
+          <text>"[Trial Readiness Check](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xx6gz7">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14om4vc">
+        <inputEntry id="UnaryTests_1j2xtnj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xgier3">
+          <text>"adjournedReList"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0axhgge">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1e6teum">
+          <text>"[Case Adjourned - Relist Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/HEARING_Scheduled/HEARING_Scheduled)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mghk59">
           <text>"true"</text>
         </outputEntry>
       </rule>
