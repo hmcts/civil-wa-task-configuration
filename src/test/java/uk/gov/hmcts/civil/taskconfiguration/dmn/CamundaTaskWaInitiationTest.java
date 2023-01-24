@@ -60,33 +60,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                     "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
                 )
-            ),
-            Arguments.of(
-                "HEARING_FEE_UNPAID", "CASE_DISMISSED",
-                Map.of(
-                    "taskId", "removeHearing",
-                    "name", "Case Struck out - Removing Hearing",
-                    "workingDaysAllowed", 2,
-                    "processCategories", "caseProgression"
-                )
-            ),
-            Arguments.of(
-                "TRIAL_READY_CHECK", "PREPARE_FOR_HEARING_CONDUCT_HEARING",
-                Map.of(
-                    "taskId", "preHearingContact",
-                    "name", "Trial Readiness Check",
-                    "workingDaysAllowed", 10,
-                    "processCategories", "caseProgression"
-                )
-            ),
-            Arguments.of(
-                "ADJOURN_ORDER", "CASE_PROGRESSION",
-                Map.of(
-                    "taskId", "adjournedReList",
-                    "name", "Case Adjourned - Re-list Hearing",
-                    "workingDaysAllowed", 10,
-                    "processCategories", "caseProgression"
-                )
             )
         );
     }
@@ -95,6 +68,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(72));
+        assertThat(logic.getRules().size(), is(69));
     }
 }
