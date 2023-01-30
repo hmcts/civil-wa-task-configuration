@@ -9,7 +9,9 @@ import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
@@ -18,9 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -37,7 +41,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(27));
+        assertThat(logic.getRules().size(), is(30));
 
     }
 
@@ -131,42 +135,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "value", ""
         )));
 
-    }
-
-
-    @Test
-    void when_taskId_then_return_Access_requests() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        caseData.put("applicant2", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "reviewSpecificAccessRequestJudiciary"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("workType"))
-            .collect(Collectors.toList());
-
-        System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(1));
-
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "workType",
-            "value", "access_requests",
-            "canReconfigure", "true"
-        )));
     }
 
     @Test
@@ -273,8 +241,11 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
-    void when_taskId_then_return_Access_requests_foradmin() {
+    @ParameterizedTest
+    @CsvSource({"reviewSpecificAccessRequestJudiciary", "reviewSpecificAccessRequestAdmin",
+        "reviewSpecificAccessRequestLegalOps"
+    })
+    void when_taskId_then_return_Access_requests3(String taskType) {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
@@ -287,205 +258,21 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "reviewSpecificAccessRequestAdmin"
-        ));
-
-        inputVariables.putValue("taskAttributes", Map.of(
-            "additionalProperties",
-            "reviewSpecificAccessRequestAdmin"
-        ));
-
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("featureToggleWA", Map.of("toggle", "WA3"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
             .filter((r) -> r.containsValue("workType"))
             .collect(Collectors.toList());
 
-        System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(0));
+        assertEquals(1, workTypeResultList.size());
 
-        assertFalse(workTypeResultList.contains(Map.of(
+        assertEquals(Map.of(
             "name", "workType",
-            "value", "access_requests",
+            "value", "access-requests",
             "canReconfigure", "true"
-        )));
-    }
-
-    @Test
-    void when_taskId_then_return_Access_requests_forjudi() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        caseData.put("applicant2", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "reviewSpecificAcesssRequestJudiciary"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("workType"))
-            .collect(Collectors.toList());
-
-        System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(0));
-
-        assertFalse(workTypeResultList.contains(Map.of(
-            "name", "workType",
-            "value", "access_requests",
-            "canReconfigure", "false"
-        )));
-    }
-
-    @Test
-    void when_taskId_then_return_decision_making_work_forsdo() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        caseData.put("applicant2", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "FastTrackDirections"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("workType"))
-            .collect(Collectors.toList());
-
-        System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(1));
-
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "workType",
-            "value", "decision_making_work",
-            "canReconfigure", "true"
-        )));
-    }
-
-    @Test
-    void when_taskId_then_return_decision_making_work_smallclaims() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        caseData.put("applicant2", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "SmallClaimsTrackDirections"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("workType"))
-            .collect(Collectors.toList());
-
-        System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(1));
-
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "workType",
-            "value", "decision_making_work",
-            "canReconfigure", "true"
-        )));
-    }
-
-    @Test
-    void when_taskId_then_return_decision_making_work_legaladv() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        caseData.put("applicant2", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "LegalAdvisorSmallClaimsTrackDirections"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("workType"))
-            .collect(Collectors.toList());
-
-        System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(1));
-
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "workType",
-            "value", "decision_making_work",
-            "canReconfigure", "true"
-        )));
-    }
-
-    @Test
-    void when_taskId_then_return_decision_making_work_sctdrefe() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        caseData.put("applicant2", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "SmallClaimsTrackDirectionsReferral"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("workType"))
-            .collect(Collectors.toList());
-
-        System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(1));
-
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "workType",
-            "value", "decision_making_work",
-            "canReconfigure", "true"
-        )));
+        ), workTypeResultList.get(0));
     }
 
     @Value
@@ -493,6 +280,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     private static class Scenario {
         Map<String, Object> caseData;
         Map<String, Object> taskAttributes;
+        Map<String, Object> featureToggleWA;
         String expectedAppealTypeValue;
         String expectedRegionValue;
         String expectedDescriptionValue;
@@ -517,5 +305,72 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         getExpectedValue(rules, "nextHearingDate", scenario.getExpectedNextHearingDateValue());
 
         return rules;
+    }
+
+    @ParameterizedTest
+    @MethodSource("workTypeScenarioProvider")
+    void when_taskId_then_return_workType(String taskType, List<Map<String, String>> expected) {
+        VariableMap inputVariables = new VariableMapImpl();
+
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        assertEquals(expected, workTypeResultList);
+    }
+
+    public static Stream<Arguments> workTypeScenarioProvider() {
+        List<Map<String, String>> decisionMakingWork = List.of(Map.of(
+            "name", "workType",
+            "value", "decision_making_work",
+            "canReconfigure", "true"
+        ));
+
+        return Stream.of(
+            Arguments.of("summaryJudgmentDirections", decisionMakingWork),
+            Arguments.of("FastTrackDirections", decisionMakingWork),
+            Arguments.of("SmallClaimsTrackDirections", decisionMakingWork),
+            Arguments.of("LegalAdvisorSmallClaimsTrackDirections", decisionMakingWork),
+            Arguments.of("SmallClaimsTrackDirectionsReferral", decisionMakingWork)
+        );
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "reviewSpecificAccessRequestJudiciary", "reviewSpecificAccessRequestLegalOps",
+        "reviewSpecificAccessRequestAdmin", "reviewSpecificAccessRequestCTSC"
+    })
+    void when_taskId_then_return_Access_requests3_5(String taskType) {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("featureToggleWA", Map.of("toggle", "WA3.5"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        assertEquals(1, workTypeResultList.size());
+
+        assertEquals(Map.of(
+            "name", "workType",
+            "value", "access-requests",
+            "canReconfigure", "true"
+        ), workTypeResultList.get(0));
     }
 }
