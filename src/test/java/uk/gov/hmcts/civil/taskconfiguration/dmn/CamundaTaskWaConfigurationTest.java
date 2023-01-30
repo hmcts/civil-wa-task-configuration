@@ -259,7 +259,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("caseData", caseData);
 
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-        inputVariables.putValue("featureToggleWA", Map.of("toggle", "WA3"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
@@ -270,7 +269,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertEquals(Map.of(
             "name", "workType",
-            "value", "access-requests",
+            "value", "access_requests",
             "canReconfigure", "true"
         ), workTypeResultList.get(0));
     }
