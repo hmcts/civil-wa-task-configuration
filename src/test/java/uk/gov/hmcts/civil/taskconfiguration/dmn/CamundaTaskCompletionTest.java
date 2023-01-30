@@ -77,9 +77,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                         "taskType", "SmallClaimsTrackDirectionsReferral",
                         "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "completionMode", "Auto"
                     )
                 )
             ),
@@ -96,38 +93,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "taskType", "SmallClaimsTrackDirectionsReferral",
-                        "completionMode", "Auto"
-                    )
-                )
-            ),
-            Arguments.of(
-                "REFER_TO_JUDGE",
-                asList(
-                    Map.of(
-                        "taskType", "LegalAdvisorSmallClaimsTrackDirections",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "taskType", "SmallClaimsTrackDirectionsReferral",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "completionMode", "Auto"
-                    )
-                )
-            ),
-            Arguments.of(
-                "CLAIMANT_RESPONSE",
-                asList(
-                    Map.of(
-                        "completionMode", "Auto"
-                    )
-                )
-            ),
-            Arguments.of(
-                "CLAIMANT_RESPONSE_SPEC",
-                asList(
-                    Map.of(
                         "completionMode", "Auto"
                     )
                 )
@@ -188,7 +153,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(13));
+        assertThat(logic.getRules().size(), is(11));
 
     }
 
