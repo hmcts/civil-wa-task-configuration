@@ -131,12 +131,12 @@ withPipeline(type, product, component) {
       eval \$(./bin/variables/load-aat-environment-variables.sh)
       ./bin/pull-latest-release-asset.sh civil-ccd-definition civil-e2e.zip
     """
-    env.URL="https://manage-case.aat.platform.hmcts.net"
     env.IDAM_API_URL = "https://idam-api.aat.platform.hmcts.net"
-    env.SERVICE_AUTH_PROVIDER_API_BASE_URL = "http://rpe-service-auth-provider-aat.aat.platform.hmcts.net"
-    env.CCD_DATA_STORE_URL = "http://ccd-data-store-api-aat.aat.platform.hmcts.net"
+    env.SERVICE_AUTH_PROVIDER_API_BASE_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+    env.CCD_DATA_STORE_URL = "https://civil-service-data-store-staging-aat.service.core-compute-aat.internal"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
-    env.CIVIL_SERVICE_URL="https://civil-service-pr-${CHANGE_ID}.preview.platform.hmcts.net"  }
+    env.CIVIL_SERVICE_URL="https://civil-service-staging.aat.platform.hmcts.net"
+  }
 
   afterSuccess('smoketest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/smokeTest/**/*'
