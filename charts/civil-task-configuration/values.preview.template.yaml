@@ -56,7 +56,7 @@ java:
     CUI_URL_RESPOND_TO_CLAIM: https://civil-citizen-ui.{{ .Values.global.environment }}.platform.hmcts.net/first-contact/start
     SPRING_CLOUD_BOOTSTRAP_ENABLED: true
     RD_PROFESSIONAL_API_URL: http://rd-professional-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    LAUNCH_DARKLY_ENV: ${SERVICE_NAME}.preview.platform.hmcts.net}
+    LAUNCH_DARKLY_ENV: ${SERVICE_FQDN}
     CORE_CASE_DATA_API_URL: http://${SERVICE_NAME}-ccd-data-store-api
     CASE_DOCUMENT_AM_URL: http://ccd-case-document-am-api-aat.service.core-compute-aat.internal
     CMC_DB_HOST: "{{ .Values.postgresql.releaseNameOverride}}"
@@ -81,13 +81,13 @@ java:
         requests:
           cpu: 25m
       initdb:
-          scripts:
-            init.sql: |-
-              CREATE DATABASE cmc WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-              CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-              CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-              CREATE DATABASE "camunda" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-              CREATE DATABASE "role_assignment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+        scripts:
+          init.sql: |-
+            CREATE DATABASE cmc WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+            CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+            CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+            CREATE DATABASE "camunda" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+            CREATE DATABASE "role_assignment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
     auth:
       username: hmcts
       password: hmcts
@@ -97,7 +97,7 @@ idam-pr:
   enabled: true
   redirect_uris:
     XUI:
-      - https://xui-${SERVICE_NAME}.preview.platform.hmcts.net}/oauth2/callback
+      - https://xui-${SERVICE_FQDN}/oauth2/callback
 
 xui-webapp:
   enabled: true
@@ -109,10 +109,10 @@ xui-webapp:
     environment:
       HEALTH_CCD_COMPONENT_API: http://${SERVICE_NAME}-ccd-api-gw/health
       HEALTH_CCD_DATA_API: http://${SERVICE_NAME}-ccd-data-store-api/health
-      HEALTH_TERMS_AND_CONDITIONS_API: http://xui-terms-and-conditions-${SERVICE_NAME}.preview.platform.hmcts.net}.service.core-compute-preview.internal/health
+      HEALTH_TERMS_AND_CONDITIONS_API: http://xui-terms-and-conditions-${SERVICE_FQDN}.service.core-compute-preview.internal/health
       SERVICES_CCD_COMPONENT_API: http://${SERVICE_NAME}-ccd-api-gw
       SERVICES_CCD_DATA_STORE_API: http://${SERVICE_NAME}-ccd-data-store-api
-      SERVICES_TERMS_AND_CONDITIONS: http://xui-terms-and-conditions-${SERVICE_NAME}.preview.platform.hmcts.net}.service.core-compute-preview.internal
+      SERVICES_TERMS_AND_CONDITIONS: http://xui-terms-and-conditions-${SERVICE_FQDN}.service.core-compute-preview.internal
       JURISDICTIONS: CIVIL
       LAUNCH_DARKLY_CLIENT_ID: ~
 ccd:
