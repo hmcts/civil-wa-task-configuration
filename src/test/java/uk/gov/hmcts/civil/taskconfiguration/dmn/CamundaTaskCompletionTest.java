@@ -26,6 +26,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     @BeforeAll
     public static void initialization() {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_COMPLETION_CIVIL_DAMAGES;
+
     }
 
     static Stream<Arguments> scenarioProvider() {
