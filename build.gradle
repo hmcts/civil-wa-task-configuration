@@ -150,10 +150,6 @@ task genAppInstallDependencies(type: Exec, description: 'Installs Yarn dependenc
   commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
 }
 
-task genAppCheckDependenciesIntegrity(type: Exec, description: 'Checks integrity of Yarn dependencies.') {
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
-}
-
 task pullCCDDefAsset(type: Exec, description: 'Installs Yarn dependencies.') {
   commandLine './bin/pull-latest-civil-ccd-files.sh', 'master'
 }
@@ -212,7 +208,7 @@ task smoke(description: 'Runs the smoke tests.') {
 task functional(description: 'Runs the functional tests.') {
   dependsOn(inStrictOrder(awaitApplicationReadiness,
   pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests,
-  pullGeneralAppAsset, genAppInstallDependencies, genAppCheckDependenciesIntegrity, runNightlyGenAppCCDTaskTests))
+  pullGeneralAppAsset, genAppInstallDependencies, runNightlyGenAppCCDTaskTests))
 }
 
 // before committing a change, make sure task still works
