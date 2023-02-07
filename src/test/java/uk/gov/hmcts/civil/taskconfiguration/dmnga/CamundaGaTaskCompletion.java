@@ -54,7 +54,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ))),
                 Arguments.of(
-                    "HEARING_READINESS",
+                    "HEARING_SCHEDULED_GA",
                     asList(
                         Map.of(
                             "taskType", "ScheduleApplicationHearing",
