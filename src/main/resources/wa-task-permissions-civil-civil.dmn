@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.1.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
   <decision id="wa-task-permissions-civil-civil" name="Permissions DMN">
     <decisionTable id="DecisionTable_1pr5oica" hitPolicy="RULE ORDER">
       <input id="InputClause_12crj6ea" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
@@ -36,7 +36,7 @@ else
           <text>"task-supervisor"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_14kh2zla">
-          <text>"Read,Manage,Cancel,Unassign,Assign,Complete"</text>
+          <text>"Read,Manage,Cancel,Unassign,Assign"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0kwn52ea">
           <text></text>
@@ -117,8 +117,7 @@ else
       <rule id="DecisionRule_1mppa3l">
         <description>Listing Officer task permissions</description>
         <inputEntry id="UnaryTests_05z57xg">
-          <text>"transferCaseOffline","transferCaseOfflineNotSuitableSDO",
-"ScheduleAHearing"</text>
+          <text>"transferCaseOffline","transferCaseOfflineNotSuitableSDO"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0qmd6we">
           <text></text>
@@ -293,36 +292,6 @@ else
         </outputEntry>
         <outputEntry id="LiteralExpression_1q6vb8l">
           <text>false</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0m3mvs1">
-        <description>CTSC permissions for Case Flags</description>
-        <inputEntry id="UnaryTests_1xj7cw4">
-          <text>"ReviewCaseFlagsForClaimant"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1g88afe">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0ctb0ob">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1pc0lld">
-          <text>"ctsc"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1eg8eb2">
-          <text>"Read,Own,Manage,Cancel,Claim,Unassign,Assign,Complete"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1m2ef3l">
-          <text>"ADMIN"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_19f9n57">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0pprtch">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0oy8wpp">
-          <text>true</text>
         </outputEntry>
       </rule>
     </decisionTable>

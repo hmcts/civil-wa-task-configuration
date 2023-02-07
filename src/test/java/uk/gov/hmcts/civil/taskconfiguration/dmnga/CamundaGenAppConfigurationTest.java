@@ -33,7 +33,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(26));
+        assertThat(logic.getRules().size(), is(30));
     }
 
 
@@ -112,6 +112,49 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         System.out.println(workTypeResultList);
         assertThat(workTypeResultList.size(), is(1));
 
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "access_requests",
+            "canReconfigure","true"
+        )));
+    }
+
+    @Test
+    void when_taskType_reviewSpecificAccessRequestCtsc_then_return_Access_requests() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+        caseData.put("caseManagementLocation", Map.of(
+            "region", "4",
+            "baseLocation", "574546"
+
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "reviewSpecificAccessRequestCTSC"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(roleCategoryResultList.size(), is(1));
+
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "CTSC",
+            "canReconfigure","true"
+        )));
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
             "value", "access_requests",
@@ -372,7 +415,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @CsvSource({
         "reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin",
-        "reviewSpecificAccessRequestLegalOps"
+        "reviewSpecificAccessRequestLegalOps","reviewSpecificAccessRequestCTSC"
     })
     void when_taskId_then_return_roleAssignmentId_isNotNull(String taskType) {
         Map<String, Object> caseData = new HashMap<>();
@@ -402,7 +445,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @CsvSource({
         "reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin",
-        "reviewSpecificAccessRequestLegalOps"
+        "reviewSpecificAccessRequestLegalOps","reviewSpecificAccessRequestCTSC"
     })
     void when_taskId_then_return_roleAssignmentId_isNull(String taskType) {
         Map<String, Object> caseData = new HashMap<>();
@@ -422,6 +465,111 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(roleAssignmentIdResultList.contains(Map.of(
             "name", "additionalProperties_roleAssignmentId",
             "value", "1234",
+            "canReconfigure","true"
+        )));
+    }
+
+    @Test
+    void when_taskId_scheduleForHearing_and_caseProgressionEnabled_then_return_nextSteps() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+        caseData.put("caseManagementLocation", Map.of(
+            "region", "4",
+            "baseLocation", "574546"
+
+        ));
+        caseData.put("isCaseProgressionEnabled", "Yes");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ScheduleApplicationHearing"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> description = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("description"))
+            .collect(Collectors.toList());
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+        assertThat(description.size(), is(1));
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(roleCategoryResultList.size(), is(1));
+        assertTrue(description.contains(Map.of(
+            "name", "description",
+            "value", "[ScheduleApplicationHearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/"
+                + "HEARING_SCHEDULED_GA/"
+                + "HEARING_SCHEDULED_GAHearingNoticeGADetail)",
+            "canReconfigure","true"
+        )));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "hearing_work",
+            "canReconfigure","true"
+        )));
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "ADMIN",
+            "canReconfigure","true"
+        )));
+    }
+
+    @Test
+    void when_taskId_scheduleForHearing_and_caseProgressionDisabled_then_return_null() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+        caseData.put("caseManagementLocation", Map.of(
+            "region", "4",
+            "baseLocation", "192280"
+
+        ));
+        caseData.put("isCaseProgressionEnabled", "No");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ScheduleApplicationHearing"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> description = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("description"))
+            .collect(Collectors.toList());
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+        assertThat(description.size(), is(1));
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(roleCategoryResultList.size(), is(1));
+
+        assertTrue(description.contains(Map.of(
+            "name", "description",
+            "value", "",
+            "canReconfigure","true"
+        )));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "hearing_work",
+            "canReconfigure","true"
+        )));
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "ADMIN",
             "canReconfigure","true"
         )));
     }

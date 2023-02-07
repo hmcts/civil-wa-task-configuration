@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.1.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
   <decision id="wa-task-configuration-civil-civil" name="Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -147,7 +147,7 @@ else "1"</text>
           <text>-</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0nmr8951">
-          <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestsCTSC"</text>
+          <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_04r7w971">
           <text>"workType"</text>
@@ -198,8 +198,7 @@ else "1"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_00px7ye">
-          <text>"transferCaseOffline",
-"reviewSpecificAccessRequestAdmin","transferCaseOfflineNotSuitableSDO" </text>
+          <text>"transferCaseOffline","transferCaseOfflineNotSuitableSDO" </text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1koffim">
           <text>"roleCategory"</text>
@@ -318,23 +317,6 @@ else ""</text>
           <text>"true"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0m176l8">
-        <inputEntry id="UnaryTests_048h03p">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1xwxhp5">
-          <text>"ScheduleAHearing"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0h2haji">
-          <text>"workType"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0dahd0u">
-          <text>"hearing_work"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1lacdqe">
-          <text>"true"</text>
-        </outputEntry>
-      </rule>
       <rule id="DecisionRule_1fow13p">
         <inputEntry id="UnaryTests_0q1u6ls">
           <text></text>
@@ -346,7 +328,7 @@ else ""</text>
 "SmallClaimsTrackDirectionsReferral"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1r6wftd">
-          <text>"role_Category"</text>
+          <text>"roleCategory"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0l7v53c">
           <text>"JUDICIAL"</text>
@@ -364,7 +346,7 @@ else ""</text>
 "reviewSpecificAccessRequestLegalOps"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0mf7tgo">
-          <text>"role_Category"</text>
+          <text>"roleCategory"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_09npwx0">
           <text>"LEGAL_OPERATIONS"</text>
@@ -379,10 +361,10 @@ else ""</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0byfs3s">
           <text>"ScheduleAHearing",
-"reviewSpecificAccessRequestAdmin", "ReviewCaseFlagsForClaimant"</text>
+"reviewSpecificAccessRequestAdmin"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0sbobgy">
-          <text>"role_Category"</text>
+          <text>"roleCategory"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0w03jo5">
           <text>"ADMIN"</text>
@@ -425,23 +407,6 @@ else ""</text>
           <text>"true"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1t6iq1z">
-        <inputEntry id="UnaryTests_0zuggg3">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1peewnn">
-          <text>"ScheduleAHearing"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1bp40im">
-          <text>"description"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1l84pif">
-          <text>"[Directions - Schedule A Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CREATE_SDO/CREATE_SDOScheduleAHearing)"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1893m6y">
-          <text>"true"</text>
-        </outputEntry>
-      </rule>
       <rule id="DecisionRule_0laonsl">
         <inputEntry id="UnaryTests_1h9dt1o">
           <text></text>
@@ -453,7 +418,7 @@ else ""</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0fkaeaa">
-          <text>"[Directions - Legal Adviser Small Claims Track](/cases/case-details/${[CASE_REFERENCE]}/trigger/REFER_TO_JUDGE/REFER_TO_JUDGERTJ)"</text>
+          <text>"[Directions - Legal Adviser Small Claims Track](/cases/case-details/${[CASE_REFERENCE]}/trigger/CREATE_SDO/CREATE_SDOSmallClaims)"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0kshabo">
           <text>"true"</text>
@@ -502,13 +467,13 @@ else "1234"</text>
           <text>"reviewSpecificAccessRequestCTSC"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0yzpj7g">
-          <text>"role_Category"</text>
+          <text>"roleCategory"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1ow54vr">
           <text>"CTSC"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_106qxzg">
-          <text></text>
+          <text>"true"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1eydpw3">
@@ -522,44 +487,10 @@ else "1234"</text>
           <text>"description"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0ya47uu">
-          <text>EXAMPLE URL:"[Review Access Request](/role-access/taskId/assignment/roleAssignmentId/specific-access)"</text>
+          <text>if (taskAttributes != null and taskAttributes.taskId != null and taskAttributes.roleAssignmentId != null) then "[Review Access Request](/role-access/" + taskAttributes.taskId + "/assignment/" + taskAttributes.roleAssignmentId + "/specific-access)"
+else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bwos3u">
-          <text></text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1j4qlsp">
-        <description>Temp URL until Case Flags added</description>
-        <inputEntry id="UnaryTests_173tcdn">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_144h0rh">
-          <text>"ReviewCaseFlagsForClaimant"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0sfuejv">
-          <text>"description"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1195n2f">
-          <text>"https://c80517ca-1c0c-481a-bc09-6f75414850d4.mock.pstmn.io"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0ku1sd3">
-          <text>"true"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0fujkc6">
-        <inputEntry id="UnaryTests_0z3zwn1">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1kvt4kk">
-          <text>"ReviewCaseFlagsForClaimant"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1hvqv9v">
-          <text>"workType"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1nye54l">
-          <text>“routine_work”</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1ecwyq1">
           <text>"true"</text>
         </outputEntry>
       </rule>

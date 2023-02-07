@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.1.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
   <decision id="wa-task-cancellation-civil-civil" name="Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -46,14 +46,15 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0jypqfh">
+        <description>"If a case is moved offline, then all "standardDirectionsOrder" tasks should be cancelled"</description>
         <inputEntry id="UnaryTests_1jwe60s">
-          <text></text>
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0plv23z">
           <text>"TAKE_CASE_OFFLINE"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1iz48gc">
-          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+          <text>-</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_143pa47">
           <text>"Cancel"</text>
@@ -66,98 +67,6 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_1au1kmp">
           <text>"standardDirectionsOrder"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1byd4nb">
-        <inputEntry id="UnaryTests_0f9i7ym">
-          <text>"JUDICIAL_REFERRAL"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1y52t4o">
-          <text>"REFER_TO_JUDGE"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0g7k468">
-          <text>"JUDICIAL_REFERRAL"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0ovxb93">
-          <text>"Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_00iyybp">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0o1gpua">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1cbn6k5">
-          <text>"standardDirectionsOrder"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1fwtsl1">
-        <inputEntry id="UnaryTests_1jcmuv1">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1auvfq4">
-          <text>"TAKE_CASE_OFFLINE"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1an6liz">
-          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0gb9aqn">
-          <text>"Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0ouuyoy">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0vd3qub">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1lm6m0c">
-          <text>"reviewCaseFlags"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0ub6633">
-        <inputEntry id="UnaryTests_0g723mb">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0u0vvbz">
-          <text>"TAKE_CASE_OFFLINE"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0iietrt">
-          <text>"CASE_DISMISSED"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1myad12">
-          <text>"Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_05nlzxz">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0ce1qv4">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1f16c91">
-          <text>"reviewCaseFlags"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0dprxvi">
-        <inputEntry id="UnaryTests_1ehu1j0">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1xrlo8d">
-          <text>"TAKE_CASE_OFFLINE"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1jw9czz">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_04ymxba">
-          <text>"Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1axwq9g">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_17890wr">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1u8aw3m">
-          <text>"reviewCaseFlags"</text>
         </outputEntry>
       </rule>
     </decisionTable>
