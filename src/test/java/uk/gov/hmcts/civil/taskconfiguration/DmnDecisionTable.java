@@ -23,6 +23,9 @@ public enum DmnDecisionTable {
         "wa-task-initiation-civil-civil",
         "wa-task-initiation-civil-civil.dmn"
     ),
+    WA_TASK_TYPES_CIVIL_DAMAGES("wa-task-types-civil-civil",
+                                     "wa-task-types-civil-civil.dmn"
+    ),
     WA_TASK_CONFIGURATION_CIVIL_GENERALAPPLICATION(
             "wa-task-configuration-civil-generalapplication",
             "wa-task-configuration-civil-generalapplication.dmn"
@@ -41,6 +44,7 @@ public enum DmnDecisionTable {
     WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION("wa-task-permissions-civil-generalapplication",
                                                  "wa-task-permissions-civil-generalapplication.dmn"
     );
+
 
     @JsonValue
     private final String key;
