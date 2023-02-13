@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.1.0">
   <decision id="wa-task-configuration-civil-civil" name="Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -464,7 +464,7 @@ else "1234"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jsyggq">
-          <text>"reviewSpecificAccessRequestCTSC"</text>
+          <text>"reviewSpecificAccessRequestCTSC", "ReviewCaseFlagsForClaimant"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0yzpj7g">
           <text>"roleCategory"</text>
@@ -491,6 +491,41 @@ else "1234"</text>
 else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bwos3u">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yz8h40">
+        <description>Temp URL until Case Flags added</description>
+        <inputEntry id="UnaryTests_1rykkqa">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tvph6l">
+          <text>"ReviewCaseFlagsForClaimant"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_067j6gv">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bf9p40">
+          <text>"[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_118k9i2">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16r35x8">
+        <inputEntry id="UnaryTests_05hr5c8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14d8jyi">
+          <text>"ReviewCaseFlagsForClaimant"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13p8m1c">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0dvmhls">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03trhqh">
           <text>"true"</text>
         </outputEntry>
       </rule>

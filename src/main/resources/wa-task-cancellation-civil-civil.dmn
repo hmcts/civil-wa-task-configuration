@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.1.0">
   <decision id="wa-task-cancellation-civil-civil" name="Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -67,6 +67,76 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_1au1kmp">
           <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1he2tjc">
+        <description>"If a case is moved offline, then all "reviewCaseFlags" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1l35g2r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fkjykh">
+          <text>"TAKE_CASE_OFFLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_039ioy0">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0w7jj85">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0c18xl8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0biy4ux">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ev1091">
+          <text>"reviewCaseFlags"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ptf2w3">
+        <inputEntry id="UnaryTests_0599i5b">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t18bik">
+          <text>"TAKE_CASE_OFFLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s091v6">
+          <text>"CASE_DISMISSED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ynw2yr">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07q7unz">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ildk3z">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11vu01g">
+          <text>"reviewCaseFlags"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jqaf5d">
+        <inputEntry id="UnaryTests_0ufzfha">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a7d24x">
+          <text>"TAKE_CASE_OFFLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hqamiq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cukidp">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18mzy9q">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qeger6">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mgnoo4">
+          <text>"reviewCaseFlags"</text>
         </outputEntry>
       </rule>
     </decisionTable>
