@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-configuration-civil-civil" name="Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -20,6 +20,58 @@ null</text>
       <output id="Output_1" label="Name" name="name" typeRef="string" />
       <output id="OutputClause_021y3bba" label="Value" name="value" typeRef="string" biodi:width="416" />
       <output id="OutputClause_1vlj4dw" label="Can Reconfigure" name="canReconfigure" typeRef="string" />
+      <rule id="DecisionRule_0knuxw6">
+        <description>The case flag requirement will require reconfiguration to apply the urgent flag.</description>
+        <inputEntry id="UnaryTests_11l2eex">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uvh57v">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hrc6ta">
+          <text>"majorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i91dpv">
+          <text>if (caseData.urgent != null and caseData.urgent = "Yes") then 2000 else 5000</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1v8teuf">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15eswg4">
+        <inputEntry id="UnaryTests_1tue8mp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zxgmew">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1oscj4w">
+          <text>"priorityDate"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zjf40f">
+          <text>"dueDate"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ua8xcq">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gb7j62">
+        <inputEntry id="UnaryTests_1oe19m7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e8o3er">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yf2984">
+          <text>"minorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_147g6kh">
+          <text>"500"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07bz8mi">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0u7yi271">
         <inputEntry id="UnaryTests_03ky0eka">
           <text></text>

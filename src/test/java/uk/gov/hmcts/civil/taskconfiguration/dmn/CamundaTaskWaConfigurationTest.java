@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(27));
+        assertThat(logic.getRules().size(), is(30));
 
     }
 
@@ -93,13 +93,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         ));
         caseData.put("hearingBaseLocation", "Location");
+        caseData.put("urgent", "Yes");
 
         VariableMap inputVariables = new VariableMapImpl();
         caseData.put("description", null);
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
@@ -129,6 +128,24 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "true",
             "name", "locationName",
             "value", ""
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "majorPriority",
+            "value", "2000"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "priorityDate",
+            "value", "dueDate"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "minorPriority",
+            "value", "500"
         )));
 
     }
