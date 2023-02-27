@@ -90,10 +90,34 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
 
     @SuppressWarnings("checkstyle:indentation")
     @Test
-    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc() {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", "ScheduleApplicationHearing"));
+        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "autoAssignable", false,
+                "name", "task-supervisor",
+                "value", "Read,Manage,Unassign,Assign,Cancel"
+            ),
+            Map.of(
+                "name", "national-business-centre",
+                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "roleCategory", "ADMIN",
+                "assignmentPriority",1,
+                "autoAssignable", false
+            )
+        )));
+    }
+
+    @SuppressWarnings("checkstyle:indentation")
+    @Test
+    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_it_returns_expected_rule_withoutCcmcc() {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "ScheduleApplicationHearing"));
+        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
@@ -276,6 +300,110 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         VariableMap inputVariables = new VariableMapImpl();
         Map<String, Object> caseData = new HashMap<>();
         inputVariables.putValue("taskAttributes", Map.of("taskType", "ReviewApplicationOrder"));
+        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "value", "Read,Manage,Unassign,Assign,Cancel",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "assignmentPriority", 1,
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+            )
+        )));
+    }
+
+    @Test
+    void given_ReviewStayTheClaimApplicationOrder_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables
+            .putValue("taskAttributes", Map.of("taskType", "ReviewStayTheClaimApplicationOrder"));
+        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "value", "Read,Manage,Unassign,Assign,Cancel",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "national-business-centre",
+                "assignmentPriority", 1,
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+            )
+        )));
+    }
+
+    @Test
+    void given_ReviewStayTheClaimApplicationOrder_taskType_when_ccmccLocation_notExists() {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables
+            .putValue("taskAttributes", Map.of("taskType", "ReviewStayTheClaimApplicationOrder"));
+        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "value", "Read,Manage,Unassign,Assign,Cancel",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "assignmentPriority", 1,
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+            )
+        )));
+    }
+
+    @Test
+    void given_ReviewUnlessOrderApplication_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables
+            .putValue("taskAttributes", Map.of("taskType", "ReviewUnlessOrderApplication"));
+        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "value", "Read,Manage,Unassign,Assign,Cancel",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "national-business-centre",
+                "assignmentPriority", 1,
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+            )
+        )));
+    }
+
+    @Test
+    void given_ReviewUnlessOrderApplication_taskType_when_ccmccLocation_notExists() {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables
+            .putValue("taskAttributes", Map.of("taskType", "ReviewUnlessOrderApplication"));
         inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
