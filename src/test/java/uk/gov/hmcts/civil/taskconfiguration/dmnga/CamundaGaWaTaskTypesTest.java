@@ -4,7 +4,6 @@ import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -84,7 +83,7 @@ public class CamundaGaWaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @MethodSource("scenarioProvider")
-    void should_evaluate_dmn_and_verify_task_types( List<Map<String, Object>> expectation) {
+    void should_evaluate_dmn_and_verify_task_types(List<Map<String, Object>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);

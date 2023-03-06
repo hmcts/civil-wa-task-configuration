@@ -33,7 +33,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(34));
+        assertThat(logic.getRules().size(), is(37));
     }
 
 
@@ -195,6 +195,88 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "value", "decision_making_work",
             "canReconfigure","true"
         )));
+    }
+
+    @Test
+    void when_urgent_application_returns_majorPriority() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+        caseData.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
+        ));
+        caseData.put("caseManagementLocation", Map.of(
+            "region", "4",
+            "baseLocation", "574546"
+
+        ));
+        caseData.put("caseManagementCategory", Map.of(
+            "value", Map.of("code", "e9f6b8b8-c9ed-4092-945a-0c67edbcfb3c", "label", "GA"),
+            "list_items", List.of(Map.of(
+                "code", "e9f6b8b8-c9ed-4092-945a-0c67edbcfb3c", "label", "GA"))));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "caseManagementCategory",
+            "value", "GA",
+            "canReconfigure","true"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "majorPriority",
+            "value", "2000",
+            "canReconfigure","true"
+        )));
+
+    }
+
+    @Test
+    void when_not_urgent_application_returns_majorPriority_as_5000() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+        caseData.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
+        ));
+        caseData.put("caseManagementLocation", Map.of(
+            "region", "4",
+            "baseLocation", "574546"
+
+        ));
+        caseData.put("caseManagementCategory", Map.of(
+            "value", Map.of("code", "e9f6b8b8-c9ed-4092-945a-0c67edbcfb3c", "label", "GA"),
+            "list_items", List.of(Map.of(
+                "code", "e9f6b8b8-c9ed-4092-945a-0c67edbcfb3c", "label", "GA"))));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "caseManagementCategory",
+            "value", "GA",
+            "canReconfigure","true"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "majorPriority",
+            "value", "5000",
+            "canReconfigure","true"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "priorityDate",
+            "value", "dueDate",
+            "canReconfigure","true"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "minorPriority",
+            "value", "500",
+            "canReconfigure","true"
+        )));
+
     }
 
     @Test
