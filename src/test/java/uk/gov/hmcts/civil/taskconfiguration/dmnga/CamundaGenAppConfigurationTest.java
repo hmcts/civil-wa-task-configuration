@@ -57,6 +57,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         caseData.put("description", null);
         inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "dueDate","2023-03-22T16:00:00Z"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
@@ -100,7 +102,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "reviewSpecificAccessRequestJudiciary"
+            "reviewSpecificAccessRequestJudiciary",
+            "dueDate","2023-03-22T16:00:00Z"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -135,7 +138,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "reviewSpecificAccessRequestCTSC"
+            "reviewSpecificAccessRequestCTSC",
+            "dueDate","2023-03-22T16:00:00Z"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -178,7 +182,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "JudgeDecideOnApplication"
+            "JudgeDecideOnApplication",
+            "dueDate","2023-03-22T16:00:00Z"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -217,6 +222,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "dueDate","2023-03-22T16:00:00Z"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -253,7 +260,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
-
+        inputVariables.putValue("taskAttributes", Map.of(
+                                                         "dueDate","2023-03-22T16:00:00Z"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
@@ -268,7 +276,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "priorityDate",
-            "value", "dueDate",
+            "value", "2023-03-22T16:00:00Z",
             "canReconfigure","true"
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
@@ -299,7 +307,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "JudgeDecideOnApplication"
+            "JudgeDecideOnApplication",
+            "dueDate","2023-03-22T16:00:00Z"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -332,7 +341,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "JudgeDecideOnApplication"
+            "JudgeDecideOnApplication",
+            "dueDate","2023-03-22T16:00:00Z"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -366,7 +376,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "JudgeDecideOnApplication"
+            "JudgeDecideOnApplication",
+            "dueDate","2023-03-22T16:00:00Z"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -394,7 +405,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
-        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType,
+                                                         "dueDate","2023-03-22T16:00:00Z"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -428,7 +440,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
-        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType,
+                                                         "dueDate","2023-03-22T16:00:00Z"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -467,7 +480,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "ReviewApplicationOrder"
+            "ReviewApplicationOrder",
+            "dueDate","2023-03-22T16:00:00Z"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -507,7 +521,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType,
-                                                         "roleAssignmentId","123a-b-456"));
+                                                         "roleAssignmentId","123a-b-456",
+                                                         "dueDate","2023-03-22T16:00:00Z"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> roleAssignmentIdResultList = dmnDecisionTableResult.getResultList().stream()
@@ -536,7 +551,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
-        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType,
+                                                         "dueDate","2023-03-22T16:00:00Z"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> roleAssignmentIdResultList = dmnDecisionTableResult.getResultList().stream()
@@ -568,7 +584,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "ScheduleApplicationHearing"
+            "ScheduleApplicationHearing",
+            "dueDate","2023-03-22T16:00:00Z"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -621,7 +638,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "ScheduleApplicationHearing"
+            "ScheduleApplicationHearing",
+            "dueDate","2023-03-22T16:00:00Z"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
