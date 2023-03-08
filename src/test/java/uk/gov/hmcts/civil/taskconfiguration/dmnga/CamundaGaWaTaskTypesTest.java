@@ -33,48 +33,48 @@ public class CamundaGaWaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 asList(
                     Map.of(
-                        "task_type_id", "JudgeDecideOnApplication",
-                        "task_type_name", "Decide on an Application"
+                        "taskTypeId", "JudgeDecideOnApplication",
+                        "taskTypeName", "Decide on an Application"
                     ),
                     Map.of(
-                        "task_type_id", "ReviewApplication",
-                        "task_type_name", "Review an Application"
+                        "taskTypeId", "ReviewApplication",
+                        "taskTypeName", "Review an Application"
                     ),
                     Map.of(
-                        "task_type_id", "LegalAdvisorDecideOnApplication",
-                        "task_type_name", "Decide on an Application"
+                        "taskTypeId", "LegalAdvisorDecideOnApplication",
+                        "taskTypeName", "Decide on an Application"
                     ),
                     Map.of(
-                        "task_type_id", "JudgeRevisitApplication",
-                        "task_type_name", "Revisit an Application"
+                        "taskTypeId", "JudgeRevisitApplication",
+                        "taskTypeName", "Revisit an Application"
                     ),
                     Map.of(
-                        "task_type_id", "ReviewRevisitedApplication",
-                        "task_type_name", "Review a revisited Application"
+                        "taskTypeId", "ReviewRevisitedApplication",
+                        "taskTypeName", "Review a revisited Application"
                     ),
                     Map.of(
-                        "task_type_id", "LegalAdvisorRevisitApplication",
-                        "task_type_name", "Revisit an Application"
+                        "taskTypeId", "LegalAdvisorRevisitApplication",
+                        "taskTypeName", "Revisit an Application"
                     ),
                     Map.of(
-                        "task_type_id", "ScheduleApplicationHearing",
-                        "task_type_name", "Schedule an Application Hearing"
+                        "taskTypeId", "ScheduleApplicationHearing",
+                        "taskTypeName", "Schedule an Application Hearing"
                     ),
                     Map.of(
-                        "task_type_id", "reviewSpecificAccessRequestJudiciary",
-                        "task_type_name", "Specific Access Request"
+                        "taskTypeId", "reviewSpecificAccessRequestJudiciary",
+                        "taskTypeName", "Specific Access Request"
                     ),
                     Map.of(
-                        "task_type_id", "reviewSpecificAccessRequestLegalOps",
-                        "task_type_name", "Specific Access Request"
+                        "taskTypeId", "reviewSpecificAccessRequestLegalOps",
+                        "taskTypeName", "Specific Access Request"
                     ),
                     Map.of(
-                        "task_type_id", "reviewSpecificAccessRequestAdmin",
-                        "task_type_name", "Specific Access Request"
+                        "taskTypeId", "reviewSpecificAccessRequestAdmin",
+                        "taskTypeName", "Specific Access Request"
                     ),
                     Map.of(
-                        "task_type_id", "reviewSpecificAccessRequestCTSC",
-                        "task_type_name", "Specific Access Request"
+                        "taskTypeId", "reviewSpecificAccessRequestCTSC",
+                        "taskTypeName", "Specific Access Request"
                     )
                 )
             )
