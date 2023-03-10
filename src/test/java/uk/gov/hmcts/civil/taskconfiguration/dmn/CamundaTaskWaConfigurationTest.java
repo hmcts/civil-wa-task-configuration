@@ -138,18 +138,17 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "false",
-            "name", "priorityDate",
-            "value", "dueDate"
-        )));
-
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "false",
             "name", "minorPriority",
             "value", "500"
         )));
 
-    }
+        assertTrue(dmnDecisionTableResult.contains(Map.of(
+            "name", "priorityDate",
+            "value", "taskAttribute.dueDate",
+            "canReconfigure", "false"
+        )));
 
+    }
 
     @Test
     void when_taskId_then_return_Access_requests() {
