@@ -155,7 +155,8 @@ withPipeline(type, product, component) {
   }
 
   afterSuccess('functionalTest:aat') {
-    //Cannot upload to prod untill WA release -- uploadDmnDiagrams('prod', '')
+    //Release dmns on to prod
+    uploadDmnDiagrams('prod', '')
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
   }
 }
