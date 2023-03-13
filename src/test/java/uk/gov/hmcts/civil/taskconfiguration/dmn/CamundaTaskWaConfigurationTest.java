@@ -491,7 +491,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     //ReviewCaseFlagsForClaimant
     @Test
-    void when_taskId_review_case_flags_then_return_expected_decision() {
+    void when_taskId_review_case_flags_claimant_then_return_expected_decision() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
@@ -521,10 +521,58 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList, equalTo(
             List.of(
-                configDecision("roleCategory", "CTSC", "true"),
+                configDecision("roleCategory", "true", "CTSC"),
                 configDecision("description",
-                               "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags", "true"),
-                configDecision("workType", "routine_work", "true")
+                               "true", "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags)"),
+                configDecision("workType", "true", "routine_work")
+            )
+        ));
+    }
+
+    //ReviewCaseFlagsForDefendant
+    @Test
+    void when_taskId_review_case_flags_defendant_then_return_expected_decision() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("respondent1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("respondent2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ReviewCaseFlagsForDefendant"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory")
+                || r.containsValue("description")
+                || r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+
+        assertThat(workTypeResultList, equalTo(
+            List.of(
+                configDecision("roleCategory", "true", "CTSC"),
+                configDecision("description",
+                               "true", "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags)"),
+                configDecision("workType", "true", "routine_work")
             )
         ));
     }
@@ -560,8 +608,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         return rules;
     }
 
-    private Map<String, String> configDecision(String name, String value, String canReconfigure) {
-        return Map.of("name", name, "value", value, "canReconfigure", canReconfigure);
+    private Map<String, String> configDecision(String name, String canReconfigure, String value) {
+        return Map.of("name", name, "canReconfigure", canReconfigure,"value", value);
     }
 }
 
