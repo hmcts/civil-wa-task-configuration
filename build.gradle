@@ -182,9 +182,9 @@ task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
 
 task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
-    return System.env.ENVIRONMENT == 'demo'
+    return System.env.NIGHTLY_RUN == 'true'
   }
-  commandLine '/usr/bin/yarn', '--silent', 'test:e2e-wa'
+  commandLine '/usr/bin/yarn', '--silent', 'test:dmn-tasks'
 }
 
 task runNightlyGenAppCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
