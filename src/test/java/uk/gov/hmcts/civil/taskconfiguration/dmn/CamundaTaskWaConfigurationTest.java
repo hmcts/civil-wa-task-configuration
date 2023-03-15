@@ -523,7 +523,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             List.of(
                 configDecision("roleCategory", "true", "CTSC"),
                 configDecision("description",
-                               "true", "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags)"),
+                               "true",
+                               "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags)"),
                 configDecision("workType", "true", "routine_work")
             )
         ));
@@ -571,7 +572,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             List.of(
                 configDecision("roleCategory", "true", "CTSC"),
                 configDecision("description",
-                               "true", "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags)"),
+                               "true",
+                               "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags)"),
                 configDecision("workType", "true", "routine_work")
             )
         ));
