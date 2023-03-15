@@ -330,7 +330,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource(value = {
         "transferCaseOfflineNotSuitableSDO"
     })
-    void given_transferCaseOfflineNotSuitableSDO_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
+    void given_transferCaseOfflineNotSuitablesdo_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
 
@@ -575,7 +575,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource(value = {
         "reviewSpecificAccessRequestCTSC"
     })
-    void given_reviewSpecificRequestCTSC_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
+    void given_reviewSpecificRequestctsc_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
 
