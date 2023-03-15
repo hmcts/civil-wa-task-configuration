@@ -55,10 +55,19 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 "STANDARD_DIRECTION_ORDER_DJ", "CASE_PROGRESSION",
                 Map.of(
-                    "taskId", "transferCaseOffline",
-                    "name", "Transfer Case Offline",
+                    "taskId", "ScheduleAHearing",
+                    "name", "Schedule A Hearing",
                     "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
+                )
+            ),
+            Arguments.of(
+                "CREATE_SDO", "CASE_PROGRESSION",
+                Map.of(
+                    "taskId", "ScheduleAHearing",
+                    "name", "Schedule A Hearing",
+                    "workingDaysAllowed", 5,
+                    "processCategories","standardDirectionsOrder"
                 )
             )
         );

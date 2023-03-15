@@ -43,17 +43,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     )
                 )
-            ),
-            Arguments.of(
-                "TAKE_CASE_OFFLINE",
-                asList(
-                    Map.of(
-                        "taskType", "transferCaseOffline"
-                    ),
-                    Map.of(
-                        "completionMode", "Auto"
-                    )
-                )
             )
         );
     }
@@ -111,6 +100,23 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> scenarioProviderHearingNotice() {
+        return Stream.of(
+            Arguments.of(
+                "HEARING_SCHEDULED",
+                asList(
+                    Map.of(
+                        "taskType", "ScheduleAHearing",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProvider"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
@@ -124,6 +130,16 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProviderSdo"})
     void given_event_ids_should_evaluate_sdo_dmn(String eventId, List<Map<String, String>> expectation) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioProviderHearingNotice"})
+    void given_event_ids_should_evaluate_hearingNotice_dmn(String eventId, List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
