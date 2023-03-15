@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
-  <decision id="wa-task-initiation-civil-generalapplication" name="GA Task initiation DMN">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+  <decision id="wa-task-initiation-civil-generalapplication" name="Civil GA Task initiation DMN">
     <decisionTable id="DecisionTable_141h4ty" hitPolicy="COLLECT">
       <input id="Input_1" label="Event Id" camunda:inputVariable="eventId">
         <inputExpression id="InputExpression_1" typeRef="string">
@@ -22,13 +22,13 @@
           <text>if(additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency != null and  additionalData.Data.generalAppUrgencyRequirement.generalAppUrgency = true ) then true else false</text>
         </inputExpression>
       </input>
-      <input id="InputClause_1b2ab72" label="Single Application" camunda:inputVariable="isSingleApplication">
+      <input id="InputClause_1b2ab72" label="Single Application" biodi:width="150" camunda:inputVariable="isSingleApplication">
         <inputExpression id="LiteralExpression_1lmnvjw" typeRef="boolean">
           <text>if(count(additionalData.Data.generalAppType.types) = 1) then true else false</text>
         </inputExpression>
       </input>
-      <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="343" />
-      <output id="OutputClause_07cuas3" label="Name" name="name" typeRef="string" biodi:width="674" />
+      <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="150" />
+      <output id="OutputClause_07cuas3" label="Name" name="name" typeRef="string" biodi:width="215" />
       <output id="OutputClause_07d7qb5" label="Delay Duration" name="delayDuration" typeRef="integer" biodi:width="150" />
       <output id="OutputClause_0mj26qe" label="Working Days Allowed" name="workingDaysAllowed" typeRef="integer" biodi:width="402" />
       <output id="OutputClause_1o4gc2a" label="Process Categories Identifiers" name="processCategories" typeRef="string" />
@@ -1739,24 +1739,88 @@
           <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1lqnjrc">
-          <text></text>
+          <text>true</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1dmg0he">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_18du2tv">
-          <text>"ReviewApplicationOrder"</text>
+          <text>"ReviewStayTheClaimApplicationOrder"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1dxcll7">
-          <text>"Review Application Order"</text>
+          <text>"Revisit Application for Stay Claim"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0plzddd">
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bl5khz">
-          <text>10</text>
+          <text>2</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1q7wrlo">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13s2uky">
+        <inputEntry id="UnaryTests_0obarzu">
+          <text>"END_SCHEDULER_CHECK_STAY_ORDER_DEADLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1br9uhf">
+          <text>"ORDER_MADE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02hy210">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ype1tr">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kinpl1">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pcz0gq">
+          <text>"ReviewStayTheClaimApplicationOrder"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1y8qjsg">
+          <text>"Revisit Application for Stay Claim"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1abn8ox">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14t8c03">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1maa3fj">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fio434">
+        <inputEntry id="UnaryTests_0hcjq82">
+          <text>"END_SCHEDULER_CHECK_STAY_ORDER_DEADLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ar27d9">
+          <text>"ORDER_MADE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xxg6z8">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09n85ly">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18376d4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a6w1c9">
+          <text>"ReviewStayTheClaimApplicationOrder"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fatbp5">
+          <text>"Revisit Application for Stay Claim"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0k4gcty">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04u3yaz">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16g2onr">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -1771,16 +1835,16 @@
           <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ar1dvw">
-          <text></text>
+          <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1yhpyxp">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_02nzepj">
-          <text>"ReviewApplicationOrder"</text>
+          <text>"ReviewStayTheClaimApplicationOrder"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0u2rid6">
-          <text>"Review Application Order"</text>
+          <text>"Revisit Application for Stay Claim"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_05rmkgv">
           <text></text>
@@ -1789,6 +1853,134 @@
           <text>10</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_102khxe">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wp6fip">
+        <inputEntry id="UnaryTests_0ycrn6r">
+          <text>"END_SCHEDULER_CHECK_UNLESS_ORDER_DEADLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jmobij">
+          <text>"ORDER_MADE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10o1zts">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_186pkxe">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jcaj30">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08gwytv">
+          <text>"ReviewUnlessOrderApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0acv5c2">
+          <text>"Revisit Application for Unless Order"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qw5dky">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0msudmy">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jawig0">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1856lx4">
+        <inputEntry id="UnaryTests_1ou1w3m">
+          <text>"END_SCHEDULER_CHECK_UNLESS_ORDER_DEADLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ta59df">
+          <text>"ORDER_MADE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07h25n1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jqs29l">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f16x0h">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1czofx7">
+          <text>"ReviewUnlessOrderApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0oay72c">
+          <text>"Revisit Application for Unless Order"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qo4vgq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06269lo">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rkjjwp">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07c8qjr">
+        <inputEntry id="UnaryTests_1mbe3dr">
+          <text>"END_SCHEDULER_CHECK_UNLESS_ORDER_DEADLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w2ukwg">
+          <text>"ORDER_MADE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07b0odl">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wa9thb">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p2hwev">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vxpqbm">
+          <text>"ReviewUnlessOrderApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_111ymzv">
+          <text>"Revisit Application for Unless Order"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ui9556">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00whfaj">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19g9m1r">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i0fl23">
+        <inputEntry id="UnaryTests_121s36w">
+          <text>"END_SCHEDULER_CHECK_UNLESS_ORDER_DEADLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gjzmga">
+          <text>"ORDER_MADE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ttozp5">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09w2csv">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yd0md5">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wzhh25">
+          <text>"ReviewUnlessOrderApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0c604yb">
+          <text>"Revisit Application for Unless Order"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xmb7r4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1h2j832">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hlkidb">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
