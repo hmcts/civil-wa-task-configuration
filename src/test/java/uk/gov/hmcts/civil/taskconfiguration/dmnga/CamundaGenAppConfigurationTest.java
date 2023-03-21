@@ -36,7 +36,6 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(logic.getRules().size(), is(37));
     }
 
-
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
@@ -577,7 +576,6 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "baseLocation", "574546"
 
         ));
-        caseData.put("isCaseProgressionEnabled", "Yes");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -607,59 +605,6 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "value", "[ScheduleApplicationHearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/"
                 + "HEARING_SCHEDULED_GA/"
                 + "HEARING_SCHEDULED_GAHearingNoticeGADetail)",
-            "canReconfigure","true"
-        )));
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "workType",
-            "value", "hearing_work",
-            "canReconfigure","true"
-        )));
-        assertTrue(roleCategoryResultList.contains(Map.of(
-            "name", "roleCategory",
-            "value", "ADMIN",
-            "canReconfigure","true"
-        )));
-    }
-
-    @Test
-    void when_taskId_scheduleForHearing_and_caseProgressionDisabled_then_return_null() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("claimant1PartyName", "claimant1PartyName");
-        caseData.put("claimant2PartyName", "claimant2PartyName");
-        caseData.put("caseManagementLocation", Map.of(
-            "region", "4",
-            "baseLocation", "192280"
-
-        ));
-        caseData.put("isCaseProgressionEnabled", "No");
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "ScheduleApplicationHearing",
-            "dueDate","2023-03-22T16:00:00Z"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> description = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("description"))
-            .collect(Collectors.toList());
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("workType"))
-            .collect(Collectors.toList());
-        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("roleCategory"))
-            .collect(Collectors.toList());
-        assertThat(description.size(), is(1));
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(roleCategoryResultList.size(), is(1));
-
-        assertTrue(description.contains(Map.of(
-            "name", "description",
-            "value", "",
             "canReconfigure","true"
         )));
         assertTrue(workTypeResultList.contains(Map.of(
