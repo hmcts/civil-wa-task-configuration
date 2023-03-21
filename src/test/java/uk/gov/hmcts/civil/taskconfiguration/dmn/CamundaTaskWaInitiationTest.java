@@ -55,10 +55,19 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 "STANDARD_DIRECTION_ORDER_DJ", "CASE_PROGRESSION",
                 Map.of(
-                    "taskId", "transferCaseOffline",
-                    "name", "Transfer Case Offline",
+                    "taskId", "ScheduleAHearing",
+                    "name", "Schedule A Hearing",
                     "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
+                )
+            ),
+            Arguments.of(
+                "CREATE_SDO", "CASE_PROGRESSION",
+                Map.of(
+                    "taskId", "ScheduleAHearing",
+                    "name", "Schedule A Hearing",
+                    "workingDaysAllowed", 5,
+                    "processCategories","standardDirectionsOrder"
                 )
             )
         );
@@ -68,6 +77,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(69));
+        assertThat(logic.getRules().size(), is(72));
     }
 }

@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(27));
+        assertThat(logic.getRules().size(), is(35));
 
     }
 
@@ -304,7 +304,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             .collect(Collectors.toList());
 
         System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(0));
+        assertThat(workTypeResultList.size(), is(1));
 
         assertFalse(workTypeResultList.contains(Map.of(
             "name", "workType",

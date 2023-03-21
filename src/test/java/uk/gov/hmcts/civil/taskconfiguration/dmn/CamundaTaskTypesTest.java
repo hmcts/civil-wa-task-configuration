@@ -43,10 +43,6 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Directions after Judgment"
             ),
             Map.of(
-                "taskTypeId", "transferCaseOffline",
-                "taskTypeName", "Transfer Case Offline"
-            ),
-            Map.of(
                 "taskTypeId", "fastTrackDirections",
                 "taskTypeName", "Fast Track Directions"
             ),
@@ -56,7 +52,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "LegalAdviserSmallClaimsTrackDirections",
-                "taskTypeName", "Small Claims Track Directions"
+                "taskTypeName", "Small Claims Track Directions - Legal Advisor"
             ),
             Map.of(
                 "taskTypeId", "SmallClaimsTrackDirectionsReferral",
@@ -76,27 +72,27 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "preHearingContact",
-                "taskTypeName", "Hearing/Trial Readiness"
+                "taskTypeName", "Hearing/Trial Readiness - Pre hearing"
             ),
             Map.of(
                 "taskTypeId", "adjournedReList",
-                "taskTypeName", "Hearing/Trial Readiness"
+                "taskTypeName", "Hearing/Trial Readiness - Adjourned"
             ),
             Map.of(
                 "taskTypeId", "reviewSpecificAccessRequestJudiciary",
-                "taskTypeName", "Specific Access Request"
+                "taskTypeName", "Specific Access Request - Judiciary"
             ),
             Map.of(
                 "taskTypeId", "reviewSpecificAccessRequestLegalOps",
-                "taskTypeName", "Specific Access Request"
+                "taskTypeName", "Specific Access Request - LegalOps"
             ),
             Map.of(
                 "taskTypeId", "reviewSpecificAccessRequestAdmin",
-                "taskTypeName", "Specific Access Request"
+                "taskTypeName", "Specific Access Request - Admin"
             ),
             Map.of(
                 "taskTypeId", "reviewSpecificAccessRequestCTSC",
-                "taskTypeName", "Specific Access Request"
+                "taskTypeName", "Specific Access Request - CTSC"
             )
         );
         return Stream.of(
@@ -113,7 +109,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(15));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(14));
     }
 
 }
