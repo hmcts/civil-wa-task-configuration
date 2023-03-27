@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
   <decision id="wa-task-configuration-civil-generalapplication" name="Civil GA Task configuration DMN">
     <decisionTable id="DecisionTable_14cx079" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7f" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -20,6 +20,58 @@ null</text>
       <output id="Output_1" label="Name" name="name" typeRef="string" />
       <output id="OutputClause_021y3bb" label="Value" name="value" typeRef="string" biodi:width="416" />
       <output id="OutputClause_18fdksc" label="Can Reconfigure" name="canReconfigure" typeRef="string" />
+      <rule id="DecisionRule_106yn9f">
+        <description>If an application is marked as urgent upon submission</description>
+        <inputEntry id="UnaryTests_1kxfs9s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0naviny">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0k0b5ur">
+          <text>"majorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cjv7y2">
+          <text>if(caseData.generalAppUrgencyRequirement.generalAppUrgency != null and  caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then "2000" else "5000"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1runjlr">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bj1x7l">
+        <inputEntry id="UnaryTests_06lr6xq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ebh2pn">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ovomq0">
+          <text>"priorityDate"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1645n2a">
+          <text>taskAttributes.dueDate</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0blfbfz">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tv4kfd">
+        <inputEntry id="UnaryTests_1yk1v0m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07avhlg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dlvx1o">
+          <text>"minorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1folsu4">
+          <text>"500"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jac165">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0u7yi27">
         <inputEntry id="UnaryTests_03ky0ek">
           <text></text>
