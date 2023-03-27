@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.9.0">
   <decision id="wa-task-initiation-civil-civil" name="Civil Task initiation DMN">
     <decisionTable id="DecisionTable_0jtevuc" hitPolicy="COLLECT" biodi:annotationsWidth="400">
       <input id="Input_1" label="Event Id" biodi:width="319" camunda:inputVariable="eventId">
@@ -10,6 +10,17 @@
       <input id="InputClause_0gxli97" label="Post event state" biodi:width="334" camunda:inputVariable="postEventState">
         <inputExpression id="LiteralExpression_0dijl5x" typeRef="string">
           <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0ts9024" label="Toggle">
+        <inputExpression id="LiteralExpression_1enjzyx" typeRef="string">
+          <text>if(additionalData != null
+     and additionalData.Data != null
+     and additionalData.Data.featureToggleWA != null)
+     then
+     additionalData.Data.featureToggleWA
+   else
+    null</text>
         </inputExpression>
       </input>
       <input id="InputClause_0kr3ssx" label="Claim Value" camunda:inputVariable="claimValue.statementOfValueInPennies">
@@ -194,6 +205,9 @@ else
         <inputEntry id="UnaryTests_03g01xr">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0tqdt73">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_16o63k7">
           <text></text>
         </inputEntry>
@@ -256,6 +270,9 @@ else
         <inputEntry id="UnaryTests_1blumk1">
           <text>"CASE_PROGRESSION"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0ihary9">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_077ocat">
           <text></text>
         </inputEntry>
@@ -311,12 +328,80 @@ else
           <text>"defaultJudgment"</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_03rt0n5">
+        <inputEntry id="UnaryTests_0g1tkqk">
+          <text>"STANDARD_DIRECTION_ORDER_DJ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yxg10u">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h5slfo">
+          <text>WA 4</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_077x98q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tlrkh1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ar5f5h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v54j18">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17l4t9m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_110ev9m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08r7zpc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xq1xs3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t4cig4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p70d3t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tyec17">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m0pre2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tzpp9j">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uskjvp">
+          <text>"ScheduleAHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1iybkjr">
+          <text>"Schedule A Hearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h3sep9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1w9jt1m">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_188beuk">
+          <text>"defaultJudgment"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_1fenvxm">
         <inputEntry id="UnaryTests_09nq8bu">
           <text>"CLAIMANT_RESPONSE"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0aldx9i">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01epfkd">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1frdn98">
           <text>&gt; 100000</text>
@@ -380,6 +465,9 @@ else
         <inputEntry id="UnaryTests_083gmpr">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1dsxs4h">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0fc082s">
           <text>&gt; 100000</text>
         </inputEntry>
@@ -441,6 +529,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0og67lq">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xsbeer">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_133eano">
           <text>&gt; 100000</text>
@@ -504,6 +595,9 @@ else
         <inputEntry id="UnaryTests_141v6ir">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1ina111">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0zfutx6">
           <text>&gt; 100000</text>
         </inputEntry>
@@ -565,6 +659,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1tkb59a">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hg9pxy">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ovlyjs">
           <text>&gt; 100000</text>
@@ -628,6 +725,9 @@ else
         <inputEntry id="UnaryTests_1m2gzaa">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1yquzgv">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1y7uaif">
           <text>&gt; 100000</text>
         </inputEntry>
@@ -689,6 +789,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0ruq5vj">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d6bl98">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ygtmhm">
           <text>&gt; 100000</text>
@@ -752,6 +855,9 @@ else
         <inputEntry id="UnaryTests_00cv9je">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_09qvjr6">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1x6l2k7">
           <text>&gt; 100000</text>
         </inputEntry>
@@ -813,6 +919,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_16bkhi0">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hdih5k">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0742ysz">
           <text>&gt; 100000</text>
@@ -876,6 +985,9 @@ else
         <inputEntry id="UnaryTests_0ttin0l">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0l6198g">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_034vhp8">
           <text>&gt; 100000</text>
         </inputEntry>
@@ -937,6 +1049,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0i2260e">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n4r9h6">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ho8wix">
           <text>&gt; 100000</text>
@@ -1000,6 +1115,9 @@ else
         <inputEntry id="UnaryTests_0uihi7g">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1nx79z2">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_19hrj5j">
           <text>&gt; 100000</text>
         </inputEntry>
@@ -1061,6 +1179,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1da8ujy">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05lghsn">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0365fp7">
           <text>&gt; 100000</text>
@@ -1124,6 +1245,9 @@ else
         <inputEntry id="UnaryTests_1je9lkj">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1wrcbrv">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0az4dbz">
           <text>&gt; 100000</text>
         </inputEntry>
@@ -1185,6 +1309,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0pdrpf0">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0scljhu">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0poljht">
           <text></text>
@@ -1248,6 +1375,9 @@ else
         <inputEntry id="UnaryTests_0u2kj3v">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1ontnfz">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0qh5rld">
           <text>&lt;= 100000</text>
         </inputEntry>
@@ -1309,6 +1439,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0fc2z79">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0878qv4">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_14mh98y">
           <text>&lt;= 100000</text>
@@ -1372,6 +1505,9 @@ else
         <inputEntry id="UnaryTests_077w1bd">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1f5pnze">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0pxm88o">
           <text>&lt;= 100000</text>
         </inputEntry>
@@ -1433,6 +1569,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0tk987t">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wxrcvt">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1dtxq4d">
           <text>&lt;= 100000</text>
@@ -1496,6 +1635,9 @@ else
         <inputEntry id="UnaryTests_1x8c2zz">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1w3a3y9">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1qzu0y1">
           <text>&lt;= 100000</text>
         </inputEntry>
@@ -1557,6 +1699,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0322bva">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t2khdj">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0yev97l">
           <text>&lt;= 100000</text>
@@ -1620,6 +1765,9 @@ else
         <inputEntry id="UnaryTests_1xi8qud">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0ohgwgk">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0u156w7">
           <text></text>
         </inputEntry>
@@ -1681,6 +1829,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1vs2k0w">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00ahnqv">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_14hpyqe">
           <text></text>
@@ -1744,6 +1895,9 @@ else
         <inputEntry id="UnaryTests_0f9s55j">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0a5h3pn">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0m7s8l8">
           <text></text>
         </inputEntry>
@@ -1805,6 +1959,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0c7072p">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r1u01a">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0q0gqsj">
           <text></text>
@@ -1868,6 +2025,9 @@ else
         <inputEntry id="UnaryTests_0glpzyd">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0cpbzc6">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1itb6r6">
           <text></text>
         </inputEntry>
@@ -1929,6 +2089,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1ab4puz">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05yjp0u">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_00nknay">
           <text></text>
@@ -1992,6 +2155,9 @@ else
         <inputEntry id="UnaryTests_1mk68or">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1wfllw4">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_05q0tv4">
           <text></text>
         </inputEntry>
@@ -2053,6 +2219,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0e4fcae">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0btn3dc">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_15eiex7">
           <text></text>
@@ -2116,6 +2285,9 @@ else
         <inputEntry id="UnaryTests_0hjq63g">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0ce7cex">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0pfjv71">
           <text></text>
         </inputEntry>
@@ -2177,6 +2349,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_13nizsa">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12fw504">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1oxu1ta">
           <text></text>
@@ -2240,6 +2415,9 @@ else
         <inputEntry id="UnaryTests_1h8ikil">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1sa7yeb">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_19llbeq">
           <text></text>
         </inputEntry>
@@ -2301,6 +2479,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0kmw1a0">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xc9us5">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0k5vbz5">
           <text></text>
@@ -2364,6 +2545,9 @@ else
         <inputEntry id="UnaryTests_0779svh">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1nbfgo1">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1wlt03s">
           <text></text>
         </inputEntry>
@@ -2425,6 +2609,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1yap0d4">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0awkicc">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0kyrqda">
           <text></text>
@@ -2488,6 +2675,9 @@ else
         <inputEntry id="UnaryTests_0979yw3">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_11phw0p">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0n8u0nq">
           <text></text>
         </inputEntry>
@@ -2549,6 +2739,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_03rfuwd">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tr6eba">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0zpokd6">
           <text></text>
@@ -2612,6 +2805,9 @@ else
         <inputEntry id="UnaryTests_1vq2zbw">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1h84i3o">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_10mhzka">
           <text></text>
         </inputEntry>
@@ -2673,6 +2869,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0wfn39z">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_135k3dj">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0vmwbfl">
           <text></text>
@@ -2736,6 +2935,9 @@ else
         <inputEntry id="UnaryTests_0w6yhr8">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1jplmky">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1usc0ia">
           <text></text>
         </inputEntry>
@@ -2797,6 +2999,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1sfs78j">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qu3gxq">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_11167yk">
           <text></text>
@@ -2860,6 +3065,9 @@ else
         <inputEntry id="UnaryTests_0c78l7b">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0oyspby">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1aovkz7">
           <text></text>
         </inputEntry>
@@ -2921,6 +3129,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_090xy3q">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dlbasv">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1hxfove">
           <text></text>
@@ -2984,6 +3195,9 @@ else
         <inputEntry id="UnaryTests_0x0yf2u">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1kgfxs3">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0cx7jmw">
           <text></text>
         </inputEntry>
@@ -3045,6 +3259,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1a9w7wu">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1umh9wl">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_016tbz3">
           <text></text>
@@ -3108,6 +3325,9 @@ else
         <inputEntry id="UnaryTests_014r7zj">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_16pqevl">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1imuwsf">
           <text></text>
         </inputEntry>
@@ -3169,6 +3389,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1efacp8">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f6yc25">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1hzwpsp">
           <text></text>
@@ -3232,6 +3455,9 @@ else
         <inputEntry id="UnaryTests_07zxt96">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1ebwike">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_10im8st">
           <text></text>
         </inputEntry>
@@ -3293,6 +3519,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1kfvio6">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fqxwf1">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1d1636d">
           <text></text>
@@ -3356,6 +3585,9 @@ else
         <inputEntry id="UnaryTests_138hhrp">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0vtcnkb">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0y7rkll">
           <text></text>
         </inputEntry>
@@ -3417,6 +3649,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1jfuv77">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mobujo">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0wzkyz4">
           <text></text>
@@ -3480,6 +3715,9 @@ else
         <inputEntry id="UnaryTests_0tcdntu">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0y4wahw">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1is8qzb">
           <text></text>
         </inputEntry>
@@ -3541,6 +3779,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0vb2o80">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v009ws">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0rrirew">
           <text></text>
@@ -3604,6 +3845,9 @@ else
         <inputEntry id="UnaryTests_0us5zti">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0badrg1">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_16amrs3">
           <text></text>
         </inputEntry>
@@ -3665,6 +3909,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_056cv92">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_150ylde">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jrx3oi">
           <text></text>
@@ -3728,6 +3975,9 @@ else
         <inputEntry id="UnaryTests_1t9k6ql">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_09z4wmy">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0msxmpn">
           <text></text>
         </inputEntry>
@@ -3789,6 +4039,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1mtztzm">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0px4of6">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1g8d72c">
           <text></text>
@@ -3852,6 +4105,9 @@ else
         <inputEntry id="UnaryTests_0w5pd58">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_00ysr9n">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1wsf47f">
           <text></text>
         </inputEntry>
@@ -3913,6 +4169,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_14ss2xi">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hjl9c6">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1jcyy0v">
           <text></text>
@@ -3976,6 +4235,9 @@ else
         <inputEntry id="UnaryTests_01pq0cc">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0ctoc6k">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1wyyudp">
           <text></text>
         </inputEntry>
@@ -4037,6 +4299,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_1uoaw9c">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17fnqh7">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1bexf9d">
           <text></text>
@@ -4100,6 +4365,9 @@ else
         <inputEntry id="UnaryTests_09urvo7">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1k09dmn">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0ffsguc">
           <text></text>
         </inputEntry>
@@ -4161,6 +4429,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_19rq766">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o88y0z">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ruvquy">
           <text></text>
@@ -4224,6 +4495,9 @@ else
         <inputEntry id="UnaryTests_1leiai2">
           <text>"JUDICIAL_REFERRAL"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_02nwt70">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_07tvzij">
           <text></text>
         </inputEntry>
@@ -4285,6 +4559,9 @@ else
         </inputEntry>
         <inputEntry id="UnaryTests_0izrlg2">
           <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p7ywii">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_18q2gyn">
           <text></text>
@@ -4348,6 +4625,9 @@ else
         <inputEntry id="UnaryTests_1yrlzzc">
           <text>"CASE_PROGRESSION"</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1smarkd">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0qe15wr">
           <text></text>
         </inputEntry>
@@ -4403,12 +4683,80 @@ else
           <text>"standardDirectionsOrder"</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0odu682">
+        <inputEntry id="UnaryTests_1esujl2">
+          <text>"CREATE_SDO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03zv3fx">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sxglim">
+          <text>WA 4</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17m9erc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cremku">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10uln6c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07pw2pk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vt2zx6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gs1jdn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lbwqvs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yk1r00">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j5k1nz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0549kyj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qb84ok">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bcer0z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_123as7p">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qoq4gj">
+          <text>"ScheduleAHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yrqgmx">
+          <text>"Schedule A Hearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ifhnwd">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cdjsip">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_129i8o5">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_1w6pqnt">
         <inputEntry id="UnaryTests_0yvskve">
           <text>"NotSuitable_SDO"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0feaa3e">
           <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ytv910">
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_19g3sus">
           <text></text>
@@ -4463,6 +4811,201 @@ else
         </outputEntry>
         <outputEntry id="LiteralExpression_1w1nrva">
           <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0a95ks5">
+        <inputEntry id="UnaryTests_14cft77">
+          <text>"HEARING_FEE_UNPAID"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nuvbe7">
+          <text>"CASE_DISMISSED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l5imcg">
+          <text>WA 4</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09g27np">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07avfzl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ib9yd0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v63lfg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vehbu5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v6ak7d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cvmtck">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08kzdtg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0totd6d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07b19oe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1k75ap8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w6owbm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xltidh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uc6hd2">
+          <text>"removeHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1468ocj">
+          <text>"Case Struck out - Removing Hearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lo80gi">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0f86e8m">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1otgu28">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bv3y34">
+        <inputEntry id="UnaryTests_0gqir7s">
+          <text>"TRIAL_READY_CHECK"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l44uji">
+          <text>"PREPARE_FOR_HEARING_CONDUCT_HEARING"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pgso12">
+          <text>WA 4</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wdsots">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1223re6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ndc3k0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1de1w1d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sjccuw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m91ozr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rhvxz8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hskhyk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s067ej">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eq3o6e">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qo227t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p7uc63">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pz6xfl">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uexc0p">
+          <text>"preHearingContact"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0upd690">
+          <text>"Trial Readiness Check"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pvcm6s">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1h9ce9e">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p82p0y">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1yqgo6t">
+        <inputEntry id="UnaryTests_0zss04j">
+          <text>"ADJOURN_ORDER"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kj1xti">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nag9fd">
+          <text>WA 4</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_020k0cw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0flowcr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ca864i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cs2u9k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ll2rx5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01w4e90">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1b8pcps">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ka8bru">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jekasy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s7evsy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qjaa6e">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wldsh3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j4unbo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14w4kai">
+          <text>"adjournedReList"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14k5qvm">
+          <text>"Case Adjourned - Re-list Hearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mwjmwy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nqa6fq">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nwm0vq">
+          <text>"caseProgression"</text>
         </outputEntry>
       </rule>
     </decisionTable>
