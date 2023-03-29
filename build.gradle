@@ -150,10 +150,6 @@ task genAppInstallDependencies(type: Exec, description: 'Installs Yarn dependenc
   commandLine '/usr/bin/yarn', '--mutex', 'network', '--silent', 'install'
 }
 
-task pullCCDDefAsset(type: Exec, description: 'Installs Yarn dependencies.') {
-  commandLine './bin/pull-latest-civil-ccd-files.sh', 'master'
-}
-
 task pullGeneralAppAsset(type: Exec, description: 'Installs Yarn dependencies.') {
   commandLine './bin/pull-latest-general-app-ccd-files.sh', 'master'
 }
@@ -202,12 +198,12 @@ def inStrictOrder(Task... tasks) {
 }
 
 task smoke(description: 'Runs the smoke tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runSmokeTests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness,  installDependencies, checkDependenciesIntegrity, runSmokeTests))
 }
 
 task functional(description: 'Runs the functional tests.') {
   dependsOn(inStrictOrder(awaitApplicationReadiness,
-  pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests,
+   installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests,
   pullGeneralAppAsset, genAppInstallDependencies, runNightlyGenAppCCDTaskTests))
 }
 

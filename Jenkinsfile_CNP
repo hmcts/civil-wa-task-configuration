@@ -8,6 +8,8 @@ def component = "task-configuration"
 def s2sServiceName = "wa_camunda_pipeline_upload"
 def branchesToSync = ['demo', 'perftest']
 def product = "civil"
+def ccdBranch = "master"
+def camundaBranch = "master"
 
 static Map<String, Object> secret(String secretName, String envVariable) {
   [$class     : 'AzureKeyVaultSecret',
@@ -108,8 +110,8 @@ withPipeline(type, product, component) {
     sh """
       eval \$(./bin/variables/load-preview-environment-variables.sh ${CHANGE_ID})
       ./bin/add-roles.sh
-      ./bin/pull-latest-release-asset.sh civil-ccd-definition civil-ccd-definition.zip
-      ./bin/pull-latest-release-asset.sh civil-camunda-bpmn-definition civil-camunda-bpmn-definition.zip
+      ./bin/pull-latest-camunda-files.sh ${camundaBranch}
+      ./bin/pull-latest-ccd-files.sh ${ccdBranch}
       ./bin/import-ccd-definition.sh "-e *-prod.json,*HNL-nonprod.json,*CUI-nonprod.json"
     """
     env.URL="https://xui-civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
@@ -135,7 +137,7 @@ withPipeline(type, product, component) {
   before('smoketest:aat') {
     sh """
       eval \$(./bin/variables/load-aat-environment-variables.sh)
-      ./bin/pull-latest-release-asset.sh civil-ccd-definition civil-e2e.zip
+      ./bin/pull-latest-ccd-files.sh ${ccdBranch}
     """
     env.URL="https://manage-case.aat.platform.hmcts.net"
     env.IDAM_API_URL = "https://idam-api.aat.platform.hmcts.net"
