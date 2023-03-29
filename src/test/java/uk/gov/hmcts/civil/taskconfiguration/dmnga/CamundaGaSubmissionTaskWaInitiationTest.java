@@ -5,6 +5,8 @@ import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
@@ -79,6 +81,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
+
     @Test
     void when_non_urgent_ga_creation_with_case_loc_ccmcc() {
 
@@ -139,8 +142,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
-    @Test
-    void when_urgent_ga_creation_with_case_loc_local_court() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_urgent_ga_creation_with_case_loc_local_court(String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
@@ -155,7 +161,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -168,8 +174,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
-    @Test
-    void when_urgent_ga_creation_with_case_loc_local_court_multiple_types() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_urgent_ga_creation_with_case_loc_local_court_multiple_types(String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
@@ -184,7 +193,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -197,8 +206,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
-    @Test
-    void when_non_urgent_ga_creation_with_case_loc_local_court_single_application() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_non_urgent_ga_creation_with_case_loc_local_court_single_application(String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> data = new HashMap<>();
@@ -213,7 +225,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -226,8 +238,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
-    @Test
-    void when_non_urgent_ga_creation_with_case_loc_local_court() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_non_urgent_ga_creation_with_case_loc_local_court(String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> data = new HashMap<>();
@@ -242,7 +257,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -856,8 +871,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewRevisitedApplication"));
     }
 
-    @Test
-    void when_change_state_to_addln_response_time_expired_nonurgent_app_with_case_loc_local_court() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_change_state_to_addln_response_time_expired_nonurgent_app_with_case_loc_local_court(String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> data = new HashMap<>();
@@ -875,7 +893,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -890,8 +908,12 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
     }
 
-    @Test
-    void when_change_state_to_addln_response_time_expired_nonurgent_app_with_case_loc_local_court_single_ga_type() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_change_state_to_addln_response_time_expired_nonurgent_app_with_case_loc_local_court_single_ga_type(
+        String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> data = new HashMap<>();
@@ -909,7 +931,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -924,8 +946,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
     }
 
-    @Test
-    void when_change_state_to_addln_response_time_expired_urgent_app_with_case_loc_local_court() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_change_state_to_addln_response_time_expired_urgent_app_with_case_loc_local_court(String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
@@ -943,7 +968,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -992,8 +1017,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
     }
 
-    @Test
-    void when_taskId_then_return_decision_making_work_for_urgent_listed_for_hearing() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_taskId_then_return_decision_making_work_for_urgent_listed_for_hearing(String eventId) {
 
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
@@ -1012,7 +1040,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
