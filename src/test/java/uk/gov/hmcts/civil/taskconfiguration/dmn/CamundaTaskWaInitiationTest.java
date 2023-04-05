@@ -48,7 +48,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                 Map.of(
                     "taskId", "summaryJudgmentDirections",
                     "name", "Directions after Judgment (Damages)",
-                    "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
                 )
             ),
@@ -57,7 +56,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                 Map.of(
                     "taskId", "ScheduleAHearing",
                     "name", "Schedule A Hearing",
-                    "workingDaysAllowed", 5,
                     "processCategories","defaultJudgment"
                 )
             ),
@@ -66,7 +64,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                 Map.of(
                     "taskId", "ScheduleAHearing",
                     "name", "Schedule A Hearing",
-                    "workingDaysAllowed", 5,
                     "processCategories","standardDirectionsOrder"
                 )
             )
