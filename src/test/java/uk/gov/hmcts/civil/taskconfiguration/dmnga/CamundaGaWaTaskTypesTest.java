@@ -62,19 +62,19 @@ public class CamundaGaWaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "taskTypeId", "reviewSpecificAccessRequestJudiciary",
-                        "taskTypeName", "Specific Access Request"
+                        "taskTypeName", "Specific Access Request - Judiciary"
                     ),
                     Map.of(
                         "taskTypeId", "reviewSpecificAccessRequestLegalOps",
-                        "taskTypeName", "Specific Access Request"
+                        "taskTypeName", "Specific Access Request - LegalOps"
                     ),
                     Map.of(
                         "taskTypeId", "reviewSpecificAccessRequestAdmin",
-                        "taskTypeName", "Specific Access Request"
+                        "taskTypeName", "Specific Access Request - Admin"
                     ),
                     Map.of(
                         "taskTypeId", "reviewSpecificAccessRequestCTSC",
-                        "taskTypeName", "Specific Access Request"
+                        "taskTypeName", "Specific Access Request - CTSC"
                     )
                 )
             )
