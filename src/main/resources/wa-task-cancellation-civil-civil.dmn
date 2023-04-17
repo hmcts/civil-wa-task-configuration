@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.9.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -67,6 +67,54 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_1au1kmp">
           <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0lwyhtc">
+        <description>"If a case is moved offline, then all "requestTranslation" tasks should be cancelled."</description>
+        <inputEntry id="UnaryTests_1wfpkvs">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kni9fj">
+          <text>"caseproceedsinCaseman"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b0x564">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nbwkpm">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dlx9v3">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gj7mu2">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vgoqqu">
+          <text>"requestTranslation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_046akmd">
+        <description>"If a case is dismissed then all "requestTranslation" tasks should be cancelled."</description>
+        <inputEntry id="UnaryTests_0hm0cj2">
+          <text>CASE_DISMISSED</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12iic4x">
+          <text>"caseDismissed"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n6hj79">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08ilmye">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xmq5fq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0idf79j">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05z934l">
+          <text>"requestTranslation"</text>
         </outputEntry>
       </rule>
     </decisionTable>

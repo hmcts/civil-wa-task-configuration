@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.9.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -492,6 +492,60 @@ else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0bwos3u">
           <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1sm5p7v">
+        <description>Requests the Case Worker sends the Document to Welsh Translation Unit for Translation</description>
+        <inputEntry id="UnaryTests_0oh408k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wgqn13">
+          <text>"defendantWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0p650wo">
+          <text>"worktype"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nf5dc5">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dixj9m">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o7c8ve">
+        <description>Allows UI to filter tasks by the role category that normally carries it out. Each task must have exactly 1 role category</description>
+        <inputEntry id="UnaryTests_1jtycg5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_048gjkf">
+          <text>"defendantWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jcj3z1">
+          <text>"role_Category"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nq729z">
+          <text>"CTSC"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bcv3gs">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zjukdq">
+        <description>A marked up description of what the user should do next on the case to complete this task. This populates the Task Tab on the case to allow a user to link straight to the required action. This will be a URL.</description>
+        <inputEntry id="UnaryTests_0xqn2vi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u96bwp">
+          <text>"defendantWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0l0mnd8">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vng6ya">
+          <text>"[Directions - Provisional Summary Judgment](/cases/case-details/${[CASE_REFERENCE]}/trigger/STANDARD_DIRECTION_ORDER_DJ/STANDARD_DIRECTION_ORDER_DJCaseManagementOrder)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ck6jj2">
+          <text></text>
         </outputEntry>
       </rule>
     </decisionTable>
