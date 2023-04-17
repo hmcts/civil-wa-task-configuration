@@ -34,7 +34,7 @@ public class CamundaGaWaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 asList(
                     Map.of(
                         "taskTypeId", "JudgeDecideOnApplication",
-                        "taskTypeName", "Decide on an Application"
+                        "taskTypeName", "Decide on an Application - Judge"
                     ),
                     Map.of(
                         "taskTypeId", "ReviewApplication",
@@ -42,11 +42,11 @@ public class CamundaGaWaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "taskTypeId", "LegalAdvisorDecideOnApplication",
-                        "taskTypeName", "Decide on an Application"
+                        "taskTypeName", "Decide on an Application - Legal Advisor"
                     ),
                     Map.of(
                         "taskTypeId", "JudgeRevisitApplication",
-                        "taskTypeName", "Revisit an Application"
+                        "taskTypeName", "Revisit an Application - Judge"
                     ),
                     Map.of(
                         "taskTypeId", "ReviewRevisitedApplication",
@@ -54,7 +54,7 @@ public class CamundaGaWaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "taskTypeId", "LegalAdvisorRevisitApplication",
-                        "taskTypeName", "Revisit an Application"
+                        "taskTypeName", "Revisit an Application - Legal Advisor"
                     ),
                     Map.of(
                         "taskTypeId", "ScheduleApplicationHearing",
@@ -62,19 +62,19 @@ public class CamundaGaWaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "taskTypeId", "reviewSpecificAccessRequestJudiciary",
-                        "taskTypeName", "Specific Access Request"
+                        "taskTypeName", "Specific Access Request - Judiciary"
                     ),
                     Map.of(
                         "taskTypeId", "reviewSpecificAccessRequestLegalOps",
-                        "taskTypeName", "Specific Access Request"
+                        "taskTypeName", "Specific Access Request - LegalOps"
                     ),
                     Map.of(
                         "taskTypeId", "reviewSpecificAccessRequestAdmin",
-                        "taskTypeName", "Specific Access Request"
+                        "taskTypeName", "Specific Access Request - Admin"
                     ),
                     Map.of(
                         "taskTypeId", "reviewSpecificAccessRequestCTSC",
-                        "taskTypeName", "Specific Access Request"
+                        "taskTypeName", "Specific Access Request - CTSC"
                     )
                 )
             )
