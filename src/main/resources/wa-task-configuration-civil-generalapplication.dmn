@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-configuration-civil-generalapplication" name="Civil GA Task configuration DMN">
     <decisionTable id="DecisionTable_14cx079" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7f" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -586,6 +586,142 @@ else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1npyzpj">
           <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06doniq">
+        <inputEntry id="UnaryTests_0lrjuw9">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b0bxox">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tuw7o8">
+          <text>"calculatedDates"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ddin15">
+          <text>"nextHearingDate,dueDate,priorityDate"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13q0u2i">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tjrno2">
+        <inputEntry id="UnaryTests_0qbggax">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c75zjc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04znfwb">
+          <text>"dueDateOrigin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1px43b3">
+          <text>now()</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0704hfh">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05qon8e">
+        <inputEntry id="UnaryTests_0nibqq4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_172um3b">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1x6pj0f">
+          <text>"dueDateTime"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1drpg05">
+          <text>time("16:00")</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0atvnkw">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0dz1i8t">
+        <inputEntry id="UnaryTests_1jcrkqy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1phoaep">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ggyexq">
+          <text>"dueDateNonWorkingCalendar"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0n005zs">
+          <text>"https://www.gov.uk/bank-holidays/england-and-wales.json, https://raw.githubusercontent.com/hmcts/civil-wa-task-configuration/feat/CIV-5800-fine-grained-permissions/src/main/resources/privilege-calendar.json"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1s2vpq7">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c1l1r6">
+        <inputEntry id="UnaryTests_023y1vx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qamqvj">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1eqwib7">
+          <text>"dueDateNonWorkingDaysOfWeek"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1j6tqhy">
+          <text>"SATURDAY,SUNDAY"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16q1ah8">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1e8sbru">
+        <inputEntry id="UnaryTests_0n1hm8a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rnmsxs">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1buouue">
+          <text>"dueDateSkipNonWorkingDays"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p9vkwg">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08muzdu">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17kdne5">
+        <inputEntry id="UnaryTests_02nyz60">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n91d7o">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0awzlqk">
+          <text>"dueDateMustBeWorkingDay"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12o2s9e">
+          <text>"No"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0b9qhhb">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jgfbvf">
+        <inputEntry id="UnaryTests_0c5vjvj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ebpecm">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_021x6gt">
+          <text>"priorityDateOriginRef"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0eefyvn">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1u5r9it">
+          <text>false</text>
         </outputEntry>
       </rule>
     </decisionTable>
