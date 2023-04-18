@@ -29,22 +29,22 @@
       </input>
       <input id="InputClause_0qlc2h1" label="Refer to Judge" camunda:inputVariable="isReferToJudge">
         <inputExpression id="LiteralExpression_0ytcqxo" typeRef="boolean">
-          <text>(some type in additionalData.Data.generalAppType.types satisfies type = "STRIKE_OUT") 
-or (some type in additionalData.Data.generalAppType.types satisfies type = "SUMMARY_JUDGEMENT")
-or (some type in additionalData.Data.generalAppType.types satisfies type = "RELIEF_FROM_SANCTIONS")
-or (some type in additionalData.Data.generalAppType.types satisfies type = "VARY_ORDER")
-or (some type in additionalData.Data.generalAppType.types satisfies type = "ADJOURN_VACATE_HEARING")
-or (some type in additionalData.Data.generalAppType.types satisfies type = "UNLESS_ORDER")
-or (some type in additionalData.Data.generalAppType.types satisfies type = "OTHER")
-or (some type in additionalData.Data.generalAppType.types satisfies type = "SET_ASIDE_JUDGEMENT" and additionalData.Data.generalAppSuperClaimType = "UNSPEC_CLAIM") </text>
+          <text>(list contains(additionalData.Data.generalAppType.types, "STRIKE_OUT"))
+or (list contains(additionalData.Data.generalAppType.types, "SUMMARY_JUDGEMENT"))
+or (list contains(additionalData.Data.generalAppType.types, "RELIEF_FROM_SANCTIONS"))
+or (list contains(additionalData.Data.generalAppType.types, "VARY_ORDER"))
+or (list contains(additionalData.Data.generalAppType.types, "ADJOURN_VACATE_HEARING"))
+or (list contains(additionalData.Data.generalAppType.types, "UNLESS_ORDER"))
+or (list contains(additionalData.Data.generalAppType.types, "OTHER"))
+or (list contains(additionalData.Data.generalAppType.types, "SET_ASIDE_JUDGEMENT") and additionalData.Data.generalAppSuperClaimType = "UNSPEC_CLAIM")</text>
         </inputExpression>
       </input>
       <input id="InputClause_03y7bvw" label="Refer To Legal Advisor" camunda:inputVariable="esReferToLegalAdvisor">
         <inputExpression id="LiteralExpression_11vvnjc" typeRef="boolean">
-          <text>(some type in additionalData.Data.generalAppType.types satisfies type = "STAY_THE_CLAIM") 
-or (some type in additionalData.Data.generalAppType.types satisfies type = "EXTEND_TIME")
-or (some type in additionalData.Data.generalAppType.types satisfies type = "AMEND_A_STMT_OF_CASE")
-or (some type in additionalData.Data.generalAppType.types satisfies type = "SET_ASIDE_JUDGEMENT" and additionalData.Data.generalAppSuperClaimType = "SPEC_CLAIM") </text>
+          <text>(list contains(additionalData.Data.generalAppType.types, "STAY_THE_CLAIM"))
+or (list contains(additionalData.Data.generalAppType.types, "EXTEND_TIME"))
+or (list contains(additionalData.Data.generalAppType.types, "AMEND_A_STMT_OF_CASE"))
+or (list contains(additionalData.Data.generalAppType.types, "SET_ASIDE_JUDGEMENT") and additionalData.Data.generalAppSuperClaimType = "SPEC_CLAIM")</text>
         </inputExpression>
       </input>
       <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="150" />
