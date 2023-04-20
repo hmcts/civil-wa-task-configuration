@@ -284,7 +284,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "dueDateIntervalDays",
-            "value", "5",
+            "value", "20",
             "canReconfigure","false"
         )));
     }
@@ -327,7 +327,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "dueDateIntervalDays",
-            "value", "10",
+            "value", "20",
             "canReconfigure","false"
         )));
     }
@@ -369,7 +369,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "dueDateIntervalDays",
-            "value", "10",
+            "value", "20",
             "canReconfigure","false"
         )));
     }
