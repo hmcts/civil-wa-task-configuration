@@ -43,7 +43,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Directions after Judgment"
             ),
             Map.of(
-                "taskTypeId", "fastTrackDirections",
+                "taskTypeId", "FastTrackDirections",
                 "taskTypeName", "Fast Track Directions"
             ),
             Map.of(
@@ -51,7 +51,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Small Claims Track Directions"
             ),
             Map.of(
-                "taskTypeId", "LegalAdviserSmallClaimsTrackDirections",
+                "taskTypeId", "LegalAdvisorSmallClaimsTrackDirections",
                 "taskTypeName", "Small Claims Track Directions - Legal Advisor"
             ),
             Map.of(
@@ -63,7 +63,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Confirm Case is Offline"
             ),
             Map.of(
-                "taskTypeId", "scheduleHearing",
+                "taskTypeId", "ScheduleAHearing",
                 "taskTypeName", "Schedule a Hearing"
             ),
             Map.of(
