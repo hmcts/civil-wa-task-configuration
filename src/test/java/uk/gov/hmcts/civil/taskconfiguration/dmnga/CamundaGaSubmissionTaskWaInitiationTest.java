@@ -58,7 +58,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
-        "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE"
+        "END_BUSINESS_PROCESS_GASPEC"
     })
     void when_urgent_ga_creation_with_pre_sdo_refer_legalAdvisor(String eventId) {
 
@@ -150,7 +150,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
-        "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE"
+        "END_BUSINESS_PROCESS_GASPEC"
     })
 
     void when_urgent_ga_creation_with_pre_sdo_multiple_types_refer_legalAdvisor(String eventId) {
@@ -247,7 +247,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
-        "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE"
+        "END_BUSINESS_PROCESS_GASPEC"
     })
     void when_non_urgent_ga_creation_with_pre_sdo_single_application_refer_legalAdvisor(String eventId) {
 
@@ -370,7 +370,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
-        "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE"
+        "END_BUSINESS_PROCESS_GASPEC"
     })
     void when_non_urgent_ga_creation_with_pre_sdo_multiple_types_refer_legalAdvisor(String eventId) {
 
@@ -1089,7 +1089,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
-        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"
     })
     void when_change_state_to_addln_response_time_expired_nonurgent_with_pre_sdo_refer_legalAdvisor(String eventId) {
 
@@ -1196,7 +1196,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
-        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"
     })
     void when_change_state_to_addln_response_time_expired_nonurgent_app_with_pre_sdo_single_ga_type_refer_LegalAdvisor(
         String eventId) {
@@ -1305,7 +1305,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
-        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"
     })
     void when_change_state_to_addln_response_time_expired_urgent_app_with_pre_sdo_refer_legalAdvisor(String eventId) {
 
@@ -1509,7 +1509,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
-        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"
     })
     void when_taskId_then_return_decision_making_work_for_urgent_listed_for_hearing_refer_legalAdvisor(String eventId) {
 
