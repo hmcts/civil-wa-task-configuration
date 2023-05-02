@@ -62,7 +62,18 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                         ),
                         Map.of(
                             "completionMode", "Auto"
-                        )))
+                        ))),
+            Arguments.of(
+                "REFER_TO_JUDGE",
+                asList(
+                    Map.of(
+                        "taskType", "LegalAdvisorDecideOnApplication",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                           "taskType", "LegalAdvisorRevisitApplication",
+                        "completionMode", "Auto"
+                    )))
         );
     }
 
