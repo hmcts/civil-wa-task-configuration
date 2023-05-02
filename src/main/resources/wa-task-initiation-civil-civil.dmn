@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.9.0">
   <decision id="wa-task-initiation-civil-civil" name="Civil Task initiation DMN">
     <decisionTable id="DecisionTable_0jtevuc" hitPolicy="COLLECT" biodi:annotationsWidth="400">
       <input id="Input_1" label="Event Id" biodi:width="319" camunda:inputVariable="eventId">
@@ -146,6 +146,11 @@ else
    and additionalData.Data.responseClaimMediationSpecRequired != null)
 then
    additionalData.Data.responseClaimMediationSpecRequired
+else if (additionalData.Data.respondent1LiPResponse != null 
+              and additionalData.Data.respondent1LiPResponse .respondent1MediationLiPResponse != null 
+              and additionalData.Data.respondent1LiPResponse.respondent1MediationLiPResponse.mediationDisagreementLiP != null) 
+then
+    additionalData.Data.respondent1LiPResponse.respondent1MediationLiPResponse.mediationDisagreementLiP
 else
   null</text>
         </inputExpression>
@@ -161,13 +166,16 @@ else
   null</text>
         </inputExpression>
       </input>
-      <input id="InputClause_01zijxy" label="Applicant1 Claim Mediation Spec Required" biodi:width="192" camunda:inputVariable="applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation">
+      <input id="InputClause_01zijxy" label="Applicant1 Claim Mediation Spec Required" biodi:width="191" camunda:inputVariable="applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation">
         <inputExpression id="LiteralExpression_0nkod4e" typeRef="boolean">
           <text>if(additionalData != null
    and additionalData.Data != null
    and additionalData.Data.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation != null)
 then
    additionalData.Data.applicant1ClaimMediationSpecRequired.hasAgreedFreeMediation
+else if (additionalData.Data.applicant1ClaimMediationSpecRequiredLip.hasAgreedFreeMediation != null)
+then
+    additionalData.Data.applicant1ClaimMediationSpecRequiredLip.hasAgreedFreeMediation
 else
   null</text>
         </inputExpression>
