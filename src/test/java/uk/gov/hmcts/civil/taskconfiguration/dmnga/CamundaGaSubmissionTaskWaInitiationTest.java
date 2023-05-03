@@ -2262,6 +2262,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
+
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -2423,6 +2424,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
+
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
@@ -2493,6 +2495,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
+
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
