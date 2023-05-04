@@ -139,7 +139,7 @@ task awaitApplicationReadiness(type: Exec, description: 'Awaits until applicatio
 }
 
 task installDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'install'
+  commandLine '/usr/bin/yarn', '--mutex', 'network', '--immutable', '--silent', 'install'
 }
 
 task checkDependenciesIntegrity(type: Exec, description: 'Checks integrity of Yarn dependencies.') {
@@ -148,10 +148,6 @@ task checkDependenciesIntegrity(type: Exec, description: 'Checks integrity of Ya
 
 task genAppInstallDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
   commandLine '/usr/bin/yarn', '--mutex', 'network', '--silent', 'install'
-}
-
-task pullCCDDefAsset(type: Exec, description: 'Installs Yarn dependencies.') {
-  commandLine './bin/pull-latest-civil-ccd-files.sh', 'master'
 }
 
 task pullGeneralAppAsset(type: Exec, description: 'Installs Yarn dependencies.') {
@@ -180,6 +176,13 @@ task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
   commandLine '/usr/bin/yarn', '--silent', 'test:api-dj'
 }
 
+task pullNighltyTestAsset(type: Exec, description: 'Install yarn dependencies') {
+  onlyIf {
+    return System.env.NIGHTLY_RUN == 'true'
+  }
+  commandLine './bin/pull-latest-civil-ccd-files.sh', 'master'
+}
+
 task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
     return System.env.NIGHTLY_RUN == 'true'
@@ -202,12 +205,12 @@ def inStrictOrder(Task... tasks) {
 }
 
 task smoke(description: 'Runs the smoke tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runSmokeTests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness,  installDependencies, checkDependenciesIntegrity, runSmokeTests))
 }
 
 task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness,
-  pullCCDDefAsset, installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests,
+  dependsOn(inStrictOrder(awaitApplicationReadiness, pullNighltyTestAsset,
+   installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests,
   pullGeneralAppAsset, genAppInstallDependencies, runNightlyGenAppCCDTaskTests))
 }
 
