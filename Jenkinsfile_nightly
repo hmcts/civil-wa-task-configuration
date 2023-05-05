@@ -32,6 +32,7 @@ def type = "java"
 def product = "civil"
 def component = "task-configuration"
 def s2sServiceName = "wa_camunda_pipeline_upload"
+def ccdBranch = "master"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
@@ -74,6 +75,9 @@ withNightlyPipeline(type, product, component) {
   enableFullFunctionalTest(200)
 
   before('fullFunctionalTest') {
+    sh """
+        ./bin/pull-latest-civil-ccd-files.sh ${ccdBranch}
+    """
     yarnBuilder.yarn('yarn-update')
     yarnBuilder.yarn('install-dependencies')
   }
