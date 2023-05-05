@@ -166,12 +166,7 @@ task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
   commandLine '/usr/bin/yarn', '--silent','run' , 'test:api-dj'
 }
 
-task pullNighltyTestAsset(type: Exec, description: 'Install yarn dependencies') {
-  onlyIf {
-    return System.env.NIGHTLY_RUN == 'true'
-  }
-  commandLine './bin/pull-latest-civil-ccd-files.sh','run' , 'master'
-}
+
 
 task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
@@ -199,8 +194,7 @@ task smoke(description: 'Runs the smoke tests.') {
 }
 
 task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, pullNighltyTestAsset,
-   runApiTests, runNightlyCivilCCDTaskTests,
+  dependsOn(inStrictOrder(awaitApplicationReadiness, runApiTests, runNightlyCivilCCDTaskTests,
   pullGeneralAppAsset, runNightlyGenAppCCDTaskTests))
 }
 
