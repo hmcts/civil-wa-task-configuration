@@ -138,17 +138,7 @@ task awaitApplicationReadiness(type: Exec, description: 'Awaits until applicatio
   commandLine './bin/wait-for.sh', 'manage-case'
 }
 
-task installDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--immutable', '--silent', 'install'
-}
 
-task checkDependenciesIntegrity(type: Exec, description: 'Checks integrity of Yarn dependencies.') {
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--frozen-lockfile', '--silent', 'check', '--integrity'
-}
-
-task genAppInstallDependencies(type: Exec, description: 'Installs Yarn dependencies.') {
-  commandLine '/usr/bin/yarn', '--mutex', 'network', '--silent', 'install'
-}
 
 task pullGeneralAppAsset(type: Exec, description: 'Installs Yarn dependencies.') {
   commandLine './bin/pull-latest-general-app-ccd-files.sh', 'master'
@@ -162,39 +152,39 @@ task lintUserInterfaceTests(type: Exec, description: 'Runs linting of E2E tests.
 }
 
 task runSmokeTests(type: Exec, description: 'Runs smoke tests.') {
-  commandLine '/usr/bin/yarn', '--silent', 'test:smoke'
+  commandLine '/usr/bin/yarn', '--silent','run' , 'test:smoke'
 }
 
 task runApiTests(type: Exec, description: 'Runs Api WA functional tests.') {
-  commandLine '/usr/bin/yarn', '--silent', 'test:api-1v1'
+  commandLine '/usr/bin/yarn', '--silent','run' , 'test:api-1v1'
 }
 
 task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
     return System.env.ENVIRONMENT == 'preview'
   }
-  commandLine '/usr/bin/yarn', '--silent', 'test:api-dj'
+  commandLine '/usr/bin/yarn', '--silent','run' , 'test:api-dj'
 }
 
 task pullNighltyTestAsset(type: Exec, description: 'Install yarn dependencies') {
   onlyIf {
     return System.env.NIGHTLY_RUN == 'true'
   }
-  commandLine './bin/pull-latest-civil-ccd-files.sh', 'master'
+  commandLine './bin/pull-latest-civil-ccd-files.sh','run' , 'master'
 }
 
 task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
     return System.env.NIGHTLY_RUN == 'true'
   }
-  commandLine '/usr/bin/yarn', '--silent', 'test:dmn-tasks'
+  commandLine '/usr/bin/yarn', '--silent','run' , 'test:dmn-tasks'
 }
 
 task runNightlyGenAppCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
   onlyIf {
     return System.env.ENVIRONMENT == 'demo'
   }
-  commandLine '/usr/bin/yarn', '--silent', 'test:api-ga-wa'
+  commandLine '/usr/bin/yarn', '--silent','run' , 'test:api-ga-wa'
 }
 
 def inStrictOrder(Task... tasks) {
@@ -205,13 +195,13 @@ def inStrictOrder(Task... tasks) {
 }
 
 task smoke(description: 'Runs the smoke tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness,  installDependencies, checkDependenciesIntegrity, runSmokeTests))
+  dependsOn(inStrictOrder(awaitApplicationReadiness,  runSmokeTests))
 }
 
 task functional(description: 'Runs the functional tests.') {
   dependsOn(inStrictOrder(awaitApplicationReadiness, pullNighltyTestAsset,
-   installDependencies, checkDependenciesIntegrity, runApiTests, runNightlyCivilCCDTaskTests,
-  pullGeneralAppAsset, genAppInstallDependencies, runNightlyGenAppCCDTaskTests))
+   runApiTests, runNightlyCivilCCDTaskTests,
+  pullGeneralAppAsset, runNightlyGenAppCCDTaskTests))
 }
 
 // before committing a change, make sure task still works

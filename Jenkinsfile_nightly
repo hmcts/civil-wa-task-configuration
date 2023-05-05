@@ -33,6 +33,8 @@ def product = "civil"
 def component = "task-configuration"
 def s2sServiceName = "wa_camunda_pipeline_upload"
 
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
 static Map<String, Object> secret(String secretName, String envVariable) {
   [$class     : 'AzureKeyVaultSecret',
    secretType : 'Secret',
@@ -70,7 +72,12 @@ withNightlyPipeline(type, product, component) {
   loadVaultSecrets(secrets)
 
   enableFullFunctionalTest(200)
-  
+
+  before('fullFunctionalTest') {
+    yarnBuilder.yarn('yarn-update')
+    yarnBuilder.yarn('install-dependencies')
+  }
+
   afterAlways('fullFunctionalTest') {
     archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
   }
