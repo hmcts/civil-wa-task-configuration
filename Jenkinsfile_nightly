@@ -77,6 +77,7 @@ withNightlyPipeline(type, product, component) {
   before('fullFunctionalTest') {
     sh """
         ./bin/pull-latest-civil-ccd-files.sh ${ccdBranch}
+        ./bin/pull-latest-general-app-ccd-files.sh ${ccdBranch}
     """
     yarnBuilder.yarn('yarn-update')
     yarnBuilder.yarn('install-dependencies')
