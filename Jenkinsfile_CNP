@@ -11,6 +11,8 @@ def product = "civil"
 def ccdBranch = "master"
 def camundaBranch = "master"
 
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
 static Map<String, Object> secret(String secretName, String envVariable) {
   [$class     : 'AzureKeyVaultSecret',
    secretType : 'Secret',
@@ -120,6 +122,8 @@ withPipeline(type, product, component) {
     env.CCD_DATA_STORE_URL = "https://ccd-data-store-api-civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
     env.CIVIL_SERVICE_URL="https://civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+    yarnBuilder.yarn('yarn-update')
+    yarnBuilder.yarn('install-dependencies')
   }
 
   afterSuccess('smoketest:preview') {
@@ -145,6 +149,8 @@ withPipeline(type, product, component) {
     env.CCD_DATA_STORE_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
     env.CIVIL_SERVICE_URL="http://civil-service-aat.service.core-compute-aat.internal"
+    yarnBuilder.yarn('yarn-update')
+    yarnBuilder.yarn('install-dependencies')
   }
 
   afterSuccess('smoketest:aat') {
