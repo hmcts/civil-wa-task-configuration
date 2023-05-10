@@ -63,10 +63,13 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     }
 
     @SuppressWarnings("checkstyle:indentation")
-    @Test
-    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "ScheduleApplicationHearing","ReviewApplication","ReviewRevisitedApplication"
+    })
+    void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", "ScheduleApplicationHearing"));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
         inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -87,10 +90,13 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     }
 
     @SuppressWarnings("checkstyle:indentation")
-    @Test
-    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_it_returns_expected_rule_withoutCcmcc() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "ScheduleApplicationHearing","ReviewApplication","ReviewRevisitedApplication"
+    })
+    void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withoutCcmcc(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", "ScheduleApplicationHearing"));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
         inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
