@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.9.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -464,7 +464,7 @@ else "1234"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jsyggq">
-          <text>"reviewSpecificAccessRequestCTSC"</text>
+          <text>"reviewSpecificAccessRequestCTSC","manualDetermination"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0yzpj7g">
           <text>"roleCategory"</text>
@@ -698,6 +698,42 @@ else ""</text>
           <text>5</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0h8co2o">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q4j5xe">
+        <description>Requests the Case Worker perform Manual Determination on this claim</description>
+        <inputEntry id="UnaryTests_148vol4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hw8rwj">
+          <text>"manualDetermination"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_007k9s1">
+          <text>"worktype"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11r86uh">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vlosrl">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0o1ivlw">
+        <description>A marked up description of what the user should do next on the case to complete this task. This populates the Task Tab on the case to allow a user to link straight to the required action. This will be a URL.</description>
+        <inputEntry id="UnaryTests_1mu94k4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mydkzs">
+          <text>"manualDetermination"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s69ixo">
+          <text>"description</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kdrk5a">
+          <text>e.g. "[Directions - Provisional Summary Judgment](/cases/case-details/${[CASE_REFERENCE]}/trigger/STANDARD_DIRECTION_ORDER_DJ/STANDARD_DIRECTION_ORDER_DJCaseManagementOrder)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0726607">
           <text>false</text>
         </outputEntry>
       </rule>
