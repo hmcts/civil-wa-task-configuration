@@ -13,7 +13,7 @@ module.exports = {
     case_management_category: 'Civil',
     work_type_id: 'hearing_work',
     work_type_label: 'Hearing work',
-    permissions: { values: [ 'Read', 'Own', 'Manage', 'Cancel', 'Complete', 'Claim', 'Assign', 'Unassign'  ] },
+    permissions: { values: [ 'Read', 'Own', 'Claim', 'Unclaim', 'UnclaimAssign', 'CompleteOwn', 'CancelOwn' ] },
     description: '[Take case offline](/cases/case-details/${[CASE_REFERENCE]}/trigger/TAKE_CASE_OFFLINE/TAKE_CASE_OFFLINE)',
     role_category: 'ADMIN',
 };
