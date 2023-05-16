@@ -13,7 +13,7 @@ module.exports = {
     case_management_category: 'Civil',
     work_type_id: 'decision_making_work',
     work_type_label: 'Decision-making work',
-    permissions: { values: [ 'Read', 'Own', 'Claim', 'Unclaim', 'UnclaimAssign', 'CompleteOwn', 'CancelOwn' ] },
+    permissions: { values: [ 'Read', 'Own', 'CompleteOwn', 'CancelOwn', 'Claim', 'Unclaim', 'UnclaimAssign'] },
     description: '[Directions - Legal Adviser Small Claims Track](/cases/case-details/${[CASE_REFERENCE]}/trigger/CREATE_SDO/CREATE_SDOSmallClaims)',
     role_category: 'LEGAL_OPERATIONS'
   };
