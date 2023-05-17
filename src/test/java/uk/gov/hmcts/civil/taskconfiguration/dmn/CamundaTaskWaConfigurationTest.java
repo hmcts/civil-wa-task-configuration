@@ -32,13 +32,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_CONFIGURATION_CIVIL_DAMAGES;
     }
 
-
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(29));
+        assertThat(logic.getRules().size(), is(42));
 
     }
 
@@ -524,7 +523,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
                 configDecision("roleCategory", "true", "CTSC"),
                 configDecision("description",
                                "true",
-                               "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags)"),
+                               "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}/trigger"
+                                   + "/CREATE_CASE_FLAGS/CREATE_CASE_FLAGSCreateCaseFlags)"),
                 configDecision("workType", "true", "routine_work")
             )
         ));
@@ -573,7 +573,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
                 configDecision("roleCategory", "true", "CTSC"),
                 configDecision("description",
                                "true",
-                               "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}#Case%20Flags)"),
+                               "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}/trigger"
+                                   + "/CREATE_CASE_FLAGS/CREATE_CASE_FLAGSCreateCaseFlags)"),
                 configDecision("workType", "true", "routine_work")
             )
         ));
