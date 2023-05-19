@@ -15,5 +15,7 @@ module.exports = {
     work_type_label: 'Decision-making work',
     permissions: { values: [  'Read', 'Own', 'Manage', 'Cancel', 'CompleteOwn', 'CancelOwn', 'Claim', 'Unclaim', 'Assign', 'Unassign', 'UnclaimAssign' ] },
     description: '[Directions - Fast Track](/cases/case-details/${[CASE_REFERENCE]}/trigger/CREATE_SDO/CREATE_SDOFastTrack)',
-    role_category: 'JUDICIAL'
+    role_category: 'JUDICIAL',
+    minor_priority: 500,
+    major_priority: 5000
   };
