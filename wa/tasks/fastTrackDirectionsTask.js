@@ -3,7 +3,7 @@ module.exports = {
     type: 'FastTrackDirections',
     task_title: 'Fast Track Directions',
     location_name: 'Barnet Civil and Family Centre',
-    location: '20262',
+    location: '229786',
     execution_type: 'Case Management Task',
     jurisdiction: 'CIVIL',
     region: '1',
