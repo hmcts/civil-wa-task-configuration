@@ -65,34 +65,11 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "ReviewApplication", "ReviewRevisitedApplication"
+        "ScheduleApplicationHearing","ReviewApplication","ReviewRevisitedApplication"
     })
-    void given_reviewRevisitedApplication_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
+    void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
-            Map.of(
-                "autoAssignable", false,
-                "name", "task-supervisor",
-                "value", "Read,Manage,Unassign,Assign,Cancel"
-            ),
-            Map.of(
-                "name", "national-business-centre",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            )
-        )));
-    }
-
-    @SuppressWarnings("checkstyle:indentation")
-    @Test
-    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc() {
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", "ScheduleApplicationHearing"));
         inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -104,7 +81,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             ),
             Map.of(
                 "name", "national-business-centre",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "assignmentPriority",1,
                 "autoAssignable", false
@@ -113,10 +90,13 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     }
 
     @SuppressWarnings("checkstyle:indentation")
-    @Test
-    void given_scheduleApplicationHearing_taskType_when_evaluate_dmn_it_returns_expected_rule_withoutCcmcc() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "ScheduleApplicationHearing","ReviewApplication","ReviewRevisitedApplication"
+    })
+    void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withoutCcmcc(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", "ScheduleApplicationHearing"));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
         inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -128,7 +108,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             ),
             Map.of(
                 "name", "hearing-centre-admin",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "assignmentPriority",1,
                 "autoAssignable", false
@@ -153,7 +133,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             ),
             Map.of(
                 "name", "senior-tribunal-caseworker",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "LEGAL_OPERATIONS",
                 "assignmentPriority",1,
                 "autoAssignable", true
@@ -177,14 +157,14 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             ),
             Map.of(
                 "name", "hearing-centre-team-leader",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "assignmentPriority",1,
                 "autoAssignable", true
             ),
             Map.of(
                 "name", "nbc-team-leader",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "assignmentPriority",1,
                 "autoAssignable", true
@@ -208,7 +188,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             ),
             Map.of(
                 "name", "ctsc-team-leader",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "CTSC",
                 "assignmentPriority",1,
                 "autoAssignable", true)
@@ -234,7 +214,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             ),
             Map.of(
                 "name", "tribunal-caseworker",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "LEGAL_OPERATIONS",
                 "assignmentPriority", 1,
                 "autoAssignable", false
@@ -261,7 +241,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "JUDICIAL",
                 "authorisations", "294",
                 "assignmentPriority", 1,
@@ -290,7 +270,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "assignmentPriority", 1,
                 "roleCategory", "ADMIN",
                 "autoAssignable", false,
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             )
         )));
     }
@@ -315,7 +295,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "assignmentPriority", 1,
                 "roleCategory", "ADMIN",
                 "autoAssignable", false,
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             )
         )));
     }
@@ -341,7 +321,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "assignmentPriority", 1,
                 "roleCategory", "ADMIN",
                 "autoAssignable", false,
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             )
         )));
     }
@@ -367,7 +347,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "assignmentPriority", 1,
                 "roleCategory", "ADMIN",
                 "autoAssignable", false,
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             )
         )));
     }
@@ -393,7 +373,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "assignmentPriority", 1,
                 "roleCategory", "ADMIN",
                 "autoAssignable", false,
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             )
         )));
     }
@@ -419,7 +399,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 "assignmentPriority", 1,
                 "roleCategory", "ADMIN",
                 "autoAssignable", false,
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel"
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             )
         )));
     }
@@ -443,7 +423,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             ),
             Map.of(
                 "name", "judge",
-                "value", "Read,Manage,Own,Unassign,Assign,Complete,Claim,Cancel",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "JUDICIAL",
                 "authorisations", "294",
                 "assignmentPriority", 1,
