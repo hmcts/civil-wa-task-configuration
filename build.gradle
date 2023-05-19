@@ -151,7 +151,7 @@ task genAppInstallDependencies(type: Exec, description: 'Installs Yarn dependenc
 }
 
 task pullCCDDefAsset(type: Exec, description: 'Installs Yarn dependencies.') {
-  commandLine './bin/pull-latest-civil-ccd-files.sh', 'master'
+  commandLine './bin/pull-latest-civil-ccd-files.sh', 'Fix-tag-for-spec-tests'
 }
 
 task pullGeneralAppAsset(type: Exec, description: 'Installs Yarn dependencies.') {
@@ -184,7 +184,7 @@ task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functiona
   onlyIf {
     return System.env.NIGHTLY_RUN == 'true'
   }
-  commandLine '/usr/bin/yarn', '--silent', 'test:dmn-tasks'
+  commandLine '/usr/bin/yarn', '--silent', 'test:wa-r4'
 }
 
 task runNightlyGenAppCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
