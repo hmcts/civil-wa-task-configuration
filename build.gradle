@@ -154,6 +154,9 @@ task runSmokeTests(type: Exec, description: 'Runs smoke tests.') {
 }
 
 task runApiTests(type: Exec, description: 'Runs Api WA functional tests.') {
+  onlyIf {
+    return System.env.NIGHTLY_RUN != 'true'
+  }
   commandLine '/usr/bin/yarn', '--silent','run' , 'test:api-1v1'
 }
 
@@ -170,7 +173,7 @@ task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functiona
   onlyIf {
     return System.env.NIGHTLY_RUN == 'true'
   }
-  commandLine '/usr/bin/yarn', '--silent', 'test:wa-r4'
+  commandLine '/usr/bin/yarn', '--silent', 'run' , 'test:wa-r4'
 }
 
 task runNightlyGenAppCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
