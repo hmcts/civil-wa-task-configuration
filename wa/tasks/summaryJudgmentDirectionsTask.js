@@ -2,7 +2,7 @@ module.exports = {
     name: 'Directions after Judgment (Damages)',
     type: 'summaryJudgmentDirections',
     task_title: 'Directions after Judgment (Damages)',
-    location_name: 'Central London County Court',
+    location_name: 'Barnet Civil and Family Centre',
     location: '20262',
     execution_type: 'Case Management Task',
     jurisdiction: 'CIVIL',
