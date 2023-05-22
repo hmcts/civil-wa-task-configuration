@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-initiation-civil-generalapplication" name="Civil GA Task initiation DMN">
     <decisionTable id="DecisionTable_141h4ty" hitPolicy="COLLECT">
       <input id="Input_1" label="Event Id" camunda:inputVariable="eventId">
@@ -2571,6 +2571,44 @@ else if (additionalData.Data.generalAppConsentOrder != null ) then true else fal
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_11vlk99">
+          <text>"generalApplicationsBeforeSdo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uwaglx">
+        <inputEntry id="UnaryTests_0l4pkh4">
+          <text>"REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07gnmux">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0blvr34">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11bhqbw">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1luo1zu">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rfdb47">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r52bwp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l7veu4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09qcjno">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04vm90k">
+          <text>"Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nthp1p">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17px1mv">
           <text>"generalApplicationsBeforeSdo"</text>
         </outputEntry>
       </rule>
