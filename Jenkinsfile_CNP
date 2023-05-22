@@ -81,6 +81,8 @@ withPipeline(type, product, component) {
     loadVaultSecrets(secrets)
   }
 
+  syncBranchesWithMaster(['demo'])
+
   afterSuccess('checkout') {
     onMaster {
       withCredentials([usernamePassword(credentialsId: 'jenkins-github-hmcts-api-token', usernameVariable: 'USERNAME', passwordVariable: 'BEARER_TOKEN')]) {
