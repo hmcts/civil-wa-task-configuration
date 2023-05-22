@@ -96,15 +96,16 @@ withPipeline(type, product, component) {
         }
       }
     }
-
-    onDemo {
-      def subscription = 'nonprod'
+    def subscription = 'nonprod'
+    if ( env.ENVIRONMENT == 'demo') {
       withSubscription(subscription) {
         withTeamSecrets(pipelineConf, 'demo') {
-          uploadDmnDiagrams('demo','')
+          uploadBpmnDiagrams('demo')
         }
       }
     }
+
+
   }
 
   before('smoketest:preview') {
