@@ -81,9 +81,17 @@ withPipeline(type, product, component) {
     loadVaultSecrets(secrets)
   }
 
-  syncBranchesWithMaster(['demo'])
 
   afterSuccess('checkout') {
+    def subscription = 'nonprod'
+    if ( env.ENVIRONMENT == 'demo') {
+      withSubscription(subscription) {
+        withTeamSecrets(pipelineConf, 'demo') {
+          uploadDmnDiagrams('demo','')
+        }
+      }
+    }
+
     onMaster {
       withCredentials([usernamePassword(credentialsId: 'jenkins-github-hmcts-api-token', usernameVariable: 'USERNAME', passwordVariable: 'BEARER_TOKEN')]) {
         try {
@@ -98,17 +106,8 @@ withPipeline(type, product, component) {
         }
       }
     }
-    def subscription = 'nonprod'
-    if ( env.ENVIRONMENT == 'demo') {
-      withSubscription(subscription) {
-        withTeamSecrets(pipelineConf, 'demo') {
-          uploadDmnDiagrams('demo','')
-        }
+
       }
-    }
-
-
-  }
 
   before('smoketest:preview') {
 
