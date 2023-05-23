@@ -6,7 +6,7 @@ import uk.gov.hmcts.contino.GithubAPI
 def type = "java"
 def component = "task-configuration"
 def s2sServiceName = "wa_camunda_pipeline_upload"
-def branchesToSync = ['demo', 'perftest']
+def branchesToSync = ['demo']
 def product = "civil"
 def ccdBranch = "master"
 def camundaBranch = "master"
@@ -49,16 +49,6 @@ def secrets = [
   ]
 ]
 
-def uploadDmnDiagrams(String env, String changeID) {
-  dir("${WORKSPACE}/bin") {
-    tenantId = "civil"
-    product = "civil"
-    sh """
-      eval \$(./variables/load-${env}-environment-variables.sh ${changeID})
-      ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
-    """
-  }
-}
 
 def checkForEnableHelmLabel(branch_name) {
   return new GithubAPI(this).getLabelsbyPattern(branch_name, "enableHelm").contains("enableHelm")
@@ -82,19 +72,8 @@ withCamundaOnlyPipeline(type, product, component, s2sServiceName, tenantId){
     loadVaultSecrets(secrets)
   }
 
-  syncBranchesWithMaster(['demo'])
+  syncBranchesWithMaster(branchesToSync)
 
-  afterSuccess('checkout') {
-    def subscription = 'nonprod'
-    if ( env.ENVIRONMENT == 'demo') {
-      withSubscription(subscription) {
-        withTeamSecrets(pipelineConf, 'demo') {
-          uploadDmnDiagrams('demo','')
-        }
-      }
-    }
-
-  }
 
   before('smoketest:preview') {
 
@@ -119,9 +98,6 @@ withCamundaOnlyPipeline(type, product, component, s2sServiceName, tenantId){
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/smokeTest/**/*'
   }
 
-  before('functionalTest:preview') {
-    uploadDmnDiagrams('preview',"${CHANGE_ID}")
-  }
 
   afterSuccess('functionalTest:preview') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
@@ -146,14 +122,5 @@ withCamundaOnlyPipeline(type, product, component, s2sServiceName, tenantId){
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/smokeTest/**/*'
   }
 
-  before('functionalTest:aat') {
-    env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-    uploadDmnDiagrams('aat','')
-  }
 
-  afterSuccess('functionalTest:aat') {
-    //Release dmns on to prod
-    uploadDmnDiagrams('prod', '')
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
-  }
 }
