@@ -10,6 +10,7 @@ def branchesToSync = ['demo', 'perftest']
 def product = "civil"
 def ccdBranch = "master"
 def camundaBranch = "master"
+def tenantId = "civil"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
@@ -63,7 +64,7 @@ def checkForEnableHelmLabel(branch_name) {
   return new GithubAPI(this).getLabelsbyPattern(branch_name, "enableHelm").contains("enableHelm")
 }
 
-withPipeline(type, product, component) {
+withCamundaOnlyPipeline(type, product, component, s2sServiceName, tenantId){
   pipelineConf = config
 
   onPR {
@@ -82,6 +83,7 @@ withPipeline(type, product, component) {
   }
 
   syncBranchesWithMaster(['demo'])
+
   afterSuccess('checkout') {
     def subscription = 'nonprod'
     if ( env.ENVIRONMENT == 'demo') {
