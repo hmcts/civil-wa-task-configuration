@@ -6,7 +6,7 @@ import uk.gov.hmcts.contino.GithubAPI
 def type = "java"
 def component = "task-configuration"
 def s2sServiceName = "wa_camunda_pipeline_upload"
-def branchesToSync = ['demo', 'perftest']
+def branchesToSync = ['demo', 'perftest','ithc']
 def product = "civil"
 def ccdBranch = "master"
 def camundaBranch = "master"
@@ -38,10 +38,6 @@ def secrets = [
   ],
   'civil-${env}': [
     secret('microservicekey-civil-service', 'S2S_SECRET'),
-    secret('ccd-importer-username', 'CCD_CONFIGURER_IMPORTER_USERNAME'),
-    secret('ccd-importer-password', 'CCD_CONFIGURER_IMPORTER_PASSWORD'),
-    secret('ccd-importer-username', 'DEFINITION_IMPORTER_USERNAME'),
-    secret('ccd-importer-password', 'DEFINITION_IMPORTER_PASSWORD'),
   ],
   'civil-prod': [
     secret('microservicekey-civil-service', 'S2S_SECRET_PROD')
@@ -78,20 +74,31 @@ withPipeline(type, product, component) {
     loadVaultSecrets(secrets)
   }
   onDemo {
+    env.ENVIRONMENT = 'demo'
     loadVaultSecrets(secrets)
   }
 
-  syncBranchesWithMaster(['demo'])
+  onPerftest {
+    env.ENVIRONMENT = 'perftest'
+    loadVaultSecrets(secrets)
+  }
+
+  onIthc {
+    env.ENVIRONMENT = 'ithc'
+    loadVaultSecrets(secrets)
+  }
+
+
+  syncBranchesWithMaster(branchesToSync)
   afterSuccess('checkout') {
     def subscription = 'nonprod'
-    if ( env.ENVIRONMENT == 'demo') {
+    if ( env.ENVIRONMENT == 'ithc' || env.ENVIRONMENT == 'demo' || env.ENVIRONMENT == 'perftest') {
       withSubscription(subscription) {
-        withTeamSecrets(pipelineConf, 'demo') {
-          uploadDmnDiagrams('demo','')
+        withTeamSecrets(pipelineConf, env.ENVIRONMENT) {
+          uploadDmnDiagrams(env.ENVIRONMENT,'')
         }
       }
     }
-
   }
 
   before('smoketest:preview') {
