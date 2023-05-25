@@ -6,7 +6,7 @@ import uk.gov.hmcts.contino.GithubAPI
 def type = "java"
 def component = "task-configuration"
 def s2sServiceName = "wa_camunda_pipeline_upload"
-def branchesToSync = ['demo', 'perftest']
+def branchesToSync = ['demo', 'perftest','ithc']
 def product = "civil"
 def ccdBranch = "master"
 def camundaBranch = "master"
@@ -81,13 +81,13 @@ withPipeline(type, product, component) {
     loadVaultSecrets(secrets)
   }
 
-  syncBranchesWithMaster(['demo'])
+  syncBranchesWithMaster(branchesToSync)
   afterSuccess('checkout') {
     def subscription = 'nonprod'
-    if ( env.ENVIRONMENT == 'demo') {
+    if ( env.ENVIRONMENT == 'ithc' || env.ENVIRONMENT == 'demo' || env.ENVIRONMENT == 'perftest') {
       withSubscription(subscription) {
-        withTeamSecrets(pipelineConf, 'demo') {
-          uploadDmnDiagrams('demo','')
+        withTeamSecrets(pipelineConf, env.ENVIRONMENT) {
+          uploadDmnDiagrams(env.ENVIRONMENT,'')
         }
       }
     }
