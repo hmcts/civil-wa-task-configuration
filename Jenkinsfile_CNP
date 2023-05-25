@@ -38,8 +38,8 @@ def secrets = [
   ],
   'civil-${env}': [
     secret('microservicekey-civil-service', 'S2S_SECRET'),
-    secret('ccd-importer-username', 'CCD_CONFIGURER_IMPORTER_USERNAME'),
-    secret('ccd-importer-password', 'CCD_CONFIGURER_IMPORTER_PASSWORD'),
+   // secret('ccd-importer-username', 'CCD_CONFIGURER_IMPORTER_USERNAME'),
+    //secret('ccd-importer-password', 'CCD_CONFIGURER_IMPORTER_PASSWORD'),
     secret('ccd-importer-username', 'DEFINITION_IMPORTER_USERNAME'),
     secret('ccd-importer-password', 'DEFINITION_IMPORTER_PASSWORD'),
   ],
@@ -78,8 +78,20 @@ withPipeline(type, product, component) {
     loadVaultSecrets(secrets)
   }
   onDemo {
+    env.ENVIRONMENT = 'demo'
     loadVaultSecrets(secrets)
   }
+
+  onPerftest {
+    env.ENVIRONMENT = 'perftest'
+    loadVaultSecrets(secrets)
+  }
+
+  onIthc {
+    env.ENVIRONMENT = 'ithc'
+    loadVaultSecrets(secrets)
+  }
+
 
   syncBranchesWithMaster(branchesToSync)
   afterSuccess('checkout') {
@@ -91,7 +103,6 @@ withPipeline(type, product, component) {
         }
       }
     }
-
   }
 
   before('smoketest:preview') {
