@@ -2659,7 +2659,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(0));
+        assertThat(workTypeResultList.size(), is(1));
     }
 
     @Test
