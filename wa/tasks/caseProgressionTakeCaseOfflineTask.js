@@ -2,8 +2,8 @@ module.exports = {
     name: 'Transfer Case Offline',
     type: 'transferCaseOffline',
     task_title: 'Transfer Case Offline',
-    location_name: 'Central London County Court',
-    location: '20262',
+    location_name: 'Barnet Civil and Family Centre',
+    location: '229786',
     execution_type: 'Case Management Task',
     jurisdiction: 'CIVIL',
     region: '1',
@@ -16,4 +16,6 @@ module.exports = {
     permissions: { values: [ 'Read', 'Own', 'CompleteOwn', 'CancelOwn', 'Claim', 'Unclaim', 'UnclaimAssign'] },
     description: '[Take case offline](/cases/case-details/${[CASE_REFERENCE]}/trigger/TAKE_CASE_OFFLINE/TAKE_CASE_OFFLINE)',
     role_category: 'ADMIN',
+    minor_priority: 500,
+    major_priority: 5000
 };
