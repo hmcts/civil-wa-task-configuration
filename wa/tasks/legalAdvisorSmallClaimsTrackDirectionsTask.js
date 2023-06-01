@@ -2,7 +2,7 @@ module.exports = {
     name: 'Legal Advisor Small Claims Track Directions',
     type: 'LegalAdvisorSmallClaimsTrackDirections',
     task_title: 'Legal Advisor Small Claims Track Directions',
-    location_name: 'Central London County Court',
+    location_name: 'Barnet Civil and Family Centre',
     location: '192280',
     execution_type: 'Case Management Task',
     jurisdiction: 'CIVIL',
@@ -18,4 +18,4 @@ module.exports = {
     role_category: 'LEGAL_OPERATIONS',
     minor_priority: 500,
     major_priority: 5000
-  };
+};  

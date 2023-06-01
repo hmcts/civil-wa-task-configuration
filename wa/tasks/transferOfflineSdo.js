@@ -2,8 +2,8 @@ module.exports = {
   name: 'Confirm Case Offline',
   type: 'transferCaseOfflineNotSuitableSDO',
   task_title: 'Confirm Case Offline',
-  location_name: 'Central London County Court',
-  location: '20262',
+  location_name: 'Barnet Civil and Family Centre',
+  location: '229786',
   execution_type: 'Case Management Task',
   jurisdiction: 'CIVIL',
   region: '1',
@@ -15,5 +15,7 @@ module.exports = {
   work_type_label: 'Hearing work',
   permissions: { values: [ 'Read', 'Own', 'CompleteOwn', 'CancelOwn', 'Claim', 'Unclaim', 'UnclaimAssign'] },
   description: '[Case is Offline]',
-  role_category: 'ADMIN'
+  role_category: 'ADMIN',
+  minor_priority: 500,
+  major_priority: 5000
 };
