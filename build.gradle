@@ -138,8 +138,6 @@ task awaitApplicationReadiness(type: Exec, description: 'Awaits until applicatio
   commandLine './bin/wait-for.sh', 'manage-case'
 }
 
-
-
 task pullGeneralAppAsset(type: Exec, description: 'Installs Yarn dependencies.') {
   commandLine './bin/pull-latest-general-app-ccd-files.sh', 'master'
 }
@@ -156,6 +154,9 @@ task runSmokeTests(type: Exec, description: 'Runs smoke tests.') {
 }
 
 task runApiTests(type: Exec, description: 'Runs Api WA functional tests.') {
+  onlyIf {
+    return System.env.NIGHTLY_RUN != 'true'
+  }
   commandLine '/usr/bin/yarn', '--silent','run' , 'test:api-1v1'
 }
 
@@ -172,7 +173,7 @@ task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functiona
   onlyIf {
     return System.env.NIGHTLY_RUN == 'true'
   }
-  commandLine '/usr/bin/yarn', '--silent','run' , 'test:dmn-tasks'
+  commandLine '/usr/bin/yarn', '--silent', 'run' , 'test:wa-r4'
 }
 
 task runNightlyGenAppCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
