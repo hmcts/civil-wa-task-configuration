@@ -44,8 +44,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "NULL_VALUE, ''",
-        "'', ''"
+        "NULL_VALUE, ''", "'', ''"
     }, nullValues = "NULL_VALUE")
     void when_caseData_then_return_expected_name_and_value_rows(String appealType, String expectedAppealType) {
 
