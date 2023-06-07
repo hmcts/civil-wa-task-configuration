@@ -103,7 +103,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     static Stream<Arguments> scenarioProviderHearingNotice() {
         return Stream.of(
             Arguments.of(
-                "HEARING_SCHEDULED",
+                "ADD_CASE_NOTE",
                 asList(
                     Map.of(
                         "taskType", "ScheduleAHearing",
