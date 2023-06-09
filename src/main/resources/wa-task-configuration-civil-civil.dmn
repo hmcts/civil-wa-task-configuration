@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.4.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.1.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -113,7 +113,7 @@ else "1"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1u21xrsa">
-          <text></text>
+          <text> </text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0kun6mva">
           <text>"locationName"</text>
@@ -164,7 +164,7 @@ else "1"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0b24qcm">
-          <text>"transferCaseOffline", "transferCaseOfflineNotSuitableSDO"</text>
+          <text>"transferCaseOffline", "transferCaseOfflineNotSuitableSDO", "sendCVPHearingLink"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1unwcmq">
           <text>"workType"</text>
@@ -198,7 +198,7 @@ else "1"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_00px7ye">
-          <text>"transferCaseOffline","transferCaseOfflineNotSuitableSDO" </text>
+          <text>"transferCaseOffline","transferCaseOfflineNotSuitableSDO","sendCVPHearingLink" </text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1koffim">
           <text>"roleCategory"</text>
@@ -689,7 +689,10 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_16qjun8">
-          <text></text>
+          <text>"summaryJudgmentDirections","reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC","FastTrackDirections",
+"SmallClaimsTrackDirections",
+"LegalAdvisorSmallClaimsTrackDirections",
+"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","removeHearing"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_13c4w9b">
           <text>"dueDateIntervalDays"</text>
@@ -698,6 +701,40 @@ else ""</text>
           <text>20</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0h8co2o">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_185xu43">
+        <inputEntry id="UnaryTests_1ri583p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_096ix59">
+          <text>"sendCVPHearingLink"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0c2s9b5">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1p0cz0h">
+          <text>"[Send video hearing join link](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fm0foh">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_070knni">
+        <inputEntry id="UnaryTests_1uw7tk6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ui5zck">
+          <text>"sendCVPHearingLink"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lxe8n8">
+          <text>"dueDateIntervalDays"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1eq20pi">
+          <text>5</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1q2p1i4">
           <text>false</text>
         </outputEntry>
       </rule>
