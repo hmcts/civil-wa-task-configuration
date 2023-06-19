@@ -93,6 +93,18 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                         "taskType", "ReviewRevisitedApplication",
 
                         "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "APPROVE_CONSENT_ORDER",
+                asList(
+                    Map.of(
+                        "taskType", "ReviewApplication",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "ReviewRevisitedApplication",
+
+                        "completionMode", "Auto"
                     )))
         );
     }
