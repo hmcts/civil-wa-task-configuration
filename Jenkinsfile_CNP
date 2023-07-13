@@ -6,10 +6,12 @@ import uk.gov.hmcts.contino.GithubAPI
 def type = "java"
 def component = "task-configuration"
 def s2sServiceName = "wa_camunda_pipeline_upload"
-def branchesToSync = ['demo', 'perftest']
+def branchesToSync = ['demo', 'perftest','ithc']
 def product = "civil"
 def ccdBranch = "master"
 def camundaBranch = "master"
+
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 static Map<String, Object> secret(String secretName, String envVariable) {
   [$class     : 'AzureKeyVaultSecret',
@@ -46,6 +48,27 @@ def secrets = [
   ]
 ]
 
+
+def secretsIthc = [
+  's2s-${env}': [
+    secret('microservicekey-ccd-gw', 'CCD_API_GATEWAY_S2S_SECRET'),
+    secret('microservicekey-ccd-data', 'CCD_DATA_STORE_S2S_SECRET'),
+    secret('microservicekey-ccd-definition', 'CCD_DEFINITION_STORE_S2S_SECRET')
+  ],
+  'ccd-${env}': [
+    secret('ccd-api-gateway-oauth2-client-secret', 'CCD_API_GATEWAY_IDAM_CLIENT_SECRET'),
+    secret('postcode-info-address-lookup-token', 'ADDRESS_LOOKUP_TOKEN'),
+    secret('ccd-admin-web-oauth2-client-secret', 'ADMIN_WEB_IDAM_SECRET'),
+    secret('idam-data-store-client-secret','IDAM_OAUTH2_DATA_STORE_CLIENT_SECRET'),
+    secret('idam-data-store-system-user-username','IDAM_DATA_STORE_SYSTEM_USER_USERNAME'),
+    secret('idam-data-store-system-user-password','IDAM_DATA_STORE_SYSTEM_USER_PASSWORD'),
+    secret('microservicekey-ccd-gw', 'CCD_API_GATEWAY_S2S_KEY')
+  ],
+  'civil-ithc': [
+    secret('microservicekey-civil-service', 'S2S_SECRET'),
+  ]
+]
+
 def uploadDmnDiagrams(String env, String changeID) {
   dir("${WORKSPACE}/bin") {
     tenantId = "civil"
@@ -76,30 +99,28 @@ withPipeline(type, product, component) {
     loadVaultSecrets(secrets)
   }
   onDemo {
+    env.ENVIRONMENT = 'demo'
     loadVaultSecrets(secrets)
   }
 
-  afterSuccess('checkout') {
-    onMaster {
-      withCredentials([usernamePassword(credentialsId: 'jenkins-github-hmcts-api-token', usernameVariable: 'USERNAME', passwordVariable: 'BEARER_TOKEN')]) {
-        try {
-          sh '''
-            set -e
-            git remote set-url origin $(git config remote.origin.url | sed "s/github.com/${BEARER_TOKEN}@github.com/g")
-            git fetch origin demo:demo
-            git push --force origin HEAD:demo
-          '''
-        } catch (err) {
-          notifyBuildEvent channel: '#civil_notifications', color: 'warning', message: 'Failed to update demo branch'
-        }
-      }
-    }
+  onPerftest {
+    env.ENVIRONMENT = 'perftest'
+    loadVaultSecrets(secrets)
+  }
 
-    onDemo {
-      def subscription = 'nonprod'
+  onIthc {
+    env.ENVIRONMENT = 'ithc'
+    loadVaultSecrets(secretsIthc)
+  }
+
+
+  syncBranchesWithMaster(branchesToSync)
+  afterSuccess('checkout') {
+    def subscription = 'nonprod'
+    if ( env.ENVIRONMENT == 'ithc' || env.ENVIRONMENT == 'demo' || env.ENVIRONMENT == 'perftest') {
       withSubscription(subscription) {
-        withTeamSecrets(pipelineConf, 'demo') {
-          uploadDmnDiagrams('demo','')
+        withTeamSecrets(pipelineConf, env.ENVIRONMENT) {
+          uploadDmnDiagrams(env.ENVIRONMENT,'')
         }
       }
     }
@@ -112,14 +133,16 @@ withPipeline(type, product, component) {
       ./bin/add-roles.sh
       ./bin/pull-latest-camunda-files.sh ${camundaBranch}
       ./bin/pull-latest-civil-ccd-files.sh ${ccdBranch}
-      ./bin/import-ccd-definition.sh "-e *-prod.json,*HNL-nonprod.json,*CUI-nonprod.json"
+      ./bin/import-ccd-definition.sh "-e *-prod.json,*HNL-nonprod.json,*CUI-nonprod.json,AuthorisationCaseType-shuttered.json"
     """
-    env.URL="https://xui-civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
+    env.URL="https://xui-civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
     env.IDAM_API_URL = "https://idam-api.aat.platform.hmcts.net"
     env.SERVICE_AUTH_PROVIDER_API_BASE_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-    env.CCD_DATA_STORE_URL = "https://ccd-data-store-api-civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
+    env.CCD_DATA_STORE_URL = "https://ccd-data-store-api-civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
-    env.CIVIL_SERVICE_URL="https://civil-task-configuration-pr-${CHANGE_ID}.service.core-compute-preview.internal"
+    env.CIVIL_SERVICE_URL="https://civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
+    yarnBuilder.yarn('yarn-update')
+    yarnBuilder.yarn('install-dependencies')
   }
 
   afterSuccess('smoketest:preview') {
@@ -145,6 +168,8 @@ withPipeline(type, product, component) {
     env.CCD_DATA_STORE_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
     env.CIVIL_SERVICE_URL="http://civil-service-aat.service.core-compute-aat.internal"
+    yarnBuilder.yarn('yarn-update')
+    yarnBuilder.yarn('install-dependencies')
   }
 
   afterSuccess('smoketest:aat') {
