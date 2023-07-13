@@ -86,6 +86,10 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                 "NotSuitable_SDO",
                 asList(
                     Map.of(
+                        "taskType", "summaryJudgmentDirections",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
                         "taskType", "FastTrackDirections",
                         "completionMode", "Auto"
                     ),
