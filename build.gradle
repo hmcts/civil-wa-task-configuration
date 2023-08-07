@@ -16,8 +16,11 @@ group = 'uk.gov.hmcts.reform'
 version = '0.0.1'
 
 allprojects {
-  sourceCompatibility = '11'
-  targetCompatibility = '11'
+  java {
+    toolchain {
+      languageVersion = JavaLanguageVersion.of(17)
+    }
+  }
 }
 
 lombok {
@@ -255,8 +258,8 @@ repositories {
 }
 
 def versions = [
-  junit           : '5.7.2',
-  junitPlatform   : '1.8.1',
+  junit           : '5.9.2',
+  junitPlatform   : '1.9.2',
   reformLogging   : '6.0.1',
   springBoot         : springBoot.class.package.implementationVersion,
   springfoxSwagger: '2.9.2',
