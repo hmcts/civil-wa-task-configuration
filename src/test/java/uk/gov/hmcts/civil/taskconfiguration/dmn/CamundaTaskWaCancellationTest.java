@@ -60,11 +60,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "",
                 outcome
-            ),
-            Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", null,
-                outcome
-
             )
         );
     }
@@ -93,14 +88,12 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-
-
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(4));
+        assertThat(logic.getRules().size(), is(6));
     }
 }
