@@ -2788,11 +2788,12 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         Map<String, Object> data = new HashMap<>();
         data.put("isCcmccLocation", true);
-        data.put("generalAppConsentOrder", null);
+
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
+
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "END_SCHEDULER_CHECK_UNLESS_ORDER_DEADLINE");
