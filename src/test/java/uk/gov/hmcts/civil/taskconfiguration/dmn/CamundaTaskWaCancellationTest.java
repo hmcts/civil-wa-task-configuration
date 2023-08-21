@@ -73,7 +73,8 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    public static Stream<Arguments> scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForUpdateContactInformation() {
+    public static Stream<Arguments> scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForUpdateContactInformation()
+    {
         List<Map<String, String>> outcome = List.of(
             Map.of(
                 "action", "Cancel",
