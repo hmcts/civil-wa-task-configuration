@@ -58,6 +58,14 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                     "name", "Transfer Case Offline",
                     "processCategories","defaultJudgment"
                 )
+            ),
+            Arguments.of(
+                "CONTACT_INFORMATION_UPDATED_WA", "",
+                Map.of(
+                    "taskId", "UpdateDetailsInCasemanSystem",
+                    "name", "Update details in Caseman",
+                    "processCategories","routineWork"
+                )
             )
         );
     }
