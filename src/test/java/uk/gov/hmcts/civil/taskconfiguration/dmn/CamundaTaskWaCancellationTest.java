@@ -28,7 +28,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @MethodSource({
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem",
-        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForUpdateContactInformation",
+        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForUpdateContactInfo",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem"
     })
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
@@ -73,8 +73,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    public static Stream<Arguments> scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForUpdateContactInformation()
-    {
+    public static Stream<Arguments> scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForUpdateContactInfo() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
                 "action", "Cancel",
