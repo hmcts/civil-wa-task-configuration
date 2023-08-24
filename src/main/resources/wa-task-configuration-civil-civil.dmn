@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.4.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.6.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
         <inputExpression id="LiteralExpression_0mra7c41" typeRef="string">
           <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1gaaskx" label="Toggle">
+        <inputExpression id="LiteralExpression_1qbgyj9" typeRef="string">
+          <text>if(caseData != null
+  and caseData != null
+  and caseData.featureToggleWA != null)
+  then
+  caseData.featureToggleWA
+else
+  null</text>
         </inputExpression>
       </input>
       <input id="InputClause_1gmuynta" label="Task type" biodi:width="433" camunda:inputVariable="taskType">
@@ -24,6 +35,9 @@ null</text>
         <inputEntry id="UnaryTests_03ky0eka">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0rkp44m">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_03q2nz01">
           <text></text>
         </inputEntry>
@@ -39,6 +53,9 @@ null</text>
       </rule>
       <rule id="DecisionRule_06i1dbta">
         <inputEntry id="UnaryTests_06lsqf61">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e6wjow">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1jh2uw31">
@@ -58,6 +75,9 @@ null</text>
         <inputEntry id="UnaryTests_1g9ak7z">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_00b1vf1">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_093v5iea">
           <text></text>
         </inputEntry>
@@ -73,6 +93,9 @@ null</text>
       </rule>
       <rule id="DecisionRule_0oagl971">
         <inputEntry id="UnaryTests_0mkzt2ra">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jil8tc">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1essecka">
@@ -94,6 +117,9 @@ null</text>
         <inputEntry id="UnaryTests_1bqxdqra">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1ja59jx">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0wxfevsa">
           <text></text>
         </inputEntry>
@@ -110,6 +136,9 @@ else "1"</text>
       </rule>
       <rule id="DecisionRule_06fd9qza">
         <inputEntry id="UnaryTests_0slfog91">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18gw37j">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1u21xrsa">
@@ -129,6 +158,9 @@ else "1"</text>
         <inputEntry id="UnaryTests_04xtpdua">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1fbgyp2">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1ssoq5va">
           <text>"summaryJudgmentDirections"</text>
         </inputEntry>
@@ -146,6 +178,9 @@ else "1"</text>
         <inputEntry id="UnaryTests_0aqybrxa">
           <text>-</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1nkhl06">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0nmr8951">
           <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC"</text>
         </inputEntry>
@@ -159,9 +194,32 @@ else "1"</text>
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0s0pt4z">
+        <inputEntry id="UnaryTests_1jlds94">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lcg2el">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rzwpdc">
+          <text>"preHearingContact"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0tesp3p">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pekn92">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ldnxqx">
+          <text></text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0h7g1h5">
         <inputEntry id="UnaryTests_13vdio9">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12pvdnd">
+          <text>"WA 3.5"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0b24qcm">
           <text>"transferCaseOffline", "transferCaseOfflineNotSuitableSDO"</text>
@@ -176,9 +234,32 @@ else "1"</text>
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0ybxx0c">
+        <inputEntry id="UnaryTests_049xygd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1iaz17z">
+          <text>"WA 4"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ffsq9b">
+          <text>"ScheduleAHearing","transferCaseOfflineNotSuitableSDO","removeHearing","adjournedReList"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uhl6dh">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18b9knk">
+          <text>"hearing_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_184n2us">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0ikmf141">
         <inputEntry id="UnaryTests_0epux741">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lyrph0">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1y3kj1va">
           <text>"summaryJudgmentDirections", "reviewSpecificAccessRequestJudiciary"</text>
@@ -197,6 +278,9 @@ else "1"</text>
         <inputEntry id="UnaryTests_02epjn7">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1y0ai45">
+          <text>"WA 3.5"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_00px7ye">
           <text>"transferCaseOffline","transferCaseOfflineNotSuitableSDO" </text>
         </inputEntry>
@@ -210,9 +294,32 @@ else "1"</text>
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0ho8xju">
+        <inputEntry id="UnaryTests_08kvdlm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vylo1z">
+          <text>"WA 4"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t9swye">
+          <text>"ScheduleAHearing","transferCaseOfflineNotSuitableSDO","removeHearing","preHearingContact","adjournedReList"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_182e5cw">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lh0brx">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1osz6l1">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_1csczvsa">
         <inputEntry id="UnaryTests_0wmnz5za">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bqdedm">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1gm06lga">
           <text>"summaryJudgmentDirections"</text>
@@ -230,6 +337,9 @@ else "1"</text>
       <rule id="DecisionRule_11m31rga">
         <inputEntry id="UnaryTests_18uh5f91">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1caf4yl">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0rj4oyoa">
           <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestLegalOps"</text>
@@ -249,6 +359,9 @@ else ""</text>
         <inputEntry id="UnaryTests_11ymv3k">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_19vokyk">
+          <text>"WA 3.5"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0gkhh0f">
           <text>"transferCaseOffline"</text>
         </inputEntry>
@@ -266,6 +379,9 @@ else ""</text>
         <inputEntry id="UnaryTests_0vd51rj">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1tawh7f">
+          <text>"WA 3.5", "WA 4"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1g8401f">
           <text>"transferCaseOfflineNotSuitableSDO" </text>
         </inputEntry>
@@ -279,9 +395,32 @@ else ""</text>
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_128940a">
+        <inputEntry id="UnaryTests_1gu28pp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hi11bk">
+          <text>"WA 4"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tuyzm0">
+          <text>"ScheduleAHearing"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0w94dab">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fjwttf">
+          <text>"[Directions - Schedule A Hearing](/cases/case-details/${[CASE_REFERENCE]}/trigger/HEARING_SCHEDULED/HEARING_SCHEDULEDHearingNoticeSelect)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05o2g1w">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0lzr418">
         <inputEntry id="UnaryTests_08ykobf">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dkvbrr">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_06mr79w">
           <text>"reviewSpecificAccessRequestAdmin"</text>
@@ -297,9 +436,33 @@ else ""</text>
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_01wf5wv">
+        <inputEntry id="UnaryTests_1xurt4c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01508st">
+          <text>"WA 3.5", "WA 4"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v4n8iq">
+          <text>"ScheduleAHearing","reviewSpecificAccessRequestAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0cpul2n">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0up3w30">
+          <text>if (taskAttributes != null and taskAttributes.taskId != null and taskAttributes.roleAssignmentId != null) then "[Review Access Request](/role-access/" + taskAttributes.taskId + "/assignment/" + taskAttributes.roleAssignmentId + "/specific-access)"
+else ""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zym8k4">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_03x676a">
         <inputEntry id="UnaryTests_1takzy0">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dq7568">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0wcal63">
           <text>"FastTrackDirections",
@@ -321,6 +484,9 @@ else ""</text>
         <inputEntry id="UnaryTests_0q1u6ls">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0n5sf83">
+          <text>"WA 3.5", "WA 4"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0sj8uty">
           <text>"FastTrackDirections",
 "SmallClaimsTrackDirections",
@@ -341,6 +507,9 @@ else ""</text>
         <inputEntry id="UnaryTests_0wb7hlt">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_17e0dim">
+          <text>"WA 3.5", "WA 4"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0t1bcxs">
           <text>"LegalAdvisorSmallClaimsTrackDirections",
 "reviewSpecificAccessRequestLegalOps"</text>
@@ -358,6 +527,9 @@ else ""</text>
       <rule id="DecisionRule_05xw514">
         <inputEntry id="UnaryTests_02o9b0n">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ivroqe">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0byfs3s">
           <text>"ScheduleAHearing",
@@ -377,6 +549,9 @@ else ""</text>
         <inputEntry id="UnaryTests_0ai7xgb">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0ih7hr4">
+          <text>"WA 3.5", "WA 4"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0i0vv2k">
           <text>"FastTrackDirections"</text>
         </inputEntry>
@@ -393,6 +568,9 @@ else ""</text>
       <rule id="DecisionRule_15r7kbh">
         <inputEntry id="UnaryTests_0pjrr5i">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1beywzj">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_062s2p2">
           <text>"SmallClaimsTrackDirections"</text>
@@ -411,6 +589,9 @@ else ""</text>
         <inputEntry id="UnaryTests_1h9dt1o">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_05pxao0">
+          <text>"WA 3.5", "WA 4"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_057jvid">
           <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
         </inputEntry>
@@ -428,6 +609,9 @@ else ""</text>
         <inputEntry id="UnaryTests_101x7w5">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0umsi6p">
+          <text>"WA 3.5", "WA 4"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0p43l3m">
           <text>"SmallClaimsTrackDirectionsReferral"</text>
         </inputEntry>
@@ -444,6 +628,9 @@ else ""</text>
       <rule id="DecisionRule_1aqzvns">
         <inputEntry id="UnaryTests_02poy08">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pvt5r1">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ig2yd5">
           <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps","reviewSpecificAccessRequestCTSC"</text>
@@ -463,6 +650,9 @@ else "1234"</text>
         <inputEntry id="UnaryTests_1lfp38b">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0djgtrm">
+          <text>"WA 3.5", "WA 4"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0jsyggq">
           <text>"reviewSpecificAccessRequestCTSC"</text>
         </inputEntry>
@@ -479,6 +669,9 @@ else "1234"</text>
       <rule id="DecisionRule_1eydpw3">
         <inputEntry id="UnaryTests_00o2ji5">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lqn14a">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_146tabk">
           <text>"reviewSpecificAccessRequestCTSC"</text>
@@ -498,6 +691,9 @@ else ""</text>
         <inputEntry id="UnaryTests_01lje6q">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0dxvz6s">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0ud02rg">
           <text></text>
         </inputEntry>
@@ -514,6 +710,9 @@ else ""</text>
       <rule id="DecisionRule_159y1cu">
         <inputEntry id="UnaryTests_14sf0dv">
           <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kpa4qn">
+          <text>"WA 3.5", "WA 4"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0azduu8">
           <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC","FastTrackDirections",
@@ -535,6 +734,9 @@ else ""</text>
         <inputEntry id="UnaryTests_1l4jzhe">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1sgvyhr">
+          <text>"WA 3.5", "WA 4"</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0wau174">
           <text>"removeHearing"</text>
         </inputEntry>
@@ -550,6 +752,9 @@ else ""</text>
       </rule>
       <rule id="DecisionRule_0zh6lc2">
         <inputEntry id="UnaryTests_05g7y1k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10kpl6u">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_08qonjp">
@@ -569,6 +774,9 @@ else ""</text>
         <inputEntry id="UnaryTests_1mhuppc">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_10f1oel">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_168yl86">
           <text></text>
         </inputEntry>
@@ -584,6 +792,9 @@ else ""</text>
       </rule>
       <rule id="DecisionRule_1mdklk4">
         <inputEntry id="UnaryTests_134j9r7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i1s7rr">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_09u9qfj">
@@ -603,6 +814,9 @@ else ""</text>
         <inputEntry id="UnaryTests_0ubjz0x">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1d7x81y">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_0eywj9c">
           <text></text>
         </inputEntry>
@@ -618,6 +832,9 @@ else ""</text>
       </rule>
       <rule id="DecisionRule_1rb087u">
         <inputEntry id="UnaryTests_1dfqe1c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ka82nj">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ow9oxx">
@@ -637,6 +854,9 @@ else ""</text>
         <inputEntry id="UnaryTests_08l3prd">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1tsknw5">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_062g7vs">
           <text></text>
         </inputEntry>
@@ -652,6 +872,9 @@ else ""</text>
       </rule>
       <rule id="DecisionRule_1dcditz">
         <inputEntry id="UnaryTests_07xnd2n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l7azm7">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_09jeljt">
@@ -671,6 +894,9 @@ else ""</text>
         <inputEntry id="UnaryTests_1wy1sbl">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_08ywybs">
+          <text></text>
+        </inputEntry>
         <inputEntry id="UnaryTests_1ymm6w7">
           <text></text>
         </inputEntry>
@@ -686,6 +912,9 @@ else ""</text>
       </rule>
       <rule id="DecisionRule_1u4emlu">
         <inputEntry id="UnaryTests_0ov6efu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u763k1">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_16qjun8">
