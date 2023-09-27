@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.9.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -7,7 +7,7 @@
           <text></text>
         </inputExpression>
       </input>
-      <input id="InputClause_1gmuynta" label="Task type" biodi:width="433" camunda:inputVariable="taskType">
+      <input id="InputClause_1gmuynta" label="Task type" biodi:width="547" camunda:inputVariable="taskType">
         <inputExpression id="LiteralExpression_06iiuqga" typeRef="string">
           <text>if(taskAttributes != null and taskAttributes.taskType != null) then
             taskAttributes. taskType
@@ -702,12 +702,12 @@ else ""</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1i93v9z">
-        <description>Requests the Case Worker perform Manual Determination on this claim or Requests the Case Worker sends the Document to Welsh Translation Unit for Translation</description>
+        <description>Requests the Case Worker perform Manual Determination on this claim or Requests the Case Worker sends the Document to Welsh Translation Unit for Translation or Requests the Case Worker perform HWF tasks for this claim (e.g. check DWP, trigger appropriate action)</description>
         <inputEntry id="UnaryTests_1656egy">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0biqbb1">
-          <text>"manualDetermination","defendantWelshRequest"</text>
+          <text>"manualDetermination","defendantWelshRequest","HelpWithFeesClaimIssue"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1r8it0m">
           <text>"workType"</text>
@@ -726,7 +726,7 @@ Each task must have exactly 1 role category</description>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1seh8tv">
-          <text>"manualDetermination","defendantWelshRequest"</text>
+          <text>"manualDetermination","defendantWelshRequest","HelpWithFeesClaimIssue"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1lpl6eq">
           <text>"role_Category"</text>
@@ -744,7 +744,7 @@ Each task must have exactly 1 role category</description>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0f74rn0">
-          <text>"manualDetermination","defendantWelshRequest"</text>
+          <text>"manualDetermination","defendantWelshRequest","HelpWithFeesClaimIssue"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0448qjt">
           <text>"description"</text>
