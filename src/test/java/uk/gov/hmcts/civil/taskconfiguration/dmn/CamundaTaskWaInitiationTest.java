@@ -58,6 +58,14 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                     "name", "Transfer Case Offline",
                     "processCategories","defaultJudgment"
                 )
+            ),
+            Arguments.of(
+                    "NotSuitable_SDO", "JUDICIAL_REFERRAL",
+                Map.of(
+                    "taskId", "transferOnlineCase",
+                    "name", "Request for transfer online case",
+                    "processCategories","routineTransfer"
+                )
             )
         );
     }
@@ -66,6 +74,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(69));
+        assertThat(logic.getRules().size(), is(70));
     }
 }
