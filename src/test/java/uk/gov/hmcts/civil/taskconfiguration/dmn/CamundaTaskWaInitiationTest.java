@@ -37,7 +37,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("postEventState", postEventState);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
         assertThat(dmnDecisionTableResult.getResultList(), is(singletonList(expectedDmnOutcome)));
     }
 
@@ -74,6 +73,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(70));
+        assertThat(logic.getRules().size(), is(76));
     }
 }
