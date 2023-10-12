@@ -759,7 +759,10 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1bhptcp">
-          <text></text>
+          <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC","FastTrackDirections",
+"SmallClaimsTrackDirections",
+"LegalAdvisorSmallClaimsTrackDirections",
+"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","removeHearing"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_13ipkfj">
           <text>"dueDateIntervalDays"</text>
@@ -789,12 +792,12 @@ else ""</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0jy43u9">
-        <description>Requests the Case Worker perform Manual Determination on this claim or Requests the Case Worker sends the Document to Welsh Translation Unit for Translation</description>
+        <description>Requests the Case Worker perform Manual Determination on this claim or Requests the Case Worker sends the Document to Welsh Translation Unit for Translation or Requests the Case Worker perform HWF tasks for this claim (e.g. check DWP, trigger appropriate action)</description>
         <inputEntry id="UnaryTests_0azhu2d">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_096cvej">
-          <text>"manualDetermination","defendantWelshRequest"</text>
+          <text>"manualDetermination","defendantWelshRequest","HelpWithFeesClaimIssue"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ekz70g">
           <text>"workType"</text>
@@ -813,7 +816,7 @@ Each task must have exactly 1 role category</description>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0m5b92v">
-          <text>"manualDetermination","defendantWelshRequest"</text>
+          <text>"manualDetermination","defendantWelshRequest","HelpWithFeesClaimIssue"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0rim8bn">
           <text>"role_Category"</text>
@@ -840,6 +843,40 @@ Each task must have exactly 1 role category</description>
           <text>"[Directions - Provisional Summary Judgment](/cases/case-details/${[CASE_REFERENCE]}/trigger/STANDARD_DIRECTION_ORDER_DJ/STANDARD_DIRECTION_ORDER_DJCaseManagementOrder)"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1j65tlr">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11urs4w">
+        <inputEntry id="UnaryTests_0jboewx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dgqemq">
+          <text>"HelpWithFeesClaimIssue"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1loosyq">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wxfcr2">
+          <text>"Check Help With Fees Reference"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_022oi36">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qynyso">
+        <inputEntry id="UnaryTests_1pnira6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ru7u1y">
+          <text>"manualDetermination","HelpWithFeesClaimIssue"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1y2aw5i">
+          <text>"dueDateIntervalDays"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ejss3g">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xjxoud">
           <text>false</text>
         </outputEntry>
       </rule>
