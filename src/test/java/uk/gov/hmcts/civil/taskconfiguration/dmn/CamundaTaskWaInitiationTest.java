@@ -13,9 +13,12 @@ import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -57,16 +60,176 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                     "name", "Transfer Case Offline",
                     "processCategories","defaultJudgment"
                 )
-            ),
-            Arguments.of(
-                    "NotSuitable_SDO", "JUDICIAL_REFERRAL",
-                Map.of(
-                    "taskId", "transferOnlineCase",
-                    "name", "Request for transfer online case",
-                    "processCategories","routineTransfer"
-                )
             )
         );
+    }
+
+    @Test
+    void when_not_suitable_sdo_change_location_recreate_sdo_task_allocated_smallclaimTrackDirections() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("claimValue", Map.of(
+            "statementOfValueInPennies", 120000
+        ));
+        data.put("allocatedTrack", "SMALL_CLAIM");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+       Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferOnlineCase"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("SmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
+
+    }
+
+    @Test
+    void when_not_suitable_sdo_change_location_recreate_sdo_task_response_smallClaimTrackDirections() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalClaimAmount", 2000);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferOnlineCase"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("SmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void when_not_suitable_sdo_change_location_recreate_sdo_task_allocated_LAsmallclaimTrackDirections() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("claimValue", Map.of(
+            "statementOfValueInPennies", 90000
+        ));
+        data.put("allocatedTrack", "SMALL_CLAIM");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferOnlineCase"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void when_not_suitable_sdo_change_location_recreate_sdo_task_response_LAsmallClaimTrackDirections() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalClaimAmount", 900);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferOnlineCase"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
+    }
+    @Test
+    void when_not_suitable_sdo_change_location_recreate_sdo_task_allocated_fastclaimTrackDirections() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("claimValue", Map.of(
+            "statementOfValueInPennies", 120000
+        ));
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferOnlineCase"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("FastTrackDirections"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void when_not_suitable_sdo_change_location_recreate_sdo_task_response_fastClaimTrackDirections() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalClaimAmount", 2000);
+        data.put("responseClaimTrack", "FAST_CLAIM");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferOnlineCase"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("FastTrackDirections"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
     }
 
     @Test
