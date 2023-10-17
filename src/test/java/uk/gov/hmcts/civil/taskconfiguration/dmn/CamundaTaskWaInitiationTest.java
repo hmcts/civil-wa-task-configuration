@@ -72,7 +72,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
             "statementOfValueInPennies", 120000
         ));
         data.put("allocatedTrack", "SMALL_CLAIM");
-        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
        Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -100,7 +99,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("totalClaimAmount", 2000);
         data.put("responseClaimTrack", "SMALL_CLAIM");
-        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -129,7 +128,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
             "statementOfValueInPennies", 90000
         ));
         data.put("allocatedTrack", "SMALL_CLAIM");
-        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -156,7 +155,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("totalClaimAmount", 900);
         data.put("responseClaimTrack", "SMALL_CLAIM");
-        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -184,7 +183,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
             "statementOfValueInPennies", 120000
         ));
         data.put("allocatedTrack", "FAST_CLAIM");
-        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -211,7 +210,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("totalClaimAmount", 2000);
         data.put("responseClaimTrack", "FAST_CLAIM");
-        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
