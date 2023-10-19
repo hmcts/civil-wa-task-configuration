@@ -26,7 +26,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioProvider"})
+    @MethodSource({"scenarioProvider", "scenarioProviderRoutineTransfer"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -54,6 +54,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "caseProgression"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "routineTransfer"
             )
         );
         return Stream.of(
@@ -96,6 +100,20 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             )
         );
     }
+    public static Stream<Arguments> scenarioProviderRoutineTransfer() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "routineTransfer"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "", "TAKE_CASE_OFFLINE", "any state",
+                outcome
+            )
+        );
+    }
 
 
 
@@ -105,6 +123,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(5));
+        assertThat(logic.getRules().size(), is(6));
     }
 }
