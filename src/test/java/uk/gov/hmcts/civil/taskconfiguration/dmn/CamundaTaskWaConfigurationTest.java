@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(42));
+        assertThat(logic.getRules().size(), is(47));
 
     }
 
@@ -145,6 +145,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+
+        caseData.put("featureToggleWA", "WA3.5");
+        caseData.put("featureToggleWA", "Prod");
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
@@ -180,6 +184,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+
+        caseData.put("featureToggleWA", "WA3.5");
+        caseData.put("featureToggleWA", "Prod");
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
@@ -219,6 +227,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+
+        caseData.put("featureToggleWA", "WA3.5");
+        caseData.put("featureToggleWA", "Prod");
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
@@ -324,6 +336,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+
+        caseData.put("featureToggleWA", "WA3.5");
+        caseData.put("featureToggleWA", "Prod");
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
@@ -359,6 +375,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+        caseData.put("featureToggleWA", "WA3.5");
+        caseData.put("featureToggleWA", "Prod");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
@@ -394,6 +412,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+
+        caseData.put("featureToggleWA", "WA3.5");
+        caseData.put("featureToggleWA", "Prod");
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
@@ -429,6 +451,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+
+        caseData.put("featureToggleWA", "WA3.5");
+        caseData.put("featureToggleWA", "Prod");
+
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
@@ -464,8 +490,13 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+
+        caseData.put("featureToggleWA", "WA3.5");
+        caseData.put("featureToggleWA", "Prod");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("toggle", Map.of("WA 3.5","Prod"));
 
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
@@ -500,6 +531,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+
+        caseData.put("featureToggleWA", "CaseFlags");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -550,6 +583,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
+
+        caseData.put("featureToggleWA", "CaseFlags");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
