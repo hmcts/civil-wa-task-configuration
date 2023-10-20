@@ -177,6 +177,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(1).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
     }
+
     @Test
     void when_not_suitable_sdo_change_location_recreate_sdo_task_allocated_fastclaimTrackDirections() {
 
@@ -232,6 +233,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(1).get("taskId"), is("FastTrackDirections"));
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
     }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested

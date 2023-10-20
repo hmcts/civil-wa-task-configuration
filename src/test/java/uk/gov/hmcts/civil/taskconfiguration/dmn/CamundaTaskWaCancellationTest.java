@@ -100,6 +100,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             )
         );
     }
+
     public static Stream<Arguments> scenarioProviderRoutineTransfer() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
@@ -114,8 +115,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             )
         );
     }
-
-
 
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {

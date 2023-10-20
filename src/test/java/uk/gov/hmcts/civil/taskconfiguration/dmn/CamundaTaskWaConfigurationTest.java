@@ -552,6 +552,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "true"
         )));
     }
+
     @Value
     @Builder
     private static class Scenario {
