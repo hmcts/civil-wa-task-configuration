@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(47));
+        assertThat(logic.getRules().size(), is(46));
 
     }
 
@@ -543,24 +543,24 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("roleCategory")
-                || r.containsValue("description")
-                || r.containsValue("workType"))
-            .collect(Collectors.toList());
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}/trigger"
+                + "/CREATE_CASE_FLAGS/CREATE_CASE_FLAGSCreateCaseFlags)"
+        )));
 
-        System.out.println(workTypeResultList);
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "routine_work"
+        )));
 
-        assertThat(workTypeResultList, equalTo(
-            List.of(
-                configDecision("roleCategory", "true", "CTSC"),
-                configDecision("description",
-                               "true",
-                               "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}/trigger"
-                                   + "/CREATE_CASE_FLAGS/CREATE_CASE_FLAGSCreateCaseFlags)"),
-                configDecision("workType", "true", "routine_work")
-            )
-        ));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "10"
+        )));
     }
 
     //ReviewCaseFlagsForDefendant
@@ -595,24 +595,24 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("roleCategory")
-                || r.containsValue("description")
-                || r.containsValue("workType"))
-            .collect(Collectors.toList());
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}/trigger"
+                + "/CREATE_CASE_FLAGS/CREATE_CASE_FLAGSCreateCaseFlags)"
+        )));
 
-        System.out.println(workTypeResultList);
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "routine_work"
+        )));
 
-        assertThat(workTypeResultList, equalTo(
-            List.of(
-                configDecision("roleCategory", "true", "CTSC"),
-                configDecision("description",
-                               "true",
-                               "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}/trigger"
-                                   + "/CREATE_CASE_FLAGS/CREATE_CASE_FLAGSCreateCaseFlags)"),
-                configDecision("workType", "true", "routine_work")
-            )
-        ));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "10"
+        )));
     }
 
     @Value
