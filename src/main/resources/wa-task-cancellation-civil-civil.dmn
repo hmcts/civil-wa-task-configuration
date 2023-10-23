@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.6.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.14.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -69,54 +69,6 @@
           <text>"standardDirectionsOrder"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0ae2tny">
-        <description>"If a case is moved offline, then all "caseProgression" tasks should be cancelled"</description>
-        <inputEntry id="UnaryTests_01avcyi">
-          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0go3znp">
-          <text>"TAKE_CASE_OFFLINE"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0lfr9jv">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0rg56m6">
-          <text>"Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0o5ta03">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0ltrfxn">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0i44411">
-          <text>"caseProgression"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0tg999d">
-        <description>"If a case is moved offline, then all "caseProgression" tasks should be cancelled"</description>
-        <inputEntry id="UnaryTests_1hwdb03">
-          <text>"CASE_DISMISSED"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1denw76">
-          <text>"DISMISS_CLAIM"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0y7qd0l">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1mq3278">
-          <text>"Cancel"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_12brt3r">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_110hgdo">
-          <text></text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0gy7ciy">
-          <text>"caseProgression"</text>
-        </outputEntry>
-      </rule>
       <rule id="DecisionRule_0r0fzkp">
         <inputEntry id="UnaryTests_00htesa">
           <text></text>
@@ -140,54 +92,77 @@
           <text></text>
         </outputEntry>
       </rule>
-       <rule id="DecisionRule_1he2tjc">
-              <description>"If a case is moved offline, then all "reviewCaseFlags" tasks should be cancelled"</description>
-              <inputEntry id="UnaryTests_1l35g2r">
-                <text></text>
-              </inputEntry>
-              <inputEntry id="UnaryTests_1fkjykh">
-                <text>"TAKE_CASE_OFFLINE"</text>
-              </inputEntry>
-              <inputEntry id="UnaryTests_039ioy0">
-                <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
-              </inputEntry>
-              <outputEntry id="LiteralExpression_0w7jj85">
-                <text>"Cancel"</text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_0c18xl8">
-                <text></text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_0biy4ux">
-                <text></text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_1ev1091">
-                <text>"reviewCaseFlags"</text>
-              </outputEntry>
-            </rule>
-            <rule id="DecisionRule_0ptf2w3">
-              <description>"If a case is moved offline, then all "reviewCaseFlags" tasks should be cancelled"</description>
-              <inputEntry id="UnaryTests_0599i5b">
-                <text>"CASE_DISMISSED"</text>
-              </inputEntry>
-              <inputEntry id="UnaryTests_1t18bik">
-                <text>-</text>
-              </inputEntry>
-              <inputEntry id="UnaryTests_0s091v6">
-                <text>-</text>
-              </inputEntry>
-              <outputEntry id="LiteralExpression_0ynw2yr">
-                <text>"Cancel"</text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_07q7unz">
-                <text></text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_0ildk3z">
-                <text></text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_11vu01g">
-                <text>"reviewCaseFlags"</text>
-              </outputEntry>
-            </rule>
+      <rule id="DecisionRule_1tfptwr">
+        <inputEntry id="UnaryTests_0w9xxas">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wwoet5">
+          <text>"MANAGE_CASE_FLAGS"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1utsart">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10nbdb8">
+          <text>"ReConfigure"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ritvj1">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0scg02h">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18s7nss">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1he2tjc">
+        <description>"If a case is moved offline, then all "reviewCaseFlags" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1l35g2r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fkjykh">
+          <text>"TAKE_CASE_OFFLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_039ioy0">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0w7jj85">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0c18xl8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0biy4ux">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ev1091">
+          <text>"reviewCaseFlags"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ptf2w3">
+        <description>"If a case is moved offline, then all "reviewCaseFlags" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0599i5b">
+          <text>"CASE_DISMISSED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t18bik">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s091v6">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ynw2yr">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07q7unz">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ildk3z">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11vu01g">
+          <text>"reviewCaseFlags"</text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>
