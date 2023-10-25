@@ -37,7 +37,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
@@ -69,7 +69,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
@@ -109,7 +109,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
@@ -149,7 +149,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
@@ -186,7 +186,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
@@ -223,7 +223,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
@@ -263,7 +263,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
@@ -303,7 +303,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("EXTEND_TIME")
@@ -340,7 +340,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("EXTEND_TIME")
@@ -378,7 +378,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
@@ -410,7 +410,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("VARY_JUDGEMENT")
@@ -442,7 +442,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("VARY_JUDGEMENT")
@@ -475,7 +475,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
@@ -508,7 +508,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SETTLE_BY_CONSENT")
@@ -541,7 +541,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SET_ASIDE_JUDGEMENT")
@@ -574,7 +574,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
@@ -607,7 +607,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
@@ -640,7 +640,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
@@ -673,7 +673,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -711,7 +711,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -749,7 +749,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -787,7 +787,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -825,7 +825,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -863,7 +863,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -901,7 +901,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -939,7 +939,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -976,7 +976,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
@@ -1008,7 +1008,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
@@ -1039,7 +1039,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
@@ -1071,7 +1071,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM", "STIKE_OUT")
@@ -1104,7 +1104,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppSuperClaimType", "SPEC_CLAIM");
         data.put("generalAppType", Map.of(
@@ -1137,7 +1137,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppSuperClaimType", "SPEC_CLAIM");
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
@@ -1171,7 +1171,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
@@ -1203,7 +1203,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "generalAppUrgency", false
         ));
         data.put("generalAppConsentOrder", null);
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppSuperClaimType", "SPEC_CLAIM");
         data.put("generalAppType", Map.of(
             "types", asList("SET_ASIDE_JUDGEMENT")
@@ -1234,7 +1234,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppSuperClaimType", "SPEC_CLAIM");
         data.put("generalAppType", Map.of(
@@ -1267,7 +1267,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "AMEND_A_STMT_OF_CASE")
@@ -1298,7 +1298,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
@@ -1329,7 +1329,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
@@ -1358,7 +1358,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
@@ -1386,7 +1386,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
@@ -1414,7 +1414,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
@@ -1443,7 +1443,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
         ));
@@ -1472,7 +1472,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
         ));
@@ -1501,7 +1501,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "generalAppUrgency", false
         ));
         data.put("generalAppConsentOrder", null);
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
         ));
@@ -1530,7 +1530,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "generalAppUrgency", true
         ));
         data.put("generalAppConsentOrder", null);
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT")
         ));
@@ -1557,7 +1557,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
@@ -1585,7 +1585,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
@@ -1613,7 +1613,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT","SUMMARY_JUDGEMENT")
@@ -1641,7 +1641,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
@@ -1669,7 +1669,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
@@ -1697,7 +1697,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
@@ -1724,7 +1724,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
@@ -1751,7 +1751,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
@@ -1780,7 +1780,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
@@ -1808,7 +1808,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
@@ -1836,7 +1836,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
@@ -1865,7 +1865,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
@@ -1893,7 +1893,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
@@ -1921,7 +1921,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
@@ -1950,7 +1950,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT","STRIKE_OUT")
@@ -1978,7 +1978,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
@@ -2006,7 +2006,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
@@ -2038,7 +2038,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2074,7 +2074,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2110,7 +2110,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2148,7 +2148,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2185,7 +2185,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2222,7 +2222,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2259,7 +2259,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2296,7 +2296,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2332,7 +2332,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2366,7 +2366,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2399,7 +2399,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2432,7 +2432,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2470,7 +2470,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2507,7 +2507,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2546,7 +2546,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2580,7 +2580,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2604,7 +2604,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2628,7 +2628,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2652,7 +2652,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2673,7 +2673,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2694,7 +2694,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withSdo_urgentAppln() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -2718,7 +2718,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withOutSdo_urgentAppln() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true));
@@ -2741,7 +2741,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withOutSdo_nonUrgent() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false));
@@ -2764,7 +2764,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_stayOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withSdo_nonUrgent() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false));
@@ -2787,7 +2787,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_unlessOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withSdo_nonUrgentApp() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
 
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false));
@@ -2811,7 +2811,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_unlessOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withOutSdo_nonUrgent() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false));
@@ -2834,7 +2834,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_unlessOrder_deadline_ends_taskId_then_return_making_work_review_applicationOrder_withSdo_urgentAppln() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true));
@@ -2856,7 +2856,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_unlessOrder_taskId_then_return_making_work_review_applicationOrder_withOutSdo_urgentAppln() {
         Map<String, Object> data = new HashMap<>();
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true));
@@ -2883,7 +2883,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2916,7 +2916,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
 
         data.put("judicialDecision", Map.of(
@@ -2949,7 +2949,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -2981,7 +2981,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -3013,7 +3013,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", false);
+        data.put("isCtscLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -3043,7 +3043,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -3078,7 +3078,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
 
         data.put("judicialDecision", Map.of(
@@ -3114,7 +3114,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -3149,7 +3149,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
 
         data.put("judicialDecision", Map.of(
@@ -3184,7 +3184,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM")
         ));
@@ -3211,7 +3211,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM", "SUMMARY_JUDGEMENT")
         ));
@@ -3238,7 +3238,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("STAY_THE_CLAIM", "SUMMARY_JUDGEMENT")
         ));
@@ -3265,7 +3265,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppType", Map.of(
             "types", asList("SUMMARY_JUDGEMENT")
         ));
@@ -3293,7 +3293,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -3328,7 +3328,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -3362,7 +3362,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
@@ -3397,7 +3397,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
         ));
-        data.put("isCcmccLocation", true);
+        data.put("isCtscLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("judicialDecision", Map.of(
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
