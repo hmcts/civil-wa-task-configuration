@@ -146,7 +146,7 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
     }
 
     @ParameterizedTest
-    @MethodSource("scenarioProviderCaseClosed1")
+    @MethodSource("scenarioProviderCaseTriggerTaskReconfig")
     void given_multiple_event_ids_should_evaluate_dmn_for_trigger_task_reconfig(String fromState,
                                                                       String eventId, String state,
                                                                       List<Map<String, Object>> expectedDmnOutcome) {
