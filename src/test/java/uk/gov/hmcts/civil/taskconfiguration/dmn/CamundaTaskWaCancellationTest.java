@@ -26,8 +26,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioProvider", "scenarioProviderRoutineTransfer",
-        "scenarioProviderCaseFlags", "scenarioProviderCaseDismissed"})
+    @MethodSource({"scenarioTakesCaseOfflineEventProceedsInHeritageSystem",
+        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
+        "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
+        "scenarioProviderCaseFlags"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -40,38 +42,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         assertThat(dmnDecisionTableResult.getResultList(), is(expectedDmnOutcome));
-    }
-
-    public static Stream<Arguments> scenarioProvider() {
-        List<Map<String, String>> outcome = List.of(
-            Map.of(
-                "action", "Cancel",
-                "processCategories", "defaultJudgment"
-            ),
-            Map.of(
-                "action", "Cancel",
-                "processCategories", "standardDirectionsOrder"
-            ),
-            Map.of(
-                "action", "Cancel",
-                "processCategories", "routineTransfer"
-            )
-        );
-        return Stream.of(
-            Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "any state",
-                outcome
-            ),
-            Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "",
-                outcome
-            ),
-            Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", null,
-                outcome
-
-            )
-        );
     }
 
     public static Stream<Arguments> scenarioProviderCaseFlags() {
@@ -108,7 +78,62 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    public static Stream<Arguments> scenarioProviderCaseDismissed() {
+    public static Stream<Arguments> scenarioTakesCaseOfflineEventProceedsInHeritageSystem() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "defaultJudgment"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "standardDirectionsOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "routineTransfer"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "any state",
+                outcome
+            ),
+            Arguments.of(
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "",
+                outcome
+            ),
+            Arguments.of(
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", null,
+                outcome
+
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "reviewCaseFlags"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "routineTransfer"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "any state", "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                outcome
+            ),
+            Arguments.of(
+                null, "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                outcome
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioTakesCaseOfflineEventCaseDismissedSystem() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
                 "action", "Cancel",
@@ -117,9 +142,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "CASE_DISMISSED", "", "any state",
+                "CASE_DISMISSED",
+                null,
+                null,
                 outcome
-
             )
         );
     }
