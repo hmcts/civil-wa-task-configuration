@@ -519,6 +519,102 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    //ReviewCaseFlagsForClaimant
+    @Test
+    void when_taskId_review_case_flags_claimant_then_return_expected_decision() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+
+        caseData.put("featureToggleWA", "Prod");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ReviewCaseFlagsForClaimant"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}/trigger"
+                + "/CREATE_CASE_FLAGS/CREATE_CASE_FLAGSCreateCaseFlags)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "routine_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "10"
+        )));
+    }
+
+    //ReviewCaseFlagsForDefendant
+    @Test
+    void when_taskId_review_case_flags_defendant_then_return_expected_decision() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("respondent1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("respondent2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+
+        caseData.put("featureToggleWA", "Prod");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ReviewCaseFlagsForDefendant"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Directions - Case Flags](/cases/case-details/${[CASE_REFERENCE]}/trigger"
+                + "/CREATE_CASE_FLAGS/CREATE_CASE_FLAGSCreateCaseFlags)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "routine_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "10"
+        )));
+    }
+
     @Test
     void when_taskId_then_return_routine_work_desc() {
 
@@ -582,6 +678,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         getExpectedValue(rules, "nextHearingDate", scenario.getExpectedNextHearingDateValue());
 
         return rules;
+    }
+
+    private Map<String, String> configDecision(String name, String canReconfigure, String value) {
+        return Map.of("name", name, "canReconfigure", canReconfigure,"value", value);
     }
 }
 

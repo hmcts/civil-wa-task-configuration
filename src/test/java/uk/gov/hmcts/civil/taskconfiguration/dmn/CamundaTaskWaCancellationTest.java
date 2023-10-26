@@ -119,9 +119,12 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 "CASE_DISMISSED", "", "any state",
                 outcome
+
             )
         );
     }
+
+
 
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
