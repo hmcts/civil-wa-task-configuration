@@ -208,7 +208,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -237,7 +236,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -266,7 +264,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -295,7 +292,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", true
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -322,7 +318,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -370,7 +365,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -403,7 +397,63 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", true
             )
         )));
+    }
 
+    @SuppressWarnings("checkstyle:indentation")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "transferOnlineCase"
+    })
+    void given_transferOnlineCase_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("caseData",Map.of("featureToggleWA", "WA3.5"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "ctsc",
+                "roleCategory", "CTSC",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "national-business-centre",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "hearing-centre-team-leader",
+                "roleCategory", "ADMIN",
+                "autoAssignable", true,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "ctsc-team-leader",
+                "roleCategory", "CTSC",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "nbc-team-leader",
+                "roleCategory", "ADMIN",
+                "autoAssignable", true,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            )
+
+        )));
     }
 
     @SuppressWarnings("checkstyle:indentation")
