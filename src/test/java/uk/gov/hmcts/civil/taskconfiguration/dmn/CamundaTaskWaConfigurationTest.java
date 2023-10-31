@@ -31,7 +31,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_CONFIGURATION_CIVIL_DAMAGES;
     }
 
-
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
 
@@ -621,11 +620,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("featureToggleWA", "WA3.5");
         VariableMap inputVariables = new VariableMapImpl();
@@ -641,7 +638,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         System.out.println(workTypeResultList);
         assertThat(workTypeResultList.size(), is(1));
-
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
             "value", "routine_work",

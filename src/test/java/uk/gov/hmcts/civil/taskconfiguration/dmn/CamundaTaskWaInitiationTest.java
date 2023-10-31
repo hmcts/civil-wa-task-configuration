@@ -92,7 +92,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(1).get("taskId"), is("SmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
-
     }
 
     @Test
