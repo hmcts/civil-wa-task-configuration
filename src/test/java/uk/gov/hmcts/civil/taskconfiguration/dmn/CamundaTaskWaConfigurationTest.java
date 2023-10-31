@@ -650,9 +650,14 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     })
     void when_taskId_reviewOrder_then_return_workType_routine_work(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
 
-        inputVariables.put("featureToggleWA", "Prod");
+        ));
+        caseData.put("featureToggleWA", "Prod");
+        inputVariables.putValue("caseData", caseData);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
