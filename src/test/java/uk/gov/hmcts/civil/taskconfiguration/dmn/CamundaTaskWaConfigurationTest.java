@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(42));
+        assertThat(logic.getRules().size(), is(48));
 
     }
 
@@ -131,7 +131,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
 
     }
-
 
     @Test
     void when_taskId_then_return_Access_requests() {
@@ -611,6 +610,63 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "false",
             "name", "dueDateIntervalDays",
             "value", "10"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "reviewOrder"
+    })
+    void when_taskId_reviewOrder_then_return_roleCategory(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("featureToggleWA", "Prod");
+        inputVariables.putValue("caseData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "ADMIN",
+            "canReconfigure", "true"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "reviewOrder"
+    })
+    void when_taskId_reviewOrder_then_return_workType_routine_work(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+
+        inputVariables.put("featureToggleWA", "Prod");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "true"
         )));
     }
 
