@@ -26,7 +26,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     @BeforeAll
     public static void initialization() {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_COMPLETION_CIVIL_DAMAGES;
-
     }
 
     static Stream<Arguments> scenarioProvider() {
@@ -79,7 +78,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                         "taskType", "SmallClaimsTrackDirectionsReferral",
                         "completionMode", "Auto"
                     )
-
                 )
             ),
             Arguments.of(
@@ -130,7 +128,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProvider"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
@@ -167,8 +164,5 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getRules().size(), is(9));
-
     }
-
-
 }

@@ -31,14 +31,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_CONFIGURATION_CIVIL_DAMAGES;
     }
 
-
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getRules().size(), is(44));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -57,40 +55,31 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("caseManagementLocation",  Map.of(
             "baseLocation", "2",
             "region", "1"
-
         ));
         caseData.put("hearingSupportRequirementsDJ", Map.of(
             "hearingPreferredLocation", "Location"
-
         ));
         caseData.put("applicantPreferredCourt", Map.of(
             "partyType", "INDIVIDUAL"
-
         ));
         caseData.put("applicantPreferredCourt", Map.of(
             "partyType", "SOLE_TRADER"
-
         ));
         caseData.put("applicantPreferredCourt", Map.of(
             "partyType", "COMPANY"
-
         ));
         caseData.put("applicantPreferredCourt", Map.of(
             "partyType", "ORGANISATION"
-
         ));
         caseData.put("hearingBaseLocation", Map.of(
             "partyType", "MultiPartyScenario"
-
         ));
         caseData.put("hearingBaseLocation", Map.of(
             "partyType", "RefertoJudge"
-
         ));
         caseData.put("hearingBaseLocation", "Location");
 
@@ -98,8 +87,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("description", null);
         inputVariables.putValue("caseData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
@@ -111,28 +98,22 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "name", "caseName",
             "value", "Firstname LastName & Firstname LastName"
         )));
-
         assertFalse(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "location",
             "value", "1"
         )));
-
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "region",
             "value", "1"
         )));
-
-
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "locationName",
             "value", ""
         )));
-
     }
-
 
     @Test
     void when_taskId_then_return_Access_requests() {
@@ -143,7 +124,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
 
         caseData.put("featureToggleWA", "WA3.5");
@@ -178,11 +158,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
 
         caseData.put("featureToggleWA", "WA3.5");
@@ -221,11 +199,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
 
         caseData.put("featureToggleWA", "WA3.5");
@@ -256,11 +232,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -290,11 +264,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -330,11 +302,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
 
         caseData.put("featureToggleWA", "WA3.5");
@@ -369,11 +339,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("featureToggleWA", "WA3.5");
         caseData.put("featureToggleWA", "Prod");
@@ -406,11 +374,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
 
         caseData.put("featureToggleWA", "WA3.5");
@@ -445,11 +411,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
 
         caseData.put("featureToggleWA", "WA3.5");
@@ -484,11 +448,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
 
         caseData.put("featureToggleWA", "WA3.5");
@@ -529,7 +491,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
 
         caseData.put("featureToggleWA", "Prod");
@@ -569,19 +530,15 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("respondent1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("respondent2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
 
         caseData.put("featureToggleWA", "Prod");
@@ -621,11 +578,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("featureToggleWA", "WA3.5");
         VariableMap inputVariables = new VariableMapImpl();
@@ -641,7 +596,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         System.out.println(workTypeResultList);
         assertThat(workTypeResultList.size(), is(1));
-
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
             "value", "routine_work",

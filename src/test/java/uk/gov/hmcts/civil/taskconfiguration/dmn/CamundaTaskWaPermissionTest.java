@@ -208,7 +208,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -237,7 +236,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -266,7 +264,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -295,7 +292,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", true
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -322,7 +318,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -370,7 +365,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -403,7 +397,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", true
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -420,48 +413,47 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
             Map.of(
                 "name", "task-supervisor",
-                "value", "Read,Manage,Cancel,Unassign,Assign",
-                "autoAssignable", false
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
             ),
-            Map.of(
-                "name", "hearing-centre-admin",
-                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "hearing-centre-team-leader",
-                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                "roleCategory", "ADMIN",
-                "autoAssignable", true
-            ),
-            Map.of(
-                "name", "ctsc-team-leader",
-                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                "roleCategory", "CTSC",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "nbc-team-leader",
-                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                "roleCategory", "ADMIN",
-                "autoAssignable", true
-            ),
-
             Map.of(
                 "name", "ctsc",
-                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "CTSC",
-                "autoAssignable", false
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             ),
             Map.of(
                 "name", "national-business-centre",
-                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
-                "autoAssignable", false
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "hearing-centre-team-leader",
+                "roleCategory", "ADMIN",
+                "autoAssignable", true,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "ctsc-team-leader",
+                "roleCategory", "CTSC",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "nbc-team-leader",
+                "roleCategory", "ADMIN",
+                "autoAssignable", true,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             )
-        )));
 
+        )));
     }
 
     @SuppressWarnings("checkstyle:indentation")
