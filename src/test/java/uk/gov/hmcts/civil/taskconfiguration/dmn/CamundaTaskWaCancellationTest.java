@@ -154,7 +154,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, String>> outcome = List.of(
             Map.of(
                 "action", "ReConfigure"
-
             )
         );
         return Stream.of(
