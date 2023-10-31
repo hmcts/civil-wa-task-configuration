@@ -208,7 +208,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -237,7 +236,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -266,7 +264,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -295,7 +292,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", true
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -322,7 +318,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -370,7 +365,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -403,7 +397,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", true
             )
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -461,7 +454,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             )
 
         )));
-
     }
 
     @SuppressWarnings("checkstyle:indentation")
