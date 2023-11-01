@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.1.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -209,6 +209,30 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_1n41asu">
           <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mtcsdq">
+        <description>"If a case is moved offline, then the 'routineTransfer' tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1r8mhx7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15sozdp">
+          <text>"TAKE_CASE_OFFLINE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_117snlk">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vz50br">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o9l0r0">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cf0b46">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0odl1a5">
+          <text>"routineTransfer"</text>
         </outputEntry>
       </rule>
     </decisionTable>
