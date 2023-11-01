@@ -50,6 +50,10 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Transfer Case Offline"
             ),
             Map.of(
+                "taskTypeId", "transferCaseOffline",
+                "taskTypeName", "Transfer Case Offline"
+            ),
+            Map.of(
                 "taskTypeId", "SmallClaimsTrackDirections",
                 "taskTypeName", "Small Claims Track Directions"
             ),
@@ -124,7 +128,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(18));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(19));
     }
 
 }
