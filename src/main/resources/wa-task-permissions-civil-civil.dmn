@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.14.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.1">
   <decision id="wa-task-permissions-civil-civil" name="Civil Permissions DMN">
     <decisionTable id="DecisionTable_1pr5oica" hitPolicy="RULE ORDER">
       <input id="InputClause_12crj6ea" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
@@ -27,7 +27,7 @@ else
         </inputExpression>
       </input>
       <output id="OutputClause_1q156cea" label="Case Access Category" name="caseAccessCategory" typeRef="string" />
-      <output id="Output_1" label="Name" name="name" typeRef="string" />
+      <output id="Output_1" label="Name" name="name" typeRef="string" biodi:width="254" />
       <output id="OutputClause_1mzxe7ia" label="Value" name="value" typeRef="string" biodi:width="297" />
       <output id="OutputClause_05whhwfa" label="RoleCategory" name="roleCategory" typeRef="string" />
       <output id="OutputClause_16bocera" label="Authorisations" name="authorisations" typeRef="string" />
@@ -362,6 +362,204 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0mbqi78">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0l20y7d">
+        <description>Transfer online case task for CTSC</description>
+        <inputEntry id="UnaryTests_181dwby">
+          <text>"transferOnlineCase"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_173qiz2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10dnbbf">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1t7fgbq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f9fvv6">
+          <text>"ctsc"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_006vy4z">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1o2yj1g">
+          <text>"CTSC"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1y50o8d">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mb3b9w">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0w56ql2">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13kwfqe">
+        <description>Transfer online case task for CCMCC/CCBC</description>
+        <inputEntry id="UnaryTests_0c55ldf">
+          <text>"transferOnlineCase"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1icdh52">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lcdaey">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o5rk2d">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01t09qj">
+          <text>"national-business-centre"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0t348qd">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13ylw6m">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0exxf6i">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ck8uaa">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17lbh0t">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0uyjb47">
+        <description>Listing Officer task permissions</description>
+        <inputEntry id="UnaryTests_1if0chr">
+          <text>"transferOnlineCase"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11l1s2z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f0dei5">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yqhdfr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0x8hhnb">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1s1ommx">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_124mkas">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12uglor">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14lpjoz">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wpm1m8">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02tr6to">
+        <description>Access request for Listing Officers</description>
+        <inputEntry id="UnaryTests_1xybxj0">
+          <text>"transferOnlineCase"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c5yy8n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uafgbg">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bnnd3f">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15z7uny">
+          <text>"hearing-centre-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0l4m8aw">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0adx2zs">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1iumvg8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_153mcui">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1h44uqu">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1u5kfst">
+        <description>Access request for CTSC</description>
+        <inputEntry id="UnaryTests_11b7i1t">
+          <text>"transferOnlineCase"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_072z6ry">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nvjgeo">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fldwet">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1c15ntq">
+          <text>"ctsc-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12vb87c">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19cre7y">
+          <text>"CTSC"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bw4o9d">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1uy1ts8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1oikpk5">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0m069hn">
+        <description>Access request for CCMCC/CCBC</description>
+        <inputEntry id="UnaryTests_13nidmw">
+          <text>"transferOnlineCase"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16fxwa3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kzws80">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12e0s85">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p3m8w0">
+          <text>"nbc-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lp7isi">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11l99l1">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0iob3o0">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vwy4je">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05rkfm0">
           <text>true</text>
         </outputEntry>
       </rule>
