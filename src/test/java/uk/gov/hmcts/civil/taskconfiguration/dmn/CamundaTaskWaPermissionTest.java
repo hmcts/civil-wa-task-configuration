@@ -104,8 +104,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                         "autoAssignable", false,
                         "name", "task-supervisor",
                         "value", "Read,Manage,Cancel,Unassign,Assign"
-                    ),
-                    Map.of()),
+                    )),
                     Arguments.of(
                         "null",
                         asList(
@@ -114,8 +113,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                                 "name", "task-supervisor",
                                 "value", "Read,Manage,Cancel,Unassign,Assign",
                                 "roleCategory", "JUDICIAL"
-                            ),
-                            Map.of())))
+                            ))))
                     );
     }
 
@@ -128,8 +126,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                         "autoAssignable", false,
                         "name", "task-supervisor",
                         "value", "Read,Manage,Cancel,Unassign,Assign"
-                    ),
-                    Map.of()),
+                    )),
                 Arguments.of(
                     "null",
                     asList(
@@ -137,8 +134,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                             "autoAssignable", false,
                             "name", "task-supervisor",
                             "value", "Read,Manage,Cancel,Unassign,Assign"
-                        ),
-                        Map.of()
+                        )
                     )
                 )
             )
@@ -181,8 +177,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "authorisations","294",
                 "assignmentPriority",1,
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
 
     }
@@ -211,8 +206,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "authorisations","294",
                 "assignmentPriority",1,
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
     }
 
@@ -240,8 +234,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "authorisations","294",
                 "assignmentPriority",1,
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
     }
 
@@ -269,8 +262,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "authorisations","294",
                 "assignmentPriority",1,
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
     }
 
@@ -298,8 +290,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "authorisations","294",
                 "assignmentPriority",1,
                 "autoAssignable", true
-            ),
-            Map.of()
+            )
         )));
     }
 
@@ -325,8 +316,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                     "roleCategory", "ADMIN",
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
 
     }
@@ -355,8 +345,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
 
     }
@@ -385,8 +374,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
 
     }
@@ -415,8 +403,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
 
     }
@@ -445,8 +432,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
     }
 
@@ -472,8 +458,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "LEGAL_OPERATIONS",
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
 
     }
@@ -500,8 +485,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
-            ),
-            Map.of()
+            )
         )));
     }
 
@@ -533,8 +517,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", true
-            ),
-            Map.of()
+            )
         )));
     }
 
@@ -590,8 +573,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "roleCategory", "ADMIN",
                 "autoAssignable", true,
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
-            ),
-            Map.of()
+            )
         )));
     }
 
@@ -618,8 +600,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "CTSC",
                 "autoAssignable", true
-            ),
-            Map.of()
+            )
         )));
     }
 }
