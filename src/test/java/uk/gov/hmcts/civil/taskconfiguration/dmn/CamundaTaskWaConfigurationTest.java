@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(44));
+        assertThat(logic.getRules().size(), is(45));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -600,6 +600,49 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "name", "workType",
             "value", "routine_work",
             "canReconfigure", "true"
+        )));
+    }
+
+    @Test
+    void when_taskId_InitialDirectionFlightDelay_then_return_decision_making_work() {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "WA3.5");
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "InitialDirectionFlightDelay"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "decision_making_work",
+            "canReconfigure", "true"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Initial Directions (Flight Delay)](/cases/case-details/${[CASE_REFERENCE]}"
+                + "/trigger/CREATE_SDO/CREATE_SDOSmallClaims)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "JUDICIAL"
         )));
     }
 
