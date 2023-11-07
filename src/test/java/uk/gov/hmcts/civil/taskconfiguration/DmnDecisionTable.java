@@ -23,6 +23,9 @@ public enum DmnDecisionTable {
         "wa-task-initiation-civil-civil",
         "wa-task-initiation-civil-civil.dmn"
     ),
+    WA_TASK_TYPES_CIVIL_DAMAGES("wa-task-types-civil-civil",
+                                           "wa-task-types-civil-civil.dmn"
+    ),
     WA_TASK_CONFIGURATION_CIVIL_GENERALAPPLICATION(
             "wa-task-configuration-civil-generalapplication",
             "wa-task-configuration-civil-generalapplication.dmn"
