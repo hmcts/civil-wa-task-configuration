@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-initiation-civil-civil" name="Civil Task initiation DMN">
     <decisionTable id="DecisionTable_0jtevuc" hitPolicy="COLLECT" biodi:annotationsWidth="400">
       <input id="Input_1" label="Event Id" biodi:width="319" camunda:inputVariable="eventId">
@@ -210,7 +210,7 @@ else
    and additionalData.Data != null
    and additionalData.Data.applicant1DQVulnerabilityQuestions.vulnerabilityAdjustmentsRequired!= null)
 then
-   additionalData.Data.applicant1DQVulnerabilityQuestions.vulnerabilityAdjustmentsRequired
+   lower case (additionalData.Data.applicant1DQVulnerabilityQuestions.vulnerabilityAdjustmentsRequired) = "Yes"
 else
   null</text>
         </inputExpression>
@@ -221,7 +221,7 @@ else
    and additionalData.Data != null
    and additionalData.Data.applicant1DQHearingSupport.supportRequirements!= null)
 then
-   additionalData.Data.applicant1DQHearingSupport.supportRequirements
+   lower case(additionalData.Data.applicant1DQHearingSupport.supportRequirements) = "Yes"
 else
   null</text>
         </inputExpression>
@@ -230,10 +230,11 @@ else
         <inputExpression id="LiteralExpression_1dn38k3" typeRef="string">
           <text>if(additionalData != null
    and additionalData.Data != null
-   and ((additionalData.Data.applicant1DQLanguage.court= "WELSH") or
-   (additionalData.Data.applicant1DQLanguage.court="BOTH")))
+   and additionalData.Data.applicant1DQLanguage != null
+   and additionalData.Data.applicant1DQLanguage.court
+   and contains(lower case(additionalData.Data.applicant1DQLanguage.court), "welsh"))
 then
-   additionalData.Data.applicant1DQLanguage.court
+   "WELSH"
 else
   "Welsh or Both not selected"</text>
         </inputExpression>
