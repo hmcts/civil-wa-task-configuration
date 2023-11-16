@@ -72,7 +72,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
         data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "WACP");
+        data.put("featureToggleWA", "Prod");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
@@ -139,7 +139,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
         data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "WACP");
+        data.put("featureToggleWA", "Prod");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
@@ -350,6 +350,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(110));
+        assertThat(logic.getRules().size(), is(108));
     }
 }
