@@ -121,6 +121,47 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> scenarioProviderHearingNotice() {
+        return Stream.of(
+            Arguments.of(
+                "HEARING_SCHEDULED",
+                asList(
+                    Map.of(
+                        "taskType", "ScheduleAHearing",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(),
+                    Map.of(
+                        "taskType", "adjournedReList",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    static Stream<Arguments> scenarioProviderCaseNote() {
+        return Stream.of(
+            Arguments.of(
+                "ADD_CASE_NOTE",
+                asList(
+                    Map.of(
+                        "taskType", "removeHearing",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "preHearingContact",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "reviewOrder",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
     static Stream<Arguments> scenarioProviderToC() {
 
         return Stream.of(
@@ -157,6 +198,26 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioProviderHearingNotice"})
+    void given_event_ids_should_evaluate_hearingNotice_dmn(String eventId, List<Map<String, String>> expectation) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioProviderCaseNote"})
+    void given_event_ids_should_evaluate_reviewOrder_dmn(String eventId, List<Map<String, String>> expectation) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProviderToC"})
     void given_event_ids_should_evaluate_Toc_dmn(String eventId, List<Map<String, String>> expectation) {
 
@@ -171,6 +232,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(10));
+        assertThat(logic.getRules().size(), is(16));
     }
 }
