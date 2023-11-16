@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.3.0">
   <decision id="wa-task-permissions-civil-civil" name="Civil Permissions DMN">
     <decisionTable id="DecisionTable_1pr5oica" hitPolicy="RULE ORDER">
       <input id="InputClause_12crj6ea" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
@@ -533,7 +533,7 @@ else
       <rule id="DecisionRule_08wpjkw">
         <description>Listing Officer task permissions</description>
         <inputEntry id="UnaryTests_0y6qy86">
-          <text>"transferOnlineCase"</text>
+          <text>"transferOnlineCase","OnlineCaseTransferReceived"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1e1wc9v">
           <text></text>
@@ -660,6 +660,39 @@ else
         </outputEntry>
         <outputEntry id="LiteralExpression_0dwx5zd">
           <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1aicrfd">
+        <description>Transfer online case task for Listing Officers</description>
+        <inputEntry id="UnaryTests_05eborz">
+          <text>"OnlineCaseTransferReceived"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qfs45b">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gb1ahg">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jukafb">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11uri6s">
+          <text>"hearing-centre-team-leader"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07hbs6r">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_090u2am">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ufmxe6">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16o2x4r">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0z9nzb6">
+          <text>false</text>
         </outputEntry>
       </rule>
     </decisionTable>
