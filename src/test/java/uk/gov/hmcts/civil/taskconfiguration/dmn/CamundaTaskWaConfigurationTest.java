@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(56));
+        assertThat(logic.getRules().size(), is(55));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -585,7 +585,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         ));
 
-        caseData.put("featureToggleWA", "WACP");
+        caseData.put("featureToggleWA", "Prod");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -647,13 +647,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
-            "name", "description",
-            "value", "[Take case offline](/cases/case-details/${[CASE_REFERENCE]}"
-                + "/trigger/TAKE_CASE_OFFLINE/TAKE_CASE_OFFLINE)"
-        )));
-
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
             "name", "workType",
             "value", "hearing_work"
         )));
@@ -683,7 +676,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         ));
 
-        caseData.put("featureToggleWA", "WACP");
+        caseData.put("featureToggleWA", "Prod");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -731,7 +724,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
-        caseData.put("featureToggleWA", "WACP");
+        caseData.put("featureToggleWA", "Prod");
         inputVariables.putValue("caseData", caseData);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -762,7 +755,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
-        caseData.put("featureToggleWA", "WACP");
+        caseData.put("featureToggleWA", "Prod");
         inputVariables.putValue("caseData", caseData);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -890,4 +883,3 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         return Map.of("name", name, "canReconfigure", canReconfigure,"value", value);
     }
 }
-

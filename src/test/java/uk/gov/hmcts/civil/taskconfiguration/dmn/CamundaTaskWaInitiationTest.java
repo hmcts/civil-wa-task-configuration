@@ -393,13 +393,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("InitialDirectionFlightDelay"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
-
     }
 
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(112));
+        assertThat(logic.getRules().size(), is(110));
     }
 }
