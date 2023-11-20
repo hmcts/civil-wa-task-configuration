@@ -629,7 +629,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "name", "hearing-centre-team-leader",
                 "roleCategory", "ADMIN",
-                "autoAssignable", true,
+                "autoAssignable", false,
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             )
         )));
