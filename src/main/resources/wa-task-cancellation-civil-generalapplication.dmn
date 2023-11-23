@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.3.0">
   <decision id="wa-task-cancellation-civil-generalapplication" name="Civil GA Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1g" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -88,6 +88,30 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_0c3pm2h">
           <text>"generalApplicationsBeforeSdo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0z9lfz4">
+        <description>"If case is transferred online, all active task should be transferred"</description>
+        <inputEntry id="UnaryTests_1105aqs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fi6tp6">
+          <text>"TRIGGER_TASK_RECONFIG"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mr4o6l">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01blp00">
+          <text>"ReConfigure"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lh9ey4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1y86nux">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bjv6l2">
+          <text></text>
         </outputEntry>
       </rule>
     </decisionTable>

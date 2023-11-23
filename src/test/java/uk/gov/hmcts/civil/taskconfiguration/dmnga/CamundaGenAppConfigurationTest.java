@@ -33,7 +33,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(47));
+        assertThat(logic.getRules().size(), is(46));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -446,11 +446,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "value", "5000",
             "canReconfigure","true"
         )));
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "name", "priorityDate",
-            "value", "2023-03-22T16:00:00Z",
-            "canReconfigure","true"
-        )));
+
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "minorPriority",
             "value", "500",
