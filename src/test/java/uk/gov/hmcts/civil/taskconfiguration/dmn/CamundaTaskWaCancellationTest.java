@@ -71,10 +71,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "", "TAKE_CASE_OFFLINE", "any state",
-                outcome
-            ),
-            Arguments.of(
                 "", "CASE_PROCEEDS_IN_CASEMAN", "any state",
                 outcome
             )
@@ -94,10 +90,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "caseProgression"
-            ),
-            Map.of(
-                "action", "Cancel",
-                "processCategories", "routineTransfer"
             )
         );
         return Stream.of(
@@ -121,10 +113,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "reviewCaseFlags"
-            ),
-            Map.of(
-                "action", "Cancel",
-                "processCategories", "routineTransfer"
             )
         );
         return Stream.of(
