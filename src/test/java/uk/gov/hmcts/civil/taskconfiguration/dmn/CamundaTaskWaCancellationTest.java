@@ -73,6 +73,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 "", "TAKE_CASE_OFFLINE", "any state",
                 outcome
+            ),
+            Arguments.of(
+                "", "CASE_PROCEEDS_IN_CASEMAN", "any state",
+                outcome
             )
         );
     }
