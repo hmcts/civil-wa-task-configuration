@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.9.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -596,7 +596,7 @@ else ""</text>
           <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC","FastTrackDirections",
 "SmallClaimsTrackDirections",
 "LegalAdvisorSmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary"</text>
+"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","manualDetermination","defendantWelshRequest"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1dlkqcy">
           <text>"majorPriority"</text>
@@ -819,7 +819,7 @@ else ""</text>
           <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC","FastTrackDirections",
 "SmallClaimsTrackDirections",
 "LegalAdvisorSmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","removeHearing","transferCaseOffline"</text>
+"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","removeHearing","transferCaseOffline","defendantWelshRequest"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0c9u1q1">
           <text>"dueDateIntervalDays"</text>
@@ -1129,6 +1129,106 @@ else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_022fzyo">
           <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qz31e2">
+        <inputEntry id="UnaryTests_08d69ze">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11fkxt8">
+          <text>"CUI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_145xe7l">
+          <text>"manualDetermination","defendantWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18mg429">
+          <text>"role_Category"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m99wv5">
+          <text>"CTSC"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vhbipt">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lxzx90">
+        <inputEntry id="UnaryTests_093te27">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0j06chw">
+          <text>"CUI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gs233f">
+          <text>"manualDetermination"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rvwdqe">
+          <text>"dueDateIntervalDays"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vpm1mb">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jwmc5q">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_129fb2c">
+        <inputEntry id="UnaryTests_0m06frw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jj0r1q">
+          <text>"CUI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y63v8x">
+          <text>"manualDetermination","defendantWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04rz5bp">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0st8wi3">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ofputp">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06aszcw">
+        <inputEntry id="UnaryTests_0co5tmm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l0x83l">
+          <text>"CUI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xn0td6">
+          <text>"defendantWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0v3p9rh">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jiesy9">
+          <text>"[Upload Translated Documents](/cases/case-details/${[CASE_REFERENCE]}/trigger/UPLOAD_TRANSLATED_DOCUMENT/UPLOAD_TRANSLATED_DOCUMENTUploadTranslatedDocument)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0l29g3b">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14th183">
+        <inputEntry id="UnaryTests_1hxwzsj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bvjyer">
+          <text>"CUI"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_136ff56">
+          <text>"manualDetermination"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mnut00">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ufii4o">
+          <text>"Mark task as done"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kshpu0">
+          <text>false</text>
         </outputEntry>
       </rule>
     </decisionTable>
