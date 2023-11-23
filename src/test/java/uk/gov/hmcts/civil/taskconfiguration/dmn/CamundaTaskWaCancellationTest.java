@@ -71,7 +71,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "", "TAKE_CASE_OFFLINE", "any state",
+                "", "CASE_PROCEEDS_IN_CASEMAN", "any state",
                 outcome
             )
         );
@@ -98,15 +98,15 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "any state",
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "CASE_PROCEEDS_IN_CASEMAN", "any state",
                 outcome
             ),
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "",
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "CASE_PROCEEDS_IN_CASEMAN", "",
                 outcome
             ),
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", null,
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "CASE_PROCEEDS_IN_CASEMAN", null,
                 outcome
             )
         );
@@ -125,11 +125,11 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "any state", "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                "any state", "CASE_PROCEEDS_IN_CASEMAN", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
             ),
             Arguments.of(
-                null, "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                null, "CASE_PROCEEDS_IN_CASEMAN", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
             )
         );
