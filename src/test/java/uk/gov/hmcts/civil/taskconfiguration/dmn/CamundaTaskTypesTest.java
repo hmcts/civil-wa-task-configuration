@@ -114,6 +114,14 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Request for Transfer Online Case"
             ),
             Map.of(
+                "taskTypeId", "manualDetermination",
+                "taskTypeName", "Manual Determination"
+            ),
+            Map.of(
+                "taskTypeId", "defendantWelshRequest",
+                "taskTypeName", "Defendant Welsh Request"
+            ),
+            Map.of(
                 "taskTypeId", "InitialDirectionFlightDelay",
                 "taskTypeName", "Initial Directions (Flight Delay)"
             )
