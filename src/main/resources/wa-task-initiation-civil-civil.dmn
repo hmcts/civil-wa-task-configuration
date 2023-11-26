@@ -420,8 +420,10 @@ else
           <text>if(additionalData != null and additionalData.Data != null and additionalData.Data.claimType
             != null and additionalData.Data.claimType = "Flight delay") then
             additionalData.Data.claimType
-            else "standardClaim"
-</text>
+else if(additionalData != null and additionalData.Data != null and additionalData.Data.claimType
+            != null and additionalData.Data.claimType = "Personal injury") then
+            additionalData.Data.claimType.PersonalInjuryType
+else "standardClaim"</text>
         </inputExpression>
       </input>
       <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="368" />
