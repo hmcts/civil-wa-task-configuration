@@ -29,7 +29,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     @MethodSource({"scenarioTakesCaseOfflineEventProceedsInHeritageSystem",
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
-        "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure"})
+        "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -94,15 +94,15 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "any state",
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "CASE_PROCEEDS_IN_CASEMAN", "any state",
                 outcome
             ),
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", "",
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "CASE_PROCEEDS_IN_CASEMAN", "",
                 outcome
             ),
             Arguments.of(
-                "PROCEEDS_IN_HERITAGE_SYSTEM", "TAKE_CASE_OFFLINE", null,
+                "PROCEEDS_IN_HERITAGE_SYSTEM", "CASE_PROCEEDS_IN_CASEMAN", null,
                 outcome
             )
         );
@@ -117,11 +117,11 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "any state", "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                "any state", "CASE_PROCEEDS_IN_CASEMAN", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
             ),
             Arguments.of(
-                null, "TAKE_CASE_OFFLINE", "PROCEEDS_IN_HERITAGE_SYSTEM",
+                null, "CASE_PROCEEDS_IN_CASEMAN", "PROCEEDS_IN_HERITAGE_SYSTEM",
                 outcome
             )
         );
@@ -160,12 +160,28 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioRetriggerCasesReconfigure() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "ReConfigure"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "",
+                "RETRIGGER_CASES",
+                "",
+                outcome
+            )
+        );
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(10));
+        assertThat(logic.getRules().size(), is(11));
     }
 }
