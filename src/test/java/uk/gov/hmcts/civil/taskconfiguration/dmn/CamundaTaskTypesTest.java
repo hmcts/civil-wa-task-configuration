@@ -124,6 +124,10 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "InitialDirectionFlightDelay",
                 "taskTypeName", "Initial Directions (Flight Delay)"
+            ),
+            Map.of(
+                "taskTypeId", "NIHLFastTrackDirections",
+                "taskTypeName", "Fast Track Directions - Noise induced hearing loss"
             )
         );
         return Stream.of(
@@ -140,7 +144,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(22));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(23));
     }
 
 }

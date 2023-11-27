@@ -396,9 +396,65 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void when_claimant_response_and_claimType_NIHL_then_FastTrackDirectionsNIHL() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("featureToggleWA", "WA3.5");
+        data.put("claimType", "PERSONAL_INJURY");
+        data.put("personalInjuryType", "NOISE_INDUCED_HEARING_LOSS");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("NIHLFastTrackDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+
+    }
+
+    @Test
+    void when_toc_and_claimType_NIHL_then_FastTrackDirectionsNIHL() {   //line 123
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("featureToggleWA", "WA3.5");
+        data.put("claimType", "PERSONAL_INJURY");
+        data.put("personalInjuryType", "NOISE_INDUCED_HEARING_LOSS");
+        data.put("claimValue", Map.of(
+            "statementOfValueInPennies", 100001
+        ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+//        inputVariables.putValue("claimValue", 100001);
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("NIHLFastTrackDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Fast Track Directions - Noise induced hearing loss"));
+    }
+
+    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(117));
+        assertThat(logic.getRules().size(), is(124));
     }
 }
