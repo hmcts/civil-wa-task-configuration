@@ -6,6 +6,8 @@ import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
@@ -395,14 +397,27 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
-    @Test
-    void when_claimant_response_and_claimType_NIHL_then_FastTrackDirectionsNIHL() {
+    // Tests for NIHLFastTrackDirections
+    @ParameterizedTest
+    @CsvSource({
+        "ONE_V_ONE,",
+        "ONE_V_TWO_ONE_LEGAL_REP,FULL_DEFENCE",
+        "ONE_V_TWO_TWO_LEGAL_REP,FULL_DEFENCE",
+        "TWO_V_ONE,",
+    })
+    void when_claimant_response_and_claimType_NIHL_then_FastTrackDirectionsNIHL(String claimantResponseScenarioFlag,
+                                                                                String respondent2ClaimResponseType) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", "FAST_CLAIM");
         data.put("featureToggleWA", "WA3.5");
         data.put("claimType", "PERSONAL_INJURY");
         data.put("personalInjuryType", "NOISE_INDUCED_HEARING_LOSS");
+        data.put("claimantResponseScenarioFlag", claimantResponseScenarioFlag);
+        data.put("claimValue", Map.of(
+            "statementOfValueInPennies", 100001));
+        data.put("respondent1ClaimResponseType", "FULL_DEFENCE");
+        data.put("respondent2ClaimResponseType", respondent2ClaimResponseType);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -418,27 +433,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("NIHLFastTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
-
     }
 
-    @Test
-    void when_toc_and_claimType_NIHL_then_FastTrackDirectionsNIHL() {   //line 123
+    @ParameterizedTest
+    @CsvSource({
+        "100001,0,FAST_CLAIM,",
+        "0,1001,,FAST_CLAIM",
+    })
+    void when_toc_and_claimType_NIHL_then_FastTrackDirectionsNIHL(Integer statementOfValueInPennies,
+                                                                  Integer totalClaimAmount,
+                                                                  String allocatedTrack,
+                                                                  String responseClaimTrack) {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("allocatedTrack", allocatedTrack);
+        data.put("responseClaimTrack", responseClaimTrack);
         data.put("featureToggleWA", "WA3.5");
         data.put("claimType", "PERSONAL_INJURY");
         data.put("personalInjuryType", "NOISE_INDUCED_HEARING_LOSS");
-        data.put("claimValue", Map.of(
-            "statementOfValueInPennies", 100001
-        ));
+        data.put("claimValue", Map.of("statementOfValueInPennies", statementOfValueInPennies));
+        data.put("totalClaimAmount", totalClaimAmount);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
         inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
-//        inputVariables.putValue("claimValue", 100001);
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -455,6 +475,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(124));
+        assertThat(logic.getRules().size(), is(123));
     }
 }
