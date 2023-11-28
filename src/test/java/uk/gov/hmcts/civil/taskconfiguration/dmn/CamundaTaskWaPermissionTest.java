@@ -607,7 +607,8 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "InitialDirectionFlightDelay"
+        "InitialDirectionFlightDelay",
+        "NIHLFastTrackDirections"
     })
     void given_InitialDirectionFlightDelay_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();

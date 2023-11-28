@@ -849,7 +849,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void when_taskId_NIHLFastTrackDirections_then_return_decision_making_work() {
+    void when_taskId_NihlFastTrackDirections_then_return_decision_making_work() {
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
