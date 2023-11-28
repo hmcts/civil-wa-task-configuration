@@ -405,7 +405,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "ONE_V_TWO_TWO_LEGAL_REP,FULL_DEFENCE",
         "TWO_V_ONE,",
     })
-    void when_claimant_response_and_claimType_Nihl_then_FastTrackDirectionsNihl (String claimantResponseScenarioFlag,
+    void when_claimant_response_and_claimType_Nihl_then_FastTrackDirectionsNihl(String claimantResponseScenarioFlag,
                                                                                 String respondent2ClaimResponseType) {
 
         Map<String, Object> data = new HashMap<>();
@@ -440,7 +440,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "100001,0,FAST_CLAIM,",
         "0,1001,,FAST_CLAIM",
     })
-    void when_toc_and_claimType_Nihl_then_FastTrackDirectionsNihl (Integer statementOfValueInPennies,
+    void when_toc_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
                                                                   Integer totalClaimAmount,
                                                                   String allocatedTrack,
                                                                   String responseClaimTrack) {
