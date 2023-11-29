@@ -124,6 +124,10 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "InitialDirectionFlightDelay",
                 "taskTypeName", "Initial Directions (Flight Delay)"
+            ),
+            Map.of(
+                "taskTypeId", "OnlineCaseTransferReceived",
+                "taskTypeName", "Online Case Transfer Received"
             )
         );
         return Stream.of(
