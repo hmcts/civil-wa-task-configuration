@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.1">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -347,7 +347,7 @@ else ""</text>
           <text>"FastTrackDirections",
 "SmallClaimsTrackDirections",
 "LegalAdvisorSmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral"</text>
+"SmallClaimsTrackDirectionsReferral","InitialDirectionFlightDelay"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_14did2j">
           <text>"workType"</text>
@@ -370,7 +370,7 @@ else ""</text>
           <text>"FastTrackDirections",
 "SmallClaimsTrackDirections",
 "reviewSpecificAcesssRequestJudiciary",
-"SmallClaimsTrackDirectionsReferral"</text>
+"SmallClaimsTrackDirectionsReferral","InitialDirectionFlightDelay"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1r6wftd">
           <text>"roleCategory"</text>
@@ -596,7 +596,7 @@ else ""</text>
           <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC","FastTrackDirections",
 "SmallClaimsTrackDirections",
 "LegalAdvisorSmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","manualDetermination","defendantWelshRequest"</text>
+"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","manualDetermination","defendantWelshRequest","InitialDirectionFlightDelay"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1dlkqcy">
           <text>"majorPriority"</text>
@@ -1288,6 +1288,26 @@ else ""</text>
           <text>"[Online Case Transfer Received]"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_02n6z2u">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00q7ha2">
+        <inputEntry id="UnaryTests_04okc3s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f7xw6i">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kv1vbd">
+          <text>"InitialDirectionFlightDelay"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0700ihj">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dxfwgi">
+          <text>"[Initial Directions (Flight Delay)](/cases/case-details/${[CASE_REFERENCE]}/trigger/CREATE_SDO/CREATE_SDOSmallClaims)&lt;br /&gt;&lt;br /&gt;[Not Suitable for SDO](/cases/case-details/${[CASE_REFERENCE]}/trigger/NotSuitable_SDO/NotSuitable_SDONotSuitableSDO)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_081qrq4">
           <text>true</text>
         </outputEntry>
       </rule>

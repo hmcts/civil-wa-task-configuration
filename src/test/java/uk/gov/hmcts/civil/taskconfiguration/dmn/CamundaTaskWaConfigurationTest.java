@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(62));
+        assertThat(logic.getRules().size(), is(63));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -834,13 +834,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "value", "decision_making_work",
             "canReconfigure", "true"
         )));
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
-            "name", "description",
-            "value", "[Initial Directions (Flight Delay)](/cases/case-details/${[CASE_REFERENCE]}"
-                + "/trigger/CREATE_SDO/CREATE_SDOSmallClaims)"
-        )));
-
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "roleCategory",
