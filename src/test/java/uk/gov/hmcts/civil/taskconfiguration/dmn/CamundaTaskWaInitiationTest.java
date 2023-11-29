@@ -352,7 +352,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
-        data.put("claimType", "Flight delay");
+        data.put("claimType", "FLIGHT_DELAY");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -377,7 +377,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
-        data.put("claimType", "Flight delay");
+        data.put("claimType", "FLIGHT_DELAY");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
