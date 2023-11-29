@@ -350,7 +350,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void when_claimant_spec_and_claimtype_flightdelay_then_InitialDirectionFlightDelay() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("allocatedTrack", "SMALL_CLAIM");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
         data.put("claimType", "Flight delay");
         Map<String, Object> caseData = new HashMap<>();
@@ -375,7 +375,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void when_toc_and_claimtype_flightdelay_then_InitialDirectionFlightDelay() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("allocatedTrack", "SMALL_CLAIM");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
         data.put("claimType", "Flight delay");
         Map<String, Object> caseData = new HashMap<>();
