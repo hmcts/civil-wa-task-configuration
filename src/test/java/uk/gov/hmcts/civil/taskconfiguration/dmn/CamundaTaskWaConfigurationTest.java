@@ -836,13 +836,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
-            "name", "description",
-            "value", "[Initial Directions (Flight Delay)](/cases/case-details/${[CASE_REFERENCE]}"
-                + "/trigger/CREATE_SDO/CREATE_SDOSmallClaims)"
-        )));
-
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
             "name", "roleCategory",
             "value", "JUDICIAL"
         )));

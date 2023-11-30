@@ -373,9 +373,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void when_claimant_spec_and_claimtype_flightdelay_then_InitialDirectionFlightDelay() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("allocatedTrack", "SMALL_CLAIM");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
-        data.put("claimType", "Flight delay");
+        data.put("claimType", "FLIGHT_DELAY");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -398,9 +398,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void when_toc_and_claimtype_flightdelay_then_InitialDirectionFlightDelay() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("allocatedTrack", "SMALL_CLAIM");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
-        data.put("claimType", "Flight delay");
+        data.put("claimType", "FLIGHT_DELAY");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -416,6 +416,27 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("InitialDirectionFlightDelay"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void when_transfer_online_case_create_online_case_transfer_received_created() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "WA3.5");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("OnlineCaseTransferReceived"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
     }
 
     // Tests for NIHLFastTrackDirections
