@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -347,7 +347,7 @@ else ""</text>
           <text>"FastTrackDirections",
 "SmallClaimsTrackDirections",
 "LegalAdvisorSmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral","InitialDirectionFlightDelay"</text>
+"SmallClaimsTrackDirectionsReferral","InitialDirectionFlightDelay", "NIHLFastTrackDirections"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_14did2j">
           <text>"workType"</text>
@@ -370,7 +370,7 @@ else ""</text>
           <text>"FastTrackDirections",
 "SmallClaimsTrackDirections",
 "reviewSpecificAcesssRequestJudiciary",
-"SmallClaimsTrackDirectionsReferral","InitialDirectionFlightDelay"</text>
+"SmallClaimsTrackDirectionsReferral", "InitialDirectionFlightDelay", "NIHLFastTrackDirections"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1r6wftd">
           <text>"roleCategory"</text>
@@ -596,7 +596,7 @@ else ""</text>
           <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC","FastTrackDirections",
 "SmallClaimsTrackDirections",
 "LegalAdvisorSmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","manualDetermination","defendantWelshRequest","InitialDirectionFlightDelay"</text>
+"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","manualDetermination","defendantWelshRequest","InitialDirectionFlightDelay","NIHLFastTrackDirections"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1dlkqcy">
           <text>"majorPriority"</text>
@@ -1136,7 +1136,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_11fkxt8">
-          <text></text>
+          <text>"CUI"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_145xe7l">
           <text>"manualDetermination","defendantWelshRequest"</text>
@@ -1156,7 +1156,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0j06chw">
-          <text></text>
+          <text>"CUI"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0gs233f">
           <text>"manualDetermination"</text>
@@ -1176,7 +1176,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1jj0r1q">
-          <text></text>
+          <text>"CUI"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1y63v8x">
           <text>"manualDetermination","defendantWelshRequest"</text>
@@ -1196,7 +1196,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1l0x83l">
-          <text></text>
+          <text>"CUI"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1xn0td6">
           <text>"defendantWelshRequest"</text>
@@ -1216,7 +1216,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0bvjyer">
-          <text></text>
+          <text>"CUI"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_136ff56">
           <text>"manualDetermination"</text>
@@ -1291,23 +1291,43 @@ else ""</text>
           <text>true</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_00q7ha2">
-        <inputEntry id="UnaryTests_04okc3s">
+      <rule id="DecisionRule_10rxlia">
+        <inputEntry id="UnaryTests_0h8qeh8">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1f7xw6i">
+        <inputEntry id="UnaryTests_0tclr7r">
           <text>"WA3.5"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0kv1vbd">
+        <inputEntry id="UnaryTests_01150h3">
           <text>"InitialDirectionFlightDelay"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0700ihj">
+        <outputEntry id="LiteralExpression_1vr4517">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1dxfwgi">
-          <text>"[Initial Directions (Flight Delay)](/cases/case-details/${[CASE_REFERENCE]}/trigger/CREATE_SDO/CREATE_SDOSmallClaims)&lt;br /&gt;&lt;br /&gt;[Not Suitable for SDO](/cases/case-details/${[CASE_REFERENCE]}/trigger/NotSuitable_SDO/NotSuitable_SDONotSuitableSDO)"</text>
+        <outputEntry id="LiteralExpression_0u01j36">
+          <text>"[Initial Directions (Flight Delay)](/cases/case-details/${[CASE_REFERENCE]}/trigger/CREATE_SDO/CREATE_SDOSmallClaims)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_081qrq4">
+        <outputEntry id="LiteralExpression_1w4nbxe">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0svi5vo">
+        <inputEntry id="UnaryTests_1tyyn8j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i3smxw">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bu1c2t">
+          <text>"NIHLFastTrackDirections"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jiabdn">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1eq7w9t">
+          <text>"[Fast Track Directions - NIHL](/cases/case-details/${[CASE_REFERENCE]}/trigger/CREATE_SDO/CREATE_SDOFastTrack)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ayyht6">
           <text>true</text>
         </outputEntry>
       </rule>
