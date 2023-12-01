@@ -49,7 +49,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", false);
+        data.put("eaCourtLocation", "Yes");
         data.put("featureToggleWA", "Prod");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -62,8 +62,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Transfer Case Offline"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
     @Test
@@ -71,7 +71,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", true);
+        data.put("eaCourtLocation", "Yes");
         data.put("featureToggleWA", "Prod");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -93,7 +93,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", false);
+        data.put("eaCourtLocation", "No");
         data.put("featureToggleWA", "Prod");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -115,7 +115,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", false);
+        data.put("eaCourtLocation", "no");
         data.put("featureToggleWA", "Prod");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -138,7 +138,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", true);
+        data.put("eaCourtLocation", "Yes");
         data.put("featureToggleWA", "Prod");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -161,7 +161,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", false);
+        data.put("eaCourtLocation", "No");
         data.put("featureToggleWA", "Prod");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
