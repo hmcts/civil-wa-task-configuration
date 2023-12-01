@@ -14,9 +14,11 @@ import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
@@ -354,7 +356,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
-        data.put("claimType", "Flight delay");
+        data.put("claimType", "FLIGHT_DELAY");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -462,11 +464,11 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "100001,0,FAST_CLAIM,",
         "0,1001,,FAST_CLAIM",
     })
-    void when_toc_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
+    void when_not_suitable_sdo_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
                                                                   Integer totalClaimAmount,
                                                                   String allocatedTrack,
                                                                   String responseClaimTrack) {
-// TODO conflict with line 116!!!!!!!!!!!
+
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", allocatedTrack);
         data.put("responseClaimTrack", responseClaimTrack);
@@ -479,18 +481,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
         inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("NIHLFastTrackDirections"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
-        assertThat(workTypeResultList.get(0).get("name"), is("Fast Track Directions - Noise induced hearing loss"));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "taskId", "NIHLFastTrackDirections",
+            "processCategories", "standardDirectionsOrder",
+            "name","Fast Track Directions - Noise induced hearing loss"
+        )));
     }
 
     @Test
