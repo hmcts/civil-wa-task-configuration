@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.3.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -1259,7 +1259,7 @@ else ""</text>
           <text>"WA3.5"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0bg9lja">
-          <text>"OnlineCaseTransferReceived"</text>
+          <text>"OnlineCaseTransferReceived","JudgeDecideOnReconsiderRequest"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1eow23v">
           <text>"workType"</text>
@@ -1288,6 +1288,66 @@ else ""</text>
           <text>"[Online Case Transfer Received]"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_02n6z2u">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1h9hral">
+        <inputEntry id="UnaryTests_1svhoa3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dizlex">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00t3h5r">
+          <text>"JudgeDecideOnReconsiderRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14gt1ie">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15dew64">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0s2p6op">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hbdrqr">
+        <inputEntry id="UnaryTests_0khyjib">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s5vh3l">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vktc8z">
+          <text>"JudgeDecideOnReconsiderRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fonhpa">
+          <text>"majorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1uk60t3">
+          <text>if (caseData != null and caseData.urgentFlag != null and caseData.urgentFlag = "Yes") then "2000" else "5000"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1z10ac3">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18bu399">
+        <inputEntry id="UnaryTests_0zr3j5l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eu767x">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ncuegw">
+          <text>"JudgeDecideOnReconsiderRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0000ahk">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nb98rc">
+          <text>"[Decision on Reconsideration Request](/cases/case-details/${[CASE_REFERENCE]}/trigger/ReconsiderationRequested/ReconsiderationRequested)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gg2kod">
           <text>true</text>
         </outputEntry>
       </rule>
