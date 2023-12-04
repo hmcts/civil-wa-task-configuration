@@ -883,8 +883,9 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "description",
-            "value", "[Fast Track Directions - NIHL](/cases/case-details/${[CASE_REFERENCE]}/"
-            + "trigger/CREATE_SDO/CREATE_SDOFastTrack)"
+            "value", "[Fast Track Directions - NIHL](/cases/case-details/${[CASE_REFERENCE]}/trigger" +
+                "/CREATE_SDO/CREATE_SDOFastTrack)<br /><br />[Not Suitable for SDO](/cases/case-details" +
+                "/${[CASE_REFERENCE]}/trigger/NotSuitable_SDO/NotSuitable_SDONotSuitableSDO)"
         )));
     }
 
