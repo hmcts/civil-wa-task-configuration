@@ -622,7 +622,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void when_taskId_schedule_a_hearing_then_return_expected_decision_mci() {
+    void when_taskId_schedule_a_hearing_then_return_expected_decision_hmc() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
@@ -633,7 +633,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         ));
 
-        caseData.put("featureToggleWA", "MCI");
+        caseData.put("featureToggleWA", "HMC");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
