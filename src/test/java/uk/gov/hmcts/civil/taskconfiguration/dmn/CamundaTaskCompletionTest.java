@@ -231,7 +231,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProviderRequestForReconsideration"})
-    void given_event_ids_should_evaluate_request_for_reconsideration_dmn(String eventId, List<Map<String, String>> expectation) {
+    void given_event_ids_should_evaluate_reconsideration_dmn(String eventId, List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
