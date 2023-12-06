@@ -168,7 +168,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         return Stream.of(
             Arguments.of(
-                "REQUEST_FOR_RECONSIDERATION",
+                "DECISION_ON_RECONSIDERATION_REQUEST",
                 asList(
                     Map.of(
                         "taskType", "JudgeDecideOnReconsiderRequest",
