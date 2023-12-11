@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
@@ -248,6 +248,18 @@
           <text>"Auto"</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1twteyh">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_1rnqojy">
+          <text>"TRANSFER_ONLINE_CASE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15mql1h">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kwgmf7">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_1umluft">
         <description>This Task is completed once the user has completed the CASE_PROCEEDS_IN_CASEMAN event.</description>
         <inputEntry id="UnaryTests_1p4pwpw">
@@ -284,27 +296,15 @@
           <text>"Auto"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0i81ei7">
+      <rule id="DecisionRule_010bfc3">
         <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
-        <inputEntry id="UnaryTests_03ss9nw">
+        <inputEntry id="UnaryTests_10yextz">
           <text>"ADD_CASE_NOTE"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1j7sfza">
+        <outputEntry id="LiteralExpression_0i1npt7">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1l7vui7">
-          <text>"Auto"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0p3vk32">
-        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
-        <inputEntry id="UnaryTests_01hh5t1">
-          <text>"CREATE_SDO", "NotSuitable_SDO"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1rlamk1">
-          <text>"InitialDirectionFlightDelay"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0z18zpm">
+        <outputEntry id="LiteralExpression_09ipopa">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
@@ -317,18 +317,6 @@
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0u61n2c">
-          <text>"Auto"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0gfshhd">
-        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
-        <inputEntry id="UnaryTests_0fmvxll">
-          <text>"CREATE_SDO", "NotSuitable_SDO"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0cms7bm">
-          <text>"NIHLFastTrackDirections"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0wbxgnp">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
