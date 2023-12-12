@@ -2575,7 +2575,6 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_taskId_and_ccmcc_then_return_decision_making_work_for_urgent_listed_for_hearing() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -2599,7 +2598,6 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_taskId_and_after_ccmcc_then_return_decision_making_work_for_urgent_listed_for_hearing() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -2623,7 +2621,6 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_taskId_and_after_ccmccC_then_return_decision_making_work_for_nonurgent_listed_for_hearing() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -2647,7 +2644,6 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_taskId_and_ccmcc_then_return_decision_making_work_for_nonurgent_listed_for_hearing() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -2659,6 +2655,98 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "END_JUDGE_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("postEventState", "LISTING_FOR_A_HEARING");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+    }
+
+    @Test
+    void when_taskId_and_ccmcc_then_return_general_order_direction_for_urgent_listed_for_hearing() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
+        ));
+        data.put("isCcmccLocation", true);
+        data.put("generalAppConsentOrder", null);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("postEventState", "LISTING_FOR_A_HEARING");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+    }
+
+    @Test
+    void when_taskId_and_after_ccmcc_then_return_general_order_direction_for_urgent_listed_for_hearing() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
+        ));
+        data.put("isCcmccLocation", false);
+        data.put("generalAppConsentOrder", null);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("postEventState", "LISTING_FOR_A_HEARING");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+    }
+
+    @Test
+    void when_taskId_and_after_ccmcc_then_return_general_order_direction_for_nonurgent_listed_for_hearing() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
+        ));
+        data.put("isCcmccLocation", false);
+        data.put("generalAppConsentOrder", null);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("postEventState", "LISTING_FOR_A_HEARING");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+    }
+
+    @Test
+    void when_taskId_and_ccmcc_then_return_general_order_direction_for_nonurgent_listed_for_hearing() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", false
+        ));
+        data.put("isCcmccLocation", true);
+        data.put("generalAppConsentOrder", null);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
         inputVariables.putValue("postEventState", "LISTING_FOR_A_HEARING");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
