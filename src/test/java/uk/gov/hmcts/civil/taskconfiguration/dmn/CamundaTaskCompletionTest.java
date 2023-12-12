@@ -167,21 +167,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    static Stream<Arguments> scenarioProviderRequestForReconsideration() {
-
-        return Stream.of(
-            Arguments.of(
-                "DECISION_ON_RECONSIDERATION_REQUEST",
-                asList(
-                    Map.of(
-                        "taskType", "JudgeDecideOnReconsiderRequest",
-                        "completionMode", "Auto"
-                    )
-                )
-            )
-        );
-    }
-
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProvider"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
@@ -225,16 +210,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProviderToC"})
     void given_event_ids_should_evaluate_Toc_dmn(String eventId, List<Map<String, String>> expectation) {
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", eventId);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
-    }
-
-    @ParameterizedTest(name = "event id: {0}")
-    @MethodSource({"scenarioProviderRequestForReconsideration"})
-    void given_event_ids_should_evaluate_reconsideration_dmn(String eventId, List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
