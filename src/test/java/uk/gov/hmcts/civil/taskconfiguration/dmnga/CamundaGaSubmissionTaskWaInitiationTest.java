@@ -413,7 +413,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("VARY_JUDGEMENT")
+            "types", asList("VARY_PAYMENT_TERMS_OF_JUDGMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -427,7 +427,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for vary judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application for vary payment terms of judgment"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
@@ -445,7 +445,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("VARY_JUDGEMENT")
+            "types", asList("VARY_PAYMENT_TERMS_OF_JUDGMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -459,7 +459,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for vary judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application for vary payment terms of judgment"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
