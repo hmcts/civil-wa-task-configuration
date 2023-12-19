@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
   <decision id="wa-task-initiation-civil-civil" name="Civil Task initiation DMN">
     <decisionTable id="DecisionTable_0jtevuc" hitPolicy="COLLECT" biodi:annotationsWidth="400">
       <input id="Input_1" label="Event Id" biodi:width="259" camunda:inputVariable="eventId">
@@ -417,12 +417,22 @@ else
       </input>
       <input id="InputClause_0yiu4ps" label="Allocated Claim Type for SDO Tasks" camunda:inputVariable="allocatedClaimTypeSdoTasks">
         <inputExpression id="LiteralExpression_1j8j8qj" typeRef="string">
-          <text>if(additionalData != null and additionalData.Data != null 
-and additionalData.Data.claimType  != null 
-and additionalData.Data.claimType = "FLIGHT_DELAY"
-and additionalData.Data.responseClaimTrack != null
-and additionalData.Data.responseClaimTrack = "SMALL_CLAIM") 
-  then additionalData.Data.claimType 
+          <text>if(additionalData != null 
+   and additionalData.Data != null 
+   and additionalData.Data.claimType  != null 
+   and additionalData.Data.claimType = "FLIGHT_DELAY"
+   and additionalData.Data.responseClaimTrack != null
+   and additionalData.Data.responseClaimTrack = "SMALL_CLAIM") 
+then 
+   additionalData.Data.claimType
+else if(additionalData != null 
+   and additionalData.Data != null 
+   and additionalData.Data.claimType != null
+   and additionalData.Data.claimType = "PERSONAL_INJURY"
+   and additionalData.Data.personalInjuryType != null
+   and additionalData.Data.personalInjuryType = "NOISE_INDUCED_HEARING_LOSS")
+then 
+   additionalData.Data.personalInjuryType
 else "standardClaim"</text>
         </inputExpression>
       </input>
@@ -13755,6 +13765,720 @@ else "standardClaim"</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0h9x7uw">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pz43eo">
+        <inputEntry id="UnaryTests_1fkvb40">
+          <text>"CLAIMANT_RESPONSE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dh7ryg">
+          <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k4dg90">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n4bbiw">
+          <text>&gt; 100000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ssrk6y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pg41w2">
+          <text>"FAST_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e6ypn5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0igac9o">
+          <text>"ONE_V_ONE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lspx4p">
+          <text>"FULL_DEFENCE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v9s975">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09xs0ns">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_106qemf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11qv7ea">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gusmkq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vp8d32">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h62ko7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06sfybu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x7e4yj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00a7feb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10vuhfo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0acgs3x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q7jdsh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10js3ag">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kuzm8l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e9zryx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05d8zur">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1olt53q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m4mq6l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1257des">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hcpj19">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mct1jh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kvru0i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i9ipgf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rbnayw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_080a7xi">
+          <text>"NOISE_INDUCED_HEARING_LOSS"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vcdsfa">
+          <text>"NIHLFastTrackDirections"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vq0caw">
+          <text>"Fast Track Directions - Noise induced hearing loss"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hbsulu">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ja7dhk">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vzlm94">
+        <inputEntry id="UnaryTests_1ukdzyg">
+          <text>"CLAIMANT_RESPONSE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l19fpc">
+          <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0spty7a">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1st388g">
+          <text>&gt; 100000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n5q5fm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17c9nwl">
+          <text>"FAST_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l4d11v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09zhxsf">
+          <text>"ONE_V_TWO_ONE_LEGAL_REP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18ck7ap">
+          <text>"FULL_DEFENCE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1naai48">
+          <text>"FULL_DEFENCE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cqk292">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07mwysl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lgmfyd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qziqme">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1atziru">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q3793n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bft5ij">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_092ufop">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1eem2x6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1thyolj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x3ja7g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mceabt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fpjk9g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fkf7qv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yi91fe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08jt0c5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uti1no">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lmdakf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s3r24f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vno7o6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19wn8rt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1riyt8y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15bbtst">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i6vq2k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gxdzcs">
+          <text>"NOISE_INDUCED_HEARING_LOSS"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tlx8t7">
+          <text>"NIHLFastTrackDirections"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18j2237">
+          <text>"Fast Track Directions - Noise induced hearing loss"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qedahq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h5kxd4">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tdvzpz">
+        <inputEntry id="UnaryTests_1mirz17">
+          <text>"CLAIMANT_RESPONSE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0j7gorf">
+          <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_032k4rf">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00czy58">
+          <text>&gt; 100000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nhfs5n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qbpflj">
+          <text>"FAST_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ugxhrr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oinn6h">
+          <text>"ONE_V_TWO_TWO_LEGAL_REP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12egeb9">
+          <text>"FULL_DEFENCE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10pd2w1">
+          <text>"FULL_DEFENCE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e8s7mp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e8h9ug">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p5xys7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xwe0i1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vyndnz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ngrhot">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0as6vl7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08bd32c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11uhwms">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09d436u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ttt7hp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13bc71g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cxg9io">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03walsw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08okjdw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_013urhi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c1zf2b">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_155sgdo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uobfdd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19hpxl4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zo3fvn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16pccbl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yt8awg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fesfjv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h16xs0">
+          <text>"NOISE_INDUCED_HEARING_LOSS"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0csf7qs">
+          <text>"NIHLFastTrackDirections"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1p7i754">
+          <text>"Fast Track Directions - Noise induced hearing loss"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nsdtqo">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00t444y">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ly4j3z">
+        <inputEntry id="UnaryTests_0r1vcp7">
+          <text>"CLAIMANT_RESPONSE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0henw0m">
+          <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01ov8px">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1csgox7">
+          <text>&gt; 100000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fv2gnp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tk6m36">
+          <text>"FAST_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pe3lcd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ft3iez">
+          <text>"TWO_V_ONE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_038c6at">
+          <text>"FULL_DEFENCE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jhrm0j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mgghym">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09wndg4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r2mrsf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10j1czq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ctvvxr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q0j71l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07aydo6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19vi56m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fx5wva">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05vd4sv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bi859l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07fna2l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11iahw1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tuyvmb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n5vc7v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yn5hg0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o79mmt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qq8qzl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mpfxgy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00p28j3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x58kdv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1utg84h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a8wv6k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00igk4o">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0snvvdm">
+          <text>"NOISE_INDUCED_HEARING_LOSS"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_149hduc">
+          <text>"NIHLFastTrackDirections"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_103pge3">
+          <text>"Fast Track Directions - Noise induced hearing loss"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ifmmqg">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kmafdc">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0y6goxd">
+        <inputEntry id="UnaryTests_03rghsz">
+          <text>"NotSuitable_SDO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0conhy5">
+          <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nroy04">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wl6tay">
+          <text>&gt; 100000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tnujnl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u1amh7">
+          <text>"FAST_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14c6j4j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rd2x9u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xtzg9r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b47l3y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o6gta5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qeko7w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sgr3kx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gpneww">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lc3n6n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07gupjt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xfbvbn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_018ms1i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01vvgp1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ag346r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xvvpvb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jgc06i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tqfsu6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06sa6kn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0izhh8f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lnyu6x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14mw04q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m95mgx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13z2caf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t5mm1r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kimexx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0evyx11">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vnmn5y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dsc50v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kbgr72">
+          <text>"NOISE_INDUCED_HEARING_LOSS"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0blfnef">
+          <text>"NIHLFastTrackDirections"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1efm03c">
+          <text>"Fast Track Directions - Noise induced hearing loss"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xlrlel">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1g36t5t">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0elt3w4">
+        <inputEntry id="UnaryTests_1x9totc">
+          <text>"NotSuitable_SDO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p3ifhg">
+          <text>"JUDICIAL_REFERRAL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mj1lsm">
+          <text>"WA3.5"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n353st">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_154k7ue">
+          <text>&gt; 1000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qqksbt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ydq59x">
+          <text>"FAST_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07lsrdd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fdl31m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qlph72">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1b2gg6r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1aae3b1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0srosdd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uh5sgi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n192ln">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ztiwrl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lr0scr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ncl1za">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nw7j3j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ru8nw4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oerltl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19lzq84">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l63lkq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ka8qh9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0balm2s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1goo1aa">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0aabkl4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m4s8b4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v4jpfl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ui5rew">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1igm7h4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pl2bel">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09l8qqu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04nqv5x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0021rzg">
+          <text>"NOISE_INDUCED_HEARING_LOSS"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0npap2x">
+          <text>"NIHLFastTrackDirections"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15ert4q">
+          <text>"Fast Track Directions - Noise induced hearing loss"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_011yb90">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01ek1kf">
           <text>"standardDirectionsOrder"</text>
         </outputEntry>
       </rule>
