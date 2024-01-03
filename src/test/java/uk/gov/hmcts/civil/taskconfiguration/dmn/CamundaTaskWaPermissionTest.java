@@ -439,6 +439,33 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
+        "LegalAdvisorSmallClaimsTrackDirections"
+    })
+    void given_legalAdvisorClaTrDirections_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("caseData",Map.of("featureToggleWA", "Prod"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "tribunal-caseworker",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "LEGAL_OPERATIONS",
+                "autoAssignable", false
+            )
+        )));
+
+    }
+
+    @SuppressWarnings("checkstyle:indentation")
+    @ParameterizedTest
+    @CsvSource(value = {
         "ScheduleAHearing"
     })
     void given_scheduleAHearing_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
@@ -577,6 +604,35 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    @SuppressWarnings("checkstyle:indentation")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "InitialDirectionFlightDelay"
+    })
+    void given_InitialDirectionFlightDelay_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("caseData",Map.of("featureToggleWA", "WA3.5"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "authorisations","294",
+                "assignmentPriority",1,
+                "autoAssignable", false
+            )
+        )));
+
+    }
+
     @ParameterizedTest
     @CsvSource(value = {
         "OnlineCaseTransferReceived"
@@ -608,13 +664,41 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    @ParameterizedTest
+    @CsvSource(value = {
+        "JudgeDecideOnReconsiderRequest"
+    })
+    void given_JudgeDecideOnReconsiderRequest_taskType_when_evaluate_dmn_then_returns_expected_rule(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("caseData",Map.of("featureToggleWA", "WA3.5"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "value", "Read,Manage,Cancel,Unassign,Assign",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "authorisations","294",
+                "assignmentPriority",1,
+                "autoAssignable", false
+            )
+        )));
+    }
+
+
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
         "sendCvpHearingLink",
         "reviewHearingException"
     })
-    void given_legalAdvisorClaTrDirections_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
+    void given_hmc_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
         inputVariables.putValue("caseData",Map.of("featureToggleWA", "HMC"));

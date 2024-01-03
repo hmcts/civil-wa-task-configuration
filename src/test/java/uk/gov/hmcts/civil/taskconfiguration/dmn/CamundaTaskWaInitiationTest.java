@@ -347,6 +347,55 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void when_claimant_spec_and_claimtype_flightdelay_then_InitialDirectionFlightDelay() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("featureToggleWA", "WA3.5");
+        data.put("claimType", "FLIGHT_DELAY");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("InitialDirectionFlightDelay"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+
+    }
+
+    @Test
+    void when_toc_and_claimtype_flightdelay_then_InitialDirectionFlightDelay() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("featureToggleWA", "WA3.5");
+        data.put("claimType", "FLIGHT_DELAY");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("InitialDirectionFlightDelay"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
     void when_transfer_online_case_create_online_case_transfer_received_created() {
 
         Map<String, Object> data = new HashMap<>();
@@ -365,6 +414,56 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("OnlineCaseTransferReceived"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+    }
+
+    @Test
+    void when_request_for_reconsideration_create_judge_decide_on_reconsider_request_spec() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "WA3.5");
+        data.put("totalClaimAmount", 900);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "REQUEST_FOR_RECONSIDERATION");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("JudgeDecideOnReconsiderRequest"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("decisionOnReconsideration"));
+    }
+
+    @Test
+    void when_request_for_reconsideration_create_judge_decide_on_reconsider_request_unspec() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "WA3.5");
+        data.put("claimValue", Map.of(
+            "statementOfValueInPennies", 90000
+        ));
+        data.put("allocatedTrack", "SMALL_CLAIM");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "REQUEST_FOR_RECONSIDERATION");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("JudgeDecideOnReconsiderRequest"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("decisionOnReconsideration"));
     }
 
     @Test
@@ -412,6 +511,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(118));
+        assertThat(logic.getRules().size(), is(116));
     }
 }
