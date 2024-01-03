@@ -132,6 +132,14 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "JudgeDecideOnReconsiderRequest",
                 "taskTypeName", "Decision on Reconsideration Request"
+            ),
+            Map.of(
+                "taskTypeId", "reviewHearingException",
+                "taskTypeName", "Review Hearing Exception"
+            ),
+            Map.of(
+                "taskTypeId", "sendCvpHearingLink",
+                "taskTypeName", "Send CVP Hearing Link"
             )
         );
         return Stream.of(
@@ -148,7 +156,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(24));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(26));
     }
 
 }
