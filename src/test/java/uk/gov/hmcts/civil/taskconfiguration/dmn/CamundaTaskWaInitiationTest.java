@@ -548,12 +548,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "100001,0,SMALL_CLAIM,SMALL_CLAIM,standardClaim,CREATE_SDO",
         "0,2000,SMALL_CLAIM,SMALL_CLAIM,standardClaim,CREATE_SDO",
     })
-    void when_decsion_on_reconsideration_is_create_sdo_create_small_track_directions_test(Integer claimValue,
-                                                                                          Integer claimAmount,
-                                                                                          String allocatedTrack,
-                                                                                          String responseTrack,
-                                                                                          String claimType,
-                                                                                          String respToReconsideration) {
+    void when_decision_on_reconsideration_create_sdo_create_small_track_directions_test(Integer claimValue,
+                                                                                        Integer claimAmount,
+                                                                                        String allocatedTrack,
+                                                                                        String responseTrack,
+                                                                                        String claimType,
+                                                                                        String respToReconsideration) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "WA3.5");
