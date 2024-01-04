@@ -134,6 +134,10 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Decision on Reconsideration Request"
             ),
             Map.of(
+                "taskTypeId", "NIHLFastTrackDirections",
+                "taskTypeName", "Fast Track Directions - Noise induced hearing loss"
+            ),
+            Map.of(
                 "taskTypeId", "reviewHearingException",
                 "taskTypeName", "Review Hearing Exception"
             ),
@@ -156,7 +160,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(26));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(27));
     }
 
 }
