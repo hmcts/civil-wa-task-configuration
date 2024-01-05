@@ -544,9 +544,30 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_input_should_return_HelpWithFeesHearingFee() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("hearingHelpFeesReferenceNumber",  "12341234");
+        data.put("featureToggleWA", "CUI_CP");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("eventId", "APPLY_HELP_WITH_HEARING_FEE");
+        inputVariables.putValue("postEventState", "HEARING_READINESS");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Help With Fees Hearing Fee"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("HelpWithFeesHearingFee"));
+    }
+
+    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(120));
+        assertThat(logic.getRules().size(), is(121));
     }
 }
