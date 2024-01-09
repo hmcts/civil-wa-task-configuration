@@ -1037,6 +1037,39 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    @Test
+    void should_reconfigure_next_hearing_id_and_next_hearing_date() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("nextHearingDetails", Map.of(
+            "hearingID", "HEARING1234",
+            "hearingDateTime", "2024-01-07T21:36:05"
+        ));
+        caseData.put("featureToggleWA", "HMC");
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .collect(Collectors.toList());
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "nextHearingId",
+            "value", "HEARING1234",
+            "canReconfigure", "true"
+        )));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "nextHearingDate",
+            "value", "2024-01-07T21:36:05",
+            "canReconfigure", "true"
+        )));
+    }
+
     private Map<String, String> configDecision(String name, String canReconfigure, String value) {
         return Map.of("name", name, "canReconfigure", canReconfigure,"value", value);
     }
