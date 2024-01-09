@@ -545,23 +545,16 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "90000,0,SMALL_CLAIM,NULL,standardClaim,CREATE_SDO",
-        "0,850,null,SMALL_CLAIM,standardClaim,CREATE_SDO",
+        "850,SMALL_CLAIM,standardClaim,CREATE_SDO"
     })
-    void when_decision_on_reconsideration_create_sdo_create_small_track_directions_test(Integer claimValue,
-                                                                                        Integer claimAmount,
-                                                                                        String allocatedTrack,
+    void when_decision_on_reconsideration_create_sdo_create_small_track_directions_test(Integer claimAmount,
                                                                                         String responseTrack,
                                                                                         String claimType,
                                                                                         String respToReconsideration) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "WA3.5");
-        data.put("claimValue", Map.of(
-            "statementOfValueInPennies", claimValue
-        ));
         data.put("totalClaimAmount", claimAmount);
-        data.put("allocatedTrack", allocatedTrack);
         data.put("responseClaimTrack", responseTrack);
         data.put("claimType", claimType);
         data.put("decisionOnRequestReconsiderationOptions", respToReconsideration);
@@ -588,6 +581,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(121));
+        assertThat(logic.getRules().size(), is(120));
     }
 }
