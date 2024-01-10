@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.3.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -27,7 +27,7 @@
           <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0a7tgdva">
-          <text>"TAKE_CASE_OFFLINE"</text>
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1iy08tma">
           <text></text>
@@ -51,7 +51,7 @@
           <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0plv23z">
-          <text>"TAKE_CASE_OFFLINE"</text>
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1iz48gc">
           <text>-</text>
@@ -69,50 +69,242 @@
           <text>"standardDirectionsOrder"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0ae2tny">
-        <inputEntry id="UnaryTests_01avcyi">
+      <rule id="DecisionRule_0r0fzkp">
+        <inputEntry id="UnaryTests_00htesa">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0go3znp">
+        <inputEntry id="UnaryTests_03t3t25">
           <text>"CREATE_CASE_FLAGS"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0lfr9jv">
+        <inputEntry id="UnaryTests_13r4cni">
           <text></text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0rg56m6">
+        <outputEntry id="LiteralExpression_1otviwb">
           <text>"ReConfigure"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0o5ta03">
+        <outputEntry id="LiteralExpression_0nfi5y9">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0ltrfxn">
+        <outputEntry id="LiteralExpression_11d3s78">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0i44411">
+        <outputEntry id="LiteralExpression_144mm9w">
           <text></text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0tg999d">
-        <inputEntry id="UnaryTests_1hwdb03">
+      <rule id="DecisionRule_1tfptwr">
+        <inputEntry id="UnaryTests_0w9xxas">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1denw76">
+        <inputEntry id="UnaryTests_0wwoet5">
           <text>"MANAGE_CASE_FLAGS"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0y7qd0l">
+        <inputEntry id="UnaryTests_1utsart">
           <text></text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1mq3278">
+        <outputEntry id="LiteralExpression_10nbdb8">
           <text>"ReConfigure"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_12brt3r">
+        <outputEntry id="LiteralExpression_0ritvj1">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_110hgdo">
+        <outputEntry id="LiteralExpression_0scg02h">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0gy7ciy">
+        <outputEntry id="LiteralExpression_18s7nss">
           <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1he2tjc">
+        <description>"If a case is moved offline, then all "reviewCaseFlags" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1l35g2r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fkjykh">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_039ioy0">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0w7jj85">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0c18xl8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0biy4ux">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ev1091">
+          <text>"reviewCaseFlags"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ptf2w3">
+        <description>"If a case is moved offline, then all "reviewCaseFlags" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0599i5b">
+          <text>"CASE_DISMISSED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t18bik">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s091v6">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ynw2yr">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07q7unz">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ildk3z">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11vu01g">
+          <text>"reviewCaseFlags"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tbfs6z">
+        <description>"If a case is moved offline, then all "caseProgression" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1o9a6si">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pwu7si">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01p8t1q">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08xw2b5">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0blpa4q">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ef5ph8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07n0j6r">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ijmzt6">
+        <description>"If a case is moved offline, then all "caseProgression" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0dc4vdd">
+          <text>"CASE_DISMISSED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d2ywgi">
+          <text>"DISMISS_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11vu211">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qdvnwf">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ursdrt">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0g4uf6m">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1n41asu">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mtcsdq">
+        <description>"If a case is moved offline, then the 'routineTransfer' tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1r8mhx7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15sozdp">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_117snlk">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vz50br">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o9l0r0">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cf0b46">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0odl1a5">
+          <text>"routineTransfer"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0v6w3f0">
+        <description>"If case is transferred online, all active task should be transferred"</description>
+        <inputEntry id="UnaryTests_1bvtv17">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sdjin0">
+          <text>"TRANSFER_ONLINE_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11bcy73">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u4jo21">
+          <text>"ReConfigure"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hx9cf9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11hwgxn">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1l0atnv">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r3ctgh">
+        <description>"If case retriggered judicial task should be created"</description>
+        <inputEntry id="UnaryTests_1mhdndd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vc4nmu">
+          <text>"RETRIGGER_CASES"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12wigjb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0e0x5ut">
+          <text>"ReConfigure"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0dg1ms9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04b2g4g">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1g2j72i">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wgnjuy">
+        <description>"If a case is moved offline, then the 'decisionOnReconsideration' tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_14b9bt5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e284ob">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j6g81a">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_005zam7">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x66m76">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gq5f2a">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wwcy0l">
+          <text>"decisionOnReconsideration"</text>
         </outputEntry>
       </rule>
     </decisionTable>

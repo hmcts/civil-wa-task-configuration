@@ -49,13 +49,17 @@ def secrets = [
     secret('microservicekey-xui-webapp', 'XUI_S2S_SECRET'),
   ],
   'civil-${env}': [
-    secret('microservicekey-civil-service', 'S2S_SECRET')
+    secret('microservicekey-civil-service', 'S2S_SECRET'),
+    secret('default-password','DEFAULT_PASSWORD'),
+    secret('judge-default-password','JUDGE_DEFAULT_PASSWORD'),
+    secret('iac-default-password','IAC_DEFAULT_PASSWORD')
   ]
 ]
 
 withNightlyPipeline(type, product, component) {
   env.TEST_URL = params.CIVIL_SERVICE_URL
   env.NIGHTLY_RUN = true
+  env.TEST_EA_COURTS = true
   env.URL = params.FRONTEND_URL
   env.DM_STORE_URL=params.DM_STORE_URL
   env.IDAM_API_URL=params.IDAM_API_URL
