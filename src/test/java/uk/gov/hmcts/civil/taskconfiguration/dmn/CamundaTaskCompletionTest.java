@@ -206,6 +206,21 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> scenarioProviderTDoRR() {
+
+        return Stream.of(
+            Arguments.of(
+                "DECISION_ON_RECONSIDERATION_REQUEST",
+                asList(
+                    Map.of(
+                        "taskType", "JudgeDecideOnReconsiderRequest",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProvider"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
@@ -256,11 +271,21 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
     }
 
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioProviderTDoRR"})
+    void given_event_ids_should_evaluate_decOnReq_dmn(String eventId, List<Map<String, String>> expectation) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(31));
+        assertThat(logic.getRules().size(), is(32));
     }
 }
