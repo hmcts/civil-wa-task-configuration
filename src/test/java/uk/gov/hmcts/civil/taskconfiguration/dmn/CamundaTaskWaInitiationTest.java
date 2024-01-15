@@ -543,6 +543,81 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("decisionOnReconsideration"));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "850,SMALL_CLAIM,standardClaim,CREATE_SDO"
+    })
+    void when_decision_on_reconsideration_create_sdo_create_small_track_directions_test(Integer claimAmount,
+                                                                                        String responseTrack,
+                                                                                        String claimType,
+                                                                                        String respToReconsideration) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "WA3.5");
+        data.put("totalClaimAmount", claimAmount);
+        data.put("responseClaimTrack", responseTrack);
+        data.put("claimType", claimType);
+        data.put("decisionOnRequestReconsiderationOptions", respToReconsideration);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DECISION_ON_RECONSIDERATION_REQUEST");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_input_should_return_send_cvp_link_outcome_decision() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "HMC");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "SEND_CVP_JOIN_LINK");
+        inputVariables.putValue("postEventState", "PREPARE_FOR_HEARING_CONDUCT_HEARING");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Send Video Hearing Joining Link"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("sendCvpHearingLink"));
+    }
+
+    @Test
+    void given_input_should_return_review_hearing_exception_outcome_decision() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "HMC");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "REVIEW_HEARING_EXCEPTION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Review HMC Hearing Request Failure"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("reviewHearingException"));
+    }
+
     @Test
     void given_input_should_return_HelpWithFeesHearingFee() {
 
@@ -568,6 +643,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(121));
+        assertThat(logic.getRules().size(), is(123));
     }
 }
