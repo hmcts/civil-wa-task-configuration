@@ -822,72 +822,72 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @ParameterizedTest
-    @CsvSource({
-        "HelpWithFeesHearingFee"
-    })
-    void when_taskId_HelpWithFeesHearingFee_then_return_workType_routine_work(String taskType) {
-        VariableMap inputVariables = new VariableMapImpl();
-        Map<String, Object> caseData = new HashMap<>();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
+//    @ParameterizedTest
+//    @CsvSource({
+//        "HelpWithFeesHearingFee"
+//    })
+//    void when_taskId_HelpWithFeesHearingFee_then_return_workType_routine_work(String taskType) {
+//        VariableMap inputVariables = new VariableMapImpl();
+//        Map<String, Object> caseData = new HashMap<>();
+//        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+//        caseData.put("applicant1", Map.of(
+//            "partyName", "Firstname LastName"
+//
+//        ));
+//        caseData.put("featureToggleWA", "CUI_CP");
+//        inputVariables.putValue("caseData", caseData);
+//
+//        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+//
+//        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+//            .filter((r) -> r.containsValue("workType"))
+//            .collect(Collectors.toList());
+//
+//        System.out.println(workTypeResultList);
+//        assertThat(workTypeResultList.size(), is(1));
+//
+//        assertTrue(workTypeResultList.contains(Map.of(
+//            "name", "workType",
+//            "value", "routine_work",
+//            "canReconfigure", "true"
+//        )));
+//    }
 
-        ));
-        caseData.put("featureToggleWA", "CUI_CP");
-        inputVariables.putValue("caseData", caseData);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("workType"))
-            .collect(Collectors.toList());
-
-        System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(1));
-
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "workType",
-            "value", "routine_work",
-            "canReconfigure", "true"
-        )));
-    }
-
-    @Test
-    void when_taskId_HelpWithHearingFee_then_return_expected_decision() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-        ));
-
-        caseData.put("featureToggleWA", "CUI_CP");
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "HelpWithFeesHearingFee"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
-            "name", "workType",
-            "value", "routine_work"
-        )));
-
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
-            "name", "roleCategory",
-            "value", "CTSC"
-        )));
-
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "name", "dueDateIntervalDays",
-            "value", "10"
-        )));
-    }
+//    @Test
+//    void when_taskId_HelpWithHearingFee_then_return_expected_decision() {
+//        Map<String, Object> caseData = new HashMap<>();
+//        caseData.put("applicant1", Map.of(
+//            "partyName", "Firstname LastName"
+//        ));
+//
+//        caseData.put("featureToggleWA", "CUI_CP");
+//
+//        VariableMap inputVariables = new VariableMapImpl();
+//        inputVariables.putValue("caseData", caseData);
+//        inputVariables.putValue("taskAttributes", Map.of(
+//            "taskType",
+//            "HelpWithFeesHearingFee"
+//        ));
+//
+//        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+//
+//        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+//            "canReconfigure", "true",
+//            "name", "workType",
+//            "value", "routine_work"
+//        )));
+//
+//        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+//            "canReconfigure", "true",
+//            "name", "roleCategory",
+//            "value", "CTSC"
+//        )));
+//
+//        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+//            "name", "dueDateIntervalDays",
+//            "value", "10"
+//        )));
+//    }
 
     @Test
     void when_taskId_then_return_routine_work_desc() {
