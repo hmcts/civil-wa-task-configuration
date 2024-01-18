@@ -222,7 +222,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     }
 
     static Stream<Arguments> scenarioProviderUpTD() {
-
         return Stream.of(
             Arguments.of(
                 "UPLOAD_TRANSLATED_DOCUMENT",
@@ -303,7 +302,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProviderUpTD"})
     void given_event_ids_should_evaluate_UploadTransDoc_dmn(String eventId, List<Map<String, String>> expectation) {
-
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
