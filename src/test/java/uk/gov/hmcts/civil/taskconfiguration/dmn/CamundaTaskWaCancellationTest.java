@@ -93,10 +93,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "action", "Cancel",
-                "processCategories", "caseProgression"
-            ),
-            Map.of(
-                "action", "Cancel",
                 "processCategories", "routineTransfer"
             ),
             Map.of(
@@ -125,6 +121,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "reviewCaseFlags"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "caseProgression"
             ),
             Map.of(
                 "action", "Cancel",
