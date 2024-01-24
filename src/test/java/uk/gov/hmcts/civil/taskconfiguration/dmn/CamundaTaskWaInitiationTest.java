@@ -622,6 +622,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_return_review_claimant_welsh_request_decision() {
         Map<String, Object> data = new HashMap<>();
         data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("featureToggleWA", "CUIR2");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
