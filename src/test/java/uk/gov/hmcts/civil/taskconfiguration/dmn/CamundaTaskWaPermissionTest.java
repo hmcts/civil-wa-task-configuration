@@ -727,7 +727,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     void given_HelpWithFeesHearingFee_taskType_when_evaluate_dmn_then_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-        inputVariables.putValue("caseData",Map.of("featureToggleWA", "CUI_CP"));
+        inputVariables.putValue("caseData",Map.of("featureToggleWA", "Prod"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
