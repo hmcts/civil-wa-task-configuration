@@ -68,6 +68,90 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_input_should_return_schedule_hearing_dj_small_claim() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "Prod");
+        data.put("allocatedTrack", "SMALL_CLAIM");
+        data.put("caseManagementOrderSelection", "TRIAL_HEARING");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "STANDARD_DIRECTION_ORDER_DJ");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Small Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @Test
+    void given_input_should_return_schedule_hearing_dj_fast_claim() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "Prod");
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("caseManagementOrderSelection", "TRIAL_HEARING");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "STANDARD_DIRECTION_ORDER_DJ");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @Test
+    void given_input_should_return_schedule_hearing_dj_disposal_claim() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "Prod");
+        data.put("caseManagementOrderSelection", "DISPOSAL_HEARING");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "STANDARD_DIRECTION_ORDER_DJ");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @Test
+    void given_input_should_return_schedule_hearing_dj_disposal_claim_relisted() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("caseManagementOrderSelection", "TRIAL_HEARING");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "HEARING_SCHEDULED_RETRIGGER");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @Test
     void given_input_should_return_transfer_offline_dj_outcome_dmn() {
         Map<String, Object> data = new HashMap<>();
         data.put("eaCourtLocation", false);
@@ -108,6 +192,150 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Transfer Case Offline"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
+    }
+
+    @Test
+    void given_input_should_return_schedule_hearing_small_claim_unspec_and_spec() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "Prod");
+        data.put("allocatedTrack", "SMALL_CLAIM");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CREATE_SDO");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Small Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Small Claim Hearing"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @Test
+    void given_input_should_return_schedule_hearing_fast_claim_unspec_and_spec() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "Prod");
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("responseClaimTrack", "FAST_CLAIM");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CREATE_SDO");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @Test
+    void given_input_should_return_schedule_hearing_disposal() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "Prod");
+        data.put("orderType", "DISPOSAL");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CREATE_SDO");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @Test
+    void given_input_should_return_schedule_hearing_small_claim_unspec_and_spec_relisted() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("allocatedTrack", "SMALL_CLAIM");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "HEARING_SCHEDULED_RETRIGGER");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Small Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Small Claim Hearing"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @Test
+    void given_input_should_return_schedule_hearing_fast_claim_unspec_and_spec_relisted() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("responseClaimTrack", "FAST_CLAIM");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "HEARING_SCHEDULED_RETRIGGER");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @Test
+    void given_input_should_return_schedule_hearing_disposal_relisted() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("orderType", "DISPOSAL");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "HEARING_SCHEDULED_RETRIGGER");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
     @Test
@@ -414,9 +642,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "0,1001,,FAST_CLAIM",
     })
     void when_not_suitable_sdo_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
-                                                                  Integer totalClaimAmount,
-                                                                  String allocatedTrack,
-                                                                  String responseClaimTrack) {
+                                                                               Integer totalClaimAmount,
+                                                                               String allocatedTrack,
+                                                                               String responseClaimTrack) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", allocatedTrack);
