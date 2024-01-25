@@ -72,6 +72,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "decisionOnReconsideration"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "requestTranslation"
             )
         );
         return Stream.of(
@@ -99,6 +103,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "decisionOnReconsideration"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "requestTranslation"
             ),
             Map.of(
                 "action", "Cancel",
@@ -138,6 +146,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "decisionOnReconsideration"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "requestTranslation"
             )
         );
         return Stream.of(
@@ -172,6 +184,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "reviewCaseFlags"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "requestTranslation"
             ),
             Map.of(
                 "action", "Cancel",
@@ -226,6 +242,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(14));
+        assertThat(logic.getRules().size(), is(16));
     }
 }
