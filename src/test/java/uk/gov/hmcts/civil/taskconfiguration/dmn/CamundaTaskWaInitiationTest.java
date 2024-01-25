@@ -673,6 +673,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_return_review_claimant_welsh_request_decision_during_claimIssue() {
         Map<String, Object> data = new HashMap<>();
         data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("featureToggleWA", "CUIR2");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -696,6 +697,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(124));
+        assertThat(logic.getRules().size(), is(125));
     }
 }
