@@ -29,7 +29,8 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     @MethodSource({"scenarioTakesCaseOfflineEventProceedsInHeritageSystem",
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
-        "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure"})
+        "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure",
+        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -106,6 +107,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "requestTranslation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "updateContactInformation"
             )
         );
         return Stream.of(
@@ -159,6 +164,21 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "updateContactInformation"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "PROCEEDS_IN_HERITAGE_SYSTEM", null, null,
+                outcome
+            )
+        );
+    }
+
     public static Stream<Arguments> scenarioTakesCaseOfflineEventCaseDismissedSystem() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
@@ -168,6 +188,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "requestTranslation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "updateContactInformation"
             )
         );
         return Stream.of(
@@ -218,6 +242,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(14));
+        assertThat(logic.getRules().size(), is(16));
     }
 }
