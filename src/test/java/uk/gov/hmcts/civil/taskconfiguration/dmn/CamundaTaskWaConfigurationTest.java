@@ -933,7 +933,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
         ));
 
-        caseData.put("featureToggleWA", "Prod");
+        caseData.put("featureToggleWA", "");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
