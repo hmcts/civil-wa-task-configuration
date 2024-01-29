@@ -170,6 +170,22 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "sendCvpHearingLink",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "reviewHearingException",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "ScheduleAHearing",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "UpdateDetailsInCasemanSystem",
+                        "completionMode", "Auto"
                     )
                 )
             )
@@ -202,6 +218,24 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                 asList(
                     Map.of(
                         "taskType", "JudgeDecideOnReconsiderRequest",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    static Stream<Arguments> scenarioProviderUpTD() {
+        return Stream.of(
+            Arguments.of(
+                "UPLOAD_TRANSLATED_DOCUMENT",
+                asList(
+                    Map.of(
+                        "taskType", "defendantWelshRequest",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "claimantWelshRequest",
                         "completionMode", "Auto"
                     )
                 )
@@ -269,11 +303,20 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
     }
 
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioProviderUpTD"})
+    void given_event_ids_should_evaluate_UploadTransDoc_dmn(String eventId, List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(29));
+        assertThat(logic.getRules().size(), is(34));
     }
 }

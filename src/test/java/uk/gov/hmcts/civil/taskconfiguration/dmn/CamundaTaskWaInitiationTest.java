@@ -190,6 +190,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         ));
         data.put("allocatedTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -217,6 +218,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("totalClaimAmount", 2000);
         data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -246,6 +248,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         ));
         data.put("allocatedTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -273,6 +276,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("totalClaimAmount", 900);
         data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("featureToggleWA", "WA3.5");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -300,6 +304,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("claimValue", Map.of(
             "statementOfValueInPennies", 120000
         ));
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         data.put("allocatedTrack", "FAST_CLAIM");
         data.put("featureToggleWA", "WA3.5");
         Map<String, Object> caseData = new HashMap<>();
@@ -328,6 +333,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("totalClaimAmount", 2000);
         data.put("responseClaimTrack", "FAST_CLAIM");
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         data.put("featureToggleWA", "WA3.5");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -543,6 +549,27 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("decisionOnReconsideration"));
     }
 
+    @Test
+    void when_manage_contact_information_created() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "MCI");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CONTACT_INFORMATION_UPDATED_WA");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("UpdateDetailsInCasemanSystem"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("updateContactInformation"));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "850,SMALL_CLAIM,standardClaim,CREATE_SDO"
@@ -578,9 +605,98 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_input_should_return_send_cvp_link_outcome_decision() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "HMC");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "SEND_CVP_JOIN_LINK");
+        inputVariables.putValue("postEventState", "PREPARE_FOR_HEARING_CONDUCT_HEARING");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Send Video Hearing Joining Link"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("sendCvpHearingLink"));
+    }
+
+    @Test
+    void given_input_should_return_review_hearing_exception_outcome_decision() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", true);
+        data.put("featureToggleWA", "HMC");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "REVIEW_HEARING_EXCEPTION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Review HMC Hearing Request Failure"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("reviewHearingException"));
+    }
+
+    @Test
+    void given_input_should_return_review_claimant_welsh_request_decision() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("claimantWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
+    void given_input_should_return_review_claimant_welsh_request_decision_during_claimIssue() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_LIP_DEFENDANT_CLAIM_FORM_SPEC");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "PENDING_CASE_ISSUED");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("claimantWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(120));
+        assertThat(logic.getRules().size(), is(125));
     }
 }
