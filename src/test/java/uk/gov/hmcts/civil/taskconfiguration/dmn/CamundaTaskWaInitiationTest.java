@@ -728,6 +728,27 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("decisionOnReconsideration"));
     }
 
+    @Test
+    void when_manage_contact_information_created() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "MCI");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CONTACT_INFORMATION_UPDATED_WA");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("UpdateDetailsInCasemanSystem"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("updateContactInformation"));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "850,SMALL_CLAIM,standardClaim,CREATE_SDO"
@@ -816,6 +837,30 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("claimantWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
+    void given_input_should_return_review_claimant_welsh_request_decision_during_claimIssue() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_LIP_DEFENDANT_CLAIM_FORM_SPEC");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "PENDING_CASE_ISSUED");
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
