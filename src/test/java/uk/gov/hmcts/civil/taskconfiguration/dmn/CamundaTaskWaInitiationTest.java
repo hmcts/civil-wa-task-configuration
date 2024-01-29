@@ -107,7 +107,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Track Hearing"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
@@ -128,7 +128,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Hearing"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
@@ -147,7 +147,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Hearing"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
@@ -240,9 +240,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Track Hearing"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Fast Track Hearing"));
         assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
     }
 
@@ -265,7 +265,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Hearing"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
@@ -311,9 +311,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Track Hearing"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Fast Claim Hearing"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Fast Track Hearing"));
         assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
     }
 
@@ -334,7 +334,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Claim Hearing"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Hearing"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
@@ -648,9 +648,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "0,1001,,FAST_CLAIM",
     })
     void when_not_suitable_sdo_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
-                                                                  Integer totalClaimAmount,
-                                                                  String allocatedTrack,
-                                                                  String responseClaimTrack) {
+                                                                               Integer totalClaimAmount,
+                                                                               String allocatedTrack,
+                                                                               String responseClaimTrack) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", allocatedTrack);
@@ -876,6 +876,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(134));
+        assertThat(logic.getRules().size(), is(136));
     }
 }
