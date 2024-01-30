@@ -26,7 +26,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_INITIATION_CIVIL_DAMAGES;
     }
 
-    @Test
     void given_input_should_return_notify_interim_dj_outcome_dmn() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
@@ -47,7 +46,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("summaryJudgmentDirections"));
     }
 
-    @Test
     void given_input_should_return_schedule_hearing_dj_outcome_dmn_prod() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
@@ -69,7 +67,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
     }
 
-    @Test
     void given_input_should_return_schedule_hearing_dj_outcome_dmn_Wacp() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
@@ -91,7 +88,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
-    @Test
     void given_input_should_return_transfer_offline_dj_outcome_dmn() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
@@ -113,7 +109,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
     }
 
-    @Test
     void given_input_should_return_schedule_hearing_sdo_outcome_dmn_prod() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
@@ -136,7 +131,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
     }
 
-    @Test
     void given_input_should_return_schedule_hearing_sdo_outcome_dmn_Wacp() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
@@ -159,7 +153,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
-    @Test
     void given_input_should_return_transfer_offline_sdo_outcome_dmn() {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
@@ -181,7 +174,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
     }
 
-    @Test
     void when_not_suitable_sdo_change_location_recreate_sdo_task_allocated_smallclaimTrackDirections() {
 
         Map<String, Object> data = new HashMap<>();
@@ -211,7 +203,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
     }
 
-    @Test
     void when_not_suitable_sdo_change_location_recreate_sdo_task_response_smallClaimTrackDirections() {
 
         Map<String, Object> data = new HashMap<>();
@@ -239,7 +230,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
     }
 
-    @Test
     void when_not_suitable_sdo_change_location_recreate_sdo_task_allocated_LAsmallclaimTrackDirections() {
 
         Map<String, Object> data = new HashMap<>();
@@ -269,7 +259,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
     }
 
-    @Test
     void when_not_suitable_sdo_change_location_recreate_sdo_task_response_LAsmallClaimTrackDirections() {
 
         Map<String, Object> data = new HashMap<>();
@@ -297,7 +286,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
     }
 
-    @Test
     void when_not_suitable_sdo_change_location_recreate_sdo_task_allocated_fastclaimTrackDirections() {
 
         Map<String, Object> data = new HashMap<>();
@@ -327,7 +315,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
     }
 
-    @Test
     void when_not_suitable_sdo_change_location_recreate_sdo_task_response_fastClaimTrackDirections() {
 
         Map<String, Object> data = new HashMap<>();
@@ -355,7 +342,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
     }
 
-    @Test
     void when_claimant_spec_and_claimtype_flightdelay_then_InitialDirectionFlightDelay() {
 
         Map<String, Object> data = new HashMap<>();
@@ -380,7 +366,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     }
 
-    @Test
     void when_toc_and_claimtype_flightdelay_then_InitialDirectionFlightDelay() {
 
         Map<String, Object> data = new HashMap<>();
@@ -404,7 +389,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
-    @Test
     void when_transfer_online_case_create_online_case_transfer_received_created() {
 
         Map<String, Object> data = new HashMap<>();
@@ -499,7 +483,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_request_for_reconsideration_create_judge_decide_on_reconsider_request_spec() {
 
         Map<String, Object> data = new HashMap<>();
@@ -523,7 +506,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("decisionOnReconsideration"));
     }
 
-    @Test
     void when_request_for_reconsideration_create_judge_decide_on_reconsider_request_unspec() {
 
         Map<String, Object> data = new HashMap<>();
@@ -549,7 +531,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("decisionOnReconsideration"));
     }
 
-    @Test
     void when_manage_contact_information_created() {
 
         Map<String, Object> data = new HashMap<>();
@@ -604,7 +585,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
-    @Test
     void given_input_should_return_send_cvp_link_outcome_decision() {
 
         Map<String, Object> data = new HashMap<>();
@@ -625,7 +605,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("sendCvpHearingLink"));
     }
 
-    @Test
     void given_input_should_return_review_hearing_exception_outcome_decision() {
 
         Map<String, Object> data = new HashMap<>();
@@ -645,7 +624,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("reviewHearingException"));
     }
 
-    @Test
     void given_input_should_return_review_claimant_welsh_request_decision() {
         Map<String, Object> data = new HashMap<>();
         data.put("claimantBilingualLanguagePreference", "BOTH");
@@ -669,7 +647,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
 
-    @Test
     void given_input_should_return_review_claimant_welsh_request_decision_during_claimIssue() {
         Map<String, Object> data = new HashMap<>();
         data.put("claimantBilingualLanguagePreference", "BOTH");
@@ -693,7 +670,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
 
-    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();

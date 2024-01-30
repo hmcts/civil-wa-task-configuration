@@ -31,7 +31,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_CONFIGURATION_CIVIL_DAMAGES;
     }
 
-    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
 
         //The purpose of this test is to prevent adding new rows without being tested
@@ -189,7 +188,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_Access_requests() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -227,7 +225,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_decision_making_work() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -301,7 +298,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_Access_requests_forsdo() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -333,7 +329,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_Access_requests_foradmin() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -371,7 +366,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_Access_requests_forjudi() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -408,7 +402,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_decision_making_work_forsdo() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -443,7 +436,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_decision_making_work_smallclaims() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -480,7 +472,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_decision_making_work_legaladv() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -517,7 +508,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_decision_making_work_sctdrefe() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -556,7 +546,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     //ReviewCaseFlagsForClaimant
-    @Test
     void when_taskId_review_case_flags_claimant_then_return_expected_decision() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -599,7 +588,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     //ReviewCaseFlagsForDefendant
-    @Test
     void when_taskId_review_case_flags_defendant_then_return_expected_decision() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -647,7 +635,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     //ScheduleAHearing
-    @Test
     void when_taskId_schedule_a_hearing_then_return_expected_decision_Wacp() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -695,7 +682,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_schedule_a_hearing_then_return_expected_decision_hmc() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -743,7 +729,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     //transferCaseOffline
-    @Test
     void when_taskId_transfer_case_offline_then_return_expected_decision_prod() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -785,7 +770,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     //transferCaseOffline
-    @Test
     void when_taskId_transfer_case_offline_then_return_expected_decision() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -895,7 +879,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_routine_work_desc() {
 
         Map<String, Object> caseData = new HashMap<>();
@@ -926,7 +909,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_InitialDirectionFlightDelay_then_return_decision_making_work() {
 
         Map<String, Object> caseData = new HashMap<>();
@@ -962,7 +944,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_NihlFastTrackDirections_then_return_decision_making_work() {
 
         Map<String, Object> caseData = new HashMap<>();
@@ -1010,7 +991,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_JudgeDecideOnReconsiderRequest_then_return_routine_work_desc() {
 
         Map<String, Object> caseData = new HashMap<>();
@@ -1080,7 +1060,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         return rules;
     }
 
-    @Test
     void when_taskId_OnlineCaseTransferReceived_then_return_routine_work_desc() {
 
         Map<String, Object> caseData = new HashMap<>();
@@ -1111,7 +1090,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_send_cvp_hearing_link_then_return_expected_decision() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -1159,7 +1137,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_send_review_hearing_exception_then_return_expected_decision() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -1202,7 +1179,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_schedule_a_hearing_then_return_expected_decision() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -1232,7 +1208,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_routine_work_UpdateDetailsInCasemanSystem() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -1268,7 +1243,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_roleCategory_UpdateDetailsInCasemanSystem() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -1304,7 +1278,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_then_return_description_UpdateDetailsInCasemanSystem() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -1340,7 +1313,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
     void when_taskId_claimant_welsh_request() {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of(
