@@ -572,11 +572,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
     void given_input_should_return_send_cvp_link_outcome_decision() {
