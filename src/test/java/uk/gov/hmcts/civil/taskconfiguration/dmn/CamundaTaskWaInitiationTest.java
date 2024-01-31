@@ -4,7 +4,6 @@ import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -686,10 +685,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        MatcherAssert.assertThat(workTypeResultList.size(), is(2));
-        MatcherAssert.assertThat(workTypeResultList
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
                                      .get(0).get("taskId"), is("ReviewCaseFlagsForClaimant"));
-        MatcherAssert.assertThat(workTypeResultList
+        assertThat(workTypeResultList
                                      .get(0).get("name"), is("Review Case Flags Claimant"));
     }
 
