@@ -692,6 +692,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(workTypeResultList
                                      .get(0).get("name"), is("Review Case Flags Claimant"));
     }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
