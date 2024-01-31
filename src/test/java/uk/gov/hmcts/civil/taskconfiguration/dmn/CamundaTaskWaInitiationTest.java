@@ -666,6 +666,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(0).get("taskId"), is("claimantWelshRequest"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
+
     @Test
     void given_input_should_return_review_case_flag_for_claimant_during_support_needs() {
         Map<String, Object> data = new HashMap<>();
