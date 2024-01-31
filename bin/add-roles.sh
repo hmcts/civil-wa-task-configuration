@@ -33,14 +33,11 @@
 ./bin/utils/ccd-add-role.sh "cui-nbc-profile"
 ./bin/utils/ccd-add-role.sh "citizen-profile"
 ./bin/utils/ccd-add-role.sh "caseworker-civil-citizen-ui-pcqextractor"
-<<<<<<< HEAD
 ./bin/utils/ccd-add-role.sh "next-hearing-date-admin"
-=======
 ./bin/utils/ccd-add-role.sh "judge"
 ./bin/utils/ccd-add-role.sh "hearing-centre-admin"
 ./bin/utils/ccd-add-role.sh "national-business-centre"
 ./bin/utils/ccd-add-role.sh "hearing-centre-team-leader"
->>>>>>> master
 
 roles=("solicitor" "systemupdate" "admin" "staff")
 for role in "${roles[@]}"
