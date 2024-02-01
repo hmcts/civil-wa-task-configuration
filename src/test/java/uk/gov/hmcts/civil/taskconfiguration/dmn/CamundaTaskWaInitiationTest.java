@@ -2,6 +2,7 @@ package uk.gov.hmcts.civil.taskconfiguration.dmn;
 
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
+import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableRuleImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,6 +15,8 @@ import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -850,6 +853,48 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(139));
+        assertThat(logic.getRules().size(), is(198));
+    }
+
+    @Test
+    void retrigger5142() {
+        //The purpose of this test is to prevent adding new rows without being tested
+        DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
+        List<DmnDecisionTableRuleImpl> duplicateList = logic.getRules().stream()
+            .filter(r -> r.getConditions().get(0).getExpression().contains("RETRIGGER_CLAIMANT_RESPONSE"))
+            .collect(Collectors.toList());
+        for (DmnDecisionTableRuleImpl duplicate : duplicateList) {
+            if (logic.getRules().stream()
+                .noneMatch(rule -> {
+                    if (!rule.getConditions().get(0).getExpression().contains("CLAIMANT_RESPONSE")) {
+                        return false;
+                    }
+                    for (int i = 1; i < rule.getConditions().size(); i++) {
+                        if (!Objects.equals(rule.getConditions().get(i).getExpression(),
+                            duplicate.getConditions().get(i).getExpression())) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }));
+        }
+        duplicateList = logic.getRules().stream()
+            .filter(r -> r.getConditions().get(0).getExpression().contains("RETRIGGER_CLAIMANT_RESPONSE_SPEC"))
+            .collect(Collectors.toList());
+        for (DmnDecisionTableRuleImpl duplicate : duplicateList) {
+            if (logic.getRules().stream()
+                .noneMatch(rule -> {
+                    if (!rule.getConditions().get(0).getExpression().contains("CLAIMANT_RESPONSE_SPEC")) {
+                        return false;
+                    }
+                    for (int i = 1; i < rule.getConditions().size(); i++) {
+                        if (!Objects.equals(rule.getConditions().get(i).getExpression(),
+                                            duplicate.getConditions().get(i).getExpression())) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }));
+        }
     }
 }
