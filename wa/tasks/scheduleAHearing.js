@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'Schedule A Hearing',
+    name: 'Schedule A Disposal Hearing',
     type: 'ScheduleAHearing',
     task_state: 'unassigned',
     task_system: 'SELF',
