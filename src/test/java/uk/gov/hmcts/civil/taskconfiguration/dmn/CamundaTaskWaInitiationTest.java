@@ -905,16 +905,4 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
             ;
         }
     }
-
-    private static int getIndexFirstFailed(DmnDecisionTableRuleImpl duplicate, DmnDecisionTableRuleImpl rule) {
-        for (int i = 1; i < rule.getConditions().size(); i++) {
-            if (!Objects.equals(
-                rule.getConditions().get(i).getExpression(),
-                duplicate.getConditions().get(i).getExpression()
-            )) {
-                return i;
-            }
-        }
-        return -1;
-    }
 }
