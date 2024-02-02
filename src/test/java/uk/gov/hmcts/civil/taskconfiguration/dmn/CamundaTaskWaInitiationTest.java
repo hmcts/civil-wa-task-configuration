@@ -847,9 +847,109 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_input_should_create_sdo_task_for_lip_vs_lip_small_claim_in_judicial_referral() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("totalClaimAmount", 2000);
+        //data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_input_should_create_sdo_task_for_lip_vs_lip_fast_claim_in_judicial_referral() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("responseClaimTrack", "FAST_CLAIM");
+        data.put("totalClaimAmount", 12000);
+        //data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("FastTrackDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_input_should_create_sdo_task_for_lip_vs_lip_small_claim_In_judicial_referral_claimIssue_in_bilingual() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("totalClaimAmount", 2000);
+        //data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_TRANSLATED_DOCUMENT_UPLOADED");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_input_should_create_sdo_task_for_lip_vs_lip_fast_claim_in_judicial_referral_claimIssue_in_bilingual() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("responseClaimTrack", "FAST_CLAIM");
+        data.put("totalClaimAmount", 12000);
+        //data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_TRANSLATED_DOCUMENT_UPLOADED");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("FastTrackDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(139));
+        assertThat(logic.getRules().size(), is(143));
     }
 }
