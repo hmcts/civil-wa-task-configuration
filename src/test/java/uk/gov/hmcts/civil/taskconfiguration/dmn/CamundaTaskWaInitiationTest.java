@@ -5,6 +5,7 @@ import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableRuleImpl;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -677,7 +678,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(workTypeResultList.contains(Map.of(
             "taskId", "NIHLFastTrackDirections",
             "processCategories", "standardDirectionsOrder",
-            "name","Fast Track Directions - Noise induced hearing loss"
+            "name", "Fast Track Directions - Noise induced hearing loss"
         )));
     }
 
@@ -864,37 +865,56 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
             .filter(r -> r.getConditions().get(0).getExpression().contains("RETRIGGER_CLAIMANT_RESPONSE"))
             .collect(Collectors.toList());
         for (DmnDecisionTableRuleImpl duplicate : duplicateList) {
-            if (logic.getRules().stream()
-                .noneMatch(rule -> {
+            boolean hasOriginal = logic.getRules().stream()
+                .anyMatch(rule -> {
                     if (!rule.getConditions().get(0).getExpression().contains("CLAIMANT_RESPONSE")) {
                         return false;
                     }
                     for (int i = 1; i < rule.getConditions().size(); i++) {
-                        if (!Objects.equals(rule.getConditions().get(i).getExpression(),
-                            duplicate.getConditions().get(i).getExpression())) {
+                        if (!Objects.equals(
+                            rule.getConditions().get(i).getExpression(),
+                            duplicate.getConditions().get(i).getExpression()
+                        )) {
                             return false;
                         }
                     }
                     return true;
-                }));
+                });
+            Assertions.assertTrue(hasOriginal);
         }
         duplicateList = logic.getRules().stream()
             .filter(r -> r.getConditions().get(0).getExpression().contains("RETRIGGER_CLAIMANT_RESPONSE_SPEC"))
             .collect(Collectors.toList());
         for (DmnDecisionTableRuleImpl duplicate : duplicateList) {
-            if (logic.getRules().stream()
-                .noneMatch(rule -> {
-                    if (!rule.getConditions().get(0).getExpression().contains("CLAIMANT_RESPONSE_SPEC")) {
-                        return false;
-                    }
-                    for (int i = 1; i < rule.getConditions().size(); i++) {
-                        if (!Objects.equals(rule.getConditions().get(i).getExpression(),
-                                            duplicate.getConditions().get(i).getExpression())) {
+            Assertions.assertTrue(
+                logic.getRules().stream()
+                    .anyMatch(rule -> {
+                        if (!rule.getConditions().get(0).getExpression().contains("CLAIMANT_RESPONSE_SPEC")) {
                             return false;
                         }
-                    }
-                    return true;
-                }));
+                        for (int i = 1; i < rule.getConditions().size(); i++) {
+                            if (!Objects.equals(
+                                rule.getConditions().get(i).getExpression(),
+                                duplicate.getConditions().get(i).getExpression()
+                            )) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }));
+            ;
         }
+    }
+
+    private static int getIndexFirstFailed(DmnDecisionTableRuleImpl duplicate, DmnDecisionTableRuleImpl rule) {
+        for (int i = 1; i < rule.getConditions().size(); i++) {
+            if (!Objects.equals(
+                rule.getConditions().get(i).getExpression(),
+                duplicate.getConditions().get(i).getExpression()
+            )) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
