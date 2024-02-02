@@ -851,7 +851,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("totalClaimAmount", 2000);
-        //data.put("featureToggleWA", "CUIR2");
+        data.put("featureToggleWA", "CUIR2");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -876,7 +876,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "FAST_CLAIM");
         data.put("totalClaimAmount", 12000);
-        //data.put("featureToggleWA", "CUIR2");
+        data.put("featureToggleWA", "CUIR2");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -901,7 +901,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("totalClaimAmount", 2000);
-        //data.put("featureToggleWA", "CUIR2");
+        data.put("featureToggleWA", "CUIR2");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -926,7 +926,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "FAST_CLAIM");
         data.put("totalClaimAmount", 12000);
-        //data.put("featureToggleWA", "CUIR2");
+        data.put("featureToggleWA", "CUIR2");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
