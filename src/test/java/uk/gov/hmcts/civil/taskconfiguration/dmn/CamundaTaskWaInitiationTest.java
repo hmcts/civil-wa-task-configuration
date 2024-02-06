@@ -933,7 +933,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_TRANSLATED_DOCUMENT_UPLOADED");
+        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_DOC_UPLOADED");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
 
@@ -958,7 +958,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_TRANSLATED_DOCUMENT_UPLOADED");
+        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_DOC_UPLOADED");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
 
