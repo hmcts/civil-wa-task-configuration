@@ -1,10 +1,10 @@
 module.exports = {
-    name: 'Schedule A Hearing',
+    name: 'Schedule A Disposal Hearing',
     type: 'ScheduleAHearing',
     task_state: 'unassigned',
     task_system: 'SELF',
     security_classification: 'PUBLIC',
-    task_title: 'Schedule A Hearing',
+    task_title: 'Schedule A Disposal Hearing',
     location_name: 'Nottingham County Court and Family Court (and Crown)',
     location: '424213',
     execution_type: 'Case Management Task',
