@@ -339,7 +339,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProviderProceedsInCaseMan"})
-    void given_event_ids_should_evaluate_CaseProceedsInCaseMan_dmn(String eventId, List<Map<String, String>> expectation) {
+    void given_event_ids_should_evaluate_CaseMan_dmn(String eventId, List<Map<String, String>> expectation) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
