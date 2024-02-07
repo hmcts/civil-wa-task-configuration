@@ -156,26 +156,7 @@ task runSmokeTests(type: Exec, description: 'Runs smoke tests.') {
   commandLine '/usr/bin/yarn', '--silent','run' , 'test:smoke'
 }
 
-task runApiTests(type: Exec, description: 'Runs Api WA functional tests.') {
-  onlyIf {
-    return System.env.NIGHTLY_RUN != 'true'
-  }
-  commandLine '/usr/bin/yarn', '--silent','run' , 'test:api-1v1'
-}
-
-task runWATests(type: Exec, description: 'Runs Api WA functional tests.') {
-  onlyIf {
-    return System.env.ENVIRONMENT == 'preview'
-  }
-  commandLine '/usr/bin/yarn', '--silent','run' , 'test:api-dj'
-}
-
-
-
-task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
-  onlyIf {
-    return System.env.NIGHTLY_RUN == 'true'
-  }
+task runCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
   commandLine '/usr/bin/yarn', '--silent', 'run' , 'test:wa-r4'
 }
 
@@ -198,7 +179,7 @@ task smoke(description: 'Runs the smoke tests.') {
 }
 
 task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, runApiTests, runNightlyCivilCCDTaskTests,
+  dependsOn(inStrictOrder(awaitApplicationReadiness, runCivilCCDTaskTests,
   pullGeneralAppAsset, runNightlyGenAppCCDTaskTests))
 }
 
