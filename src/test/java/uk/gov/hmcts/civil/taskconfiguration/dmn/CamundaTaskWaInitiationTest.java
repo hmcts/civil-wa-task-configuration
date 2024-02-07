@@ -847,6 +847,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_input_should_return_review_case_flag_for_claimant_during_support_needs() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("applicant1DQVulnerabilityQuestions", Map.of("vulnerabilityAdjustmentsRequired", true));
+        data.put("applicant1DQLanguage", Map.of("court", "BOTH"));
+        data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
+        inputVariables.putValue("postEventState", "");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("ReviewCaseFlagsForClaimant"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Review Case Flags Claimant"));
+    }
+
+    @Test
     void given_accept_court_decision_should_return_transfer_case_offline_claimantIntention() {
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> applicant1LiPResponse = new HashMap<>();
