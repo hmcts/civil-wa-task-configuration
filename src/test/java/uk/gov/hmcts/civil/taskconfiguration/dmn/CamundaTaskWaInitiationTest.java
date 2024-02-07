@@ -847,9 +847,119 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_accept_court_decision_should_return_transfer_case_offline_claimantIntention() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> applicant1LiPResponse = new HashMap<>();
+        applicant1LiPResponse.put("applicant1ChoosesHowToProceed", "REQUEST_A_CCJ");
+        applicant1LiPResponse.put("claimantResponseOnCourtDecision", "ACCEPT_REPAYMENT_DATE");
+        data.put("applicant1LiPResponse", applicant1LiPResponse);
+        data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferCaseOfflineLiP"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("claimantIntention"));
+    }
+
+    @Test
+    void given_decision_favour_claimant_should_return_transfer_case_offline_claimantIntention() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> applicant1LiPResponse = new HashMap<>();
+        applicant1LiPResponse.put("applicant1ChoosesHowToProceed", "REQUEST_A_CCJ");
+        applicant1LiPResponse.put("claimantCourtDecision", "IN_FAVOUR_OF_CLAIMANT");
+        data.put("applicant1LiPResponse", applicant1LiPResponse);
+        data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferCaseOfflineLiP"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("claimantIntention"));
+    }
+
+    @Test
+    void given_accept_court_decision_should_return_transfer_case_offline_translated_doc_claimantIntention() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> applicant1LiPResponse = new HashMap<>();
+        applicant1LiPResponse.put("applicant1ChoosesHowToProceed", "REQUEST_A_CCJ");
+        applicant1LiPResponse.put("claimantResponseOnCourtDecision", "ACCEPT_REPAYMENT_DATE");
+        data.put("applicant1LiPResponse", applicant1LiPResponse);
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_TRANSLATED_DOCUMENT_UPLOADED");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferCaseOfflineLiP"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("claimantIntention"));
+    }
+
+    @Test
+    void given_decision_favour_claimant_should_return_transfer_case_offline_translated_doc_claimantIntention() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> applicant1LiPResponse = new HashMap<>();
+        applicant1LiPResponse.put("applicant1ChoosesHowToProceed", "REQUEST_A_CCJ");
+        applicant1LiPResponse.put("claimantCourtDecision", "IN_FAVOUR_OF_CLAIMANT");
+        data.put("applicant1LiPResponse", applicant1LiPResponse);
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_TRANSLATED_DOCUMENT_UPLOADED");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferCaseOfflineLiP"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("claimantIntention"));
+    }
+
+    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(139));
+        assertThat(logic.getRules().size(), is(143));
     }
 }
