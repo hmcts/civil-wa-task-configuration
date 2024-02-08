@@ -930,5 +930,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                     }));
             ;
         }
+        assertThat(logic.getRules().size(), is(140));
     }
 }
