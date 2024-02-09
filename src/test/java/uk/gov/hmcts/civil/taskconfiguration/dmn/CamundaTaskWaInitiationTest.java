@@ -544,7 +544,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         data.put("allocatedTrack", "FAST_CLAIM");
         data.put("featureToggleWA", "WA3.5");
-        data.put("setDJFlag", "Yes");
+        data.put("setRequestDJDamagesFlagForWA", true);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -575,7 +575,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("notSuitableSdoOptions", "OTHER");
         data.put("allocatedTrack", "FAST_CLAIM");
         data.put("featureToggleWA", "WA3.5");
-        data.put("setDJFlag", "Yes");
+        data.put("setRequestDJDamagesFlagForWA", true);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
