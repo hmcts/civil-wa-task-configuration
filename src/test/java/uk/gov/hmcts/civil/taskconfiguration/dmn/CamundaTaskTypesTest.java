@@ -138,6 +138,10 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Fast Track Directions - Noise induced hearing loss"
             ),
             Map.of(
+                "taskTypeId", "HelpWithFeesHearingFee",
+                "taskTypeName", "Help With Fees Hearing Fee"
+            ),
+            Map.of(
                 "taskTypeId", "reviewHearingException",
                 "taskTypeName", "Review Hearing Exception"
             ),
@@ -146,6 +150,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Send CVP Hearing Link"
             )
         );
+
         return Stream.of(
             Arguments.of(
                 outcome
@@ -160,7 +165,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(27));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(28));
     }
 
 }
