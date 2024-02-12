@@ -1443,6 +1443,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "transferCaseOfflineLiP"
         ));
 
+
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
