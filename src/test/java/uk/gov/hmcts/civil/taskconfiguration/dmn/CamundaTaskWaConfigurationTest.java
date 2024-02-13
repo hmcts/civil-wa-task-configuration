@@ -1448,7 +1448,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "hearingID", "HEARING1234",
             "hearingDateTime", "2024-01-07T21:36:05"
         ));
-        caseData.put("featureToggleWA", "HMC");
+        caseData.put("featureToggleWA", "NHD");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
@@ -1477,8 +1477,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
         ));
+        caseData.put("featureToggleWA", "NHD");
 
-        caseData.put("featureToggleWA", "HMC");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
