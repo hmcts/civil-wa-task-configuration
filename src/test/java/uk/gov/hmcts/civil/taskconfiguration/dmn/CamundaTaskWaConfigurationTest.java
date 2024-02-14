@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(84));
+        assertThat(logic.getRules().size(), is(85));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -1422,6 +1422,34 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "name", "description",
             "value", "[Upload Translated Documents](/cases/case-details/${[CASE_REFERENCE]}/trigger/"
                 + "UPLOAD_TRANSLATED_DOCUMENT/UPLOAD_TRANSLATED_DOCUMENTUploadTranslatedDocument)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "workType",
+            "value", "routine_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "roleCategory",
+            "value", "CTSC"
+        )));
+    }
+
+    @Test
+    void when_taskId_transfer_case_offline_lip() {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "transferCaseOfflineLiP"
+        ));
+
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Case is Offline]"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
