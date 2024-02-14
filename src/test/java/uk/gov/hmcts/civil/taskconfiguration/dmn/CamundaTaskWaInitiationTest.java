@@ -395,6 +395,29 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void when_not_suitable_sdo_change_location_recreate_sdo_task_response_forCaseProgressionState() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "WA3.5");
+        data.put("notSuitableSdoOptions", "OTHER_REASONS");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferCaseOfflineNotSuitableSDO"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
     void when_not_suitable_sdo_change_location_recreate_sdo_task_response_smallClaimTrackDirections() {
 
         Map<String, Object> data = new HashMap<>();
@@ -536,6 +559,65 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(1).get("taskId"), is("FastTrackDirections"));
         assertThat(workTypeResultList.get(1).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void when_not_suitable_sdo_change_location_recreate_sdo_task_allocated_SummaryDirection_for_dj() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("claimValue", Map.of(
+            "statementOfValueInPennies", 120000
+        ));
+        data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("featureToggleWA", "WA3.5");
+        data.put("setRequestDJDamagesFlagForWA", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferOnlineCase"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("summaryJudgmentDirections"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("defaultJudgment"));
+    }
+
+    @Test
+    void when_not_suitable_sdo_Other_dont_create_SummaryDirection_for_dj() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("claimValue", Map.of(
+            "statementOfValueInPennies", 120000
+        ));
+        data.put("notSuitableSdoOptions", "OTHER");
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("featureToggleWA", "WA3.5");
+        data.put("setRequestDJDamagesFlagForWA", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NotSuitable_SDO");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("transferCaseOfflineNotSuitableSDO"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
     @Test
@@ -990,7 +1072,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(204));
+        assertThat(logic.getRules().size(), is(206));
     }
 
     @Test
