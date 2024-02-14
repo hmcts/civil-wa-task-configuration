@@ -1003,7 +1003,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_TRANSLATED_DOCUMENT_UPLOADED");
+        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_DOC_UPLOADED");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "PROCEEDS_IN_HERITAGE_SYSTEM");
 
@@ -1031,7 +1031,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_TRANSLATED_DOCUMENT_UPLOADED");
+        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_DOC_UPLOADED");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "PROCEEDS_IN_HERITAGE_SYSTEM");
 
@@ -1099,6 +1099,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_create_sdo_task_for_lip_vs_lip_small_claim_In_judicial_referral_claimIssue_in_bilingual() {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("claimantBilingualLanguagePreference", "BOTH");
         data.put("totalClaimAmount", 2000);
         data.put("featureToggleWA", "CUIR2");
 
@@ -1124,6 +1125,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_create_sdo_task_for_lip_vs_lip_fast_claim_in_judicial_referral_claimIssue_in_bilingual() {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "FAST_CLAIM");
+        data.put("claimantBilingualLanguagePreference", "BOTH");
         data.put("totalClaimAmount", 12000);
         data.put("featureToggleWA", "CUIR2");
 
@@ -1149,7 +1151,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(210));
+        assertThat(logic.getRules().size(), is(211));
     }
 
     @Test
