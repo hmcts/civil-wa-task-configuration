@@ -1425,11 +1425,13 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
             "name", "workType",
             "value", "routine_work"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
             "name", "roleCategory",
             "value", "CTSC"
         )));
@@ -1453,11 +1455,13 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
             "name", "workType",
             "value", "routine_work"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
             "name", "roleCategory",
             "value", "CTSC"
         )));
