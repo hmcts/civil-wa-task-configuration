@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.19.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.20.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -1729,6 +1729,46 @@ else ""</text>
           <text>"[Add a case note](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0253j37">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gygc7s">
+        <inputEntry id="UnaryTests_18f5yo8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mo4dmi">
+          <text>"NHD"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q37uwo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qjlny8">
+          <text>"nextHearingId"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bc7izu">
+          <text>if (caseData != null and caseData.nextHearingDetails !=null and caseData.nextHearingDetails.hearingID !=null) then caseData.nextHearingDetails.hearingID else ""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pma3kp">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1udvt06">
+        <inputEntry id="UnaryTests_0a3tc0t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pr08t6">
+          <text>"NHD"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14a23s3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0huslfv">
+          <text>"nextHearingDate"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pzcgxa">
+          <text>if (caseData != null and caseData.nextHearingDetails !=null and caseData.nextHearingDetails.hearingDateTime != null) then caseData.nextHearingDetails.hearingDateTime else ""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06hwoxd">
           <text>true</text>
         </outputEntry>
       </rule>

@@ -30,7 +30,8 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
         "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure",
-        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci"})
+        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci",
+        "scenarioUpdateNextHearingDetailsCasesReconfigure"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -246,6 +247,22 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Arguments.of(
                 "",
                 "RETRIGGER_CASES",
+                "",
+                outcome
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioUpdateNextHearingDetailsCasesReconfigure() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "ReConfigure"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "",
+                "UPDATE_NEXT_HEARING_DETAILS",
                 "",
                 outcome
             )
