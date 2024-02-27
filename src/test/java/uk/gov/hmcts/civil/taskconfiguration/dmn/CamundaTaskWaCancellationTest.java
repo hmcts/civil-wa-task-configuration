@@ -30,8 +30,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
         "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure",
-        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci",
-        "scenarioUpdateNextHearingDetailsCasesReconfigure"})
+        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
