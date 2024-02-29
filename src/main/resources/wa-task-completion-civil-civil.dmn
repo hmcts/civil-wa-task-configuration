@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.2">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
@@ -137,6 +137,18 @@
           <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_14x5qby">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0usc2j1">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_1qgzije">
+          <text>"REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o42w6j">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1erkmgq">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
@@ -388,6 +400,29 @@
           <text>"ScheduleAHearing"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_04h3g6f">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0go0zfa">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1cywx1c">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08t8pd5">
+          <text>"claimantWelshRequest"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0utvek8">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jpd0tf">
+        <inputEntry id="UnaryTests_0o19pg9">
+          <text>"ADD_CASE_NOTE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1djt5c1">
+          <text>"UpdateDetailsInCasemanSystem"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h0iyfa">
           <text>"Auto"</text>
         </outputEntry>
       </rule>

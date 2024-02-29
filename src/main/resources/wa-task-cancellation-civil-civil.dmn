@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.4.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.17.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -305,6 +305,148 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_0wwcy0l">
           <text>"decisionOnReconsideration"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pgabty">
+        <description>If a case is dismissed then all "requestTranslation" tasks should be cancelled.</description>
+        <inputEntry id="UnaryTests_12mlb7z">
+          <text>"CASE_DISMISSED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gql5if">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xoiz79">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0enjt6c">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mntusm">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1goztk1">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08shbwe">
+          <text>"requestTranslation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jq26fh">
+        <description>If a case is moved offline, then all "requestTranslation" tasks should be cancelled.</description>
+        <inputEntry id="UnaryTests_05ygp27">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tq90w9">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jx7rsi">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17jckt5">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mniyn1">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1g99m0i">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0syilk9">
+          <text>"requestTranslation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_093uqnn">
+        <description>"If a case is moved offline, then all "caseProgression" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1mcq8b0">
+          <text>"CASE_DISMISSED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ggm09t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1018ebn">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pjrbzj">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0b6yoio">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_173s7ah">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hcgc7f">
+          <text>"updateContactInformation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0t72co3">
+        <description>"If a case is moved offline, then all "caseProgression" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0i5coaq">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nsjljs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0utcyej">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s8c7uy">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yqbukt">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ebng5e">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vkxqs2">
+          <text>"updateContactInformation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08ez73e">
+        <inputEntry id="UnaryTests_19tzuc7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nhbg2u">
+          <text>"UpdateNextHearingInfo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ky6lpw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00g8pgl">
+          <text>"ReConfigure"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wlf1cz">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0l5h1d0">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p20zv0">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gax61g">
+        <inputEntry id="UnaryTests_1wzxzc2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e9w2ep">
+          <text>"UPDATE_NEXT_HEARING_DETAILS"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dgq952">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06lzhum">
+          <text>"ReConfigure"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15h9hm9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0dxb2w9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qeer5x">
+          <text></text>
         </outputEntry>
       </rule>
     </decisionTable>
