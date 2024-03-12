@@ -1063,7 +1063,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @Test
     void given_claimant_rejects_repaymentPlan_should_return_transfer_case_offline_bilingual() {
         Map<String, Object> data = new HashMap<>();
-         data.put("applicant1AcceptFullAdmitPaymentPlanSpec", false);
+        data.put("applicant1AcceptFullAdmitPaymentPlanSpec", false);
         data.put("claimantBilingualLanguagePreference", "BOTH");
         data.put("featureToggleWA", "CUIR2");
 
