@@ -148,6 +148,10 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "sendCvpHearingLink",
                 "taskTypeName", "Send CVP Hearing Link"
+            ),
+            Map.of(
+                "taskTypeId", "UpdateDetailsInCasemanSystem",
+                "taskTypeName", "Update details in caseman"
             )
         );
 
@@ -165,7 +169,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(28));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(29));
     }
 
 }
