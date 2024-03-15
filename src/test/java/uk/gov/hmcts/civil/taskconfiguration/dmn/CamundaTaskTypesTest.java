@@ -150,7 +150,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Send CVP Hearing Link"
             ),
             Map.of(
-                "taskTypeId", "GenerateDirectionsOrder",
+                "taskTypeId", "OrderToSetAsideDefendedClaim",
                 "taskTypeName", "Defence received in time - order that the judgment is set aside"
             )
         );
