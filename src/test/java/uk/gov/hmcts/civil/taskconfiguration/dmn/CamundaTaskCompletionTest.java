@@ -250,7 +250,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         return Stream.of(
             Arguments.of(
-                "REFER_JUDGE_DEFENCE_RECEIVED",
+                "GENERATE_DIRECTIONS_ORDER",
                     List.of(
                             Map.of(
                                     "taskType", "OrderToSetAsideDefendedClaim",

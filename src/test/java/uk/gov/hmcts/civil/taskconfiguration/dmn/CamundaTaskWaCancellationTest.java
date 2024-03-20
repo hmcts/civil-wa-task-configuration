@@ -30,7 +30,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
         "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure",
-        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioReferJudgeCancel"})
+        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioProceedsInHeritageSystem"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -268,8 +268,40 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    public static Stream<Arguments> scenarioReferJudgeCancel() {
+    public static Stream<Arguments> scenarioProceedsInHeritageSystem() {
         List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "defaultJudgment"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "standardDirectionsOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "reviewCaseFlags"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "caseProgression"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "routineTransfer"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "decisionOnReconsideration"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "requestTranslation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "updateContactInformation"
+            ),
             Map.of(
                 "action", "Cancel",
                 "processCategories", "OrderJudgmentSetAside"
@@ -277,9 +309,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "",
-                "REFER_JUDGE_DEFENCE_RECEIVED",
-                "",
+                null, "PROCEEDS_IN_HERITAGE_SYSTEM", null,
                 outcome
             )
         );
