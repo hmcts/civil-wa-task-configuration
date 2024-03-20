@@ -1575,8 +1575,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "description",
-            "value", "[Make Order](/cases/case-details/${[CASE_REFERENCE]}/trigger" +
-                "/GENERATE_DIRECTIONS_ORDER/GENERATE_DIRECTIONS_ORDER)"
+            "value", "[Make Order](/cases/case-details/${[CASE_REFERENCE]}/trigger"
+                + "/GENERATE_DIRECTIONS_ORDER/GENERATE_DIRECTIONS_ORDER)"
         )));
     }
 
