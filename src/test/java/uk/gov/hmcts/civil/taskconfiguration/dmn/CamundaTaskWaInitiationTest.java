@@ -1173,6 +1173,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REFER_JUDGE_DEFENCE_RECEIVED");
         inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "ALL_FINAL_ORDERS_ISSUED");
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -1180,7 +1181,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("OrderToSetAsideDefendedClaim"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("OrderJudgmentSetAside"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("orderJudgmentSetAside"));
         assertThat(workTypeResultList.get(0).get("name"),
                    is("Defence received in time - order that the judgment is set aside"));
     }

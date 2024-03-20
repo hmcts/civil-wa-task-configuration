@@ -304,7 +304,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "action", "Cancel",
-                "processCategories", "OrderJudgmentSetAside"
+                "processCategories", "orderJudgmentSetAside"
             )
         );
         return Stream.of(
