@@ -1181,7 +1181,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("OrderToSetAsideDefendedClaim"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("OrderJudgmentSetAside"));
-        assertThat(workTypeResultList.get(0).get("name"), is("Defence received in time - order that the judgment is set aside"));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Defence received in time - order that the judgment is set aside"));
     }
 
     @Test
