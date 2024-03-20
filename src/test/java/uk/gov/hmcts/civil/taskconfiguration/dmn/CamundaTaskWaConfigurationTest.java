@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(90));
+        assertThat(logic.getRules().size(), is(92));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -1540,7 +1540,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
         ));
-        caseData.put("featureToggleWA", "WA3.5");
+        caseData.put("featureToggleWA", "JO");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(

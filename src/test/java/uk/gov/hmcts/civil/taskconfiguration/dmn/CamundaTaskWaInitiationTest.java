@@ -1164,7 +1164,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void when_refer_judge_defence_received_create_generate_directions_order_spec() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "WA3.5");
+        data.put("featureToggleWA", "JO");
         data.put("totalClaimAmount", 900);
         data.put("responseClaimTrack", "SMALL_CLAIM");
         Map<String, Object> caseData = new HashMap<>();
