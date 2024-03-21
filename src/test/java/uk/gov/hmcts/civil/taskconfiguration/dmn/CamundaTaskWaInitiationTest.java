@@ -1161,10 +1161,35 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void when_refer_judge_defence_received_create_generate_directions_order_spec() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "JO");
+        data.put("totalClaimAmount", 900);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "REFER_JUDGE_DEFENCE_RECEIVED");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("OrderToSetAsideDefendedClaim"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("orderJudgmentSetAside"));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Defence received in time - order that the judgment is set aside"));
+    }
+
+    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(214));
+        assertThat(logic.getRules().size(), is(215));
     }
 
     @Test
