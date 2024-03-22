@@ -30,7 +30,8 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
         "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure",
-        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioProceedsInHeritageSystem"})
+        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioProceedsInHeritageSystem",
+        "scenarioUpdateNextHearingDetailsCasesReconfigure", "scenarioUpdateNextHearingInfoCasesReconfigure"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -268,6 +269,22 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioUpdateNextHearingInfoCasesReconfigure() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "ReConfigure"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "",
+                "UpdateNextHearingInfo",
+                "",
+                outcome
+            )
+        );
+    }
+
     public static Stream<Arguments> scenarioProceedsInHeritageSystem() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
@@ -321,6 +338,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(25));
+        assertThat(logic.getRules().size(), is(27));
     }
 }
