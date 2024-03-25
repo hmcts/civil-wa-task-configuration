@@ -155,7 +155,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "OrderToSetAsideDefendedClaim",
-                "taskTypeName", "Defence received in time - order that the judgment is set aside"
+                "taskTypeName", "Defence received in time - order that judgment is set aside"
             )
         );
 
