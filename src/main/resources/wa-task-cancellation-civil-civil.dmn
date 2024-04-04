@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.1">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -617,6 +617,54 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_1mz66js">
           <text>"orderJudgmentSetAside"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ur09f6">
+        <description>"If case is Not Suitable for SDO, all active standardDirectionsOrder task should be canceled"</description>
+        <inputEntry id="UnaryTests_04int8f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z5727m">
+          <text>"NotSuitable_SDO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0alkvo3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05m7dxt">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09kerxj">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1m81dxy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zpf4u1">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05ndfs6">
+        <description>"If case is Not Suitable for SDO, all active defaultJudgment task should be canceled"</description>
+        <inputEntry id="UnaryTests_1c0yr3m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16rjee1">
+          <text>"NotSuitable_SDO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uq643w">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04rey6e">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f0ht5g">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1svxdwi">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kka0j8">
+          <text>"defaultJudgment"</text>
         </outputEntry>
       </rule>
     </decisionTable>
