@@ -733,7 +733,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "100001,0,FAST_CLAIM,",
         "0,1001,,FAST_CLAIM",
     })
-    void when_transfer_online_change_location_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
+    void when_toc_location_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
                                                                                Integer totalClaimAmount,
                                                                                String allocatedTrack,
                                                                                String responseClaimTrack) {

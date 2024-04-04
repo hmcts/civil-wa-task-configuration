@@ -315,7 +315,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    public static Stream<Arguments> scenarioNotSuitableSDOCancelTasks() {
+    public static Stream<Arguments> scenarioNotSuitableSdoCancelTasks() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
                 "action", "Cancel",
