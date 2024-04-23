@@ -1195,6 +1195,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void when_cui_claimant_responds_and_claimtype_flightdelay_then_InitialDirectionFlightDelay(String eventId) {
 
         Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CUIR2");
         data.put("responseClaimTrack", "SMALL_CLAIM");
         data.put("claimType", "FLIGHT_DELAY");
         Map<String, Object> caseData = new HashMap<>();
