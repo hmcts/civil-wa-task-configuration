@@ -430,7 +430,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(2));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
         assertThat(workTypeResultList
                        .get(1).get("taskId"), is("OnlineCaseTransferReceived"));
@@ -980,7 +980,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
@@ -1031,7 +1031,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
