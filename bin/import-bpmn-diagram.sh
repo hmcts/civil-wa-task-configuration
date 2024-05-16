@@ -9,10 +9,11 @@ filepath="$(realpath $workspace)/camunda"
 
 for file in $(find ${filepath} -name '*.bpmn')
 do
-  uploadResponse=$(curl --insecure -v --silent -w "\n%{http_code}" --show-error -X POST \
+  uploadResponse=$(curl --insecure --silent -w "\n%{http_code}" --show-error -X POST \
     ${CAMUNDA_BASE_URL:-http://localhost:9404}/engine-rest/deployment/create \
     -H "Accept: application/json" \
     -H "ServiceAuthorization: Bearer ${serviceToken}" \
+    -F "tenant-id=civil" \
     -F "deployment-name=$(date +"%Y%m%d-%H%M%S")-$(basename ${file})" \
     -F "file=@${filepath}/$(basename ${file})")
 
