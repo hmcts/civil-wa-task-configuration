@@ -721,7 +721,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "false",
             "name", "description",
-            "value", "[Case Adjourned - Relist Hearing](/cases/case-details/${[CASE_REFERENCE]}/hearings)"
+            "value", "[Schedule a hearing using the Hearings tab](/cases/case-details/${[CASE_REFERENCE]}/hearings)"
         )));
     }
 
@@ -751,7 +751,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "description",
-            "value", "[Directions - Schedule A Hearing](/cases/case-details/${[CASE_REFERENCE]}/hearings)"
+            "value", "[Schedule a hearing using the Hearings tab](/cases/case-details/${[CASE_REFERENCE]}/hearings)"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
@@ -1325,7 +1325,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "description",
-            "value", "[Directions - Schedule A Hearing](/cases/case-details/${[CASE_REFERENCE]}/hearings)"
+            "value", "[Schedule a hearing using the Hearings tab](/cases/case-details/${[CASE_REFERENCE]}/hearings)"
         )));
     }
 
