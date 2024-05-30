@@ -730,22 +730,54 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "100001,0,FAST_CLAIM,",
-        "0,1001,,FAST_CLAIM",
+        "ONE_V_ONE,",
+        "ONE_V_TWO_ONE_LEGAL_REP,FULL_DEFENCE",
+        "ONE_V_TWO_TWO_LEGAL_REP,FULL_DEFENCE",
+        "TWO_V_ONE,",
+    })
+    void claimant_res_claimType_Nihl_less_than_1000_then_FastTrackDirectionsNihl(String claimantResponseScenarioFlag,
+                                                                                String respondent2ClaimResponseType) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("featureToggleWA", "WA3.5");
+        data.put("claimType", "PERSONAL_INJURY");
+        data.put("personalInjuryType", "NOISE_INDUCED_HEARING_LOSS");
+        data.put("claimantResponseScenarioFlag", claimantResponseScenarioFlag);
+        data.put("claimValue", Map.of(
+            "statementOfValueInPennies", 10000));
+        data.put("respondent1ClaimResponseType", "FULL_DEFENCE");
+        data.put("respondent2ClaimResponseType", respondent2ClaimResponseType);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("NIHLFastTrackDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "100001,FAST_CLAIM,"
     })
     void when_toc_location_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
-                                                                               Integer totalClaimAmount,
-                                                                               String allocatedTrack,
-                                                                               String responseClaimTrack) {
+                                                                               String allocatedTrack) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", allocatedTrack);
-        data.put("responseClaimTrack", responseClaimTrack);
         data.put("featureToggleWA", "WA3.5");
         data.put("claimType", "PERSONAL_INJURY");
         data.put("personalInjuryType", "NOISE_INDUCED_HEARING_LOSS");
         data.put("claimValue", Map.of("statementOfValueInPennies", statementOfValueInPennies));
-        data.put("totalClaimAmount", totalClaimAmount);
         data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1213,6 +1245,26 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("InitialDirectionFlightDelay"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_court_officer_order_event_should_trigger_task_adjournedReList() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "COURT_OFFICER_ORDER");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("adjournedReList"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
     @Test
