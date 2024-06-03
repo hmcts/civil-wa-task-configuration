@@ -1218,6 +1218,36 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                    is("Defence received in time - order that judgment is set aside"));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE",
+        "UPDATE_CLAIM_STATE_AFTER_DOC_UPLOADED",
+        "MEDIATION_UNSUCCESSFUL"
+    })
+    void when_cui_claimant_responds_and_claimtype_flightdelay_then_InitialDirectionFlightDelay(String eventId) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CUIR2");
+        data.put("totalClaimAmount", 2000);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("claimType", "FLIGHT_DELAY");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("InitialDirectionFlightDelay"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
     @Test
     void given_court_officer_order_event_should_trigger_task_adjournedReList() {
         Map<String, Object> data = new HashMap<>();
@@ -1242,7 +1272,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(215));
+        assertThat(logic.getRules().size(), is(218));
     }
 
     @Test
