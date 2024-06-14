@@ -1275,11 +1275,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "SD");
         data.put("totalClaimAmount", 900);
         data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("markPaidForAllClaimants", "Yes");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "PAID_IN_FULL");
+        inputVariables.putValue("eventId", "SETTLE_CLAIM_MARK_PAID_FULL");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
