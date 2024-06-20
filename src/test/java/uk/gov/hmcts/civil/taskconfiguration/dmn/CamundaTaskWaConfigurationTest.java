@@ -1655,7 +1655,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "description",
-            "value", "[Claimant Paid in Full](/cases/case-details/${[CASE_REFERENCE]}/trigger"
+            "value", "[Claim Paid in Full Divergence - Take Case Offline](/cases/case-details/${[CASE_REFERENCE]}/trigger"
                 + "/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"
         )));
     }
