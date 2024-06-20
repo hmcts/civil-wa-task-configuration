@@ -1275,7 +1275,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "SD");
         data.put("totalClaimAmount", 900);
         data.put("responseClaimTrack", "SMALL_CLAIM");
-        data.put("markPaidForAllClaimants", "No");
+        data.put("markPaidForAllClaimants", "false");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
