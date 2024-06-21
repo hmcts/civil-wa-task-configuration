@@ -268,8 +268,19 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         return Stream.of(
             Arguments.of(
-                "SETTLE_CLAIM_MARK_PAID_FULL",
+                "CASE_PROCEEDS_IN_CASEMAN",
                 asList(
+                    Map.of(
+                        "taskType", "transferCaseOffline",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "manualDetermination",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    ),
                     Map.of(
                         "taskType", "ClaimSettledDivergenceTakeCaseOffline",
                         "completionMode", "Auto"
