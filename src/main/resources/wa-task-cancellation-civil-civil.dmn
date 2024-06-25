@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.2">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.1">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -667,52 +667,76 @@
           <text>"defaultJudgment"</text>
         </outputEntry>
       </rule>
-         <rule id="DecisionRule_08ez73e">
-              <inputEntry id="UnaryTests_19tzuc7">
-                <text></text>
-              </inputEntry>
-              <inputEntry id="UnaryTests_0nhbg2u">
-                <text>"UpdateNextHearingInfo"</text>
-              </inputEntry>
-              <inputEntry id="UnaryTests_1ky6lpw">
-                <text></text>
-              </inputEntry>
-              <outputEntry id="LiteralExpression_00g8pgl">
-                <text>"ReConfigure"</text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_1wlf1cz">
-                <text></text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_0l5h1d0">
-                <text></text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_0p20zv0">
-                <text></text>
-              </outputEntry>
-            </rule>
-            <rule id="DecisionRule_0gax61g">
-              <inputEntry id="UnaryTests_1wzxzc2">
-                <text></text>
-              </inputEntry>
-              <inputEntry id="UnaryTests_0e9w2ep">
-                <text>"UPDATE_NEXT_HEARING_DETAILS"</text>
-              </inputEntry>
-              <inputEntry id="UnaryTests_1dgq952">
-                <text></text>
-              </inputEntry>
-              <outputEntry id="LiteralExpression_06lzhum">
-                <text>"ReConfigure"</text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_15h9hm9">
-                <text></text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_0dxb2w9">
-                <text></text>
-              </outputEntry>
-              <outputEntry id="LiteralExpression_0qeer5x">
-                <text></text>
-              </outputEntry>
-            </rule>
+      <rule id="DecisionRule_08ez73e">
+        <inputEntry id="UnaryTests_19tzuc7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nhbg2u">
+          <text>"UpdateNextHearingInfo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ky6lpw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00g8pgl">
+          <text>"ReConfigure"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wlf1cz">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0l5h1d0">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p20zv0">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gax61g">
+        <inputEntry id="UnaryTests_1wzxzc2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e9w2ep">
+          <text>"UPDATE_NEXT_HEARING_DETAILS"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dgq952">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06lzhum">
+          <text>"ReConfigure"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15h9hm9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0dxb2w9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qeer5x">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o8z23k">
+        <description>"If a case is moved offline, then all ClaimSettledRemoveHearing tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0ay5tl7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wh0822">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08n5qxd">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1laq790">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14u393m">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xq5oxh">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06eh2a5">
+          <text>"RemoveHearing"</text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>
