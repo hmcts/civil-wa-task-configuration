@@ -268,6 +268,32 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> scenarioSettleClaimPaidInFull() {
+
+        return Stream.of(
+            Arguments.of(
+                "CASE_PROCEEDS_IN_CASEMAN",
+                asList(
+                    Map.of(
+                        "taskType", "transferCaseOffline",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "manualDetermination",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "ClaimSettledDivergenceTakeCaseOffline",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProvider"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
@@ -340,6 +366,16 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProviderReferJudge"})
     void given_event_ids_should_evaluate_ReferJudge_dmn(String eventId, List<Map<String, String>> expectation) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioSettleClaimPaidInFull"})
+    void given_event_ids_should_evaluate_SettleClPaidFull_dmn(String eventId, List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
