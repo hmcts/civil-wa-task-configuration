@@ -1273,6 +1273,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> caseData = new HashMap<>();
         data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
