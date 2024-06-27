@@ -189,6 +189,10 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                         "taskType", "UpdateDetailsInCasemanSystem",
                         "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "ClaimSettledRemoveHearing",
+                        "completionMode", "Auto"
                     )
                 )
             )
@@ -264,6 +268,32 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                                 "completionMode", "Auto"
                             )
                     )
+            )
+        );
+    }
+
+    static Stream<Arguments> scenarioSettleClaimPaidInFull() {
+
+        return Stream.of(
+            Arguments.of(
+                "CASE_PROCEEDS_IN_CASEMAN",
+                asList(
+                    Map.of(
+                        "taskType", "transferCaseOffline",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "manualDetermination",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "ClaimSettledDivergenceTakeCaseOffline",
+                        "completionMode", "Auto"
+                    )
+                )
             )
         );
     }
@@ -347,11 +377,21 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
     }
 
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioSettleClaimPaidInFull"})
+    void given_event_ids_should_evaluate_SettleClPaidFull_dmn(String eventId, List<Map<String, String>> expectation) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(38));
+        assertThat(logic.getRules().size(), is(40));
     }
 }
