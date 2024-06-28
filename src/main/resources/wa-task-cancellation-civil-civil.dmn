@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.16.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -734,6 +734,30 @@
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_06eh2a5">
+          <text>"RemoveHearing"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lcg4cs">
+        <description>"If a case is moved offline, then all "ClaimSettledRemoveHearing" tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0sbsnvd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cyljps">
+          <text>"CLOSED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cs4yhz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xs24vh">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wao9an">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xx7pt5">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_123znhe">
           <text>"RemoveHearing"</text>
         </outputEntry>
       </rule>
