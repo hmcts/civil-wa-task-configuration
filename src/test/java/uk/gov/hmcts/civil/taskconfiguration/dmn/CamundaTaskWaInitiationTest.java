@@ -1268,6 +1268,95 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "CASE_PROGRESSION",
+        "All_FINAL_ORDERS_ISSUED",
+    })
+    void when_final_order_issued_for_cui_claimant_and_defendant_bilingual(String stateName) {
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> respondentResponseLanguage = new HashMap<>();
+        respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
+
+        data.put("featureToggleWA", "CUI_CP");
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("respondent1LiPResponse", respondentResponseLanguage);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", stateName);
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CASE_PROGRESSION",
+        "All_FINAL_ORDERS_ISSUED",
+    })
+    void when_final_order_issued_for_cui_claimant_bilingual(String stateName) {
+
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("featureToggleWA", "CUI_CP");
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", stateName);
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CASE_PROGRESSION",
+        "All_FINAL_ORDERS_ISSUED",
+    })
+    void when_final_order_issued_for_cui_defendant_bilingual(String stateName) {
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> respondentResponseLanguage = new HashMap<>();
+        respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
+
+        data.put("featureToggleWA", "CUI_CP");
+        data.put("respondent1LiPResponse", respondentResponseLanguage);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", stateName);
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
     @Test
     void given_claim_is_settled_create_remove_hearing_task() {
         Map<String, Object> data = new HashMap<>();
