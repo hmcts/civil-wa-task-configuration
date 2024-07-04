@@ -211,7 +211,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CREATE_SDO");
         inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -1268,11 +1267,172 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "CASE_PROGRESSION",
+        "All_FINAL_ORDERS_ISSUED",
+    })
+    void when_final_order_issued_for_cui_claimant_and_defendant_bilingual(String stateName) {
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> respondentResponseLanguage = new HashMap<>();
+        respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
+
+        data.put("featureToggleWA", "CUI_CP");
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("respondent1LiPResponse", respondentResponseLanguage);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", stateName);
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CASE_PROGRESSION",
+        "All_FINAL_ORDERS_ISSUED",
+    })
+    void when_final_order_issued_for_cui_claimant_bilingual(String stateName) {
+
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("featureToggleWA", "CUI_CP");
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", stateName);
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CASE_PROGRESSION",
+        "All_FINAL_ORDERS_ISSUED",
+    })
+    void when_final_order_issued_for_cui_defendant_bilingual(String stateName) {
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> respondentResponseLanguage = new HashMap<>();
+        respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
+
+        data.put("featureToggleWA", "CUI_CP");
+        data.put("respondent1LiPResponse", respondentResponseLanguage);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", stateName);
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
+    void given_claim_is_settled_create_remove_hearing_task() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> caseData = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "SETTLE_CLAIM");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_SETTLED");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("ClaimSettledRemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+    }
+
+    @Test
+    void given_claim_is_settled_mark_paid_in_full_divergence_create_takeCaseOffline_task() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("markPaidForAllClaimants", false);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "SETTLE_CLAIM_MARK_PAID_FULL");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("ClaimSettledDivergenceTakeCaseOffline"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("paidInFull"));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("ClaimSettledDivergenceTakeCaseOffline"));
+    }
+
+
+    @Test
+    void given_claim_is_settled_mark_paid_in_full_create_remove_hearing_task() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "SETTLE_CLAIM_MARK_PAID_FULL");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CLOSED");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("ClaimSettledRemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+    }
+
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(218));
+        assertThat(logic.getRules().size(), is(222));
     }
 
     @Test
