@@ -926,7 +926,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
+        inputVariables.putValue("eventId", "GENERATE_RESPONSE_DQ_LIP_SEALED");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
 
