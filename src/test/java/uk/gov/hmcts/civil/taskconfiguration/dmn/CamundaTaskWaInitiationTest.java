@@ -1591,6 +1591,62 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void when_default_judgment_claim_value_over_25000_create_take_case_offline() {
+        //TODO : on release of multi intermediate feature, clean up test and DMN to remove
+        // current prod version of  summaryJudgmentDirections entry
+        // multiOrIntermediateClaim toggled summaryJudgmentDirections version will then be prod
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
+        data.put("claimValue", Map.of("statementOfValueInPennies", 2500001));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NOTIFY_INTERIM_JUDGMENT_DEFENDANT");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("summaryJudgmentDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("defaultJudgment"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Directions after Judgment (Damages)"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("transferCaseOffline"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("multiOrIntermediateClaim"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Transfer Case Offline"));
+    }
+
+    @Test
+    void when_default_judgment_claim_value_less_or_equal_25000_create_summary_judgment_directions() {
+        //TODO : on release of multi intermediate feature, clean up test and DMN to remove
+        // current prod version of  summaryJudgmentDirections entry
+        // multiOrIntermediateClaim toggled summaryJudgmentDirections version will then be prod
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
+        data.put("claimValue", Map.of("statementOfValueInPennies", 2500000));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NOTIFY_INTERIM_JUDGMENT_DEFENDANT");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("summaryJudgmentDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("defaultJudgment"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Directions after Judgment (Damages)"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("summaryJudgmentDirections"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("defaultJudgment"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Directions after Judgment (Damages)"));
+    }
+
+    @Test
     void retrigger5142() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
