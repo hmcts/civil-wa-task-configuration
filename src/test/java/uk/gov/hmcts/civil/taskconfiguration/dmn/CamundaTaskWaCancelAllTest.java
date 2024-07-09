@@ -1,51 +1,40 @@
 package uk.gov.hmcts.civil.taskconfiguration.dmn;
 
-import com.microsoft.applicationinsights.web.dependencies.apachecommons.io.IOUtils;
 import org.camunda.bpm.dmn.engine.DmnDecision;
-import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.DmnEngine;
 import org.camunda.bpm.dmn.engine.DmnEngineConfiguration;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableImpl;
 import org.camunda.bpm.dmn.engine.impl.DmnDecisionTableRuleImpl;
-import org.camunda.bpm.engine.variable.VariableMap;
-import org.camunda.bpm.engine.variable.impl.VariableMapImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.platform.commons.util.StringUtils;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable.WA_TASK_CANCELLATION_CIVIL_DAMAGES;
 import static uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable.WA_TASK_INITIATION_CIVIL_DAMAGES;
 
 class CamundaTaskWaCancelAllTest {
 
-    private static DmnEngine dmnEngine;
+    private static final int initiateProcessCategoryIndex = 3;
+    private static final int cancelEventIndex = 1;
+    private static final int cancelActionIndex = 0;
+    private static final int cancelProcessCategoryIndex = 3;
+    private static final String cancelActionName = "\"Cancel\"";
+
     private static DmnDecision cancelDecision;
     private static DmnDecision initiateDecision;
 
     @BeforeAll
     static void setUp() {
-        dmnEngine = DmnEngineConfiguration
+        DmnEngine dmnEngine = DmnEngineConfiguration
             .createDefaultDmnEngineConfiguration()
             .buildEngine();
 
@@ -65,29 +54,35 @@ class CamundaTaskWaCancelAllTest {
      */
     @Test
     void caseProceedsInCaseMan_cancelAllTasks() {
-        int initiateProcessCategoryIndex = 3;
-        int cancelEventIndex = 1;
-        int cancelActionIndex = 0;
-        int cancelProcessCategoryIndex = 3;
-        String eventName = "\"CASE_PROCEEDS_IN_CASEMAN\"";
-        String cancelActionName = "\"Cancel\"";
+        assertEventCancelsEverything("\"CASE_PROCEEDS_IN_CASEMAN\"", Collections.emptySet());
+    }
 
-        Set<String> categoryIdentifiers = getProcessIdentifiers(initiateProcessCategoryIndex);
+    /**
+     * Asserts that eventName cancels all outstanding tasks in a claim, except for the process ids within noNeedToCancel.
+     *
+     * @param eventName      the event name
+     * @param noNeedToCancel process ids that don't require cancellation by eventName
+     */
+    private void assertEventCancelsEverything(String eventName, Collection<String> noNeedToCancel) {
+        Set<String> categoryIdentifiers = getProcessIdentifiers();
+        // if there are process identifiers that the event should not cancel, they are here
+        Optional.ofNullable(noNeedToCancel).ifPresent(categoryIdentifiers::removeAll);
 
-        categoryIdentifiers.removeAll(getCancelledProcessIdentifiers(cancelEventIndex,
-                                                                     cancelActionIndex,
-                                                                     cancelProcessCategoryIndex,
-                                                                     eventName,
-                                                                     cancelActionName));
+        categoryIdentifiers.removeAll(getCancelledProcessIdentifiers(eventName));
 
         Assertions.assertTrue(categoryIdentifiers.isEmpty());
     }
 
-    private static Set<String> getCancelledProcessIdentifiers(int cancelEventIndex,
-                                                              int cancelActionIndex,
-                                                              int cancelProcessCategoryIndex,
-                                                              String eventName,
-                                                              String cancelActionName) {
+    /**
+     * Cancellation dmn states several tasks that should be cancelled by certain events.
+     * This method considers that we should always check for individual process identifiers, because leaving that
+     * field to empty cancels everything. Should we do that, then the creator of a new process identifier
+     * has no indication that the identifier is going to be cancelled by eventName.
+     *
+     * @param eventName name of a ccd-definition event
+     * @return set of process identifiers cancelled by the event
+     */
+    private static Set<String> getCancelledProcessIdentifiers(String eventName) {
         Set<String> cancelled = new HashSet<>();
         DmnDecisionTableImpl cancelLogic = (DmnDecisionTableImpl) cancelDecision.getDecisionLogic();
         Assertions.assertEquals("Event", cancelLogic.getInputs()
@@ -108,7 +103,12 @@ class CamundaTaskWaCancelAllTest {
         return cancelled;
     }
 
-    private static Set<String> getProcessIdentifiers(int initiateProcessCategoryIndex) {
+    /**
+     * Gets the process identifiers used by the initiation dmn.
+     *
+     * @return different process ids in the initiation dmn.
+     */
+    private static Set<String> getProcessIdentifiers() {
         DmnDecisionTableImpl initiateLogic = (DmnDecisionTableImpl) initiateDecision.getDecisionLogic();
         Assertions.assertEquals("Process Categories Identifiers", initiateLogic.getOutputs()
             .get(initiateProcessCategoryIndex).getName());
