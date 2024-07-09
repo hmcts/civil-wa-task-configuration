@@ -58,7 +58,8 @@ class CamundaTaskWaCancelAllTest {
     }
 
     /**
-     * Asserts that eventName cancels all outstanding tasks in a claim, except for the process ids within noNeedToCancel.
+     * Asserts that eventName cancels all outstanding tasks in a claim,
+     * except for the process ids within noNeedToCancel.
      *
      * @param eventName      the event name
      * @param noNeedToCancel process ids that don't require cancellation by eventName
