@@ -57,6 +57,11 @@ class CamundaTaskWaCancelAllTest {
         assertEventCancelsEverything("\"CASE_PROCEEDS_IN_CASEMAN\"", Collections.emptySet());
     }
 
+    @Test
+    void caseProceedsInHeritageSystem_cancelAllTasks() {
+        assertEventCancelsEverything("\"PROCEEDS_IN_HERITAGE_SYSTEM\"", Collections.emptySet());
+    }
+
     /**
      * Asserts that eventName cancels all outstanding tasks in a claim,
      * except for the process ids within noNeedToCancel.
