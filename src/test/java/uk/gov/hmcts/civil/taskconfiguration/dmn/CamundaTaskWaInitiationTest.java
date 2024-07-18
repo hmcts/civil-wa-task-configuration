@@ -1427,12 +1427,73 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "CASE_PROGRESSION",
+        "HEARING_READINESS",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING",
+        "DECISION_OUTCOME",
+        "ALL_FINAL_ORDERS_ISSUED",
+    })
+    void when_transfer_online_event_create_take_offline_task_if_eaCourt_false(String state) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", "false");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", state);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("OnlineCaseTransferReceived"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Online Case Transfer Received"));
+
+        assertThat(workTypeResultList.get(1).get("taskId"), is("transferCaseOffline"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("NationalRollout"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Transfer Case Offline"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CASE_PROGRESSION",
+        "HEARING_READINESS",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING",
+        "DECISION_OUTCOME",
+        "ALL_FINAL_ORDERS_ISSUED",
+    })
+    void when_transfer_online_event_do_not_create_take_offline_task_if_eaCourt_true(String state) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("eaCourtLocation", "true");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", state);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("OnlineCaseTransferReceived"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("routineTransfer"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Online Case Transfer Received"));
+    }
 
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(222));
+        assertThat(logic.getRules().size(), is(227));
     }
 
     @Test
