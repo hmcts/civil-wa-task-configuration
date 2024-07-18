@@ -1535,8 +1535,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline"));
+                       .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline")
+        );
         assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
+    }
 
     @Test
     void retrigger5142() {
@@ -1591,6 +1593,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(227));
+        assertThat(logic.getRules().size(), is(228));
     }
 }
