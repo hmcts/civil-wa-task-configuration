@@ -980,7 +980,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource(value = {
         "ClaimDiscontinuedDivergenceTakeCaseOffline"
     })
-    void given_ClaimDiscontinuedDivergenceTakeCaseOffline_taskType_when_evaluate_dmn_then_returns_expected_rule(String taskType) {
+    void given_ClaimDiscontDivergenceTakeCaseOffline_taskType_when_evaluate_dmn_then_returns_perm(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
         inputVariables.putValue("caseData",Map.of("featureToggleWA", "SD"));

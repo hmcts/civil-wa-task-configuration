@@ -1797,7 +1797,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "true",
             "name", "description",
             "value", "[Claim Discontinued](/cases/case-details/${[CASE_REFERENCE]}"
-                +"/trigger/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"
+                + "/trigger/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"
         )));
     }
 
