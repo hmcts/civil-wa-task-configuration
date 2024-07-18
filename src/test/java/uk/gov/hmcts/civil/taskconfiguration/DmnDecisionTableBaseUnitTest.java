@@ -21,9 +21,15 @@ public abstract class DmnDecisionTableBaseUnitTest {
     protected DmnEngine dmnEngine;
     protected DmnDecision decision;
 
-    public static DmnDecision parseDecision(DmnEngine dmnEngine, DmnDecisionTable decisionTable) {
+    @BeforeEach
+    void setUp() {
+        dmnEngine = DmnEngineConfiguration
+            .createDefaultDmnEngineConfiguration()
+            .buildEngine();
+
+        // Parse decision
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStream = contextClassLoader.getResourceAsStream(decisionTable.getFileName());
+        InputStream inputStream = contextClassLoader.getResourceAsStream(CURRENT_DMN_DECISION_TABLE.getFileName());
         StringWriter writer = new StringWriter();
         try {
             IOUtils.copy(new InputStreamReader(inputStream), writer);
@@ -36,16 +42,8 @@ public abstract class DmnDecisionTableBaseUnitTest {
             // can't allow
             throw new RuntimeException(e);
         }
-        return dmnEngine.parseDecision(decisionTable.getKey(), inputStream);
-    }
+        decision = dmnEngine.parseDecision(CURRENT_DMN_DECISION_TABLE.getKey(), inputStream);
 
-    @BeforeEach
-    void setUp() {
-        dmnEngine = DmnEngineConfiguration
-            .createDefaultDmnEngineConfiguration()
-            .buildEngine();
-
-        decision = parseDecision(dmnEngine, CURRENT_DMN_DECISION_TABLE);
     }
 
     public DmnDecisionTableResult evaluateDmnTable(Map<String, Object> variables) {
