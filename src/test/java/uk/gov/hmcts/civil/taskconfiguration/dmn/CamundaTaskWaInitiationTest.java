@@ -1490,6 +1490,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
 
+    @Test
     void given_2v1_divergent_discontinuance_create_ClaimDiscontinuedDivergenceTakeCaseOffline() {
 
         Map<String, Object> data = new HashMap<>();
