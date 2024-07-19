@@ -113,6 +113,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "RemoveHearing"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "NationalRollout"
             )
         );
         return Stream.of(
@@ -176,6 +180,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "RemoveHearing"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "NationalRollout"
             )
         );
         return Stream.of(
@@ -251,6 +259,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "RemoveHearing"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "NationalRollout"
             )
         );
         return Stream.of(
@@ -426,6 +438,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "intentionToProceed"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "NationalRollout"
             )
         );
         return Stream.of(
@@ -463,6 +479,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(41));
+        assertThat(logic.getRules().size(), is(43));
     }
 }
