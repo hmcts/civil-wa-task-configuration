@@ -1543,12 +1543,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @Test
     void given_claim_is_discontinued_create_remove_hearing_task_non_divergent_case1() {
         Map<String, Object> data = new HashMap<>();
-        Map<String, Object> caseData = new HashMap<>();
         data.put("featureToggleWA", "SD");
         data.put("hearingDate", "22-12-2024");
         data.put("courtPermissionNeeded", "NO");
         data.put("isDiscontinuingAgainstBothDefendants", "YES");
         data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
