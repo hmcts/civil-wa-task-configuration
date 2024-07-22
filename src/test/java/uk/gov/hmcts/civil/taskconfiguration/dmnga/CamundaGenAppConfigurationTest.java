@@ -847,5 +847,63 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure","true"
         )));
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "HelpWithFeesApplicationFee", "HelpWithFeesAdditionalApplicationFee"
+    })
+    void when_taskId_returnsCtscRoleCategory(String taskTypeId) {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+        caseData.put("caseManagementLocation", Map.of(
+            "region", "4",
+            "baseLocation", "574546"
+
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            taskTypeId,
+            "dueDate","2023-03-22T16:00:00Z"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("dueDateIntervalDays"))
+            .collect(Collectors.toList());
+
+        List<Map<String, Object>> workTypeResultList1 = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("role_Category"))
+            .collect(Collectors.toList());
+
+        List<Map<String, Object>> workTypeResultList2 = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("worktype"))
+            .collect(Collectors.toList());
+
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "dueDateIntervalDays",
+            "value", "10",
+            "canReconfigure","false"
+        )));
+        assertTrue(workTypeResultList1.contains(Map.of(
+            "name", "role_Category",
+            "value", "CTSC",
+            "canReconfigure","false"
+        )));
+        assertTrue(workTypeResultList2.contains(Map.of(
+            "name", "worktype",
+            "value", "routine_work",
+            "canReconfigure","false"
+        )));
+    }
+
 }
 

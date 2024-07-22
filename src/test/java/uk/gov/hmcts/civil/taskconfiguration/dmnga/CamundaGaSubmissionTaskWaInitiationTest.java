@@ -3813,4 +3813,58 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
     }
+
+    @Test
+    void when_ga_lip_using_helpWithFee_duringInitiation() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppHelpWithFees", Map.of(
+            "helpWithFee", true
+        ));
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("postEventState", "AWAITING_APPLICATION_PAYMENT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("name"),
+                   is("Help With Fees Application Fee"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("HelpWithFeesApplicationFee"));
+    }
+
+    @Test
+    void when_ga_lip_using_helpWithFee_additionalfee() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppHelpWithFees", Map.of(
+            "helpWithFee", true
+        ));
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_JUDGE_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("postEventState", "APPLICATION_ADD_PAYMENT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("name"),
+                   is("Help With Fees Additional Application Fee"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("HelpWithFeesAdditionalApplicationFee"));
+    }
+
+
 }
