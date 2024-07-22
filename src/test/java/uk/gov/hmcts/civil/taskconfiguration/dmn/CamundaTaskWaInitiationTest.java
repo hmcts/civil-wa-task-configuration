@@ -1441,11 +1441,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("eaCourtLocation", "false");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
-
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", state);
+        inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -1568,12 +1567,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @Test
     void given_claim_is_discontinued_create_remove_hearing_task_non_divergent_case2() {
         Map<String, Object> data = new HashMap<>();
-        Map<String, Object> caseData = new HashMap<>();
         data.put("featureToggleWA", "SD");
         data.put("hearingDate", "22-12-2024");
         data.put("courtPermissionNeeded", "NO");
         data.put("selectedClaimantForDiscontinuance", "Both");
         data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
