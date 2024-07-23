@@ -51,12 +51,17 @@ class CamundaTaskWaCancelAllTest {
 
     /**
      * When a case proceeds in caseman, all outstanding tasks need to be cancelled.
+     * Please add a row in cancellation DMN if you have a new entry of a process identifier in Initiation DMN
      */
     @Test
     void caseProceedsInCaseMan_cancelAllTasks() {
         assertEventCancelsEverything("\"CASE_PROCEEDS_IN_CASEMAN\"", Collections.emptySet());
     }
 
+    /**
+     * When a case proceeds in heritage system , all outstanding tasks need to be cancelled.
+     * Please add a row in cancellation DMN if you have a new entry of a process identifier in Initiation DMN
+     */
     @Test
     void caseProceedsInHeritageSystem_cancelAllTasks() {
         assertEventCancelsEverything("\"PROCEEDS_IN_HERITAGE_SYSTEM\"", Collections.emptySet());

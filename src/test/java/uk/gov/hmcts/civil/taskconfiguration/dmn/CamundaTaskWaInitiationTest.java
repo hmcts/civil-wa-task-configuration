@@ -939,7 +939,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(0).get("taskId"), is("claimantWelshRequest"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
-
     @Test
     void given_input_should_return_review_case_flag_for_defendant_during_support_needs() {
         Map<String, Object> data = new HashMap<>();
@@ -965,7 +964,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("name"), is("Review Case Flags Defendant"));
     }
-
     @Test
     void given_input_should_return_review_claimant_welsh_request_decision_during_claimIssue() {
         Map<String, Object> data = new HashMap<>();
@@ -1515,11 +1513,56 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("name"), is("Online Case Transfer Received"));
     }
 
+
     @Test
-    void if_this_test_fails_needs_updating_with_your_changes() {
-        //The purpose of this test is to prevent adding new rows without being tested
-        DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(231));
+    void given_2v1_divergent_discontinuance_create_ClaimDiscontinuedDivergenceTakeCaseOffline() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("courtPermissionNeeded", "NO");
+        data.put("selectedClaimantForDiscontinuance", "Mr Joe");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
+    }
+
+    @Test
+    void given_1v2_divergent_discontinuance_create_ClaimDiscontinuedDivergenceTakeCaseOffline() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("courtPermissionNeeded", "NO");
+        data.put("isDiscontinuingAgainstBothDefendants", "NO");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline")
+        );
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
     }
 
     @Test
@@ -1569,5 +1612,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                     }));
             ;
         }
+    }
+
+    @Test
+    void if_this_test_fails_needs_updating_with_your_changes() {
+        //The purpose of this test is to prevent adding new rows without being tested
+        DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
+        assertThat(logic.getRules().size(), is(232));
     }
 }
