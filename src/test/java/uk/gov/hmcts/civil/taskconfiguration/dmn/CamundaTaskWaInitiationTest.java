@@ -939,6 +939,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(0).get("taskId"), is("claimantWelshRequest"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
+    
     @Test
     void given_input_should_return_review_case_flag_for_defendant_during_support_needs() {
         Map<String, Object> data = new HashMap<>();
@@ -964,6 +965,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("name"), is("Review Case Flags Defendant"));
     }
+
     @Test
     void given_input_should_return_review_claimant_welsh_request_decision_during_claimIssue() {
         Map<String, Object> data = new HashMap<>();
