@@ -183,10 +183,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ),
                     Map.of(
-                        "taskType", "ScheduleAHearing",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
                         "taskType", "UpdateDetailsInCasemanSystem",
                         "completionMode", "Auto"
                     ),
