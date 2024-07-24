@@ -404,8 +404,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioValidateDiscontinuation"})
-    void given_event_ids_should_evaluate_ValidateDiscontinuance_dmn(String eventId, List<Map<String, String>> expectation) {
-
+    void given_event_ids_should_evaluate_Discontinuance_dmn(String eventId, List<Map<String, String>> expectation) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
