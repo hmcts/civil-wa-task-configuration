@@ -941,6 +941,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_input_should_return_review_case_flag_for_defendant_during_support_needs() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("respondent1DQVulnerabilityQuestions", Map.of("vulnerabilityAdjustmentsRequired", true));
+        data.put("respondent1DQLanguage", Map.of("court", "BOTH"));
+        data.put("featureToggleWA", "CUIR2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
+        inputVariables.putValue("postEventState", "");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("ReviewCaseFlagsForDefendant"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Review Case Flags Defendant"));
+    }
+
+    @Test
     void given_input_should_return_review_claimant_welsh_request_decision_during_claimIssue() {
         Map<String, Object> data = new HashMap<>();
         data.put("claimantBilingualLanguagePreference", "BOTH");
@@ -1441,10 +1467,11 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("eaCourtLocation", "false");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
+
         VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", state);
-        inputVariables.putValue("eventId", "TRANSFER_ONLINE_CASE");
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -1541,54 +1568,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_claim_is_discontinued_create_remove_hearing_task_non_divergent_case1() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "SD");
-        data.put("hearingDate", "22-12-2024");
-        data.put("courtPermissionNeeded", "NO");
-        data.put("isDiscontinuingAgainstBothDefendants", "YES");
-        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
-        inputVariables.putValue("additionalData", caseData);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("ClaimDiscontinuedRemoveHearing"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
-    }
-
-    @Test
-    void given_claim_is_discontinued_create_remove_hearing_task_non_divergent_case2() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "SD");
-        data.put("hearingDate", "22-12-2024");
-        data.put("courtPermissionNeeded", "NO");
-        data.put("selectedClaimantForDiscontinuance", "Both");
-        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
-        inputVariables.putValue("additionalData", caseData);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("ClaimDiscontinuedRemoveHearing"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
-    }
-
-    @Test
     void retrigger5142() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
@@ -1641,6 +1620,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(229));
+        assertThat(logic.getRules().size(), is(232));
     }
 }
