@@ -51,10 +51,6 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ),
                     Map.of(
-                        "taskType", "HelpWithFeesAdditionalApplicationFee",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
                         "completionMode", "Auto"
                     ))),
                 Arguments.of(
@@ -111,10 +107,80 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ))),
             Arguments.of(
-                "INITIATE_GENERAL_APPLICATION",
+                "FULL_REMISSION_HWF_GA",
                 asList(
                     Map.of(
                         "taskType", "HelpWithFeesApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesAdditionalApplicationFee",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "NO_REMISSION_HWF_GA",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesAdditionalApplicationFee",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "MORE_INFORMATION_HWF_GA",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesAdditionalApplicationFee",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "UPDATE_HELP_WITH_FEE_NUMBER_GA",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesAdditionalApplicationFee",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "PARTIAL_REMISSION_HWF_GA",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesAdditionalApplicationFee",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "INVALID_HWF_REFERENCE_GA",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesAdditionalApplicationFee",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "FEE_PAYMENT_OUTCOME_GA",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesAdditionalApplicationFee",
                         "completionMode", "Auto"
                     )))
         );
