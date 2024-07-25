@@ -183,15 +183,15 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ),
                     Map.of(
-                        "taskType", "ScheduleAHearing",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
                         "taskType", "UpdateDetailsInCasemanSystem",
                         "completionMode", "Auto"
                     ),
                     Map.of(
                         "taskType", "ClaimSettledRemoveHearing",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "ClaimDiscontinuedRemoveHearing",
                         "completionMode", "Auto"
                     )
                 )
@@ -302,6 +302,21 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> scenarioValidateDiscontinuation() {
+
+        return Stream.of(
+            Arguments.of(
+                "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT",
+                asList(
+                    Map.of(
+                        "taskType", "ValidateDiscontinuance",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProvider"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
@@ -385,6 +400,15 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     @MethodSource({"scenarioSettleClaimPaidInFull"})
     void given_event_ids_should_evaluate_SettleClPaidFull_dmn(String eventId, List<Map<String, String>> expectation) {
 
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioValidateDiscontinuation"})
+    void given_event_ids_should_evaluate_Discontinuance_dmn(String eventId, List<Map<String, String>> expectation) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
