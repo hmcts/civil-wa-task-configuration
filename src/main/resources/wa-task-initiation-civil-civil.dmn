@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.20.0">
   <decision id="wa-task-initiation-civil-civil" name="Civil Task initiation DMN">
     <decisionTable id="DecisionTable_0jtevuc" hitPolicy="COLLECT" biodi:annotationsWidth="400">
       <input id="Input_1" label="Event Id" biodi:width="259" camunda:inputVariable="eventId">
@@ -587,44 +587,44 @@ else
       </input>
       <input id="InputClause_0j2n0e1" label="Discontinuance Task Type" camunda:inputVariable="discontinuanceTaskType">
         <inputExpression id="LiteralExpression_0vfy6y7" typeRef="string">
-          <text>if(additionalData !=null 
+          <text>if(additionalData !=null
 and additionalData.Data != null
 and additionalData.Data.courtPermissionNeeded!= null
-and additionalData.Data.courtPermissionNeeded="YES") 
-then 
+and additionalData.Data.courtPermissionNeeded="YES")
+then
 "VERIFY_COURT_PERMISSION"
 else if(additionalData != null
 and additionalData.Data != null
 and additionalData.Data.selectedClaimantForDiscontinuance!= null
-and additionalData.Data.selectedClaimantForDiscontinuance!="Both" 
+and additionalData.Data.selectedClaimantForDiscontinuance!="Both"
 and additionalData.Data.courtPermissionNeeded!= null
 and additionalData.Data.courtPermissionNeeded="NO"
 and additionalData.Data.typeOfDiscontinuance!=null
 and additionalData.Data.typeOfDiscontinuance="FULL_DISCONTINUANCE")
-then 
+then
 "TAKE_OFFLINE"
 else if(additionalData != null
-and additionalData.Data != null 
+and additionalData.Data != null
 and additionalData.Data.isDiscontinuingAgainstBothDefendants!= null
 and additionalData.Data.isDiscontinuingAgainstBothDefendants="NO"
 and additionalData.Data.courtPermissionNeeded!= null
 and additionalData.Data.courtPermissionNeeded="NO"
 and additionalData.Data.typeOfDiscontinuance!=null
 and additionalData.Data.typeOfDiscontinuance ="FULL_DISCONTINUANCE")
-then 
+then
 "TAKE_OFFLINE"
 else if(additionalData != null
 and additionalData.Data != null
 and ((additionalData.Data.selectedClaimantForDiscontinuance != null
 and additionalData.Data.selectedClaimantForDiscontinuance="Both") or
-(additionalData.Data.selectedClaimantForDiscontinuance = null)) 
+(additionalData.Data.selectedClaimantForDiscontinuance = null))
 and additionalData.Data.courtPermissionNeeded!= null
 and additionalData.Data.courtPermissionNeeded="NO"
 and additionalData.Data.typeOfDiscontinuance!=null
-and additionalData.Data.typeOfDiscontinuance ="FULL_DISCONTINUANCE") 
-then 
+and additionalData.Data.typeOfDiscontinuance ="FULL_DISCONTINUANCE")
+then
 "REMOVE_HEARING"
-else if (additionalData != null and additionalData.Data != null 
+else if (additionalData != null and additionalData.Data != null
 and ((additionalData.Data.isDiscontinuingAgainstBothDefendants!= null
 and additionalData.Data.isDiscontinuingAgainstBothDefendants="YES") or
 (additionalData.Data.isDiscontinuingAgainstBothDefendants = null))
@@ -632,14 +632,14 @@ and additionalData.Data.courtPermissionNeeded!= null
 and additionalData.Data.courtPermissionNeeded="NO"
 and additionalData.Data.typeOfDiscontinuance!=null
 and additionalData.Data.typeOfDiscontinuance ="FULL_DISCONTINUANCE")
-then 
+then
 "REMOVE_HEARING"
-else 
+else
 null</text>
         </inputExpression>
       </input>
       <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="368" />
-      <output id="OutputClause_0p5fhhd" label="Name" name="name" typeRef="string" biodi:width="308" />
+      <output id="OutputClause_0p5fhhd" label="Name" name="name" typeRef="string" biodi:width="416" />
       <output id="OutputClause_165p3r3" label="Delay Until" name="delayUntil" typeRef="json" biodi:width="232" />
       <output id="OutputClause_10rno4c" label="Process Categories Identifiers" name="processCategories" typeRef="string" biodi:width="268" />
       <rule id="DecisionRule_0v94m45">
@@ -27016,10 +27016,10 @@ null</text>
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0h8up47">
-          <text>"LegalAdvisorSmallClaimsTrackDirections"</text>
+          <text>"SmallClaimsTrackDirections"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1tfadsf">
-          <text>"Legal Advisor Small Claims Track Directions"</text>
+          <text>"Small Claims Track Directions"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_09q4kui">
           <text></text>
