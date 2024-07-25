@@ -164,6 +164,18 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "ClaimSettledDivergenceTakeCaseOffline",
                 "taskTypeName", "Claim Settled Divergence - Take Case Offline"
+            ),
+            Map.of(
+                "taskTypeId", "ClaimDiscontinuedDivergenceTakeCaseOffline",
+                "taskTypeName", "Claim Discontinued Divergence - Take Case Offline"
+            ),
+            Map.of(
+                "taskTypeId", "ClaimDiscontinuedRemoveHearing",
+                "taskTypeName", "Claim Discontinued - Remove Hearing"
+            ),
+            Map.of(
+                "taskTypeId", "ValidateDiscontinuance",
+                "taskTypeName", "Claim Discontinued - Validate Discontinuance"
             )
         );
 
@@ -181,7 +193,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(32));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(35));
     }
 
 }
