@@ -3826,7 +3826,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("eventId", "NOTIFY_HELP_WITH_FEE");
         inputVariables.putValue("postEventState", "AWAITING_APPLICATION_PAYMENT");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -3852,7 +3852,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_JUDGE_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("eventId", "NOTIFY_HELP_WITH_FEE");
         inputVariables.putValue("postEventState", "APPLICATION_ADD_PAYMENT");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
