@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.15.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -929,6 +929,30 @@
           <text>"NationalRollout"</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0gnyjtg">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1w7nejm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fo66oc">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16o8wtv">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1so7frg">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ufedhv">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ksie3o">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_171emfs">
+          <text>"multiOrIntermediateClaim"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0pbd4fk">
         <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
         <inputEntry id="UnaryTests_0tlbqei">
@@ -1073,6 +1097,30 @@
           <text>"discontinued"</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_13ur8xo">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1m9adha">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_140tdwm">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0j7p5iw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kdbl8t">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mi0wp2">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ty8ip5">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1s2jj64">
+          <text>"discontinued"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0j9v9yj">
         <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
         <inputEntry id="UnaryTests_0fc3yfy">
@@ -1094,7 +1142,7 @@
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0klqcjt">
-          <text>"discontinued"</text>
+          <text>"multiOrIntermediateClaim"</text>
         </outputEntry>
       </rule>
     </decisionTable>
