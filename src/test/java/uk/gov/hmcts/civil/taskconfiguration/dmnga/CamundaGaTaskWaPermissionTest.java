@@ -431,4 +431,30 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             )
         )));
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee"
+    })
+    void given_taskType_when_evaluate_dmn_it_returns_expected_rule(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "autoAssignable", false,
+                "name", "task-supervisor",
+                "value", "Read,Manage,Unassign,Assign,Cancel"
+            ),
+            Map.of(
+                "name", "ctsc-team-leader",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "CTSC",
+                "assignmentPriority",1,
+                "autoAssignable", false
+            )
+        )));
+    }
+
 }

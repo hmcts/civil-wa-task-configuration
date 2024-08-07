@@ -1591,6 +1591,62 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void when_default_judgment_claim_value_over_25000_create_take_case_offline() {
+        //TODO : on release of multi intermediate feature, clean up test and DMN to remove
+        // current prod version of  summaryJudgmentDirections entry
+        // multiOrIntermediateClaim toggled summaryJudgmentDirections version will then be prod
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
+        data.put("claimValue", Map.of("statementOfValueInPennies", 2500001));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NOTIFY_INTERIM_JUDGMENT_DEFENDANT");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("summaryJudgmentDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("defaultJudgment"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Directions after Judgment (Damages)"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("transferCaseOffline"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("multiOrIntermediateClaim"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Transfer Case Offline"));
+    }
+
+    @Test
+    void when_default_judgment_claim_value_less_or_equal_25000_create_summary_judgment_directions() {
+        //TODO : on release of multi intermediate feature, clean up test and DMN to remove
+        // current prod version of  summaryJudgmentDirections entry
+        // multiOrIntermediateClaim toggled summaryJudgmentDirections version will then be prod
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
+        data.put("claimValue", Map.of("statementOfValueInPennies", 2500000));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NOTIFY_INTERIM_JUDGMENT_DEFENDANT");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("summaryJudgmentDirections"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("defaultJudgment"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Directions after Judgment (Damages)"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("summaryJudgmentDirections"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("defaultJudgment"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Directions after Judgment (Damages)"));
+    }
+
+    @Test
     void retrigger5142() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
@@ -1640,9 +1696,136 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_2v1_divergent_validate_discontinuance_create_ClaimDiscontinuedDivergenceTakeCaseOffline() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("selectedClaimantForDiscontinuance", "Mr Joe");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
+    }
+
+    @Test
+    void given_1v2_divergent_validate_discontinuance_create_ClaimDiscontinuedDivergenceTakeCaseOffline() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("isDiscontinuingAgainstBothDefendants", "NO");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline")
+        );
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
+    }
+
+    @Test
+    void given_1v2_claim_is_discontinued_create_remove_hearing_task_non_divergent_case() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                .get(0).get("taskId"), is("ClaimDiscontinuedRemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+    }
+
+    @Test
+    void given_2v1_claim_is_validate_discontinued_create_remove_hearing_task_non_divergent_case() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("selectedClaimantForDiscontinuance", "Both");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                .get(0).get("taskId"), is("ClaimDiscontinuedRemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+    }
+
+    @Test
+    void given_1v1_claim_is_validate_discontinued_create_remove_hearing_task() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                .get(0).get("taskId"), is("ClaimDiscontinuedRemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+    }
+
+    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(243));
+        assertThat(logic.getRules().size(), is(247));
     }
 }
