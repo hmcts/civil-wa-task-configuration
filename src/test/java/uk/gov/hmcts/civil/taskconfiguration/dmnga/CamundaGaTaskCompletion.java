@@ -107,18 +107,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ))),
             Arguments.of(
-                "FULL_REMISSION_HWF_GA",
-                asList(
-                    Map.of(
-                        "taskType", "HelpWithFeesApplicationFee",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "taskType", "HelpWithFeesAdditionalApplicationFee",
-                        "completionMode", "Auto"
-                    ))),
-            Arguments.of(
-                "NO_REMISSION_HWF_GA",
+                "INITIATE_GENERAL_APPLICATION_AFTER_PAYMENT",
                 asList(
                     Map.of(
                         "taskType", "HelpWithFeesApplicationFee",
