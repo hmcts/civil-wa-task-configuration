@@ -302,6 +302,67 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> scenarioHelpWithFeeEvent() {
+
+        return Stream.of(
+            Arguments.of(
+                "MORE_INFORMATION_HWF",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesHearingFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesClaimIssue",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "UPDATE_HELP_WITH_FEE_NUMBER",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesHearingFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesClaimIssue",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "PARTIAL_REMISSION_HWF_GRANTED",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesHearingFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesClaimIssue",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "INVALID_HWF_REFERENCE",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesHearingFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesClaimIssue",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "FEE_PAYMENT_OUTCOME",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesHearingFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesClaimIssue",
+                        "completionMode", "Auto"
+                    )))
+        );
+    }
+
     static Stream<Arguments> scenarioValidateDiscontinuation() {
 
         return Stream.of(
@@ -415,11 +476,21 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
     }
 
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioHelpWithFeeEvent"})
+    void given_event_ids_should_evaluate_hwf_dmn(String eventId, List<Map<String, String>> expectation) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(42));
+        assertThat(logic.getRules().size(), is(44));
     }
 }
