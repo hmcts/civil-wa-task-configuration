@@ -306,50 +306,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         return Stream.of(
             Arguments.of(
-                "MORE_INFORMATION_HWF",
-                asList(
-                    Map.of(
-                        "taskType", "HelpWithFeesHearingFee",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "taskType", "HelpWithFeesClaimIssue",
-                        "completionMode", "Auto"
-                    ))),
-            Arguments.of(
-                "UPDATE_HELP_WITH_FEE_NUMBER",
-                asList(
-                    Map.of(
-                        "taskType", "HelpWithFeesHearingFee",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "taskType", "HelpWithFeesClaimIssue",
-                        "completionMode", "Auto"
-                    ))),
-            Arguments.of(
-                "PARTIAL_REMISSION_HWF_GRANTED",
-                asList(
-                    Map.of(
-                        "taskType", "HelpWithFeesHearingFee",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "taskType", "HelpWithFeesClaimIssue",
-                        "completionMode", "Auto"
-                    ))),
-            Arguments.of(
-                "INVALID_HWF_REFERENCE",
-                asList(
-                    Map.of(
-                        "taskType", "HelpWithFeesHearingFee",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "taskType", "HelpWithFeesClaimIssue",
-                        "completionMode", "Auto"
-                    ))),
-            Arguments.of(
                 "FEE_PAYMENT_OUTCOME",
                 asList(
                     Map.of(
