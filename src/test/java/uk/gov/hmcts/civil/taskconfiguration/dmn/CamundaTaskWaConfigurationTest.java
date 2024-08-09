@@ -2077,7 +2077,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "name",
             "description",
             "value",
-            "[Amend and re-stitch bundle](/cases/case-details/${[CASE_REFERENCE]}/trigger/AMEND_RESTITCH_BUNDLE/AMEND_RESTITCH_BUNDLERestitchBundle)"
+            "[Amend and re-stitch bundle](/cases/case-details/${[CASE_REFERENCE]}" +
+                "/trigger/AMEND_RESTITCH_BUNDLE/AMEND_RESTITCH_BUNDLERestitchBundle)"
         )));
     }
 
