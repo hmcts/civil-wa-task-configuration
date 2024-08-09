@@ -317,6 +317,21 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> bundlefailedAmendandRestich() {
+
+        return Stream.of(
+            Arguments.of(
+                "CREATE_BUNDLE",
+                asList(
+                    Map.of(
+                        "taskType", "bundlefailedAmendandRestich",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProvider"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
@@ -409,6 +424,15 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioValidateDiscontinuation"})
     void given_event_ids_should_evaluate_Discontinuance_dmn(String eventId, List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"bundlefailedAmendandRestich"})
+    void given_event_ids_should_evaluate_bundle_restitch_dmn(String eventId, List<Map<String, String>> expectation) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
