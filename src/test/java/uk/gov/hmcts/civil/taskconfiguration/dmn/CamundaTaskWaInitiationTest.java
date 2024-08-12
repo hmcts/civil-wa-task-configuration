@@ -1825,6 +1825,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @Test
     void given_input_should_return_create_bundle() {
         Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE");
         data.put("bundleError", true);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
