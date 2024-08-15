@@ -183,13 +183,59 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         );
     }
 
+    public static Stream<Arguments> scenarioProviderCaseAfterPaymentCancel() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "applicationFee"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "AWAITING_APPLICATION_PAYMENT", "END_BUSINESS_PROCESS_GASPEC",
+                "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION",
+                outcome
+            ),
+            Arguments.of(
+                "AWAITING_APPLICATION_PAYMENT", "END_BUSINESS_PROCESS_GASPEC",
+                "AWAITING_RESPONDENT_RESPONSE",
+                outcome
+            ),
+            Arguments.of(
+                "APPLICATION_ADD_PAYMENT", "MODIFY_STATE_AFTER_ADDITIONAL_FEE_PAID",
+                "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION",
+                outcome
+            ),
+            Arguments.of(
+                "APPLICATION_ADD_PAYMENT", "MODIFY_STATE_AFTER_ADDITIONAL_FEE_PAID",
+                "AWAITING_RESPONDENT_RESPONSE",
+                outcome
+            )
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("scenarioProviderCaseAfterPaymentCancel")
+    void given_multiple_event_ids_should_evaluate_dmn_for_hwf_cancel(String fromState,
+                                                                     String eventId, String state,
+                                                                     List<Map<String, Object>> expectedDmnOutcome) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("fromState", fromState);
+        inputVariables.putValue("state", state);
+        inputVariables.putValue("event", eventId);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertThat(dmnDecisionTableResult.getResultList(), is(expectedDmnOutcome));
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(4));
+        assertThat(logic.getRules().size(), is(8));
     }
 
 
