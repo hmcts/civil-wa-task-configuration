@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
-  <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.18.0">
+  <decision id="wa-task-completion-civil-civil" name="Civil Task completion DMN">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
         <inputExpression id="LiteralExpression_1ngg4891" typeRef="string">
@@ -511,16 +511,39 @@
           <text>"Auto"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1ty2mky">
-        <description>This Task is completed once the CW has moved any documents that caused ‘Create bundle’ event to fail, or that are not required in the bundle into ‘Unbundled folder’ in CFV and successfully completed the ‘Amend and restich bundle’ event and bundle has been created/re-stitched
-</description>
-        <inputEntry id="UnaryTests_0jxcqvr">
+      <rule id="DecisionRule_09fe167">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1sxgri6">
+          <text>"FEE_PAYMENT_OUTCOME"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0poc2j4">
+          <text>"HelpWithFeesHearingFee"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hscqmn">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_053oxjx">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0dxn022">
+          <text>"FEE_PAYMENT_OUTCOME"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lnsje8">
+          <text>"HelpWithFeesClaimIssue"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0277a2i">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ki7ah5">
+        <description>This Task is completed once the CW has moved any documents that caused ‘Create bundle’ event to fail, or that are not required in the bundle into ‘Unbundled folder’ in CFV and successfully completed the ‘Amend and restich bundle’ event and bundle has been created/re-stitched</description>
+        <inputEntry id="UnaryTests_19x9a3q">
           <text>"CREATE_BUNDLE"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1ipu2r3">
+        <outputEntry id="LiteralExpression_1b4ixe2">
           <text>"bundlefailedAmendandRestich"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1ojzrie">
+        <outputEntry id="LiteralExpression_1sgpsk8">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
