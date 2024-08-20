@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.20.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -59,7 +59,7 @@ null</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1jh2uw31">
-          <text>not("ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant")</text>
+          <text>not("ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant","manualDetermination")</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0hlpex41">
           <text>"region"</text>
@@ -79,7 +79,7 @@ null</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_02nrv5x">
-          <text>"ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant"</text>
+          <text>"ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant","manualDetermination"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_02oohsw">
           <text>"region"</text>
@@ -141,7 +141,7 @@ null</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0wxfevsa">
-          <text>not("ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant")</text>
+          <text>not("ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant","manualDetermination")</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0etwrk31">
           <text>"location"</text>
@@ -162,7 +162,7 @@ else "1"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0zo64gr">
-          <text>"ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant"</text>
+          <text>"ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant","manualDetermination"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1j6jad8">
           <text>"location"</text>
@@ -182,7 +182,7 @@ else "1"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1u21xrsa">
-          <text>not("ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant")</text>
+          <text>not("ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant","manualDetermination")</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0kun6mva">
           <text>"locationName"</text>
@@ -202,7 +202,7 @@ else "1"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0xkcapo">
-          <text>"ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant"</text>
+          <text>"ReviewCaseFlagsForClaimant","ReviewCaseFlagsForDefendant","manualDetermination"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_09sktvd">
           <text>"locationName"</text>
@@ -1920,7 +1920,7 @@ else ""</text>
           <text>"JO"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0mer9b4">
-          <text>"OrderToSetAsideDefendedClaim","JudgmentOnlineSetAsideTakeCaseOffline"</text>
+          <text>"OrderToSetAsideDefendedClaim"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_08944tt">
           <text>"majorPriority"</text>
@@ -2229,66 +2229,6 @@ else ""</text>
           <text>"[Validate Discontinuance](/cases/case-details/${[CASE_REFERENCE]}/trigger/VALIDATE_DISCONTINUE_CLAIM_CLAIMANT/VALIDATE_DISCONTINUE_CLAIM_CLAIMANT)"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1l8df8g">
-          <text>true</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1886t6k">
-        <inputEntry id="UnaryTests_0xjnuuo">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_16j91oo">
-          <text>"JO"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_07lw876">
-          <text>"JudgmentOnlineSetAsideTakeCaseOffline"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1tnz8vp">
-          <text>"workType"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0mlevsa">
-          <text>"routine_work"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0oldcid">
-          <text>true</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1sdsgva">
-        <inputEntry id="UnaryTests_0hikef3">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0xeixdc">
-          <text>"JO"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_16y10hn">
-          <text>"JudgmentOnlineSetAsideTakeCaseOffline"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_120jd9p">
-          <text>"roleCategory"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0lblqry">
-          <text>"CTSC"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_19ik9qa">
-          <text>true</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1lk3r1m">
-        <inputEntry id="UnaryTests_10nh1zs">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0k9lnhw">
-          <text>"JO"</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0yzy9o1">
-          <text>"JudgmentOnlineSetAsideTakeCaseOffline"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_12qvzv9">
-          <text>"description"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1ayw9c9">
-          <text>"[SetAside - Take Case Offline](/cases/case-details/${[CASE_REFERENCE]}/trigger/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1kizwb8">
           <text>true</text>
         </outputEntry>
       </rule>
