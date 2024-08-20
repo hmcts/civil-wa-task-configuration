@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0">
   <decision id="wa-task-initiation-civil-generalapplication" name="Civil GA Task initiation DMN">
     <decisionTable id="DecisionTable_141h4ty" hitPolicy="COLLECT">
       <input id="Input_1" label="Event Id" camunda:inputVariable="eventId">
@@ -89,6 +89,11 @@ else false</text>
           <text>if(additionalData.Data.generalAppHelpWithFees != null and  additionalData.Data.generalAppHelpWithFees .helpWithFee = true ) then true else false</text>
         </inputExpression>
       </input>
+      <input id="InputClause_0tnvwsn" label="isApplicantOrRespondentLip">
+        <inputExpression id="LiteralExpression_1msk58d" typeRef="string">
+          <text>if((additionalData.Data.isGaApplicantLip != null and  additionalData.Data.isGaApplicantLip = true) or (additionalData.Data.isGaRespondentOneLip != null and  additionalData.Data.isGaRespondentOneLip = true) ) then true else false</text>
+        </inputExpression>
+      </input>
       <output id="Output_1" label="Task Id" name="taskId" typeRef="string" biodi:width="150" />
       <output id="OutputClause_07cuas3" label="Name" name="name" typeRef="string" biodi:width="215" />
       <output id="OutputClause_00r3jrp" label="Delay Until" name="delayUntil" typeRef="json" />
@@ -131,6 +136,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0el12gk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_079ylb2">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_19k6yf0">
@@ -186,6 +194,9 @@ else false</text>
         <inputEntry id="UnaryTests_0d09xgb">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1bbxxx0">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0lv3arr">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -237,6 +248,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1p6pis5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_086udxz">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1rq2qff">
@@ -292,6 +306,9 @@ else false</text>
         <inputEntry id="UnaryTests_1b7hnv1">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1f5kxqu">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0jbf89t">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -343,6 +360,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jamc0h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yztqt2">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1clx2to">
@@ -398,6 +418,9 @@ else false</text>
         <inputEntry id="UnaryTests_00xhe6b">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1pxxav0">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0iw4uye">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -449,6 +472,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_08crk73">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y7n9us">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0fjn773">
@@ -504,6 +530,9 @@ else false</text>
         <inputEntry id="UnaryTests_05u0kyc">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_01l2scv">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1t5qz96">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -555,6 +584,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1omzgyj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tt9kxq">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1byj9oo">
@@ -610,6 +642,9 @@ else false</text>
         <inputEntry id="UnaryTests_0fkjg8w">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1n5ni5y">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0hgnh84">
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
@@ -661,6 +696,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_071f7ef">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13yf8gz">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0g39o9x">
@@ -716,6 +754,9 @@ else false</text>
         <inputEntry id="UnaryTests_18ynfco">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0z75m29">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_10ylebb">
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
@@ -767,6 +808,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_056xlbp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wzwgc0">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_06fmowc">
@@ -822,6 +866,9 @@ else false</text>
         <inputEntry id="UnaryTests_0uesagy">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1igwlbp">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0klcmvw">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -873,6 +920,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1313qb6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hhizty">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_13j65ad">
@@ -928,6 +978,9 @@ else false</text>
         <inputEntry id="UnaryTests_18npx7c">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1j0o3ax">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1k2c1lu">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -979,6 +1032,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1m9urth">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kl4r0e">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0smcpny">
@@ -1034,6 +1090,9 @@ else false</text>
         <inputEntry id="UnaryTests_0as1h8q">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_19tzejb">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_02hh205">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -1085,6 +1144,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0hxupd4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g9riym">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1cw3ab8">
@@ -1140,6 +1202,9 @@ else false</text>
         <inputEntry id="UnaryTests_08s1yth">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1g55y83">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_19ygkcm">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -1191,6 +1256,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_15gxe1w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f5q3xa">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_11k0m26">
@@ -1246,6 +1314,9 @@ else false</text>
         <inputEntry id="UnaryTests_0rsc8ti">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0ewmc6q">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1832dur">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -1297,6 +1368,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0tvhok6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wds5to">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1qbeiv9">
@@ -1352,6 +1426,9 @@ else false</text>
         <inputEntry id="UnaryTests_0els1jb">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0deha3k">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0xy959q">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -1403,6 +1480,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_133dlnu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0io1df3">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0r77rli">
@@ -1458,6 +1538,9 @@ else false</text>
         <inputEntry id="UnaryTests_0v1177k">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0odhr02">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_108nxx6">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -1509,6 +1592,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0c37514">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0turhcx">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0zy5qun">
@@ -1564,6 +1650,9 @@ else false</text>
         <inputEntry id="UnaryTests_00r628r">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_098vxvt">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0sla9x7">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -1615,6 +1704,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1i4lgh1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d2phcv">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1cc672h">
@@ -1670,6 +1762,9 @@ else false</text>
         <inputEntry id="UnaryTests_0btc6mw">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1grr2io">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1mv0jm6">
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
@@ -1721,6 +1816,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_19029wb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_102bx2e">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ap44ze">
@@ -1776,6 +1874,9 @@ else false</text>
         <inputEntry id="UnaryTests_1agx9om">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0cjck81">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_064ppc7">
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
@@ -1827,6 +1928,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1khd7rk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e6623p">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1koynfj">
@@ -1882,6 +1986,9 @@ else false</text>
         <inputEntry id="UnaryTests_1hd6q2w">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1whof05">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1fg0agz">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -1933,6 +2040,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1diol99">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14djo69">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0gp4qc3">
@@ -1988,6 +2098,9 @@ else false</text>
         <inputEntry id="UnaryTests_0p8dymg">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1h3omfg">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_11xxo5d">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -2039,6 +2152,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ox4wwh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fqjrhb">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_09t9pw2">
@@ -2094,6 +2210,9 @@ else false</text>
         <inputEntry id="UnaryTests_06mhnab">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_19rr5ya">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1hkkm5m">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -2145,6 +2264,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1cb3urk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iha59h">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_127dhuz">
@@ -2200,6 +2322,9 @@ else false</text>
         <inputEntry id="UnaryTests_0rsqicd">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_07dae0z">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_00ezgsr">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -2251,6 +2376,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1vqcpgr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jqs8s9">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_043uk1e">
@@ -2306,6 +2434,9 @@ else false</text>
         <inputEntry id="UnaryTests_13a32vt">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1ibrt8w">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0jyofem">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -2357,6 +2488,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0wawlme">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g2vnco">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0cteh7i">
@@ -2412,6 +2546,9 @@ else false</text>
         <inputEntry id="UnaryTests_196bpcb">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0shf9po">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0r0daim">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -2463,6 +2600,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1u74jfb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l7lapq">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ldczpl">
@@ -2518,6 +2658,9 @@ else false</text>
         <inputEntry id="UnaryTests_0c1d8hx">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0kfyxw9">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0cnvgpl">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -2569,6 +2712,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1enhm2y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09qze5k">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1i1ddux">
@@ -2624,6 +2770,9 @@ else false</text>
         <inputEntry id="UnaryTests_0hpkl1u">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1fjh31r">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1feliu1">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -2675,6 +2824,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ytsnfk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0noeqfz">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ms199v">
@@ -2730,6 +2882,9 @@ else false</text>
         <inputEntry id="UnaryTests_1eo9ka2">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1i8q3gx">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_069vfzg">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -2781,6 +2936,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ujuhcy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13na8o2">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_13idhzk">
@@ -2836,6 +2994,9 @@ else false</text>
         <inputEntry id="UnaryTests_0kcku3w">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0fs4zpf">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0qwh860">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -2887,6 +3048,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0c02cn3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00bhgk9">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0m0vm39">
@@ -2942,6 +3106,9 @@ else false</text>
         <inputEntry id="UnaryTests_0leilsu">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1pk8tus">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1r8iytb">
           <text>"LegalAdvisorDecideOnApplication"</text>
         </outputEntry>
@@ -2993,6 +3160,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jjh87r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sak3f4">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_09q89pi">
@@ -3048,6 +3218,9 @@ else false</text>
         <inputEntry id="UnaryTests_17bdtv3">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0cvg52v">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1wmcw3v">
           <text>"LegalAdvisorDecideOnApplication"</text>
         </outputEntry>
@@ -3099,6 +3272,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1a3eqfw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11e6cyl">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ky5b35">
@@ -3154,6 +3330,9 @@ else false</text>
         <inputEntry id="UnaryTests_132jtab">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1fj0act">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0oy665s">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -3205,6 +3384,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_00naysc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d26paq">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1xoskn0">
@@ -3260,6 +3442,9 @@ else false</text>
         <inputEntry id="UnaryTests_04c7ngl">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1do6pmq">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1aaoz3m">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -3311,6 +3496,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1295dbt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tpjs7d">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_07iwblv">
@@ -3366,6 +3554,9 @@ else false</text>
         <inputEntry id="UnaryTests_098k5s8">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0wt8z9h">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_01uoy28">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -3417,6 +3608,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1qhw2kv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17cvh6t">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0i71pnn">
@@ -3472,6 +3666,9 @@ else false</text>
         <inputEntry id="UnaryTests_0zt3oe9">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_03zkbaj">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0wmsan1">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -3523,6 +3720,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_08qvttg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mv556m">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1kioqvw">
@@ -3578,6 +3778,9 @@ else false</text>
         <inputEntry id="UnaryTests_0lsiz3e">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0thqe1t">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0te1zjf">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -3588,6 +3791,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_060ems1">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dck7ik">
+        <inputEntry id="UnaryTests_0hnl7cf">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04wtm9v">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gw4ocw">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xv8igc">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d18f73">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02vx41v">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e9hcgb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xtoocq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1todjzl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11yhsld">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12dy7ce">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qxgxxy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l9t72c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mau4zc">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ivl5a2">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18tpjte">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1b7owlg">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ucws2d">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0w39u9r">
+        <inputEntry id="UnaryTests_1a19s3i">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11xjsor">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_195fhpi">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rwjelv">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wxjbah">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02hqyr3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n0josk">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18x56l6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jr8bov">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f7pxcj">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f0ku50">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mo09z3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07rs9ad">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cti3sh">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1afuzcm">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kqbxfo">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0d1z77e">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yjrvrv">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -3631,6 +3946,9 @@ else false</text>
         <inputEntry id="UnaryTests_1trqf99">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1x63qw0">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0tmzw1g">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -3641,6 +3959,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0vnpvta">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ls2sla">
+        <inputEntry id="UnaryTests_0wcnome">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nid4bk">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uz8rad">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ueg3te">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0356cga">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s7af3q">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cr0emy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nfanfw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0993fqk">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fdt0tu">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o0w40m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bzsc0q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0txbm1t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10inv7c">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_100my7r">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12knt9v">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bgd981">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0n415lz">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14z81bl">
+        <inputEntry id="UnaryTests_0ev3e1n">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zdg3xf">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_052sh26">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02sk731">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qqlnyf">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ugmv4z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14zvqy6">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h7l31p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f46pq6">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tzvg9a">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00crxf3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tnfpz2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fyw5w1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17x7qfq">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vha8e0">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0q8tneo">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06gis8m">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wmk05f">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -3682,6 +4112,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ksryw4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gflsvf">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0mszdwe">
@@ -3737,6 +4170,9 @@ else false</text>
         <inputEntry id="UnaryTests_02yyl7q">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0yuz9pp">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_19zbnqx">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -3790,6 +4226,9 @@ else false</text>
         <inputEntry id="UnaryTests_0ahg7zq">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1wz83uo">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0p2v2k2">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -3800,6 +4239,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1be6vjw">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0k5mrky">
+        <inputEntry id="UnaryTests_0bgrv5q">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e5oe07">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0knh1nh">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qcxx18">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jp0aqj">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vvll66">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jdzopb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mfm1ml">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gfbaak">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vt7j1a">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dql2bu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0imno1k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jqfdn9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n5gzli">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0aqbozx">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1590mhw">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qc4xx7">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ypefjy">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tjxe8r">
+        <inputEntry id="UnaryTests_0u2njyw">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rkgjv8">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06rzcyc">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_166qkwm">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hd958u">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t9w85h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lhloqq">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z3mwfb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i14lfe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bx1kpp">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u5xi6n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bwza6c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nc22i5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kfaf4j">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0e4sfkf">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xiz7po">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11ugy5c">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p5p1q4">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -3843,6 +4394,9 @@ else false</text>
         <inputEntry id="UnaryTests_01w03dw">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_190ymfm">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1007g3g">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -3853,6 +4407,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0b72p8l">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mxtwbp">
+        <inputEntry id="UnaryTests_0bf78vd">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11gmcm5">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hsaoes">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1maa9gx">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gz4k7j">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14tpm9l">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18b1olr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1365f7e">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nh1lxh">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_197abt9">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08uqjt7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wvwaxh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08gccnr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03ep7oz">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0az3itz">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0x8wgxu">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1c60r7z">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13jalo2">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1a0mf7y">
+        <inputEntry id="UnaryTests_1wwuk8n">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kty4ed">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12sz72y">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cztwv9">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fr4yih">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gl5dwn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fog320">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1powcxr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sbqdwj">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19kpqig">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l5dv0h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1frb3z3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ql2tn9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a6zvh2">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qcgnzy">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hajzm5">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mgk0h5">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1l5y72r">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -3894,6 +4560,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1e2wura">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tmllc0">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0jl7frc">
@@ -3949,6 +4618,9 @@ else false</text>
         <inputEntry id="UnaryTests_1hrt1he">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0yqurcm">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0d93t0k">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -4002,6 +4674,9 @@ else false</text>
         <inputEntry id="UnaryTests_0j6xs7r">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_018dp4e">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1bikefj">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4012,6 +4687,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_07vrac7">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nelccm">
+        <inputEntry id="UnaryTests_1jxfgtu">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rmn7ab">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vomfe7">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u8a1tv">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lx61s5">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11m9jxg">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1iegopz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xaejqg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ca1pm0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tx9cpe">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b3fgxr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_075qlqe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_103w8q7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_057375e">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1e14o9g">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ozt0ki">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1j9vnjs">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ap37iv">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09qk9b7">
+        <inputEntry id="UnaryTests_0pi7vl7">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tixmap">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1onoqgp">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l3421w">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18rrxh1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pb9a7n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1frjj5s">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_167ogfs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pjw0l7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vq5yrb">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_185rdq8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zo1m2q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12boet5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_011534s">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rou781">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_090kr9t">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15ruy6w">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17jssz3">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4055,6 +4842,9 @@ else false</text>
         <inputEntry id="UnaryTests_145n0u1">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0d8rxcv">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0zsfgic">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4065,6 +4855,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0kfyozj">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i4f9nv">
+        <inputEntry id="UnaryTests_04fjpyq">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z2d6pq">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17v3kvg">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yczjip">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tjrxqy">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zz9zfq">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1iuz8gl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ct40e5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_018zaeh">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w59vfq">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jbmvgy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07dathc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g7d0q6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xt15kf">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07ij4vh">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1o8flt5">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19lki40">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_187srpf">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1twt0wf">
+        <inputEntry id="UnaryTests_11v5mni">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10xxtdg">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16eszvf">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s98qkq">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yteksk">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cx2gru">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1itqhc9">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xovy1g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gqa26r">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vkfhbj">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17bafrs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jj5qe5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vqb1c3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a4uo13">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0t9b9br">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1um8tlj">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ilyc4s">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_191ntkv">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4106,6 +5008,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1jnodcs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vh03qk">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1gtsatt">
@@ -4161,6 +5066,9 @@ else false</text>
         <inputEntry id="UnaryTests_19zjlhy">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1l1epo9">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0uzal2z">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -4214,6 +5122,9 @@ else false</text>
         <inputEntry id="UnaryTests_1pf8aju">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_169pspn">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0y57ij9">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4224,6 +5135,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1pud1yq">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qa3jat">
+        <inputEntry id="UnaryTests_01x0rfp">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jmybri">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01suzqv">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eiswyn">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ork8x5">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uuavqh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nb09ej">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j92e20">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k8zgf1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mg69uq">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q8upis">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gdjz8s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ik3f0n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hg6uwy">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0asjxet">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ma7bpy">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cugqp5">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ucckcx">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kbywdy">
+        <inputEntry id="UnaryTests_00y2j0f">
+          <text>"CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07uk5f4">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vnrfas">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tvkfh2">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02pb7uc">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ssid53">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12aoz81">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g7cpvo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nkxmvd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a2drsp">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16vfoow">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u7k32z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hotbxe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14lrz8a">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g8a555">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03g3d07">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k09jo3">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0glo3tx">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4267,6 +5290,9 @@ else false</text>
         <inputEntry id="UnaryTests_10ffn9c">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0hb0wk2">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_02bn8g7">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4277,6 +5303,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_00clf7p">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1oekl1j">
+        <inputEntry id="UnaryTests_03ak7ef">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xlm7ag">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vprisp">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06sqrc4">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gs3mgd">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xm9g5u">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rpie6q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mt6ne7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07oox83">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0htwixg">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fafzu8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mkluk0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16f5qls">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wwgnkf">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05qh63u">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19m82we">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gs5h85">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14if9v5">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1l1x57u">
+        <inputEntry id="UnaryTests_0bqi6lp">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02m2g0g">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yca8b9">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hhx84f">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i8qipu">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0why2zl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_052mqqm">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_157lpv6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12ongpv">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0izsbk0">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1igjpfc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04xz9iv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lqqyli">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11o4h4d">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g4fjb2">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kxnwa8">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pt8xbr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0l7ok1p">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4318,6 +5456,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_11l5f21">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nddx94">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1mdch03">
@@ -4373,6 +5514,9 @@ else false</text>
         <inputEntry id="UnaryTests_1wjl3wi">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_065pmhs">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0xigm8x">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -4426,6 +5570,9 @@ else false</text>
         <inputEntry id="UnaryTests_14ge2pl">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0l80tel">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0mb866c">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4436,6 +5583,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_16gxx1a">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mbf4qd">
+        <inputEntry id="UnaryTests_0743d7q">
+          <text>"TRIGGER_LOCATION_UPDATE","CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07r9nd8">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d43zu4">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gy7uoe">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_048a0pq">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06kwqyk">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q0klnk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07u5fmx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10lnkou">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mhsve8">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w2rxwv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wcv6p4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xmkdma">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rooccj">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ptxzs8">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18luutz">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fksxvg">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ke6ht7">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07v55hn">
+        <inputEntry id="UnaryTests_0y41m0f">
+          <text>"TRIGGER_LOCATION_UPDATE","CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ncjves">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y13e1n">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t72ous">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vrcnoi">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1921e42">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gbt85d">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ul4zkd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wfmvjd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14qkl37">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06u72qm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jdlmur">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ukcjev">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nkv5l4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ymuzea">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fk40jg">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jwgbzv">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18yr506">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4479,6 +5738,9 @@ else false</text>
         <inputEntry id="UnaryTests_1jwdbgl">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0xdgt33">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0odxurq">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4489,6 +5751,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0hncsse">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1n3n1wk">
+        <inputEntry id="UnaryTests_15miyb5">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02b08fz">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fgomn8">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tbb8l6">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17mvmp5">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05oa387">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rsbmnn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vqnebf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v8725x">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1chaix8">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0te7aug">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cg99px">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g1l4z9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wfyqn3">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d0rg01">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nvhaka">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15ibf61">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ko7m2x">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rc5e13">
+        <inputEntry id="UnaryTests_0sgli6l">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y7nxla">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rryz4s">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i84czp">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ocf5lm">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09zz9vc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ezwrkr">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rpu0y1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o8dsv2">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_043lv9v">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vz9unw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_181l75f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06c5n70">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ge7j56">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1l9bfpd">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0re0unj">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0frjg5h">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1crka48">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4530,6 +5904,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1pmdn7y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ltaurk">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0rsrvso">
@@ -4585,6 +5962,9 @@ else false</text>
         <inputEntry id="UnaryTests_154z9u0">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_049u3n5">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0u90tvp">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -4638,6 +6018,9 @@ else false</text>
         <inputEntry id="UnaryTests_1803lph">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_18qstbk">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1dq85yt">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4648,6 +6031,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1v51l9b">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10fq9rf">
+        <inputEntry id="UnaryTests_0fugyas">
+          <text>"TRIGGER_LOCATION_UPDATE","CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1virpr3">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07qnaq4">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_052jgyx">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jsui2n">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kf5q49">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f6gqby">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xa5j6e">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oiiiv8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cai71y">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yc8fmk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sseguf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bal091">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cc3sxy">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0b3bzs1">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lksf6l">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fnbqxa">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jkct41">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0abygdk">
+        <inputEntry id="UnaryTests_19nqcbc">
+          <text>"TRIGGER_LOCATION_UPDATE","CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fxzeer">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09bsuje">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0no9x55">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19k108u">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jr2gms">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jaloqe">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0unmqch">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fovh44">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07muuvw">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ciaojc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jwc4ed">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1beonra">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0roh9op">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0e0jx54">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17xf126">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17v5o4a">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jedbrr">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4691,6 +6186,9 @@ else false</text>
         <inputEntry id="UnaryTests_0muijbo">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1n5bt2w">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1n3my54">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4701,6 +6199,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1da6p0g">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xg64h8">
+        <inputEntry id="UnaryTests_18t7gev">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ete8a7">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kxsyqo">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wxwb6z">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kio5w1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uil5wo">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cxj7qy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05bedrt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08blqbi">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_174l3i2">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13djvot">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tvol1j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tkza86">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q367qd">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1n5ehfz">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1uc5pdm">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0q8etuj">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lhwvq9">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03l40k2">
+        <inputEntry id="UnaryTests_0r00yhf">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13yfnah">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uennkh">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vvc9gb">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ls7fqo">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jcnr75">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rwzrhm">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sgwm6v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07e0vf2">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lvbcfy">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19cm3mv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0abxbq2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zc0yzw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ci8j8t">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xc1lwo">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16qkq4r">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qe27vb">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lg9w62">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4742,6 +6352,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1by3n6p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zlyu4b">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1wy3l4c">
@@ -4797,6 +6410,9 @@ else false</text>
         <inputEntry id="UnaryTests_1gvxzsb">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0luue7p">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1trowqe">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -4850,6 +6466,9 @@ else false</text>
         <inputEntry id="UnaryTests_0igl9ew">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_18tezzn">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_12pa3g8">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4860,6 +6479,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1n9kv8m">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14vycjh">
+        <inputEntry id="UnaryTests_1lscgx1">
+          <text>"TRIGGER_LOCATION_UPDATE","CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ee7ymd">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03720s6">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11v2es2">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03qr6vd">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tm90ik">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h46be0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m6ou2t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hqwlnb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s9v7e1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nsp2lb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vkd8ti">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uygey7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sev3gn">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fu5i29">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0uyhlrt">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11uje2i">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11ozlkq">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12c3tlo">
+        <inputEntry id="UnaryTests_14rlzv1">
+          <text>"TRIGGER_LOCATION_UPDATE","CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g5q5op">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x4qyti">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gf1arz">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l57c6q">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dbv00j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hz5pba">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i2w9vq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jr1455">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jcd8ow">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12t4y21">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p5mb3w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q2v70e">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10h9x1y">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_036yegl">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1g07bwf">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12ce993">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mh47pf">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4903,6 +6634,9 @@ else false</text>
         <inputEntry id="UnaryTests_0dg15p2">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0fratz3">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_00v55ls">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -4913,6 +6647,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0977v4t">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1m4qt1x">
+        <inputEntry id="UnaryTests_094hfck">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xg05mb">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_153c89l">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12xtmmn">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yqszxw">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fpx8yb">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g3erd9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hxfnx1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07l06y1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1b6s94y">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16xzgvd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15i9iwl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0adueas">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pkoaie">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1d2q9k8">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11o84wb">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0f2haiq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ams9go">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kyw0xe">
+        <inputEntry id="UnaryTests_1nl9kxk">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fn3t9g">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hwtkh0">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h77z8h">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03nrwxd">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ec7k3p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qi1esr">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ybou3d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08ll7zj">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05qaf6i">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10odrn3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00qvgsa">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1beziid">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_191awbq">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tw1x3u">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09gy7r3">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ud4u25">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tshh7m">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -4954,6 +6800,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1srg0h1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08n09qo">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0j2hgsw">
@@ -5009,6 +6858,9 @@ else false</text>
         <inputEntry id="UnaryTests_1fdvrvf">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1110lvt">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1lthigc">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -5062,6 +6914,9 @@ else false</text>
         <inputEntry id="UnaryTests_00z2vl4">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0yormmz">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0zk5cmd">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -5072,6 +6927,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0xzg3g0">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1c5qwqn">
+        <inputEntry id="UnaryTests_1yfit2u">
+          <text>"TRIGGER_LOCATION_UPDATE","CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ih6njl">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cyuzbe">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_123ujiq">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ydp2oq">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_067432c">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1naqpnm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m21m9a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jg5vw9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ewj4mi">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fyx8oj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bilhwl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06kr0cs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05tykg6">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gfg9vd">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i4n9lo">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tt5onr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vazka0">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04kogsq">
+        <inputEntry id="UnaryTests_1j4ba6r">
+          <text>"TRIGGER_LOCATION_UPDATE","CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ugmqvc">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_090r80c">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17d1kvq">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_121hiou">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qc3h46">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16mqjfm">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_097jpg7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0juqe0j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1k9yv2l">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lzg32r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_028ufom">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uqp3ya">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0asenbu">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1767gkc">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cplo4e">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18yr41w">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lbbrs9">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -5115,6 +7082,9 @@ else false</text>
         <inputEntry id="UnaryTests_1d6tyq4">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_09chuox">
+          <text>false</text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0ajgcan">
           <text>"ReviewApplication"</text>
         </outputEntry>
@@ -5125,6 +7095,118 @@ else false</text>
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1st2jsv">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oaq4te">
+        <inputEntry id="UnaryTests_12ayj1n">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ax4g56">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k5pgk1">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1guox5a">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cbc9so">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sclpdb">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jq7ddh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_030frn1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ybl94z">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p19r2j">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qqylgz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16zl770">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02nss9u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u7qj6k">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d4ibgv">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09qrl1p">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qih6dn">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bo1bnv">
+          <text>"generalApplications"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pjtebr">
+        <inputEntry id="UnaryTests_12a4nwv">
+          <text>"END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kozuwd">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k4n1xh">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ql22qy">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05x7az3">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00nprn9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cduq7e">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q2r12q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0plu29b">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v956c5">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gddqwf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pj35dk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1apsd34">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0780ccr">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1quig41">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05vpbr0">
+          <text>"Application for multiple types"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wdfvsy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rmwc1u">
           <text>"generalApplications"</text>
         </outputEntry>
       </rule>
@@ -5166,6 +7248,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1hz2s6y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wmnti9">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0eslkqu">
@@ -5221,6 +7306,9 @@ else false</text>
         <inputEntry id="UnaryTests_05hv1pa">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_03z5aoe">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0hlikf4">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -5272,6 +7360,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_01s41s0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1aisb9d">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0x2y7kj">
@@ -5327,6 +7418,9 @@ else false</text>
         <inputEntry id="UnaryTests_14slvne">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1hgdtp4">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1pe1zwc">
           <text>"ReviewRevisitedApplication"</text>
         </outputEntry>
@@ -5378,6 +7472,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0zyhduv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ocrzmw">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ltsgio">
@@ -5433,6 +7530,9 @@ else false</text>
         <inputEntry id="UnaryTests_1lnd99o">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0uo9638">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0hj40u8">
           <text>"ReviewRevisitedApplication"</text>
         </outputEntry>
@@ -5484,6 +7584,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0uffg9u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09wf0p3">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0r80us6">
@@ -5539,6 +7642,9 @@ else false</text>
         <inputEntry id="UnaryTests_0ornrps">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0kmg340">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_18a87d5">
           <text>"ReviewRevisitedApplication"</text>
         </outputEntry>
@@ -5590,6 +7696,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_01hsu57">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jjxput">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0b0wu9w">
@@ -5645,6 +7754,9 @@ else false</text>
         <inputEntry id="UnaryTests_11r3mdx">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1bebbd6">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0qjtnd9">
           <text>"ReviewRevisitedApplication"</text>
         </outputEntry>
@@ -5696,6 +7808,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0xww905">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uvt8pn">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ebwxnh">
@@ -5751,6 +7866,9 @@ else false</text>
         <inputEntry id="UnaryTests_1vmat91">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0tsn23y">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1gybrb2">
           <text>"ScheduleApplicationHearing"</text>
         </outputEntry>
@@ -5802,6 +7920,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1760xez">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0buf1tg">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0xi5g57">
@@ -5857,6 +7978,9 @@ else false</text>
         <inputEntry id="UnaryTests_15e14uv">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1vqut5r">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1axlw74">
           <text>"ScheduleApplicationHearing"</text>
         </outputEntry>
@@ -5908,6 +8032,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_03h2v1r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10i8gfq">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1fkozd2">
@@ -5963,6 +8090,9 @@ else false</text>
         <inputEntry id="UnaryTests_0j0arm3">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_10cc81a">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0y95srd">
           <text>"ReviewApplicationOrder"</text>
         </outputEntry>
@@ -6014,6 +8144,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0a4w2qj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wmsxii">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0xygfmn">
@@ -6069,6 +8202,9 @@ else false</text>
         <inputEntry id="UnaryTests_0ww1omi">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0yph52g">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0wuv0kw">
           <text>"ReviewApplicationOrder"</text>
         </outputEntry>
@@ -6120,6 +8256,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_09iypcj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zx9ehe">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_18du2tv">
@@ -6175,6 +8314,9 @@ else false</text>
         <inputEntry id="UnaryTests_04h9m7p">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_167nsme">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0pcz0gq">
           <text>"ReviewStayTheClaimApplicationOrder"</text>
         </outputEntry>
@@ -6226,6 +8368,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_12xjumg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19gmfl9">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0a6w1c9">
@@ -6281,6 +8426,9 @@ else false</text>
         <inputEntry id="UnaryTests_0es9j2t">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_02dkztp">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_02nzepj">
           <text>"ReviewStayTheClaimApplicationOrder"</text>
         </outputEntry>
@@ -6332,6 +8480,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1xhcpj8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gxphcg">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_08gwytv">
@@ -6387,6 +8538,9 @@ else false</text>
         <inputEntry id="UnaryTests_0g32bek">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0rp87eu">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1czofx7">
           <text>"ReviewUnlessOrderApplication"</text>
         </outputEntry>
@@ -6438,6 +8592,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1wsmegp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tn1rrr">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0vxpqbm">
@@ -6493,6 +8650,9 @@ else false</text>
         <inputEntry id="UnaryTests_0gw14vk">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1n3rsht">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1wzhh25">
           <text>"ReviewUnlessOrderApplication"</text>
         </outputEntry>
@@ -6544,6 +8704,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_04d3w8r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s5mg86">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0cepnl1">
@@ -6599,6 +8762,9 @@ else false</text>
         <inputEntry id="UnaryTests_0kvf25r">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_178dyqf">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1oo0i59">
           <text>"ReviewApplicationOrder"</text>
         </outputEntry>
@@ -6650,6 +8816,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_175vxzn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1emsuww">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0s358u8">
@@ -6705,6 +8874,9 @@ else false</text>
         <inputEntry id="UnaryTests_0qklar6">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_15arret">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1mwoifh">
           <text>"ReviewApplicationOrder"</text>
         </outputEntry>
@@ -6756,6 +8928,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1fvx3jd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1go0yzq">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0tmesym">
@@ -6811,6 +8986,9 @@ else false</text>
         <inputEntry id="UnaryTests_04yp4wh">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0rgwmha">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_09qcjno">
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
@@ -6862,6 +9040,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0gbgj4o">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uk9wpa">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_12puein">
@@ -6917,6 +9098,9 @@ else false</text>
         <inputEntry id="UnaryTests_0crvwos">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0xrxxzp">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_13u732w">
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
@@ -6968,6 +9152,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1yq6sdo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0chxed8">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1az2k75">
@@ -7023,6 +9210,9 @@ else false</text>
         <inputEntry id="UnaryTests_1v8taip">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1qodub5">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0rhqunc">
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
@@ -7074,6 +9264,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1i1zsfn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t0sctp">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1nynzrd">
@@ -7129,6 +9322,9 @@ else false</text>
         <inputEntry id="UnaryTests_0db1ruw">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_10dx67z">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1kwmler">
           <text>"JudgeDecideOnApplication"</text>
         </outputEntry>
@@ -7180,6 +9376,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_00fx0p0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dmtrl3">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1re6kjk">
@@ -7235,6 +9434,9 @@ else false</text>
         <inputEntry id="UnaryTests_1d9a4vv">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_16srr62">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0jk8ych">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -7286,6 +9488,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0zo4o2h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mc8nd5">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ur34qp">
@@ -7341,6 +9546,9 @@ else false</text>
         <inputEntry id="UnaryTests_0x52se4">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0l44mck">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0xrhqim">
           <text>"JudgeRevisitApplication"</text>
         </outputEntry>
@@ -7392,6 +9600,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1x5pfmd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h6m503">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1ww59bd">
@@ -7447,6 +9658,9 @@ else false</text>
         <inputEntry id="UnaryTests_1bqdg64">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0801v9f">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1ydeujr">
           <text>"LegalAdvisorDecideOnApplication"</text>
         </outputEntry>
@@ -7498,6 +9712,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0us59ol">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14e36yr">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_05luutp">
@@ -7553,6 +9770,9 @@ else false</text>
         <inputEntry id="UnaryTests_0i43hu5">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0qkg6ha">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1lo90sq">
           <text>"LegalAdvisorDecideOnApplication"</text>
         </outputEntry>
@@ -7604,6 +9824,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0f1o2sf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13vdluh">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0ocgpn4">
@@ -7661,6 +9884,9 @@ else false</text>
         <inputEntry id="UnaryTests_0h9xuqo">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0w4qxz3">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_109ics6">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -7716,6 +9942,9 @@ else false</text>
         <inputEntry id="UnaryTests_0jtgeiz">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0jf2w4b">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0ge467a">
           <text>"LegalAdvisorRevisitApplication"</text>
         </outputEntry>
@@ -7767,6 +9996,9 @@ else false</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1w3c6od">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pbouyk">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0kjclot">
@@ -7822,6 +10054,9 @@ else false</text>
         <inputEntry id="UnaryTests_10aec4z">
           <text>true</text>
         </inputEntry>
+        <inputEntry id="UnaryTests_16l8bjs">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1akt6kq">
           <text>"HelpWithFeesAdditionalApplicationFee"</text>
         </outputEntry>
@@ -7874,6 +10109,9 @@ else false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ourmwv">
           <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pm7aiz">
+          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0xddils">
           <text>"HelpWithFeesApplicationFee"</text>
