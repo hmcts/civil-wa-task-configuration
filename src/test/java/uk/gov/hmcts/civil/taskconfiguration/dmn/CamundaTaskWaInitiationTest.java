@@ -1823,7 +1823,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_set_aside_judgment_create_ClaimDiscontinuedDivergenceTakeCaseOffline() {
+    void given_set_aside_judgment_create_JudgmentOnlineSetAsideTakeCaseOffline() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "JO");
@@ -1833,7 +1833,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "SET_ASIDE_JUDGMENT");
-        inputVariables.putValue("postEventState", "ALL_FINAL_ORDERS_ISSUED");
+        inputVariables.putValue("postEventState", "All_FINAL_ORDERS_ISSUED");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
