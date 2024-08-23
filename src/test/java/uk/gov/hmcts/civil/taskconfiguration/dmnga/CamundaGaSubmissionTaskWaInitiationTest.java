@@ -848,7 +848,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
+            "types", asList("SET_ASIDE_JUDGEMENT","EXTEND_TIME")
         ));
         data.put("isGaRespondentOneLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -864,7 +864,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Application for multiple types"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
     @ParameterizedTest
@@ -882,7 +882,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT","EXTEND_TIME")
+            "types", asList("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -897,7 +897,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Application for multiple types"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
     @ParameterizedTest
