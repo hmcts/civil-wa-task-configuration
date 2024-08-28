@@ -838,7 +838,8 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         "END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION",
         "CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"
     })
-    void when_non_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location_lip_legal_advisor(String eventId) {
+    void when_non_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location_lip_legal_advisor(
+        String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
@@ -939,7 +940,8 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         "END_BUSINESS_PROCESS_GASPEC","RESPOND_TO_APPLICATION",
         "CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"
     })
-    void when_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location_lip_legal_advisor(String eventId) {
+    void when_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location_lip_legal_advisor(
+        String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
@@ -1116,7 +1118,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @CsvSource(value = {
         "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
     })
-    void when_change_state_to_addln_response_time_expired_urgent_multiple_consent_order_app_with_case_loc_local_court(
+    void when_change_state_to_addln_response_time_expired_urgent_mltple_consent_order_app_with_case_loc_local_court(
         String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
@@ -1154,7 +1156,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @CsvSource(value = {
         "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
     })
-    void when_change_state_to_addln_response_time_expired_urgent_multiple_consent_order_app_with_case_loc_local_court_lip(
+    void when_change_state_to_addln_response_time_expired_urgent_mltple_consent_order_app_with_case_loc_local_court_lip(
         String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
@@ -1579,7 +1581,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @CsvSource(value = {
         "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"
     })
-    void when_change_state_addln_response_nonurgent_multple_consent_order_app_with_case_ccmcc_location(
+    void when_change_state_addln_response_nonurgent_multple_consent_order_app_with_case_ccmcc_locatn(
         String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
@@ -1617,7 +1619,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @CsvSource(value = {
         "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"
     })
-    void when_change_state_addln_response_nonurgent_multple_consent_order_app_with_case_ccmcc_location_lip_judge(
+    void when_change_state_addln_response_nonurgent_multple_consent_order_app_with_case_ccmcc_locatn_lip_judge(
         String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
@@ -1656,7 +1658,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @CsvSource(value = {
         "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"
     })
-    void when_change_state_addln_response_nonurgent_multple_consent_order_app_with_case_ccmcc_location_lip_legal_advisor(
+    void when_change_state_addln_response_nonurgent_multple_consent_order_app_with_case_ccmcc_locatn_lip_legal_advisor(
         String eventId) {
 
         /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
