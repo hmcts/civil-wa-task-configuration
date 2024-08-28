@@ -1823,9 +1823,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_set_aside_judgment_create_JudgmentOnlineSetAsideTakeCaseOffline() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "JO");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "SET_ASIDE_JUDGMENT");
+        inputVariables.putValue("postEventState", "All_FINAL_ORDERS_ISSUED");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("JudgmentOnlineSetAsideTakeCaseOffline"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Set Aside - Take Case Offline"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("setAsideJo"));
+    }
+
+    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(247));
+        assertThat(logic.getRules().size(), is(249));
     }
 }
