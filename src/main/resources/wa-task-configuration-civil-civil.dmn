@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.20.0">
-  <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.18.0">
+  <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
         <inputExpression id="LiteralExpression_0mra7c41" typeRef="string">
@@ -1920,7 +1920,7 @@ else ""</text>
           <text>"JO"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0mer9b4">
-          <text>"OrderToSetAsideDefendedClaim"</text>
+          <text>"OrderToSetAsideDefendedClaim","JudgmentOnlineSetAsideTakeCaseOffline"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_08944tt">
           <text>"majorPriority"</text>
@@ -2232,83 +2232,143 @@ else ""</text>
           <text>true</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_052nnge">
-        <inputEntry id="UnaryTests_0v0bvau">
+      <rule id="DecisionRule_0n6oxup">
+        <inputEntry id="UnaryTests_0um1ccj">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1tnntaa">
-          <text></text>
+        <inputEntry id="UnaryTests_1fi5c7p">
+          <text>"JO"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1kg5i71">
-          <text>"bundlefailedAmendandRestich"</text>
+        <inputEntry id="UnaryTests_1duqjn0">
+          <text>"JudgmentOnlineSetAsideTakeCaseOffline"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0ya0173">
+        <outputEntry id="LiteralExpression_0coeriw">
           <text>"workType"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1l0f22f">
+        <outputEntry id="LiteralExpression_0loaayd">
           <text>"routine_work"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_15eet7p">
-          <text>false</text>
+        <outputEntry id="LiteralExpression_18x3x56">
+          <text>true</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0k32aew">
-        <inputEntry id="UnaryTests_188cwt6">
+      <rule id="DecisionRule_1f30kfk">
+        <inputEntry id="UnaryTests_03aypea">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0rs03zg">
-          <text></text>
+        <inputEntry id="UnaryTests_1ojrgf6">
+          <text>"JO"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0bqd2wk">
-          <text>"bundlefailedAmendandRestich"</text>
+        <inputEntry id="UnaryTests_13kwig8">
+          <text>"JudgmentOnlineSetAsideTakeCaseOffline"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_108fqkm">
+        <outputEntry id="LiteralExpression_1ulziud">
           <text>"roleCategory"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0300d7z">
-          <text>"ADMIN"</text>
+        <outputEntry id="LiteralExpression_0tez8ym">
+          <text>"CTSC"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0q0jx8p">
-          <text>false</text>
+        <outputEntry id="LiteralExpression_0kwih8d">
+          <text>true</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0nh0bsu">
-        <inputEntry id="UnaryTests_1c7pks1">
+      <rule id="DecisionRule_0maelmw">
+        <inputEntry id="UnaryTests_1uwu9gl">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0ip48h7">
-          <text></text>
+        <inputEntry id="UnaryTests_09s50m3">
+          <text>"JO"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0037qqn">
-          <text>"bundlefailedAmendandRestich"</text>
+        <inputEntry id="UnaryTests_1r3e6ai">
+          <text>"JudgmentOnlineSetAsideTakeCaseOffline"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1gplu1g">
+        <outputEntry id="LiteralExpression_1vy2f5w">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0580yhs">
-          <text>"[Amend and re-stitch bundle](/cases/case-details/${[CASE_REFERENCE]}/trigger/AMEND_RESTITCH_BUNDLE/AMEND_RESTITCH_BUNDLERestitchBundle)"	</text>
+        <outputEntry id="LiteralExpression_1dcnzrj">
+          <text>"[SetAside - Take Case Offline](/cases/case-details/${[CASE_REFERENCE]}/trigger/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_19otitj">
+        <outputEntry id="LiteralExpression_0s6as3m">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bb47hs">
+        <inputEntry id="UnaryTests_06idc89">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19ol63z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tnwshm">
+          <text>"bundlefailedAmendandRestich"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uuiokc">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19d1uir">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gyeddf">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1bz7e6w">
-        <inputEntry id="UnaryTests_1431leo">
+      <rule id="DecisionRule_1wc0s9e">
+        <inputEntry id="UnaryTests_1xrzm23">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1872a00">
+        <inputEntry id="UnaryTests_025kdv0">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0z86abq">
+        <inputEntry id="UnaryTests_1fpgd4t">
           <text>"bundlefailedAmendandRestich"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_106fvmp">
+        <outputEntry id="LiteralExpression_0sc0n12">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06isuil">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ljoemb">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0g38ahg">
+        <inputEntry id="UnaryTests_0hxm365">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fsvi6u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xx136o">
+          <text>"bundlefailedAmendandRestich"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lqfpms">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1j7fy6z">
+          <text>"[Amend and re-stitch bundle](/cases/case-details/${[CASE_REFERENCE]}/trigger/AMEND_RESTITCH_BUNDLE/AMEND_RESTITCH_BUNDLERestitchBundle)"	</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04patii">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cptzt2">
+        <inputEntry id="UnaryTests_1obq4m7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ibyska">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_193m3eu">
+          <text>"bundlefailedAmendandRestich"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p21w70">
           <text>"dueDateIntervalDays"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1io8e57">
+        <outputEntry id="LiteralExpression_08tk6ne">
           <text>5</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0i01n7d">
+        <outputEntry id="LiteralExpression_1ctss0l">
           <text>false</text>
         </outputEntry>
       </rule>

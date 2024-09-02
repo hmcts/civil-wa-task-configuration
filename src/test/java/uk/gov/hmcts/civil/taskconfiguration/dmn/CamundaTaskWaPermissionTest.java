@@ -1070,7 +1070,37 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @SuppressWarnings("checkstyle:indentation")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "JudgmentOnlineSetAsideTakeCaseOffline"
+    })
+    void given_JoSetAsideTakeCaseOffline_taskType_when_evaluate_dmn_then_return_expected_rule(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("caseData",Map.of("featureToggleWA", "JO"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "ctsc-team-leader",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "CTSC",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "ctsc",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "CTSC",
+                "autoAssignable", false
+            )
+        )));
+    }
+
     @ParameterizedTest
     @CsvSource(value = {
         "bundlefailedAmendandRestich"
@@ -1112,5 +1142,4 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             )
         )));
     }
-
 }
