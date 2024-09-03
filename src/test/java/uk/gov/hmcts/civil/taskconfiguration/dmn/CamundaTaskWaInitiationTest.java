@@ -1853,14 +1853,14 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_input_should_return_create_bundle() {
+    void given_input_should_return_asyncStitchingComplete() {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CE");
         data.put("bundleError", true);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CREATE_BUNDLE");
+        inputVariables.putValue("eventId", "asyncStitchingComplete");
         inputVariables.putValue("postEventState", "PREPARE_FOR_HEARING_CONDUCT_HEARING");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
