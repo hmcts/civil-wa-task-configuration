@@ -336,7 +336,7 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         return Stream.of(
             Arguments.of(
-                "CREATE_BUNDLE",
+                "AMEND_RESTITCH_BUNDLE",
                 asList(
                     Map.of(
                         "taskType", "bundlefailedAmendandRestich",
