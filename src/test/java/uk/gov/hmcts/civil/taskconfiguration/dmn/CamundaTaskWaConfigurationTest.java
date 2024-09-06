@@ -2093,6 +2093,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
         ));
+        caseData.put("featureToggleWA", "CE");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
