@@ -1849,6 +1849,26 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(249));
+        assertThat(logic.getRules().size(), is(250));
+    }
+
+    @Test
+    void given_input_should_return_asyncStitchingComplete() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE");
+        data.put("bundleError", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "asyncStitchingComplete");
+        inputVariables.putValue("postEventState", "PREPARE_FOR_HEARING_CONDUCT_HEARING");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Amend And Restitch Bundle"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("bundlefailedAmendandRestich"));
     }
 }
