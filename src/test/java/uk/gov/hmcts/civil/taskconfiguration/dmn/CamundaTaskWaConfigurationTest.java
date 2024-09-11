@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(110));
+        assertThat(logic.getRules().size(), is(114));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2068,6 +2068,58 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     private Map<String, String> configDecision(String name, String canReconfigure, String value) {
         return Map.of("name", name, "canReconfigure", canReconfigure, "value", value);
+    }
+
+    @Test
+    void when_taskId_then_return_routine_work_BundlefailedAmendAndRestich() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "CE");
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "bundlefailedAmendandRestich"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "false"
+        )));
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "ADMIN",
+            "canReconfigure", "false"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "5"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure",
+            "false",
+            "name",
+            "description",
+            "value",
+            "[Amend and re-stitch bundle](/cases/case-details/${[CASE_REFERENCE]}"
+                + "/trigger/AMEND_RESTITCH_BUNDLE/AMEND_RESTITCH_BUNDLERestitchBundle)"
+        )));
     }
 }
 
