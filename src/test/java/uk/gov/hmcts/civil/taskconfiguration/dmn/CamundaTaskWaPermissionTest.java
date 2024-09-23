@@ -25,7 +25,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     private static final Map<String, Serializable> taskSupervisor = Map.of(
         "autoAssignable", false,
         "name", "task-supervisor",
-        "value", "Read,Manage,Cancel,Unaxssign,Assign"
+        "value", "Read,Manage,Cancel,Unassign,Assign"
     );
 
     private static final Map<String, Serializable> judge = Map.of(
