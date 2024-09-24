@@ -823,10 +823,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @Test
     void when_manage_contact_information_created() {
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "MCI");
         Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "CONTACT_INFORMATION_UPDATED_WA");
