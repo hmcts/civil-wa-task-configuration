@@ -877,7 +877,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         Map<String, Object> data = new HashMap<>();
         data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "HMC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
@@ -898,7 +897,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         Map<String, Object> data = new HashMap<>();
         data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "HMC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
