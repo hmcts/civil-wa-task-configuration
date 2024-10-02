@@ -1850,7 +1850,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @Test
     void given_input_should_return_asyncStitchingComplete() {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "CE");
+        data.put("featureToggleWA", "CE_B1");
         data.put("bundleError", true);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
