@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
@@ -405,7 +406,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("transferCaseOfflineNotSuitableSDO"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+        assertNull(workTypeResultList.get(0).get("processCategories"));
     }
 
     @Test
@@ -611,7 +612,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("transferCaseOfflineNotSuitableSDO"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+        assertNull(workTypeResultList.get(0).get("processCategories"));
     }
 
     @Test
