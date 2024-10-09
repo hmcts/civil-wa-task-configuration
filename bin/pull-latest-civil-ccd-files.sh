@@ -11,12 +11,16 @@ git checkout ${branchName}
 cd ..
 
 #Clear previous files before we pull latest
-rm -rf e2e package.json yarn.lock codecept.conf.js
+rm -rf e2e playwright-e2e plugins package.json yarn.lock codecept.conf.js playwright.config.ts
 
 cp -r ./civil-ccd-definition/ccd-definition .
 cp -r ./civil-ccd-definition/e2e .
+cp -r ./civil-ccd-definition/playwright-e2e .
+cp -r ./civil-ccd-definition/plugins .
 cp -r ./civil-ccd-definition/package.json .
 cp -r ./civil-ccd-definition/yarn.lock .
 cp -r ./civil-ccd-definition/codecept.conf.js .
+cp -r ./civil-ccd-definition/playwright.config.ts .
+cp -r ./civil-ccd-definition/saucelabs.conf.js .
 echo *
 rm -rf ./civil-ccd-definition
