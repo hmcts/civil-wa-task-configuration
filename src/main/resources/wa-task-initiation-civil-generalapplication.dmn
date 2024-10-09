@@ -106,9 +106,9 @@ or (list contains(additionalData.Data.generalAppType.types, "SUMMARY_JUDGEMENT")
           <text>if(additionalData.Data.applicantBilingualLanguagePreference != null and additionalData.Data.applicantBilingualLanguagePreference = true) then true else false</text>
         </inputExpression>
       </input>
-      <input id="InputClause_1ljfpqt" label="Is applicant bilingual or with notice and respondent bilingual">
+      <input id="InputClause_1ljfpqt" label="Is applicant bilingual or uncloaked and respondent bilingual">
         <inputExpression id="LiteralExpression_0nt6llb" typeRef="boolean">
-          <text>if((additionalData.Data.applicantBilingualLanguagePreference != null and additionalData.Data.applicantBilingualLanguagePreference = true) or (additionalData.Data.respondentBilingualLanguagePreference != null and additionalData.Data.respondentBilingualLanguagePreference = true and additionalData.Data.generalAppInformOtherParty != null and additionalData.Data.generalAppInformOtherParty.isWithNotice != null and additionalData.Data.generalAppInformOtherParty.isWithNotice = "Yes")) then true else false</text>
+          <text>if((additionalData.Data.applicantBilingualLanguagePreference != null and additionalData.Data.applicantBilingualLanguagePreference = true) or (additionalData.Data.respondentBilingualLanguagePreference != null and additionalData.Data.respondentBilingualLanguagePreference = true and ((additionalData.Data.generalAppInformOtherParty != null and additionalData.Data.generalAppInformOtherParty.isWithNotice != null and additionalData.Data.generalAppInformOtherParty.isWithNotice = "Yes") or (additionalData.Data.applicationIsCloaked != null and additionalData.Data.applicationIsCloaked = false)))) then true else false</text>
         </inputExpression>
       </input>
       <input id="InputClause_0igu190" label="Is respondent response">
