@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.20.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -1191,6 +1191,78 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_0l72qbh">
           <text>"setAsideJo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04b9nwu">
+        <description>"When a case is stayed, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0x3kold">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vx5mb9">
+          <text>"STAY_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ivdmth">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bxppl3">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0likffk">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17e0xm9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1i39e8z">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cizvnf">
+        <description>"When a case is stayed, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1e0zelc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vedd4z">
+          <text>"STAY_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_008oskn">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15c00kj">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0g5pr68">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1i00yma">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10l7abd">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0trf9dy">
+        <description>"When a case is stayed, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_15yqe62">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nkkcg0">
+          <text>"STAY_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o34ewu">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wpqnul">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1c2fj6w">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01h4l5z">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_000pts1">
+          <text>"defaultJudgment"</text>
         </outputEntry>
       </rule>
     </decisionTable>
