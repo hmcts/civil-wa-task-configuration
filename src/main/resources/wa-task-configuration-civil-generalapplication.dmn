@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.20.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0">
   <decision id="wa-task-configuration-civil-generalapplication" name="Civil GA Task configuration DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_14cx079" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7f" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -26,7 +26,7 @@ null</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0naviny">
-          <text></text>
+          <text>not("applicationDocumentsWelshRequest")</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0k0b5ur">
           <text>"majorPriority"</text>
@@ -805,7 +805,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_14fvvgp">
-          <text>"HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee"</text>
+          <text>"HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee","applicationDocumentsWelshRequest"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1tn1njh">
           <text>"worktype"</text>
@@ -865,6 +865,74 @@ else ""</text>
           <text>"Help with fees"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_08pxclk">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03y55zt">
+        <inputEntry id="UnaryTests_1uuq5kb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1omgsd3">
+          <text>"applicationDocumentsWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yl0vqw">
+          <text>"majorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0aa9uux">
+          <text>"2000"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wlq6kg">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1g8l5yi">
+        <inputEntry id="UnaryTests_197fuk6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_179ysqp">
+          <text>"applicationDocumentsWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_199ahw4">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cbmu8p">
+          <text>"CTSC"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pp2xaa">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bgjlno">
+        <inputEntry id="UnaryTests_0fdpe52">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wc040l">
+          <text>"applicationDocumentsWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vw1gtj">
+          <text>"dueDateIntervalDays"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qttp9c">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15zgrv3">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05afx4m">
+        <inputEntry id="UnaryTests_196zxnv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sh2cnw">
+          <text>"applicationDocumentsWelshRequest"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1etjeaa">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1besh3x">
+          <text> "[Upload Translated Documents](/cases/case-details/${[CASE_REFERENCE]}/trigger/UPLOAD_TRANSLATED_DOCUMENT/UPLOAD_TRANSLATED_DOCUMENTUploadTranslatedDocument)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rz5yis">
           <text>"false"</text>
         </outputEntry>
       </rule>
