@@ -46,6 +46,10 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
             Map.of(
                 "action", "Cancel",
                 "processCategories", "generalApplications"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "uploadTranslatedDocuments"
             )
         );
         return Stream.of(
@@ -229,13 +233,53 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         assertThat(dmnDecisionTableResult.getResultList(), is(expectedDmnOutcome));
     }
 
+    @ParameterizedTest
+    @MethodSource("scenarioProviderProceedsInHeritage")
+    void given_multiple_event_ids_should_evaluate_dmn_for_proceeds_in_heritage(String fromState,
+                                                                      String eventId, String state,
+                                                                      List<Map<String, Object>> expectedDmnOutcome) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("fromState", "");
+        inputVariables.putValue("state", state);
+        inputVariables.putValue("event", eventId);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertThat(dmnDecisionTableResult.getResultList(), is(expectedDmnOutcome));
+    }
+
+    public static Stream<Arguments> scenarioProviderProceedsInHeritage() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "uploadTranslatedDocuments"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "any state", "APPLICATION_PROCEEDS_IN_HERITAGE", "PROCEEDS_IN_HERITAGE",
+                outcome
+            ),
+            Arguments.of(
+                "", "APPLICATION_PROCEEDS_IN_HERITAGE", "PROCEEDS_IN_HERITAGE",
+                outcome
+            ),
+            Arguments.of(
+                null, "APPLICATION_PROCEEDS_IN_HERITAGE", "PROCEEDS_IN_HERITAGE",
+                outcome
+
+            )
+        );
+    }
+
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(8));
+        assertThat(logic.getRules().size(), is(10));
     }
 
 
