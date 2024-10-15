@@ -1832,7 +1832,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(250));
+        assertThat(logic.getRules().size(), is(261));
     }
 
     @Test
@@ -1853,5 +1853,85 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Amend And Restitch Bundle"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("bundlefailedAmendandRestich"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "100001, , FAST_CLAIM, , Fast Track Directions, FastTrackDirections",
+        "100001, , SMALL_CLAIM, , Small Claims Track Directions, SmallClaimsTrackDirections",
+        ", 2000, , FAST_CLAIM, Fast Track Directions, FastTrackDirections",
+        ", 2000, , SMALL_CLAIM, Small Claims Track Directions, SmallClaimsTrackDirections",
+        ", 900, , SMALL_CLAIM, Legal Advisor Small Claims Track Directions, LegalAdvisorSmallClaimsTrackDirections"
+    })
+    void given_input_should_return_correct_task(String claimValue, String totalClaimAmount,
+                                                String allocatedTrack, String responseClaimTrack,
+                                                String expectedName, String expectedTaskId) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+        if (claimValue != null && !claimValue.isEmpty()) {
+            data.put("claimValue", Map.of("statementOfValueInPennies", Integer.parseInt(claimValue)));
+        }
+        if (totalClaimAmount != null && !totalClaimAmount.isEmpty()) {
+            data.put("totalClaimAmount", Integer.parseInt(totalClaimAmount));
+        }
+        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
+            data.put("allocatedTrack", allocatedTrack);
+        }
+        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
+            data.put("responseClaimTrack", responseClaimTrack);
+        }
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "MANAGE_STAY");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "SMALL_CLAIM, , , , Schedule A Small Claim Hearing, ScheduleAHearing",
+        "FAST_CLAIM, , , , Schedule A Fast Track Hearing, ScheduleAHearing",
+        ", SMALL_CLAIM, , , Schedule A Small Claim Hearing, ScheduleAHearing",
+        ", FAST_CLAIM, , , Schedule A Fast Track Hearing, ScheduleAHearing",
+        ", , DISPOSAL, , Schedule A Disposal Hearing, ScheduleAHearing",
+        ", , , DISPOSAL_HEARING, Schedule A Disposal Hearing, ScheduleAHearing"
+    })
+    void given_input_should_return_correct_hearingTask(String allocatedTrack, String responseClaimTrack,
+                                                       String orderType, String caseManagementOrderSelection,
+                                                       String expectedName, String expectedTaskId) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
+            data.put("allocatedTrack", allocatedTrack);
+        }
+        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
+            data.put("responseClaimTrack", responseClaimTrack);
+        }
+        if (orderType != null && !orderType.isEmpty()) {
+            data.put("orderType", orderType);
+        }
+        if (caseManagementOrderSelection != null && !caseManagementOrderSelection.isEmpty()) {
+            data.put("caseManagementOrderSelection", caseManagementOrderSelection);
+        }
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "MANAGE_STAY");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
 }
