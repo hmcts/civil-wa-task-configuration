@@ -808,9 +808,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "WA3.5");
         data.put("totalClaimAmount", 900);
         data.put("responseClaimTrack", "SMALL_CLAIM");
-        data.put("reasonRequestForReconsiderationApplicant", applicantReason);
-        data.put("reasonRequestForReconsiderationRespondent1", respondent1Reason);
-        data.put("reasonRequestForReconsiderationRespondent2", respondent2Reason);
+        data.put("reasonForReconsiderationApplicant", applicantReason);
+        data.put("reasonForReconsiderationRespondent1", respondent1Reason);
+        data.put("reasonForReconsiderationRespondent2", respondent2Reason);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -841,9 +841,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "WA3.5");
         data.put("totalClaimAmount", 900);
         data.put("responseClaimTrack", "SMALL_CLAIM");
-        data.put("reasonRequestForReconsiderationApplicant", applicantReason);
-        data.put("reasonRequestForReconsiderationRespondent1", respondent1Reason);
-        data.put("reasonRequestForReconsiderationRespondent2", respondent2Reason);
+        data.put("reasonForReconsiderationApplicant", applicantReason);
+        data.put("reasonForReconsiderationRespondent1", respondent1Reason);
+        data.put("reasonForReconsiderationRespondent2", respondent2Reason);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
