@@ -26,7 +26,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioTakesCaseOfflineEventProceedsInHeritageSystem",
+    @MethodSource({"scenarioWhenCaseIsStayed",
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
         "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure",
@@ -130,6 +130,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "setAsideJo"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
             )
         );
         return Stream.of(
@@ -300,6 +304,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "setAsideJo"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
             )
         );
         return Stream.of(
@@ -491,6 +499,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "setAsideJo"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
             )
         );
         return Stream.of(
@@ -553,6 +565,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(52));
+        assertThat(logic.getRules().size(), is(54));
     }
 }
