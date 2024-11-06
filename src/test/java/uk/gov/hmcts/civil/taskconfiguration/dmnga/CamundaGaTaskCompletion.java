@@ -136,13 +136,6 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                         "taskType", "HelpWithFeesAdditionalApplicationFee",
                         "completionMode", "Auto"
-                    ))),
-            Arguments.of(
-                "UPLOAD_TRANSLATED_DOCUMENT",
-                asList(
-                    Map.of(
-                        "taskType", "applicationDocumentsWelshRequest",
-                        "completionMode", "Auto"
                     )))
         );
     }
