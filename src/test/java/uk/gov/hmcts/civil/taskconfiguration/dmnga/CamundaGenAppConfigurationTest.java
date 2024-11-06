@@ -33,7 +33,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(53));
+        assertThat(logic.getRules().size(), is(52));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -206,8 +206,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "JudgeDecideOnApplication", "JudgeRevisitApplication",
         "LegalAdvisorDecideOnApplication", "LegalAdvisorRevisitApplication",
         "ScheduleApplicationHearing", "ReviewStayTheClaimApplicationOrder",
-        "ReviewUnlessOrderApplication", "ReviewApplicationOrder", "applicationDocumentsWelshRequest"
-    })
+        "ReviewUnlessOrderApplication", "ReviewApplicationOrder","applicationDocumentsWelshRequestAppSum",
+        "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
+        "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
+        "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
+        "applicationDocumentsWelshRequestRespondToJudge"})
     void when_taskId_urgent_application_then_dueDateIntervalDays_return_two(String taskTypeId) {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
@@ -329,15 +332,22 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     }
 
-    @Test
-    void when_applicationDocumentsWelshRequest_then_return_output_attributes() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "applicationDocumentsWelshRequestAppSum",
+        "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
+        "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
+        "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
+        "applicationDocumentsWelshRequestRespondToJudge"
+    })
+    void when_applicationDocumentsWelshRequest_then_return_output_attributes(String taskTypeId) {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
         caseData.put("claimant2PartyName", "claimant2PartyName");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
-            "taskType", "applicationDocumentsWelshRequest"));
+            "taskType", taskTypeId));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -892,11 +902,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
 
         List<Map<String, Object>> workTypeResultList1 = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("role_Category"))
+            .filter((r) -> r.containsValue("roleCategory"))
             .collect(Collectors.toList());
 
         assertTrue(workTypeResultList1.contains(Map.of(
-            "name", "role_Category",
+            "name", "roleCategory",
             "value", "CTSC",
             "canReconfigure","false"
         )));
