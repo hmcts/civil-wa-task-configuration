@@ -4985,6 +4985,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
                    is("Application Documents Welsh Request – Request for More Information"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestMoreInfo"));
     }
+
     @Test
     void given_input_should_return_applicationDocumentsWelshRequest_judgeWrittenRep() {
         Map<String, Object> data = new HashMap<>();
