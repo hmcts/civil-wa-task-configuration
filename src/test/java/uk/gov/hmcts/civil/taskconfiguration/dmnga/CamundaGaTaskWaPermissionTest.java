@@ -434,7 +434,11 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
 
     @ParameterizedTest
     @CsvSource(value = {
-        "HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee","applicationDocumentsWelshRequest"
+        "HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee","applicationDocumentsWelshRequestAppSum",
+        "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
+        "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
+        "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
+        "applicationDocumentsWelshRequestRespondToJudge"
     })
     void given_taskType_when_evaluate_dmn_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();

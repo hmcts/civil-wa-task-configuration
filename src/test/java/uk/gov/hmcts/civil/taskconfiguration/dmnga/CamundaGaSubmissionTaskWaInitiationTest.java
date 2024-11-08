@@ -4729,8 +4729,9 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application Documents Welsh Request"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Application Documents Welsh Request - Application Summary document"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestAppSum"));
     }
 
     @Test
@@ -4749,8 +4750,9 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application Documents Welsh Request"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Application Documents Welsh Request - Application Summary document"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestAppSum"));
     }
 
     @Test
@@ -4770,8 +4772,9 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application Documents Welsh Request"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Application Documents Welsh Request - Application summary document"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestAppSum"));
     }
 
     @Test
@@ -4791,8 +4794,8 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("name"), is("Application Documents Welsh Request"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("applicationDocumentsWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("name"), is("Application Documents Welsh Request – Order Made"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("applicationDocumentsWelshRequestOrderMade"));
     }
 
     @Test
@@ -4811,8 +4814,9 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("name"), is("Application Documents Welsh Request"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("applicationDocumentsWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("name"),
+                   is("Application Documents Welsh Request – Hearing Order"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("applicationDocumentsWelshRequestHearingOrder"));
     }
 
     @Test
@@ -4831,7 +4835,133 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application Documents Welsh Request"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Application Documents Welsh Request - Without notice to notice document"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestWithNotice"));
+    }
+
+    @Test
+    void given_input_should_return_applicationDocumentsWelshRequest_respondToMoreInfo() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("isGaApplicantLip", true);
+        data.put("applicantBilingualLanguagePreference", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("postEventState", "AWAITING_ADDITIONAL_INFORMATION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Application Documents Welsh Request – Response to the Request for more information"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestRespondToMoreInfo"));
+    }
+
+    @Test
+    void given_input_should_return_applicationDocumentsWelshRequest_respondToWrittenRep() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("isGaApplicantLip", true);
+        data.put("applicantBilingualLanguagePreference", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("postEventState", "AWAITING_WRITTEN_REPRESENTATIONS");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Application Documents Welsh Request – Response to Written Representations"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestRespondToWrittenRep"));
+    }
+
+    @Test
+    void given_input_should_return_applicationDocumentsWelshRequest_respondToJudgeOrder() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("isGaApplicantLip", true);
+        data.put("applicantBilingualLanguagePreference", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "RESPOND_TO_JUDGE_DIRECTIONS");
+        inputVariables.putValue("postEventState", "AWAITING_DIRECTIONS_ORDER_DOCS");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Application Documents Welsh Request - Respond to a Judge Direction Order"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestRespondToJudge"));
+    }
+
+    @Test
+    void given_input_should_return_lipVlr_applicationDocumentsWelshRequest_respondToJudgeOrder() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("isGaApplicantLip", true);
+        data.put("respondentBilingualLanguagePreference", true);
+        data.put("applicantBilingualLanguagePreference", false);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "RESPOND_TO_JUDGE_DIRECTIONS");
+        inputVariables.putValue("postEventState", "AWAITING_DIRECTIONS_ORDER_DOCS");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Application Documents Welsh Request - Respond to a Judge Direction Order"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestRespondToJudge"));
+    }
+
+    @Test
+    void given_input_should_return_lipVlr_WhenFlagIsEnglish_applicationDocumentsWelshRequest_respondToJudgeOrder() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("isGaApplicantLip", true);
+        data.put("respondentBilingualLanguagePreference", false);
+        data.put("applicantBilingualLanguagePreference", false);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "RESPOND_TO_JUDGE_DIRECTIONS");
+        inputVariables.putValue("postEventState", "AWAITING_DIRECTIONS_ORDER_DOCS");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(0));
+    }
+
+
+    @Test
+    void given_input_should_return_applicationDocumentsWelshRequest_uploadAddlDocuments() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("isGaApplicantLip", true);
+        data.put("applicantBilingualLanguagePreference", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPLOAD_ADDL_DOCUMENTS");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Application Documents Welsh Request – Uploaded Documents"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestAddlDoc"));
     }
 }
