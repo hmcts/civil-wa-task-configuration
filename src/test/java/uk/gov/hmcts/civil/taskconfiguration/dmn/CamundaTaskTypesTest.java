@@ -199,7 +199,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestOrderMade",
-                "taskTypeName", "Application Documents Welsh Request – Order Made"
+                "taskTypeName", "Application Documents Welsh Request – General Order"
             ),
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestHearingOrder",
@@ -232,6 +232,30 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "HelpWithFeesApplicationFee",
                 "taskTypeName", "Help With Fees Application Fee"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestMoreInfo",
+                "taskTypeName", "Application Documents Welsh Request – Request for More Information"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestWrittenResp",
+                "taskTypeName", "Application Documents Welsh Request – Written Representations"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestHearingSchedule",
+                "taskTypeName", "Application Documents Welsh Request – Hearing Notice"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestAppDismissed",
+                "taskTypeName", "Application Documents Welsh Request – Dismissal Order"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestJudgeDirection",
+                "taskTypeName", "Application Documents Welsh Request - Judges Directions"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestFinalOrder",
+                "taskTypeName", "Application Documents Welsh Request - Final Order"
             )
         );
 
@@ -249,7 +273,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(49));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(55));
     }
 
 }
