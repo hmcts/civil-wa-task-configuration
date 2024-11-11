@@ -64,6 +64,5 @@ fi
 echo "$(basename ${file}) upload failed with http code ${upload_http_code} and response (${upload_response_content})"
 continue;
 
-fi
 done
 
