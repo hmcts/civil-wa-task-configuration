@@ -12,8 +12,7 @@ if [[ "${env}" == 'prod' ]]; then
   s2sSecret=${S2S_SECRET_PROD}
 fi
 
-serviceToken=$($(realpath $workspace)/bin/utils/idam-lease-service-token.sh civil_service \
-  $(docker run --rm toolbelt/oathtool --totp -b ${s2sSecret}))
+serviceToken='asdasd'
 
 dmnFilepath="$(realpath $workspace)/src/main/resources"
 
@@ -55,7 +54,7 @@ do
 
 upload_http_code=$(echo "$uploadResponse" | tail -n1)
 upload_response_content=$(echo "$uploadResponse" | sed '$d')
-
+fi
 if [[ "${upload_http_code}" == '200' ]]; then
   echo "$(basename ${file}) diagram uploaded successfully (${upload_response_content})"
   continue;
