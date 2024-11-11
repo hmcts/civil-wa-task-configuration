@@ -12,7 +12,8 @@ if [[ "${env}" == 'prod' ]]; then
   s2sSecret=${S2S_SECRET_PROD}
 fi
 
-serviceToken='asdasd'
+serviceToken=$($(realpath $workspace)/bin/utils/idam-lease-service-token.sh civil_service \
+  $(docker run --rm toolbelt/oathtool --totp -b ${s2sSecret}))
 
 dmnFilepath="$(realpath $workspace)/src/main/resources"
 
@@ -39,6 +40,8 @@ fi
 echo "$(basename ${file}) upload failed with http code ${upload_http_code} and response (${upload_response_content})"
 continue;
 
+done
+
 if [[ "${env}" == 'preview' ]]; then
 for file in $(find ${dmnFilepath} -name '*-nonprod.dmn')
 do
@@ -54,7 +57,7 @@ do
 
 upload_http_code=$(echo "$uploadResponse" | tail -n1)
 upload_response_content=$(echo "$uploadResponse" | sed '$d')
-fi
+
 if [[ "${upload_http_code}" == '200' ]]; then
   echo "$(basename ${file}) diagram uploaded successfully (${upload_response_content})"
   continue;
@@ -64,4 +67,4 @@ echo "$(basename ${file}) upload failed with http code ${upload_http_code} and r
 continue;
 
 done
-
+fi
