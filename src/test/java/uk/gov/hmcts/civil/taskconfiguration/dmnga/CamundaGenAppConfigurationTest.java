@@ -210,7 +210,10 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
         "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
         "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
-        "applicationDocumentsWelshRequestRespondToJudge"})
+        "applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo",
+        "applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule",
+        "applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection",
+        "applicationDocumentsWelshRequestFinalOrder"})
     void when_taskId_urgent_application_then_dueDateIntervalDays_return_two(String taskTypeId) {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
@@ -338,7 +341,10 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
         "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
         "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
-        "applicationDocumentsWelshRequestRespondToJudge"
+        "applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo",
+        "applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule",
+        "applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection",
+        "applicationDocumentsWelshRequestFinalOrder"
     })
     void when_applicationDocumentsWelshRequest_then_return_output_attributes(String taskTypeId) {
         Map<String, Object> caseData = new HashMap<>();
