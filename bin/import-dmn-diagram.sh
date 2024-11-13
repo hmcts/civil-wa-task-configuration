@@ -41,8 +41,9 @@ echo "$(basename ${file}) upload failed with http code ${upload_http_code} and r
 continue;
 
 done
+echo "checking if there are any non prod dmns to upload for env: ${env} and then uploading it"
 
-if [[ "${env}" == 'preview' ]]; then
+if [ "${env}" == 'preview' || [ "${ENVIRONMENT}" == "demo" ] || [ "${ENVIRONMENT}" == "perftest" ] || [ "${ENVIRONMENT}" == "ithc" ]; then
 for file in $(find ${dmnFilepath} -name '*-nonprod.dmn')
 do
   uploadResponse=$(curl --insecure -v --silent -w "\n%{http_code}" --show-error -X POST \
@@ -59,7 +60,7 @@ upload_http_code=$(echo "$uploadResponse" | tail -n1)
 upload_response_content=$(echo "$uploadResponse" | sed '$d')
 
 if [[ "${upload_http_code}" == '200' ]]; then
-  echo "$(basename ${file}) diagram uploaded successfully (${upload_response_content})"
+  echo "$(basename ${file}) non prod diagram uploaded successfully (${upload_response_content})"
   continue;
 fi
 
