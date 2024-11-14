@@ -43,7 +43,7 @@ continue;
 done
 echo "checking if there are any non prod dmns to upload for env: ${env} and then uploading it"
 
-if [ "${env}" == 'preview'] || [ "${ENVIRONMENT}" == "demo" ] || [ "${ENVIRONMENT}" == "perftest" ] || [ "${ENVIRONMENT}" == "ithc" ]; then
+if [ "${env}" == "preview" ] || [ "${env}" == "demo" ] || [ "${env}" == "perftest" ] || [ "${env}" == "ithc" ]; then
 for file in $(find ${dmnFilepath} -name '*-nonprod.dmn')
 do
   uploadResponse=$(curl --insecure -v --silent -w "\n%{http_code}" --show-error -X POST \
