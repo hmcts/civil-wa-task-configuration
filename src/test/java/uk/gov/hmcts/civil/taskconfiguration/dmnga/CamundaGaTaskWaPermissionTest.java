@@ -67,10 +67,10 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     @CsvSource(value = {
         "ScheduleApplicationHearing","ReviewApplication","ReviewRevisitedApplication"
     })
-    void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc(String taskType) {
+    void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withCtsc(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
+        inputVariables.putValue("caseData",Map.of("isCtscLocation", "Yes"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
@@ -97,7 +97,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
     void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withoutCcmcc(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
+        inputVariables.putValue("caseData",Map.of("isCtscLocation", "No"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
@@ -255,7 +255,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         VariableMap inputVariables = new VariableMapImpl();
         Map<String, Object> caseData = new HashMap<>();
         inputVariables.putValue("taskAttributes", Map.of("taskType", "ReviewApplicationOrder"));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
+        inputVariables.putValue("caseData",Map.of("isCtscLocation", "Yes"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -280,7 +280,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         VariableMap inputVariables = new VariableMapImpl();
         Map<String, Object> caseData = new HashMap<>();
         inputVariables.putValue("taskAttributes", Map.of("taskType", "ReviewApplicationOrder"));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
+        inputVariables.putValue("caseData",Map.of("isCtscLocation", "No"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -306,7 +306,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         Map<String, Object> caseData = new HashMap<>();
         inputVariables
             .putValue("taskAttributes", Map.of("taskType", "ReviewStayTheClaimApplicationOrder"));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
+        inputVariables.putValue("caseData",Map.of("isCtscLocation", "Yes"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -332,7 +332,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         Map<String, Object> caseData = new HashMap<>();
         inputVariables
             .putValue("taskAttributes", Map.of("taskType", "ReviewStayTheClaimApplicationOrder"));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
+        inputVariables.putValue("caseData",Map.of("isCtscLocation", "No"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -358,7 +358,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         Map<String, Object> caseData = new HashMap<>();
         inputVariables
             .putValue("taskAttributes", Map.of("taskType", "ReviewUnlessOrderApplication"));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "Yes"));
+        inputVariables.putValue("caseData",Map.of("isCtscLocation", "Yes"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -384,7 +384,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         Map<String, Object> caseData = new HashMap<>();
         inputVariables
             .putValue("taskAttributes", Map.of("taskType", "ReviewUnlessOrderApplication"));
-        inputVariables.putValue("caseData",Map.of("isCcmccLocation", "No"));
+        inputVariables.putValue("caseData",Map.of("isCtscLocation", "No"));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
