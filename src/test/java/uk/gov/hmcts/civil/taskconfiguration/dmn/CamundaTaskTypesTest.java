@@ -194,6 +194,70 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Transfer Case Offline"
             ),
             Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestAppSum",
+                "taskTypeName", "Application Documents Welsh Request - Application Summary document"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestOrderMade",
+                "taskTypeName", "Application Documents Welsh Request – General Order"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestHearingOrder",
+                "taskTypeName", "Application Documents Welsh Request – Hearing Order"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestWithNotice",
+                "taskTypeName", "Application Documents Welsh Request - Without notice to notice document"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestRespondToMoreInfo",
+                "taskTypeName", "Application Documents Welsh Request – Response to the Request for more information"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestRespondToWrittenRep",
+                "taskTypeName", "Application Documents Welsh Request – Response to Written Representations"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestAddlDoc",
+                "taskTypeName", "Application Documents Welsh Request – Uploaded Documents"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestRespondToJudge",
+                "taskTypeName", "Application Documents Welsh Request - Respond to a Judge Direction Order"
+            ),
+            Map.of(
+                "taskTypeId", "HelpWithFeesAdditionalApplicationFee",
+                "taskTypeName", "Help With Fees Additional Application Fee"
+            ),
+            Map.of(
+                "taskTypeId", "HelpWithFeesApplicationFee",
+                "taskTypeName", "Help With Fees Application Fee"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestMoreInfo",
+                "taskTypeName", "Application Documents Welsh Request – Request for More Information"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestWrittenResp",
+                "taskTypeName", "Application Documents Welsh Request – Written Representations"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestHearingSchedule",
+                "taskTypeName", "Application Documents Welsh Request – Hearing Notice"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestAppDismissed",
+                "taskTypeName", "Application Documents Welsh Request – Dismissal Order"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestJudgeDirection",
+                "taskTypeName", "Application Documents Welsh Request - Judges Directions"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestFinalOrder",
+                "taskTypeName", "Application Documents Welsh Request - Final Order"
+            ),
+            Map.of(
                 "taskTypeId", "manageStay",
                 "taskTypeName", "Manage Stay"
             )
@@ -213,7 +277,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(40));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(56));
     }
 
 }

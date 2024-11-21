@@ -797,13 +797,20 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
-    void when_request_for_reconsideration_create_judge_decide_on_reconsider_request_spec() {
+    @ParameterizedTest
+    @CsvSource({
+        "Applicant gives reason,,,", ",Respondent 1 gives reason,,",",,Respondent2 gives Reason"
+    })
+    void when_request_for_reconsideration_create_judge_decide_on_reconsider_request_spec(
+        String applicantReason, String respondent1Reason, String respondent2Reason) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "WA3.5");
         data.put("totalClaimAmount", 900);
         data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("reasonForReconsiderationApplicant", applicantReason);
+        data.put("reasonForReconsiderationRespondent1", respondent1Reason);
+        data.put("reasonForReconsiderationRespondent2", respondent2Reason);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -819,6 +826,36 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("JudgeDecideOnReconsiderRequest"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("decisionOnReconsideration"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "Applicant gives reason,Respondent 1 gives reason,,",
+        ",Respondent 1 gives reason,Respondent2 gives Reason,",
+        "Applicant gives reason,,Respondent2 gives Reason"
+    })
+    void when_multiple_request_for_reconsideration_do_not_create_judge_decide_on_reconsider_request_spec(
+        String applicantReason, String respondent1Reason, String respondent2Reason) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "WA3.5");
+        data.put("totalClaimAmount", 900);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("reasonForReconsiderationApplicant", applicantReason);
+        data.put("reasonForReconsiderationRespondent1", respondent1Reason);
+        data.put("reasonForReconsiderationRespondent2", respondent2Reason);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "REQUEST_FOR_RECONSIDERATION");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(0));
     }
 
     @Test
@@ -1832,7 +1869,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(262));
+        assertThat(logic.getRules().size(), is(274));
     }
 
     @Test
@@ -1903,6 +1940,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "MANAGE_STAY_WA");
         inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
