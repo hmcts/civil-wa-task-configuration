@@ -1082,10 +1082,14 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "reviewOrder, Prod, 1, [Order Made - Review case](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)",
-        "reviewOrder, CE_B2, 2, [Order Made - Review case](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_ORDER_REVIEW/CONFIRM_ORDER_REVIEW)"
+        "reviewOrder, Prod, 1, "
+            + "[Order Made - Review case](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)",
+        "reviewOrder, CE_B2, 2, "
+            + "[Order Made - Review case]"
+            + "(/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_ORDER_REVIEW/CONFIRM_ORDER_REVIEW)"
     })
-    void when_taskId_reviewOrder_then_return_description(String taskType, String featureToggle, int expectedSize, String expectedValue) {
+    void when_taskId_reviewOrder_then_return_description(String taskType,
+                                                         String featureToggle, int expectedSize, String expectedValue) {
         VariableMap inputVariables = new VariableMapImpl();
         Map<String, Object> caseData = new HashMap<>();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
