@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0">
   <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
@@ -580,6 +580,30 @@
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1v256gd">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1la1vph">
+        <description>This task is completed when CW completes the "confirm order review" event</description>
+        <inputEntry id="UnaryTests_1da7xqh">
+          <text>"CONFIRM_ORDER_REVIEW"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02m6rr2">
+          <text>"reviewOrder"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1j48am9">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hyl5uj">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_136o5u0">
+          <text>"CONFIRM_ORDER_REVIEW"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uu312r">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11hz7ei">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
