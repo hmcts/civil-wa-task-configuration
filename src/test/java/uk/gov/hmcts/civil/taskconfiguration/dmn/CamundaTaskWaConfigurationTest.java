@@ -1085,7 +1085,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "reviewOrder, Prod, 1, "
             + "[Order Made - Review case](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)",
         "reviewOrder, CE_B2, 2, "
-            + "[Order Made - Review case]"
+            + "[Confirm order review]"
             + "(/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_ORDER_REVIEW/CONFIRM_ORDER_REVIEW)"
     })
     void when_taskId_reviewOrder_then_return_description(String taskType,
