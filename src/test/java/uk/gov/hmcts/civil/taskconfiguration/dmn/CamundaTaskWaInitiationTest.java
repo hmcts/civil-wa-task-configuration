@@ -1940,7 +1940,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "MANAGE_STAY_WA");
         inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
