@@ -256,6 +256,14 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestFinalOrder",
                 "taskTypeName", "Application Documents Welsh Request - Final Order"
+            ),
+            Map.of(
+                "taskTypeId", "ScheduleHMCHearing",
+                "taskTypeName", "Schedule HMC Hearing"
+            ),
+            Map.of(
+                "taskTypeId", "RemoveHMCHearing",
+                "taskTypeName", "Remove HMC Hearing"
             )
         );
 
@@ -273,7 +281,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(55));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(57));
     }
 
 }
