@@ -4730,7 +4730,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"),
-                   is("Application Documents Welsh Request - Application Summary document"));
+                   is("Application Documents Welsh Request Application Summary document"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestAppSum"));
     }
 
@@ -4751,7 +4751,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"),
-                   is("Application Documents Welsh Request - Application Summary document"));
+                   is("Application Documents Welsh Request Application Summary document"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestAppSum"));
     }
 
@@ -4773,7 +4773,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"),
-                   is("Application Documents Welsh Request - Application summary document"));
+                   is("Application Documents Welsh Request Application summary document"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestAppSum"));
     }
 
@@ -4836,7 +4836,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"),
-                   is("Application Documents Welsh Request - Without notice to notice document"));
+                   is("Application Documents Welsh Request Without notice to notice document"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestWithNotice"));
     }
 
@@ -4899,7 +4899,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"),
-                   is("Application Documents Welsh Request - Respond to a Judge Direction Order"));
+                   is("Application Documents Welsh Request Respond to a Judge Direction Order"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestRespondToJudge"));
     }
 
@@ -4921,7 +4921,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"),
-                   is("Application Documents Welsh Request - Respond to a Judge Direction Order"));
+                   is("Application Documents Welsh Request Respond to a Judge Direction Order"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestRespondToJudge"));
     }
 
@@ -5066,7 +5066,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(2));
         assertThat(workTypeResultList.get(1).get("name"),
-                   is("Application Documents Welsh Request - Final Order"));
+                   is("Application Documents Welsh Request Final Order"));
         assertThat(workTypeResultList.get(1).get("taskId"), is("applicationDocumentsWelshRequestFinalOrder"));
     }
 
@@ -5087,7 +5087,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"),
-                   is("Application Documents Welsh Request - Judges Directions"));
+                   is("Application Documents Welsh Request Judges Directions"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestJudgeDirection"));
     }
 }

@@ -195,7 +195,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestAppSum",
-                "taskTypeName", "Application Documents Welsh Request - Application Summary document"
+                "taskTypeName", "Application Documents Welsh Request Application Summary document"
             ),
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestOrderMade",
@@ -207,7 +207,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestWithNotice",
-                "taskTypeName", "Application Documents Welsh Request - Without notice to notice document"
+                "taskTypeName", "Application Documents Welsh Request Without notice to notice document"
             ),
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestRespondToMoreInfo",
@@ -223,7 +223,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestRespondToJudge",
-                "taskTypeName", "Application Documents Welsh Request - Respond to a Judge Direction Order"
+                "taskTypeName", "Application Documents Welsh Request Respond to a Judge Direction Order"
             ),
             Map.of(
                 "taskTypeId", "HelpWithFeesAdditionalApplicationFee",
@@ -251,11 +251,11 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestJudgeDirection",
-                "taskTypeName", "Application Documents Welsh Request - Judges Directions"
+                "taskTypeName", "Application Documents Welsh Request Judges Directions"
             ),
             Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestFinalOrder",
-                "taskTypeName", "Application Documents Welsh Request - Final Order"
+                "taskTypeName", "Application Documents Welsh Request Final Order"
             )
         );
 
