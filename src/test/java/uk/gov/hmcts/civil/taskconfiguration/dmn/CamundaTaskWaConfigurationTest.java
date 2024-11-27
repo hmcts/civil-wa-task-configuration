@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(120));
+        assertThat(logic.getRules().size(), is(124));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -1773,7 +1773,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @Test
     void when_taskId_ClaimSettledRemoveHearing_then_return_config() {
         Map<String, Object> caseData = new HashMap<>();
-        caseData.put("featureToggleWA", "SD");
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
         ));
