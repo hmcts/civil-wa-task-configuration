@@ -1875,7 +1875,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(294));
+        assertThat(logic.getRules().size(), is(298));
     }
 
     @Test
@@ -1970,6 +1970,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                                                        String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CE_B2");
+        data.put("applicant1Represented", "NO");
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
             data.put("allocatedTrack", allocatedTrack);
         }
@@ -2032,6 +2033,51 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "HMC_NRO");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        int lastIndex = expectedNumberOfTasks - 1;
+        assertThat(workTypeResultList.size(), is(expectedNumberOfTasks));
+        assertThat(workTypeResultList.get(lastIndex).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.get(lastIndex).get("taskId"), is("ScheduleHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,,,,,, Schedule a Fast Track Hearing - HMC, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,,,,,, Schedule a Small Claims Hearing - HMC, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,,,, DISPOSAL,, Schedule a Disposal Hearing - HMC, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,,,,, DISPOSAL_HEARING, Schedule a Disposal Hearing - HMC, 1"
+    })
+    void given_input_should_return_correct_scheduleHmcHearingTask_manageStay_noLip(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        String applicant1Represented,
+        String respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName,
+        int expectedNumberOfTasks
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
         addNonNullField(data, "applicant1Represented", applicant1Represented);
         addNonNullField(data, "respondent1Represented", respondent1Represented);
         addNonNullField(data, "allocatedTrack", allocatedTrack);
@@ -2162,6 +2208,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("name"), is("Remove Hearing - HMC"));
     }
+
+
 
     private void addNonNullField(Map<String, Object> inputVars, String key, Object value) {
         if (value == null || (value instanceof String && ((String) value).trim().isEmpty())) {
