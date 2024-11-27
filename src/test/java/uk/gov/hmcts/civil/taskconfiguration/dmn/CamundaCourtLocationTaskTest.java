@@ -26,7 +26,7 @@ class CamundaCourtLocationTaskTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void verify_DMN_outputs_from_CSV() throws Exception {
+    void verify_Dmn_outputs_from_Csv() throws Exception {
         String csvFilePath = "src/main/resources/courtLocationData/CourtLocationForTasksCSV.csv";
 
         Reader reader = new FileReader(csvFilePath);
@@ -40,10 +40,10 @@ class CamundaCourtLocationTaskTest extends DmnDecisionTableBaseUnitTest {
             String courtName = record.get("CourtName");
             String caseManagementLocation = record.get("caseManagementLocation");
             String claimTrack = record.get("claimTrack");
-            String expectedCMC = record.get("CMC");
-            String expectedCCMC = record.get("CCMC");
+            String expectedCmc = record.get("CMC");
+            String expectedCcmc = record.get("CCMC");
             String expectedTrial = record.get("Trial");
-            String expectedPTR = record.get("PTR");
+            String expectedPtr = record.get("PTR");
 
             VariableMap inputVariables = new VariableMapImpl();
             inputVariables.putValue("caseManagementLocation", caseManagementLocation);
@@ -53,13 +53,13 @@ class CamundaCourtLocationTaskTest extends DmnDecisionTableBaseUnitTest {
             Map<String, Object> resultMap = dmnDecisionTableResult.getSingleResult();
 
             try {
-                assertThat(resultMap.get("CMC"), is(expectedCMC));
-                assertThat(resultMap.get("CCMC"), is(expectedCCMC));
+                assertThat(resultMap.get("CMC"), is(expectedCmc));
+                assertThat(resultMap.get("CCMC"), is(expectedCcmc));
                 assertThat(resultMap.get("Trial"), is(expectedTrial));
-                assertThat(resultMap.get("PTR"), is(expectedPTR));
+                assertThat(resultMap.get("PTR"), is(expectedPtr));
             } catch (Exception e) {
                 System.err.printf("Test failed for CourtName: %s, caseManagementLocation; %s, claimTrack:%s. \n Expected: CMC: %s, CCMC: %s, Trial: %s, PTR: %s",
-                                  courtName, caseManagementLocation, claimTrack, expectedCMC, expectedCCMC, expectedTrial, expectedPTR);
+                                  courtName, caseManagementLocation, claimTrack, expectedCmc, expectedCcmc, expectedTrial, expectedPtr);
                 throw e;
             }
         });
