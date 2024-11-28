@@ -353,6 +353,25 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+
+    static Stream<Arguments> manageStay() {
+
+        return Stream.of(
+            Arguments.of(
+                "MANAGE_STAY",
+                asList(
+                    Map.of(
+                        "taskType", "manageStay",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
     static Stream<Arguments> confirmOrderReview() {
 
         return Stream.of(
@@ -369,6 +388,16 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                 )
             )
         );
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"confirmOrderReview"})
+    void given_event_ids_should_evaluate_confirm_order_review_dmn(String eventId,
+                                                                  List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
     }
 
     @ParameterizedTest(name = "event id: {0}")
@@ -479,9 +508,8 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest(name = "event id: {0}")
-    @MethodSource({"confirmOrderReview"})
-    void given_event_ids_should_evaluate_confirm_order_review_dmn(String eventId,
-                                                                  List<Map<String, String>> expectation) {
+    @MethodSource({"manageStay"})
+    void given_event_ids_should_manage_stay_dmn(String eventId, List<Map<String, String>> expectation) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -493,6 +521,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(50));
+        assertThat(logic.getRules().size(), is(52));
     }
 }
