@@ -1931,6 +1931,25 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
 
+    @Test
+    void manage_stay_wa_event_should_trigger_task() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "MANAGE_STAY_WA");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("manageStay"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("manageStay"));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "SMALL_CLAIM, , , , Schedule A Small Claim Hearing, ScheduleAHearing",
