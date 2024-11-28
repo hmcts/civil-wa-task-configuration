@@ -1210,4 +1210,27 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             )
         )));
     }
+
+    @Test
+    void given_remove_hearing_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", Map.of("featureToggleWA", "HMC_NRO"));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "RemoveHearing"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "autoAssignable", false,
+                "name", "task-supervisor",
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            )
+        )));
+    }
+
 }
