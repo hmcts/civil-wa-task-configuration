@@ -1074,7 +1074,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     void given_JoSetAsideTakeCaseOffline_taskType_when_evaluate_dmn_then_return_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-            inputVariables.putValue("caseData",Map.of("featureToggleWA", "JO"));
+        inputVariables.putValue("caseData",Map.of("featureToggleWA", "JO"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
