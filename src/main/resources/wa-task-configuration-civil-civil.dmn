@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -968,6 +968,27 @@ else ""</text>
           <text>"[Order Made - Review case](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_17bx99r">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18645zm">
+        <description>The toggle and the row 46 need to be removed when case worker events batch 2 go live</description>
+        <inputEntry id="UnaryTests_1x18lkh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h2r72z">
+          <text>"CE_B2"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e1vede">
+          <text>"reviewOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u9jvda">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xlq018">
+          <text>"[Confirm order review](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_ORDER_REVIEW/CONFIRM_ORDER_REVIEW)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k4ma3a">
           <text>true</text>
         </outputEntry>
       </rule>
