@@ -2378,7 +2378,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void when_taskId_RemoveHearing_then_return_config() {
+    void when_taskId_removeHearing_then_return_config_hmc_nro() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
@@ -2392,7 +2392,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
-            "RemoveHearing"
+            "removeHearing"
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -2404,7 +2404,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "false",
+            "canReconfigure", "true",
             "name", "workType",
             "value", "hearing_work"
         )));
@@ -2416,13 +2416,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
             "name", "dueDateIntervalDays",
             "value", "20"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
+            "canReconfigure", "false",
             "name", "majorPriority",
             "value", "2000"
         )));
