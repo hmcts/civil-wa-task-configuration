@@ -24,6 +24,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SuppressWarnings("checkstyle:LineLength")
 class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @BeforeAll
@@ -1406,7 +1407,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_claim_is_settled_create_remove_hearing_task() {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
-        data.put("applicant1Represented", "NO");
+        data.put("applicant1Represented", false);
         data.put("hearingDate", "22-12-2024");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1455,7 +1456,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
-        data.put("applicant1Represented", "NO");
+        data.put("applicant1Represented", false);
         data.put("hearingDate", "22-12-2024");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1721,7 +1722,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
-        data.put("applicant1Represented", "NO");
+        data.put("applicant1Represented", false);
         data.put("courtPermissionNeeded", "YES");
         data.put("confirmOrderGivesPermission", "YES");
         data.put("selectedClaimantForDiscontinuance", "Mr Joe");
@@ -1774,7 +1775,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_1v2_claim_is_discontinued_create_remove_hearing_task_non_divergent_case() {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
-        data.put("applicant1Represented", "NO");
+        data.put("applicant1Represented", false);
         data.put("hearingDate", "22-12-2024");
         data.put("courtPermissionNeeded", "YES");
         data.put("confirmOrderGivesPermission", "YES");
@@ -1800,7 +1801,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_2v1_claim_is_validate_discontinued_create_remove_hearing_task_non_divergent_case() {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
-        data.put("applicant1Represented", "NO");
+        data.put("applicant1Represented", false);
         data.put("hearingDate", "22-12-2024");
         data.put("courtPermissionNeeded", "YES");
         data.put("confirmOrderGivesPermission", "YES");
@@ -1826,7 +1827,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_1v1_claim_is_validate_discontinued_create_remove_hearing_task() {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
-        data.put("applicant1Represented", "NO");
+        data.put("applicant1Represented", false);
         data.put("hearingDate", "22-12-2024");
         data.put("courtPermissionNeeded", "YES");
         data.put("confirmOrderGivesPermission", "YES");
@@ -1969,7 +1970,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                                                        String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CE_B2");
-        data.put("applicant1Represented", "NO");
+        data.put("applicant1Represented", false);
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
             data.put("allocatedTrack", allocatedTrack);
         }
@@ -1999,31 +2000,31 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     // Temp may return 2 tasks until HMC NRO goes live and legacy tasks are removed.
     @ParameterizedTest
     @CsvSource({
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,,,,,, Reschedule a Fast Track Hearing - HMC, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,,,,,, Reschedule a Small Claims Hearing - HMC, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,,,, DISPOSAL,, Reschedule a Disposal Hearing - HMC, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,,,,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, 2",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,,,,,, Schedule a Fast Track Hearing - HMC, 1",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,,,,,, Schedule a Small Claims Hearing - HMC, 1",
-        "CREATE_SDO, CASE_PROGRESSION,,,,,DISPOSAL,, Schedule a Disposal Hearing - HMC, 1",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,,,,,, Reschedule a Fast Track Hearing - HMC, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,,,,,, Reschedule a Small Claims Hearing - HMC, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,,, DISPOSAL,, Reschedule a Disposal Hearing - HMC, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,,,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, 2",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,,,,,TRIAL_HEARING, "
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, true,,, Reschedule a Fast Track Hearing - HMC, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, true ,true,,, Reschedule a Small Claims Hearing - HMC, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true, DISPOSAL,, Reschedule a Disposal Hearing - HMC, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, 2",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,,true,true,,, Schedule a Fast Track Hearing - HMC, 1",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,,true,true,,, Schedule a Small Claims Hearing - HMC, 1",
+        "CREATE_SDO, CASE_PROGRESSION,,,true,true,DISPOSAL,, Schedule a Disposal Hearing - HMC, 1",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,,true,true,,, Reschedule a Fast Track Hearing - HMC, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,,true,true,,, Reschedule a Small Claims Hearing - HMC, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,true,true, DISPOSAL,, Reschedule a Disposal Hearing - HMC, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,true,true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, 2",
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,,true,true,,TRIAL_HEARING, "
             + "Schedule a Fast Track Hearing - HMC, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,,,,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,,true,true,,TRIAL_HEARING, "
             + "Schedule a Small Claims Hearing - HMC, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,,,,, DISPOSAL_HEARING, Schedule a Disposal Hearing - HMC, 1",
-        "COURT_OFFICER_ORDER, CASE_PROGRESSION,,,,,,, Reschedule a Hearing - HMC, 2",
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,,true,true,, DISPOSAL_HEARING, Schedule a Disposal Hearing - HMC, 1",
+        "COURT_OFFICER_ORDER, CASE_PROGRESSION,,,true,true,,, Reschedule a Hearing - HMC, 2",
     })
     void given_input_should_return_correct_scheduleHmcHearingTask_noLip(
         String eventId,
         String postEventState,
         String allocatedTrack,
         String responseClaimTrack,
-        String applicant1Represented,
-        String respondent1Represented,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
         String orderType,
         String caseManagementOrderSelection,
         String expectedTaskName,
@@ -2057,18 +2058,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,,,,,, Schedule a Fast Track Hearing - HMC, 1",
-        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,,,,,, Schedule a Small Claims Hearing - HMC, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,,,, DISPOSAL,, Schedule a Disposal Hearing - HMC, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,,,,, DISPOSAL_HEARING, Schedule a Disposal Hearing - HMC, 1"
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,,true,true,,, Schedule a Fast Track Hearing - HMC, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,,true,true,,, Schedule a Small Claims Hearing - HMC, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,,true,true, DISPOSAL,, Schedule a Disposal Hearing - HMC, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,,true,true,, DISPOSAL_HEARING, Schedule a Disposal Hearing - HMC, 1"
     })
     void given_input_should_return_correct_scheduleHmcHearingTask_manageStay_noLip(
         String eventId,
         String postEventState,
         String allocatedTrack,
         String responseClaimTrack,
-        String applicant1Represented,
-        String respondent1Represented,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
         String orderType,
         String caseManagementOrderSelection,
         String expectedTaskName,
@@ -2210,95 +2211,95 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, NO,,,, Reschedule a Fast Track Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,,, NO,,, Reschedule a Fast Track Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, NO, NO,,, Reschedule a Fast Track Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, NO,,,, Reschedule a Fast Track Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM,, NO,,, Reschedule a Fast Track Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, NO, NO,,, Reschedule a Fast Track Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, NO,,,, Reschedule a Small Claims Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,,, NO,,, Reschedule a Small Claims Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, NO, NO,,, Reschedule a Small Claims Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, NO,,,, Reschedule a Small Claims Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM,, NO,,, Reschedule a Small Claims Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, NO, NO,,, Reschedule a Small Claims Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, NO,, DISPOSAL,, Reschedule a Disposal Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,,, NO, DISPOSAL,, Reschedule a Disposal Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, NO, NO, DISPOSAL,, Reschedule a Disposal Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, NO,,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,,, NO,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, NO, NO,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, NO,,,, Schedule a Fast Track Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,,, NO,,, Schedule a Fast Track Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, NO, NO,,, Schedule a Fast Track Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, NO,,,, Schedule a Fast Track Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM,, NO,,, Schedule a Fast Track Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, NO, NO,,, Schedule a Fast Track Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, NO,,,, Schedule a Small Claims Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,,, NO,,, Schedule a Small Claims Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, NO, NO,,, Schedule a Small Claims Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, NO,,,, Schedule a Small Claims Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM,, NO,,, Schedule a Small Claims Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, NO, NO,,, Schedule a Small Claims Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION,,, NO,, DISPOSAL,, Schedule a Disposal Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION,,,, NO, DISPOSAL,, Schedule a Disposal Hearing, 1",
-        "CREATE_SDO, CASE_PROGRESSION,,, NO, NO, DISPOSAL,, Schedule a Disposal Hearing, 1",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, NO,,,, Reschedule a Fast Track Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,,, NO,,, Reschedule a Fast Track Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, NO, NO,,, Reschedule a Fast Track Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, NO,,,, Reschedule a Fast Track Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM,, NO,,, Reschedule a Fast Track Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, NO, NO,,, Reschedule a Fast Track Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, NO,,,, Reschedule a Small Claims Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,,, NO,,, Reschedule a Small Claims Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, NO, NO,,, Reschedule a Small Claims Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, NO,,,, Reschedule a Small Claims Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM,, NO,,, Reschedule a Small Claims Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, NO, NO,,, Reschedule a Small Claims Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, NO,, DISPOSAL,, Reschedule a Disposal Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,, NO, DISPOSAL,, Reschedule a Disposal Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, NO, NO, DISPOSAL,, Reschedule a Disposal Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, NO,,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,, NO,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, NO, NO,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,, NO,,,TRIAL_HEARING, "
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Reschedule a Fast Track Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Reschedule a Fast Track Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, true, false,,, Reschedule a Fast Track Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Reschedule a Fast Track Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Reschedule a Small Claims Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Reschedule a Small Claims Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Reschedule a Small Claims Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Reschedule a Small Claims Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Reschedule a Small Claims Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Reschedule a Small Claims Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true, DISPOSAL,, Reschedule a Disposal Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, false, DISPOSAL,, Reschedule a Disposal Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Schedule a Fast Track Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Schedule a Small Claims Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Schedule a Small Claims Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Schedule a Small Claims Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Reschedule a Fast Track Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Reschedule a Fast Track Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, true, false,,, Reschedule a Fast Track Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Reschedule a Fast Track Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Reschedule a Small Claims Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Reschedule a Small Claims Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Reschedule a Small Claims Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Reschedule a Small Claims Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Reschedule a Small Claims Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Reschedule a Small Claims Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, true, DISPOSAL,, Reschedule a Disposal Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, true, false, DISPOSAL,, Reschedule a Disposal Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, 2",
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,, false, true,, TRIAL_HEARING, "
             + "Schedule a Fast Track Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,,, NO,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,, true, false,, TRIAL_HEARING, "
             + "Schedule a Fast Track Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,, NO, NO,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,, false, false,, TRIAL_HEARING, "
             + "Schedule a Fast Track Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, FAST_CLAIM, NO,,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, FAST_CLAIM, false, true,, TRIAL_HEARING, "
             + "Schedule a Fast Track Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, FAST_CLAIM,, NO,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, FAST_CLAIM, true, false,, TRIAL_HEARING, "
             + "Schedule a Fast Track Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, FAST_CLAIM, NO, NO,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, FAST_CLAIM, false, false,, TRIAL_HEARING, "
             + "Schedule a Fast Track Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,,NO,,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,, false, true,, TRIAL_HEARING, "
             + "Schedule a Small Claims Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,,,NO,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,, true, false,, TRIAL_HEARING, "
             + "Schedule a Small Claims Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,, NO,NO,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,, false, false,, TRIAL_HEARING, "
             + "Schedule a Small Claims Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, SMALL_CLAIM,NO,,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, SMALL_CLAIM, false, true,, TRIAL_HEARING, "
             + "Schedule a Small Claims Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, SMALL_CLAIM,,NO,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, SMALL_CLAIM, truw, false,, TRIAL_HEARING, "
             + "Schedule a Small Claims Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, SMALL_CLAIM, NO,NO,,TRIAL_HEARING, "
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, SMALL_CLAIM, false, false,, TRIAL_HEARING, "
             + "Schedule a Small Claims Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,, NO,,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,,, NO,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,, NO, NO,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
-        "COURT_OFFICER_ORDER, CASE_PROGRESSION,,, NO,,,, Reschedule a Hearing, 2",
-        "COURT_OFFICER_ORDER, CASE_PROGRESSION,,,, NO,,, Reschedule a Hearing, 2",
-        "COURT_OFFICER_ORDER, CASE_PROGRESSION,,, NO, NO,,, Reschedule a Hearing, 2"
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, "
+            + "Schedule a Disposal Hearing, 1",
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, "
+            + "Schedule a Disposal Hearing, 1",
+        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, "
+            + "Schedule a Disposal Hearing, 1"
     })
     void given_input_should_return_correct_scheduleHmcHearingTask_lip(
         String eventId,
         String postEventState,
         String allocatedTrack,
         String responseClaimTrack,
-        String applicant1Represented,
-        String respondent1Represented,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
         String orderType,
         String caseManagementOrderSelection,
         String expectedTaskName,
@@ -2332,32 +2333,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, NO,,,, Schedule a Fast Track Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,,, NO,,, Schedule a Fast Track Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, NO, NO,,, Schedule a Fast Track Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, NO,,,, Schedule a Fast Track Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM,, NO,,, Schedule a Fast Track Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, NO, NO,,, Schedule a Fast Track Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, NO,,,, Schedule a Small Claims Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,,, NO,,, Schedule a Small Claims Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, NO, NO,,, Schedule a Small Claims Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, NO,,,, Schedule a Small Claims Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM,, NO,,, Schedule a Small Claims Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, NO, NO,,, Schedule a Small Claims Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,,NO,, DISPOSAL,, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,,, NO, DISPOSAL,, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,, NO, NO, DISPOSAL,, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,, NO,,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,,, NO,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,, NO, NO,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1"
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, true,false,,, Schedule a Fast Track Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Schedule a Fast Track Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Schedule a Small Claims Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Schedule a Small Claims Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Schedule a Small Claims Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Schedule a Small Claims Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,,false, true, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,, true, false, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1"
     })
     void given_input_should_return_correct_scheduleHmcHearingTask_manageStay_lip(
         String eventId,
         String postEventState,
         String allocatedTrack,
         String responseClaimTrack,
-        String applicant1Represented,
-        String respondent1Represented,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
         String orderType,
         String caseManagementOrderSelection,
         String expectedTaskName,
@@ -2413,18 +2414,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, NO,, 22-12-2024, 1",
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED,, NO, 22-12-2024, 1",
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, NO, NO, 22-12-2024, 1",
-        "SETTLE_CLAIM, CASE_SETTLED, NO,, 22-12-2024, 1",
-        "SETTLE_CLAIM, CASE_SETTLED,, NO, 22-12-2024, 1",
-        "SETTLE_CLAIM, CASE_SETTLED, NO, NO, 22-12-2024, 1",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, true, 22-12-2024, 1",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, true, false, 22-12-2024, 1",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, false, 22-12-2024, 1",
+        "SETTLE_CLAIM, CASE_SETTLED, false, true, 22-12-2024, 1",
+        "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024, 1",
+        "SETTLE_CLAIM, CASE_SETTLED, false, false, 22-12-2024, 1",
     })
     void given_input_should_return_correct_removeHmcHearingTask_lip(
         String eventId,
         String postEventState,
-        String applicant1Represented,
-        String respondent1Represented,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
         String hearingDate,
         int expectedNumberOfTasks
     ) {
@@ -2451,13 +2452,13 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "NO,",
-        ", NO",
-        "NO, NO",
+        "false, true",
+        "true, false",
+        "false, false",
     })
     void claim_is_discontinued_create_removeHmcHearingTask_lip(
-        String applicant1Represented,
-        String respondent1Represented) {
+        boolean applicant1Represented,
+        boolean respondent1Represented) {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
         data.put("hearingDate", "22-12-2024");
@@ -2487,13 +2488,13 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "NO,",
-        ", NO",
-        "NO, NO",
+        "false, true",
+        "true, false",
+        "false, false",
     })
     void discontinuance_create_RemoveHmcHearingTask_lip(
-        String applicant1Represented,
-        String respondent1Represented) {
+        boolean applicant1Represented,
+        boolean respondent1Represented) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
