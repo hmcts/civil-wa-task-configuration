@@ -2361,7 +2361,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "false",
             "name", "description",
             "value", "[Create a hearing notice](/cases/case-details/${[CASE_REFERENCE]}"
-                + "/trigger/HEARING_SCHEDULED/HEARING_SCHEDULEDHearingNoticeSelect"
+                + "/trigger/HEARING_SCHEDULED/HEARING_SCHEDULEDHearingNoticeSelect)"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
