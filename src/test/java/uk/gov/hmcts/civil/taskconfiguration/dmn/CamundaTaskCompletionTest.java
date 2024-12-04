@@ -376,6 +376,34 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> confirmOrderReview() {
+
+        return Stream.of(
+            Arguments.of(
+                "CONFIRM_ORDER_REVIEW",
+                asList(
+                    Map.of(
+                        "taskType", "reviewOrder",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"confirmOrderReview"})
+    void given_event_ids_should_evaluate_confirm_order_review_dmn(String eventId,
+                                                                  List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"scenarioProvider"})
     void given_event_ids_should_evaluate_dmn(String eventId, List<Map<String, String>> expectation) {
@@ -497,7 +525,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-
-        assertThat(logic.getRules().size(), is(51));
+        assertThat(logic.getRules().size(), is(53));
     }
 }

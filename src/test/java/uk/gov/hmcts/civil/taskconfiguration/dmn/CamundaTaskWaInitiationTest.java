@@ -1422,7 +1422,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("RemoveHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1471,7 +1471,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("RemoveHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1793,7 +1793,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("RemoveHearing"));
+                .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1819,7 +1819,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("RemoveHearing"));
+                .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1844,7 +1844,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("RemoveHearing"));
+                .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1875,7 +1875,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(312));
+        assertThat(logic.getRules().size(), is(316));
     }
 
     @Test
@@ -1998,6 +1998,77 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     // Temp may return 2 tasks until HMC NRO goes live and legacy tasks are removed.
+    @ParameterizedTest
+    @CsvSource({
+        ", MULTI_CLAIM, , , Transfer Case Offline, transferCaseOffline",
+        ", INTERMEDIATE_CLAIM, , , Transfer Case Offline, transferCaseOffline",
+    })
+    void minti_cui_claimant_response_trigger_offline_task(String allocatedTrack, String responseClaimTrack,
+                                                       String orderType, String caseManagementOrderSelection,
+                                                       String expectedName, String expectedTaskId) {
+        Map<String, Object> data = new HashMap<>();
+        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
+            data.put("allocatedTrack", allocatedTrack);
+        }
+        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
+            data.put("responseClaimTrack", responseClaimTrack);
+        }
+        if (orderType != null && !orderType.isEmpty()) {
+            data.put("orderType", orderType);
+        }
+        if (caseManagementOrderSelection != null && !caseManagementOrderSelection.isEmpty()) {
+            data.put("caseManagementOrderSelection", caseManagementOrderSelection);
+        }
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        ", MULTI_CLAIM, , , Transfer Case Offline, transferCaseOffline",
+        ", INTERMEDIATE_CLAIM, , , Transfer Case Offline, transferCaseOffline",
+    })
+    void minti_lr_claimant_response_lip_defendant_trigger_offline_task(String allocatedTrack, String responseClaimTrack,
+                                                          String orderType, String caseManagementOrderSelection,
+                                                          String expectedName, String expectedTaskId) {
+        Map<String, Object> data = new HashMap<>();
+        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
+            data.put("allocatedTrack", allocatedTrack);
+        }
+        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
+            data.put("responseClaimTrack", responseClaimTrack);
+        }
+        if (orderType != null && !orderType.isEmpty()) {
+            data.put("orderType", orderType);
+        }
+        if (caseManagementOrderSelection != null && !caseManagementOrderSelection.isEmpty()) {
+            data.put("caseManagementOrderSelection", caseManagementOrderSelection);
+        }
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+    }
+
+    // Temp may return 2 tasks until HMC-NRO cui task uplifts
     @ParameterizedTest
     @CsvSource({
         "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, true,,, Reschedule a Fast Track Hearing - HMC, 2",
@@ -2447,7 +2518,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(expectedNumberOfTasks));
         assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("removeHearing"));
     }
 
     @ParameterizedTest
@@ -2481,7 +2552,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("RemoveHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList
                        .get(0).get("name"), is("Remove Hearing"));
     }
@@ -2517,7 +2588,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("RemoveHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList
                        .get(0).get("name"), is("Remove Hearing"));
     }
