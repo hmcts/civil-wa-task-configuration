@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(124));
+        assertThat(logic.getRules().size(), is(125));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -1092,7 +1092,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
-        caseData.put("featureToggleWA", "CUI_CP");
         inputVariables.putValue("caseData", caseData);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -1117,8 +1116,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
         ));
-
-        caseData.put("featureToggleWA", "CUI_CP");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -1733,7 +1730,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void when_taskId_final_order_welsh_request() {
 
         Map<String, Object> caseData = new HashMap<>();
-        caseData.put("featureToggleWA", "CUI_CP");
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
         ));
@@ -2234,6 +2230,39 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "false",
             "name", "dueDateSkipNonWorkingDays",
             "value", "false"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "reviewOrder, Prod, 1, "
+            + "[Order Made - Review case](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)",
+        "reviewOrder, CE_B2, 2, "
+            + "[Confirm order review]"
+            + "(/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_ORDER_REVIEW/CONFIRM_ORDER_REVIEW)"
+    })
+    void when_taskId_reviewOrder_then_return_description(String taskType,
+                                                         String featureToggle, int expectedSize, String expectedValue) {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        caseData.put("applicant1", Map.of("partyName", "Firstname LastName"));
+        caseData.put("featureToggleWA", featureToggle);
+        inputVariables.putValue("caseData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("description"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(expectedSize));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "description",
+            "value", expectedValue,
+            "canReconfigure", "true"
         )));
     }
 }
