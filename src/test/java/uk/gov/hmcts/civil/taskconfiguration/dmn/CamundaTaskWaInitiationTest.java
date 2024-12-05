@@ -1324,7 +1324,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> respondentResponseLanguage = new HashMap<>();
         respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
 
-        data.put("featureToggleWA", "CUI_CP");
         data.put("claimantBilingualLanguagePreference", "BOTH");
         data.put("respondent1LiPResponse", respondentResponseLanguage);
         Map<String, Object> caseData = new HashMap<>();
@@ -1353,7 +1352,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         Map<String, Object> data = new HashMap<>();
 
-        data.put("featureToggleWA", "CUI_CP");
         data.put("claimantBilingualLanguagePreference", "BOTH");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1383,7 +1381,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> respondentResponseLanguage = new HashMap<>();
         respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
 
-        data.put("featureToggleWA", "CUI_CP");
         data.put("respondent1LiPResponse", respondentResponseLanguage);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
