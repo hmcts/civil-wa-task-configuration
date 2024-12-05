@@ -270,7 +270,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Remove HMC Hearing"
             ),
             Map.of(
-                "taskTypeId", "RemoveHearing",
+                "taskTypeId", "removeHearing",
                 "taskTypeName", "Remove Hearing"
             )
         );
