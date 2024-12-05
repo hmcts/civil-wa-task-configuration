@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.27.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.1.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -2330,6 +2330,187 @@ else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1ctss0l">
           <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0nbziur">
+        <inputEntry id="UnaryTests_1g9il39">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u1m4ew">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pc6w58">
+          <text>"reviewMessageLA", "reviewMessageCW", "reviewMessageJudicial"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08f0siy">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lcrdsf">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1a3msk7">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11d2nuo">
+        <inputEntry id="UnaryTests_142el3e">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1huwuf9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_190peio">
+          <text>"reviewMessageLA", "reviewMessageCW", "reviewMessageJudicial"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rkfiom">
+          <text>"majorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0welv87">
+          <text>if (caseData != null and caseData.lastMessage != null and caseData.lastMessage.isUrgent != null and caseData.lastMessage.isUrgent = "Yes") then "2000" else "5000"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jnqm6b">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pnun92">
+        <inputEntry id="UnaryTests_1kcoksn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iy3zla">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ygxehc">
+          <text>"reviewMessageCW"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09av5ot">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16big7q">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_058x85m">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0s7sfp3">
+        <inputEntry id="UnaryTests_00leywx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d4jlni">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19tlus4">
+          <text>"reviewMessageLA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gq3hg3">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bh42zh">
+          <text>"LEGAL_OPERATIONS"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0aenaxb">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04xf5ne">
+        <inputEntry id="UnaryTests_1ccd5u3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xrfmm4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i7yody">
+          <text>"reviewMessageJudicial"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1c0z0fd">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1i41vvw">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bqp7ca">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14mboxc">
+        <inputEntry id="UnaryTests_0cxznyc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04gkz28">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m5tv1a">
+          <text>"reviewMessageCW"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wferhh">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11bghq5">
+          <text>"["+caseData.lastMessageAllocatedTrack+", CW, Review Message](/cases/case-details/${[CASE_REFERENCE]}#messagesTab)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15jt0c3">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12eu73j">
+        <inputEntry id="UnaryTests_1686cab">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_172nuec">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c2e9f5">
+          <text>"reviewMessageLA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dvpow2">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xtftku">
+          <text>"["+caseData.lastMessageAllocatedTrack+", LA, Review Message](/cases/case-details/${[CASE_REFERENCE]}#messagesTab)"
+</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04cm6wa">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0l7j1e5">
+        <inputEntry id="UnaryTests_0zo84rv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ktppdd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00ap09c">
+          <text>"reviewMessageJudicial"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04ccquo">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1afagcs">
+          <text>"["+caseData.lastMessageAllocatedTrack+", "+ caseData.lastMessageJudgeLabel+", Review Message](/cases/case-details/${[CASE_REFERENCE]}#messagesTab)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nwam59">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c5s9y8">
+        <inputEntry id="UnaryTests_0fd6j1c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1abk2qc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hjlr7h">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gdztnb">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ixxy7c">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12wygfo">
+          <text></text>
         </outputEntry>
       </rule>
     </decisionTable>
