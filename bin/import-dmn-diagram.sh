@@ -16,7 +16,8 @@ serviceToken=$($(realpath $workspace)/bin/utils/idam-lease-service-token.sh civi
   $(docker run --rm toolbelt/oathtool --totp -b ${s2sSecret}))
 
 dmnFilepath="$(realpath $workspace)/src/main/resources"
-
+nonProdDmnFilepath="${dmnFilepath}/nonprod"
+echo "Uploading prod DMNs..."
 for file in $(find ${dmnFilepath} -name '*.dmn')
 do
   uploadResponse=$(curl --insecure -v --silent -w "\n%{http_code}" --show-error -X POST \
@@ -44,7 +45,8 @@ done
 echo "checking if there are any non prod dmns to upload for env: ${env} and then uploading it"
 
 if [ "${env}" == "preview" ] || [ "${env}" == "demo" ] || [ "${env}" == "perftest" ] || [ "${env}" == "ithc" ]; then
-for file in $(find ${dmnFilepath} -name '*-nonprod.dmn')
+echo "Uploading non-prod DMNs..."
+for file in $(find ${nonProdDmnFilepath} -name '*-nonprod.dmn')
 do
   uploadResponse=$(curl --insecure -v --silent -w "\n%{http_code}" --show-error -X POST \
     ${CAMUNDA_BASE_URL:-http://localhost:9404}/engine-rest/deployment/create \
@@ -54,7 +56,7 @@ do
     -F "deploy-changed-only=true" \
     -F "deployment-source=$product" \
     ${tenant_id:+'-F' "tenant-id=$tenant_id"} \
-    -F "file=@${dmnFilepath}/$(basename ${file})")
+    -F "file=@${nonProdDmnFilepath}/$(basename ${file})")
 
 upload_http_code=$(echo "$uploadResponse" | tail -n1)
 upload_response_content=$(echo "$uploadResponse" | sed '$d')
