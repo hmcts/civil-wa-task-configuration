@@ -1863,6 +1863,13 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void if_this_test_fails_needs_updating_with_your_changes() {
+        //The purpose of this test is to prevent adding new rows without being tested
+        DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
+        assertThat(logic.getRules().size(), is(284));
+    }
+
+    @Test
     void given_input_should_return_asyncStitchingComplete() {
         Map<String, Object> data = new HashMap<>();
         data.put("bundleError", true);
@@ -1938,34 +1945,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("manageStay"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("manageStay"));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-        "JUDICIAL, reviewMessageJudicial",
-        "JUDICIAL_DISTRICT, reviewMessageJudicial",
-        "JUDICIAL_CIRCUIT, reviewMessageJudicial",
-        "LEGAL_OPERATIONS, reviewMessageLA",
-        "ADMIN, reviewMessageCW"
-    })
-    void given_input_rolePool_should_return_correct_review_message_task(String rolePool, String expectedTaskId) {
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "CE_B2");
-
-        data.put("lastMessage", Map.of("recipientRoleType", rolePool));
-
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "SEND_AND_REPLY");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Review message"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
 
     @ParameterizedTest
@@ -2080,62 +2059,65 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "INTERMEDIATE_CLAIM, INTERMEDIATE_CLAIM, Create a hearing notice, createHearingNoticeInt"
+        "CLAIMANT_RESPONSE_SPEC",
+        "MANAGE_STAY",
+        "TRANSFER_ONLINE_CASE"
     })
-    void minti_hearing_notice_intermediate_track(String allocatedTrack, String responseClaimTrack, String expectedName, String expectedTaskId) {
+    void given_input_should_return_allocate_minti_multi_claim_task_spec(String eventName) {
         Map<String, Object> data = new HashMap<>();
+        data.put("responseClaimTrack", "MULTI_CLAIM");
+        data.put("claimType", "CLINICAL_NEGLIGENCE");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
 
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
-        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
-            data.put("allocatedTrack", allocatedTrack);
-        }
-        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
-            data.put("responseClaimTrack", responseClaimTrack);
-        }
-        Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CONFIRM_LISTING_COMPLETED");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("eventId", eventName);
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
-        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+
+        if (Objects.equals(eventName, "TRANSFER_ONLINE_CASE")) {
+            assertThat(workTypeResultList.size(), is(2));
+            assertThat(workTypeResultList.get(1).get("name"), is("Allocate Multi Track - Clinical Negligence"));
+            assertThat(workTypeResultList.get(1).get("taskId"), is("allocateMultiTrack"));
+        } else {
+            assertThat(workTypeResultList.size(), is(1));
+            assertThat(workTypeResultList.get(0).get("name"), is("Allocate Multi Track - Clinical Negligence"));
+            assertThat(workTypeResultList.get(0).get("taskId"), is("allocateMultiTrack"));
+        }
     }
 
     @ParameterizedTest
     @CsvSource({
-        "MULTI_CLAIM, MULTI_CLAIM, Create a hearing notice, createHearingNoticeMT"
+        "CLAIMANT_RESPONSE",
+        "MANAGE_STAY",
+        "TRANSFER_ONLINE_CASE"
     })
-    void minti_hearing_notice_multi_track(String allocatedTrack, String responseClaimTrack, String expectedName, String expectedTaskId) {
+    void given_input_should_return_allocate_minti_multi_claim_task_unspec(String eventName) {
         Map<String, Object> data = new HashMap<>();
+        data.put("allocatedTrack", "MULTI_CLAIM");
+        data.put("claimType", "CLINICAL_NEGLIGENCE");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
 
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
-        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
-            data.put("allocatedTrack", allocatedTrack);
-        }
-        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
-            data.put("responseClaimTrack", responseClaimTrack);
-        }
-        Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CONFIRM_LISTING_COMPLETED");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("eventId", eventName);
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
-        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
-    }
 
-    @Test
-    void if_this_test_fails_needs_updating_with_your_changes() {
-        //The purpose of this test is to prevent adding new rows without being tested
-        DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(285));
+        if (Objects.equals(eventName, "TRANSFER_ONLINE_CASE")) {
+            assertThat(workTypeResultList.size(), is(2));
+            assertThat(workTypeResultList.get(1).get("name"), is("Allocate Multi Track - Clinical Negligence"));
+            assertThat(workTypeResultList.get(1).get("taskId"), is("allocateMultiTrack"));
+        } else {
+            assertThat(workTypeResultList.size(), is(1));
+            assertThat(workTypeResultList.get(0).get("name"), is("Allocate Multi Track - Clinical Negligence"));
+            assertThat(workTypeResultList.get(0).get("taskId"), is("allocateMultiTrack"));
+        }
     }
 }
