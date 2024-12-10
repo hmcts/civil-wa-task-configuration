@@ -38,6 +38,27 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
     );
 
+    private static final Map<String, Serializable> circuit_judge = Map.of(
+        "autoAssignable", false,
+        "name", "circuit-judge",
+        "roleCategory", "JUDICIAL",
+        "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+    );
+
+    private static final Map<String, Serializable> district_judge = Map.of(
+        "autoAssignable", false,
+        "name", "district-judge",
+        "roleCategory", "JUDICIAL",
+        "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+    );
+
+    private static final Map<String, Serializable> leadership_judge = Map.of(
+        "autoAssignable", false,
+        "name", "leadership-judge",
+        "roleCategory", "JUDICIAL",
+        "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+    );
+
     private static final Map<String, Serializable> tribunalCaseworker = Map.of(
         "autoAssignable", false,
         "authorisations", "294",
@@ -1231,6 +1252,39 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "autoAssignable", false,
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN"
+            )
+        )));
+    }
+
+    @Test
+    void given_allocateMultiTrack_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "allocateMultiTrack"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "circuit-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "district-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "leadership-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "autoAssignable", false
             )
         )));
     }
