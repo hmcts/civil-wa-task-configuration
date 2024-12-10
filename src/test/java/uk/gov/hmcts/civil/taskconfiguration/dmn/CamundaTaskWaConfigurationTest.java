@@ -2120,25 +2120,25 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @CsvSource(value = {
         "reviewMessageCW; Small Claim;; "
-            + "[Small Claim, CW, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+            + "[Small Claim, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         "reviewMessageCW; Fast Track;; "
-            + "[Fast Track, CW, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+            + "[Fast Track, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
         "reviewMessageLA; Small Claim;; "
-            + "[Small Claim, LA, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+            + "[Small Claim, LA, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         "reviewMessageLA; Fast Track;; "
-            + "[Fast Track, LA, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+            + "[Fast Track, LA, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
         "reviewMessageJudicial; Small Claim; CJ; "
-            + "[Small Claim, CJ, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+            + "[Small Claim, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         "reviewMessageJudicial; Fast Track; CJ; "
-            + "[Fast Track, CJ, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+            + "[Fast Track, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
         "reviewMessageJudicial; Small Claim; DJ; "
-            + "[Small Claim, DJ, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+            + "[Small Claim, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         "reviewMessageJudicial; Fast Track; DJ; "
-            + "[Fast Track, DJ, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+            + "[Fast Track, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
         "reviewMessageJudicial; Small Claim; Judge; "
-            + "[Small Claim, Judge, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+            + "[Small Claim, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         "reviewMessageJudicial; Fast Track; Judge; "
-            + "[Fast Track, Judge, Review Message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No"
+            + "[Fast Track, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No"
         }, delimiter = ';')
     void when_reviewMessage_then_return_allocatedTrackAndDescription(
         String taskType, String allocatedTrack,
