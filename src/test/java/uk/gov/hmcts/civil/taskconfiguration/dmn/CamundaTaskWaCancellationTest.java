@@ -26,13 +26,13 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioTakesCaseOfflineEventProceedsInHeritageSystem",
+    @MethodSource({"scenarioWhenCaseIsStayed",
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
         "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure",
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioProceedsInHeritageSystem",
         "scenarioUpdateNextHearingDetailsCasesReconfigure", "scenarioUpdateNextHearingInfoCasesReconfigure",
-        "scenarioNotSuitableSdoCancelTasks", "scenarioWhenCaseIsStayed"})
+        "scenarioNotSuitableSdoCancelTasks", "scenarioWhenCaseIsStayed", "scenarioWhenManageStay"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -130,6 +130,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "setAsideJo"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
             ),
             Map.of(
                 "action", "Cancel",
@@ -308,6 +312,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "setAsideJo"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
             ),
             Map.of(
                 "action", "Cancel",
@@ -506,6 +514,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "action", "Cancel",
+                "processCategories", "manageStay"
+            ),
+            Map.of(
+                "action", "Cancel",
                 "processCategories", "sendReplyMessage"
             )
         );
@@ -563,12 +575,29 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioWhenManageStay() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                null,
+                "MANAGE_STAY",
+                null,
+                outcome
+            )
+        );
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(54));
+        assertThat(logic.getRules().size(), is(57));
     }
 }
