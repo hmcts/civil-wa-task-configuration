@@ -260,6 +260,18 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "manageStay",
                 "taskTypeName", "Manage Stay"
+            ),
+            Map.of(
+                "taskTypeId", "allocateMultiTrack",
+                "taskTypeName", "Allocate Multi Track"
+            ),
+            Map.of(
+                "taskTypeId", "allocateMultiTrack",
+                "taskTypeName", "Allocate Multi Track - Clinical Negligence"
+            ),
+            Map.of(
+                "taskTypeId", "allocateMultiTrack",
+                "taskTypeName", "Allocate Multi Track - Serious Personal Injury"
             )
         );
 
@@ -277,7 +289,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(56));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(59));
     }
 
 }
