@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(124));
+        assertThat(logic.getRules().size(), is(125));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2267,8 +2267,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
-    void when_allocateMultiTrack_createAllocateMultiTrack_then_return_expected_config() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "allocateMultiTrack, multi_Track_decision_making_work",
+        "allocateIntermediateTrack, intermediate_Track_decision_making_work"
+    })
+    void when_allocateMultiTrack_or_allocateIntermediateTrack_then_return_expected_config(String taskName, String workType) {
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -2287,7 +2291,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("description", null);
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
-            "taskType", "allocateMultiTrack"
+            "taskType", taskName
         ));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -2299,7 +2303,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "workType",
-            "value", "Multi_Track_decision_making_work"
+            "value", workType
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",

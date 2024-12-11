@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.29.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.28.0">
   <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
@@ -634,7 +634,7 @@
       <rule id="DecisionRule_1yol46l">
         <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
         <inputEntry id="UnaryTests_1bcmpib">
-          <text>"GENERATE_DIRECTIONS_ORDER"</text>
+          <text>"GENERATE_DIRECTIONS_ORDER","CREATE_SDO","NotSuitable_SDO"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0g62jjp">
           <text>"allocateMultiTrack"</text>
@@ -646,24 +646,12 @@
       <rule id="DecisionRule_025fy8s">
         <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
         <inputEntry id="UnaryTests_04o0ebp">
-          <text>"CREATE_SDO"</text>
+          <text>"GENERATE_DIRECTIONS_ORDER","CREATE_SDO","NotSuitable_SDO"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1btf8jb">
-          <text>"allocateMultiTrack"</text>
+          <text>"allocateIntermediateTrack"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_11jo7lb">
-          <text>"Auto"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1pxn6hf">
-        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
-        <inputEntry id="UnaryTests_1ivugyh">
-          <text>"NotSuitable_SDO"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0o3dlny">
-          <text>"allocateMultiTrack"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_0h2ac3j">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
