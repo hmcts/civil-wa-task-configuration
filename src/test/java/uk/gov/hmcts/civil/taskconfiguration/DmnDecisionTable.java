@@ -46,6 +46,9 @@ public enum DmnDecisionTable {
     ),
     WA_TASK_TYPES_CIVIL_GENERALAPPLICATION("wa-task-types-civil-generalapplication",
                                                  "wa-task-types-civil-generalapplication.dmn"
+    ),
+    WA_COURT_LOCATION_FOR_TASKS("wa-task-court-location-civil-civil",
+                                               "court_location_for_tasks.dmn"
     );
 
     @JsonValue
