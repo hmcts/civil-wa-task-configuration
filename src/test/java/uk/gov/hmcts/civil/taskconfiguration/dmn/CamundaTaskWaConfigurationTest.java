@@ -2269,8 +2269,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "createHearingNoticeMT, Multi_Track_hearing_work",
-        "createHearingNoticeInt, Intermediate_Track_hearing_work",
+        "createHearingNoticeMT, multi_track_hearing_work",
+        "createHearingNoticeInt, intermediate_track_hearing_work",
     })
     void when_createHearingNoticeInt_createHearingNoticeMT_then_return_expected_config(String taskType, String workType) {
 
