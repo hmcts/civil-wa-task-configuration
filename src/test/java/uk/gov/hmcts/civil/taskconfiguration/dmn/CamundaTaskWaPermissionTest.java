@@ -1256,10 +1256,14 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @Test
-    void given_allocateMultiTrack_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "allocateMultiTrack",
+        "allocateIntermediateTrack"
+    })
+    void given_allocateMultiTrack_or_allocateIntermediateTrack_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", "allocateMultiTrack"));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskName));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
