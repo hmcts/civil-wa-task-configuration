@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.27.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -1335,6 +1335,78 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_1rs9m9a">
           <text>"manageStay"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1etqc73">
+        <description>"When stay requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1b1m0n1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xsnnnm">
+          <text>"STAY_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y47cof">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0akyoub">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vbo2tr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lda3ba">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1utsycl">
+          <text>"confirmOrderReviewStayCase"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qcifrj">
+        <description>"When manage stay requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_13pxyx5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nr015t">
+          <text>"MANAGE_STAY"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01vuq58">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g9mnoo">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1njk9at">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_117tvy7">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0l88gqb">
+          <text>"confirmOrderReviewManageStay"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_090atfb">
+        <description>"When dismiss case requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0itsnoc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14kal0m">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fcered">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0cg1x56">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i3zkvq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wu62wn">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12s5l5c">
+          <text>"confirmOrderReviewDismissCase"</text>
         </outputEntry>
       </rule>
     </decisionTable>
