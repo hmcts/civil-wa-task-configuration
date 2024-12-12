@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(125));
+        assertThat(logic.getRules().size(), is(131));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2319,6 +2319,64 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "true",
             "name", "region",
             "value", "1"
+        )));
+
+    }
+
+    @Test
+    void when_damagesListCMCMulti_then_return_expected_config() {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("taskManagementLocations", Map.of(
+            "cmcListingLocation", Map.of("region", "1",
+                                         "location", "1234",
+                                         "locationName", "a location name")
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        caseData.put("description", null);
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", "damagesListCMCMulti"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Confirm Listing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_LISTING_COMPLETED"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "Multi_Track_hearing_work"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMINISTRATOR"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "location",
+            "value", "1234"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "region",
+            "value", "1"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "locationName",
+            "value", "a location name"
         )));
 
     }
