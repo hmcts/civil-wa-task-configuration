@@ -2229,11 +2229,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                                                                                                     String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", "MULTI_CLAIM");
-        Map<String, Object> hearingTypeValue = new HashMap<>();
-        hearingTypeValue.put("code", hearingType);
-        Map<String, Object> requestHearingNoticeDynamic = new HashMap<>();
-        requestHearingNoticeDynamic.put("value", hearingTypeValue);
-        data.put("requestHearingNoticeDynamic", requestHearingNoticeDynamic);
+        data.put("requestHearingNoticeText", hearingType);
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
