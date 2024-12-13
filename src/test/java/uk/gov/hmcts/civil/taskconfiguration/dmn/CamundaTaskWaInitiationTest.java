@@ -1866,7 +1866,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(283));
+        assertThat(logic.getRules().size(), is(284));
     }
 
     @Test
@@ -2221,11 +2221,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "HEARING_SCHEDULED_RETRIGGER, CASE_MANAGEMENT_CONFERENCE, List a CMC",
-        "HEARING_SCHEDULED_RETRIGGER, COSTS_CASE_MANAGEMENT_CONFERENCE, List a CCMC",
-        "HEARING_SCHEDULED_RETRIGGER, OTHER, List a Multi Track hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_MANAGEMENT_CONFERENCE, List a CMC, damagesListCMCMulti",
+        "HEARING_SCHEDULED_RETRIGGER, OTHER, List a Multi Track hearing, damagesListCMCMulti",
+        "HEARING_SCHEDULED_RETRIGGER, COSTS_CASE_MANAGEMENT_CONFERENCE, List a CCMC, damagesListCCMCMulti",
     })
-    void given_input_should_return_allocate_damagesListCMCMulti_task_unspec(String eventName, String hearingType, String taskDescription) {
+    void given_input_should_return_allocate_damagesListCMCMulti_or_damagesListCCMCMulti_task_unspec(String eventName, String hearingType,
+                                                                                                    String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", "MULTI_CLAIM");
         data.put("requestHearingNoticeDynamic", hearingType);
@@ -2243,7 +2244,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         System.out.println("gdrgs "+ workTypeResultList);
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(taskDescription));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("damagesListCMCMulti"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTask));
 
     }
 }

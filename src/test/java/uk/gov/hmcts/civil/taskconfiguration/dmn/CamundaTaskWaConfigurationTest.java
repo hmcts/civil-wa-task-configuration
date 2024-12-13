@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(131));
+        assertThat(logic.getRules().size(), is(134));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2323,8 +2323,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     }
 
-    @Test
-    void when_damagesListCMCMulti_then_return_expected_config() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "damagesListCMCMulti",
+        "damagesListCCMCMulti"
+    })
+    void when_damagesListCMCMulti_then_return_expected_config(String taskName) {
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -2337,14 +2341,17 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("taskManagementLocations", Map.of(
             "cmcListingLocation", Map.of("region", "1",
                                          "location", "1234",
-                                         "locationName", "a location name")
+                                         "locationName", "a location name"),
+            "ccmcListingLocation", Map.of("region", "2",
+                                         "location", "54321",
+                                         "locationName", "a different location name")
         ));
 
         VariableMap inputVariables = new VariableMapImpl();
         caseData.put("description", null);
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
-            "taskType", "damagesListCMCMulti"
+            "taskType", taskName
         ));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -2363,22 +2370,39 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "name", "roleCategory",
             "value", "ADMINISTRATOR"
         )));
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
-            "name", "location",
-            "value", "1234"
-        )));
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
-            "name", "region",
-            "value", "1"
-        )));
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
-            "name", "locationName",
-            "value", "a location name"
-        )));
-
+        if (taskName.equals("damagesListCMCMulti")) {
+            assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                "canReconfigure", "true",
+                "name", "location",
+                "value", "1234"
+            )));
+            assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                "canReconfigure", "true",
+                "name", "region",
+                "value", "1"
+            )));
+            assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                "canReconfigure", "true",
+                "name", "locationName",
+                "value", "a location name"
+            )));
+        } else {
+            assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                "canReconfigure", "true",
+                "name", "location",
+                "value", "54321"
+            )));
+            assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                "canReconfigure", "true",
+                "name", "region",
+                "value", "2"
+            )));
+            assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                "canReconfigure", "true",
+                "name", "locationName",
+                "value", "a different location name"
+            )));
+        }
     }
 }
 
