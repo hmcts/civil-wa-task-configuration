@@ -1298,7 +1298,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "damagesListCMCMulti",
         "damagesListCCMCMulti"
     })
-    void given_damagesListCMCMulti_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
+    void given_damagesListCmcMulti_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskName));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);

@@ -2225,7 +2225,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "HEARING_SCHEDULED_RETRIGGER, OTHER, List a Multi Track hearing, damagesListCMCMulti",
         "HEARING_SCHEDULED_RETRIGGER, COSTS_CASE_MANAGEMENT_CONFERENCE, List a CCMC, damagesListCCMCMulti",
     })
-    void given_input_should_return_allocate_damagesListCMCMulti_or_damagesListCCMCMulti_task_unspec(String eventName, String hearingType,
+    void given_input_should_return_allocate_damagesListCmcMulti_or_damagesListCcmcMulti_task_unspec(String eventName, String hearingType,
                                                                                                     String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", "MULTI_CLAIM");
@@ -2241,7 +2241,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        System.out.println("gdrgs "+ workTypeResultList);
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(taskDescription));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTask));

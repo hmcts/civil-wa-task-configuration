@@ -2328,7 +2328,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "damagesListCMCMulti",
         "damagesListCCMCMulti"
     })
-    void when_damagesListCMCMulti_then_return_expected_config(String taskName) {
+    void when_damagesListCmcMulti_then_return_expected_config(String taskName) {
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
