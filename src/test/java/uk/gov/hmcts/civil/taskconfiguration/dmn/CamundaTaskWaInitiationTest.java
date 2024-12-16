@@ -2057,6 +2057,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void minti_hearing_notice_intermediate_track(String allocatedTrack, String responseClaimTrack, String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
 
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
             data.put("allocatedTrack", allocatedTrack);
         }
@@ -2083,6 +2084,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void minti_hearing_notice_multi_track(String allocatedTrack, String responseClaimTrack, String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
 
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
             data.put("allocatedTrack", allocatedTrack);
         }
