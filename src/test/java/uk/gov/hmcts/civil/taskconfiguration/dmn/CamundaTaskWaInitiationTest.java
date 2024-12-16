@@ -1866,7 +1866,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(278));
+        assertThat(logic.getRules().size(), is(286));
     }
 
     @Test
@@ -2054,6 +2054,35 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "UNLESS_ORDER, confirmOrderReviewUnlessOrder",
+        "PRE_TRIAL_CHECKLIST, confirmOrderReviewFreeTrial",
+        "GENERAL_ORDER, confirmOrderReviewGeneralOrder",
+        "RESERVE_JUDGMENT, confirmOrderReviewReserveJudgement",
+        "OTHER, confirmOrderReviewOther",
+        "STAY_A_CASE, confirmOrderReviewStayCase",
+        "LIFT_A_STAY, confirmOrderReviewManageStay",
+        "DISMISS_CASE, confirmOrderReviewDismissCase"
+    })
+    void given_input_should_return_correct_reviewCaseTask(String waFlag, String expectedTaskId) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+        data.put("obligationWAFlag", Map.of("obligationReason", waFlag));
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "ORDER_REVIEW_OBLIGATION_CHECK");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Review case"));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
 }

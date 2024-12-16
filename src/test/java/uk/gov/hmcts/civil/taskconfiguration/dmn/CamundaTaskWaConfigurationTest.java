@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(121));
+        assertThat(logic.getRules().size(), is(131));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2257,13 +2257,57 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             .filter((r) -> r.containsValue("description"))
             .collect(Collectors.toList());
 
-        System.out.println(workTypeResultList);
         assertThat(workTypeResultList.size(), is(expectedSize));
 
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "description",
             "value", expectedValue,
             "canReconfigure", "true"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "confirmOrderReviewUnlessOrder, "
+            + "[Review case - Unless order - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+        "confirmOrderReviewFreeTrial, "
+            + "[Review case - Pre trial checklist - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+        "confirmOrderReviewGeneralOrder, "
+            + "[Review case - General order - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+        "confirmOrderReviewReserveJudgement, "
+            + "[Review case - Reserve Judgment - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+        "confirmOrderReviewOther, "
+            + "[Review case - Other - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+        "confirmOrderReviewDismissCase, "
+            + "[Review case - Dismiss case - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+        "confirmOrderReviewManageStay, "
+            + "[Review case - Lift stay - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+        "confirmOrderReviewStayCase, "
+            + "[Review case - Stay case - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+    })
+    void when_taskId_reviewCase_then_return_description(String taskType, String expectedValue) {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("obligationWAFlag", Map.of("currentDate", "16 December 2024"));
+        inputVariables.putValue("caseData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("description"))
+            .collect(Collectors.toList());
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "description",
+            "value", expectedValue,
+            "canReconfigure", "false"
         )));
     }
 }
