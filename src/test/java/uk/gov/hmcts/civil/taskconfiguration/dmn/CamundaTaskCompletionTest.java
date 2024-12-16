@@ -414,6 +414,36 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    static Stream<Arguments> confirmListingScenarioProvider() {
+
+        return Stream.of(
+            Arguments.of(
+                "CONFIRM_LISTING_COMPLETED",
+                asList(
+                    Map.of(
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListCMCMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListCCMCMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListPTRMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListTrialMulti",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
     @ParameterizedTest(name = "event id: {0}")
     @MethodSource({"confirmOrderReview"})
     void given_event_ids_should_evaluate_confirm_order_review_dmn(String eventId,
@@ -540,11 +570,20 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
     }
 
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"confirmListingScenarioProvider"})
+    void given_event_ids_should_confirm_listing_dmn(String eventId, List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(54));
+        assertThat(logic.getRules().size(), is(59));
     }
 }

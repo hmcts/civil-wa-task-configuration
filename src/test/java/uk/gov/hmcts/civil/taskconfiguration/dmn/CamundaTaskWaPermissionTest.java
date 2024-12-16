@@ -1292,4 +1292,32 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             )
         )));
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "damagesListCMCMulti",
+        "damagesListCCMCMulti",
+        "damagesListPTRMulti",
+        "damagesListTrialMulti"
+    })
+    void given_damagesListCmcMulti_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskName));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "authorisations", "SKILL:AAA7:DAMAGES_CCMC_CMC_MANAGEMENT",
+                "autoAssignable", false
+            )
+        )));
+    }
 }

@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(125));
+        assertThat(logic.getRules().size(), is(140));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2321,6 +2321,136 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "value", "1"
         )));
 
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "damagesListCMCMulti",
+        "damagesListCCMCMulti",
+        "damagesListPTRMulti",
+        "damagesListTrialMulti"
+    })
+    void when_damagesListing_then_return_expected_config(String taskName) {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("taskManagementLocations", Map.of(
+            "cmcListingLocation", Map.of("region", "1",
+                                         "location", "1234",
+                                         "locationName", "a location name"),
+            "ccmcListingLocation", Map.of("region", "2",
+                                         "location", "54321",
+                                         "locationName", "a different location name"),
+            "ptrListingLocation", Map.of("region", "3",
+                                          "location", "15154",
+                                          "locationName", "ptr location name"),
+            "trialListingLocation", Map.of("region", "4",
+                                          "location", "57771",
+                                          "locationName", "trial location name")
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        caseData.put("description", null);
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", taskName
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Confirm Listing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_LISTING_COMPLETED"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "Multi_Track_hearing_work"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMINISTRATOR"
+        )));
+
+        switch (taskName) {
+            case "damagesListCMCMulti":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "1234"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "1"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "a location name"
+                )));
+                break;
+            case "damagesListCCMCMulti":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "54321"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "2"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "a different location name"
+                )));
+                break;
+            case "damagesListPTRMulti":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "15154"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "3"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "ptr location name"
+                )));
+                break;
+            case "damagesListTrialMulti":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "57771"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "4"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "trial location name"
+                )));
+                break;
+            default:
+                break;
+        }
     }
 }
 
