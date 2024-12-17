@@ -2256,7 +2256,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @CsvSource({
         "HEARING_SCHEDULED_RETRIGGER, CASE_MANAGEMENT_CONFERENCE, List a CMC, damagesListCMCInt",
-        "HEARING_SCHEDULED_RETRIGGER, OTHER, List a Multi Track hearing, damagesListCMCInt",
+        "HEARING_SCHEDULED_RETRIGGER, OTHER, List a Intermediate Track hearing, damagesListCMCInt",
         "HEARING_SCHEDULED_RETRIGGER, PRE_TRIAL_REVIEW, List a PTR, damagesListPTRInt",
         "HEARING_SCHEDULED_RETRIGGER, TRIAL, List a Trial, damagesListTrialInt"})
     void given_input_should_return_allocate_intermediate_damages_listing_task_unspec(String eventName, String hearingType,
