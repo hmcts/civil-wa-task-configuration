@@ -2366,7 +2366,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "description",
-            "value", "[Confirm Listing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_LISTING_COMPLETED"
+            "value",
+            "[Confirm Listing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_LISTING_COMPLETED/CONFIRM_LISTING_COMPLETEDConfirmListing)"
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
@@ -2492,7 +2493,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "description",
-            "value", "[Confirm Listing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_LISTING_COMPLETED"
+            "value",
+            "[Confirm Listing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_LISTING_COMPLETED/CONFIRM_LISTING_COMPLETEDConfirmListing)"
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
