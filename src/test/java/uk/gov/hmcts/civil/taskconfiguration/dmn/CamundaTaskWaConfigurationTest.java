@@ -2269,8 +2269,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "allocateMultiTrack, multi_Track_decision_making_work",
-        "allocateIntermediateTrack, intermediate_Track_decision_making_work"
+        "allocateMultiTrack, multi_track_decision_making_work",
+        "allocateIntermediateTrack, intermediate_track_decision_making_work"
     })
     void when_allocateMultiTrack_or_allocateIntermediateTrack_then_return_expected_config(String taskName, String workType) {
 
