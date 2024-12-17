@@ -1866,7 +1866,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(281));
+        assertThat(logic.getRules().size(), is(282));
     }
 
     @Test
@@ -2083,5 +2083,28 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+    }
+
+    @Test
+    void given_lip_claim_settled_create_remove_hearing_task() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "LIP_CLAIM_SETTLED");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("ClaimSettledRemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
     }
 }
