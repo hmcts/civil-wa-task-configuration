@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(140));
+        assertThat(logic.getRules().size(), is(141));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2330,7 +2330,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "damagesListPTRMulti",
         "damagesListTrialMulti"
     })
-    void when_damagesListing_then_return_expected_config(String taskName) {
+    void when_multi_damagesListing_then_return_expected_config(String taskName) {
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -2371,7 +2371,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "workType",
-            "value", "Multi_Track_hearing_work"
+            "value", "multi_Track_hearing_work"
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
@@ -2432,6 +2432,115 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
                 )));
                 break;
             case "damagesListTrialMulti":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "57771"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "4"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "trial location name"
+                )));
+                break;
+            default:
+                break;
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "damagesListCMCInt",
+        "damagesListPTRInt",
+        "damagesListTrialInt"
+    })
+    void when_intermediate_damagesListing_then_return_expected_config(String taskName) {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("taskManagementLocations", Map.of(
+            "cmcListingLocation", Map.of("region", "1",
+                                         "location", "1234",
+                                         "locationName", "a location name"),
+            "ptrListingLocation", Map.of("region", "3",
+                                         "location", "15154",
+                                         "locationName", "ptr location name"),
+            "trialListingLocation", Map.of("region", "4",
+                                           "location", "57771",
+                                           "locationName", "trial location name")
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        caseData.put("description", null);
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", taskName
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Confirm Listing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_LISTING_COMPLETED"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "intermediate_Track_hearing_work"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMINISTRATOR"
+        )));
+
+        switch (taskName) {
+            case "damagesListCMCInt":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "1234"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "1"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "a location name"
+                )));
+                break;
+            case "damagesListPTRInt":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "15154"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "3"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "ptr location name"
+                )));
+                break;
+            case "damagesListTrialInt":
                 assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
                     "canReconfigure", "true",
                     "name", "location",
