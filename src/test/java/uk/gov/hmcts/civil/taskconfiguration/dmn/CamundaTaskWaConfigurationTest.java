@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(125));
+        assertThat(logic.getRules().size(), is(137));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2117,6 +2117,74 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    @ParameterizedTest
+    @CsvSource(value = {
+        "reviewMessageCW; Small Claim;; "
+            + "[Small Claim, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageCW; Fast Track;; "
+            + "[Fast Track, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageLA; Small Claim;; "
+            + "[Small Claim, LA, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageLA; Fast Track;; "
+            + "[Fast Track, LA, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageJudicial; Small Claim; CJ; "
+            + "[Small Claim, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageJudicial; Fast Track; CJ; "
+            + "[Fast Track, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageJudicial; Small Claim; DJ; "
+            + "[Small Claim, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageJudicial; Fast Track; DJ; "
+            + "[Fast Track, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageJudicial; Small Claim; Judge; "
+            + "[Small Claim, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageJudicial; Fast Track; Judge; "
+            + "[Fast Track, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No"
+        }, delimiter = ';')
+    void when_reviewMessage_then_return_allocatedTrackAndDescription(
+        String taskType, String allocatedTrack,
+        String judgeLabel, String expectedDescription, String isUrgent) {
+
+        Map<String, Object> caseData = new HashMap<>(); // allow null values
+
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        caseData.put("lastMessage", Map.of(
+            "isUrgent", isUrgent
+        ));
+        caseData.put("lastMessageAllocatedTrack", allocatedTrack);
+        caseData.put("lastMessageJudgeLabel", judgeLabel);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            taskType
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "majorPriority",
+            "value", isUrgent.equals("Yes") ? "2000" : "5000"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "routine_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", expectedDescription
+        )));
+    }
+
     @Test
     void when_taskId_then_return_routine_work_ManageStay_notUrgent() {
         Map<String, Object> caseData = new HashMap<>();
@@ -2264,6 +2332,61 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "name", "description",
             "value", expectedValue,
             "canReconfigure", "true"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "createHearingNoticeMT, multi_track_hearing_work",
+        "createHearingNoticeInt, intermediate_track_hearing_work",
+    })
+    void when_createHearingNoticeInt_createHearingNoticeMT_then_return_expected_config(String taskType, String workType) {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("caseManagementLocation", Map.of(
+            "baseLocation", "2",
+            "region", "1"
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        caseData.put("description", null);
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", taskType
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Create a hearing notice](/cases/case-details/${[CASE_REFERENCE]}/trigger/HEARING_SCHEDULED)"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", workType
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "location",
+            "value", "2"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "region",
+            "value", "1"
         )));
     }
 
