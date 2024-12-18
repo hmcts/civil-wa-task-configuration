@@ -2334,7 +2334,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "specifiedListPTRMulti",
         "specifiedListTrialMulti"
     })
-    void when_multi_damagesListing_then_return_expected_config(String taskName) {
+    void when_multi_Listing_then_return_expected_config(String taskName) {
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -2462,9 +2462,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource(value = {
         "damagesListCMCInt",
         "damagesListPTRInt",
-        "damagesListTrialInt"
+        "damagesListTrialInt",
+        "specifiedListCMCInt",
+        "specifiedListPTRInt",
+        "specifiedListTrialInt"
     })
-    void when_intermediate_damagesListing_then_return_expected_config(String taskName) {
+    void when_intermediate_Listing_then_return_expected_config(String taskName) {
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(

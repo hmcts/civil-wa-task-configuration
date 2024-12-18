@@ -1352,6 +1352,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource(value = {
         "specifiedListCMCMulti",
         "specifiedListCCMCMulti",
+        "specifiedListCMCInt",
     })
     void given_specifiedList_cmc_type_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
         VariableMap inputVariables = new VariableMapImpl();
@@ -1377,7 +1378,9 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @CsvSource(value = {
         "specifiedListPTRMulti",
-        "specifiedListTrialMulti"
+        "specifiedListTrialMulti",
+        "specifiedListPTRInt",
+        "specifiedListTrialInt"
     })
     void given_specifiedList_trial_type_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
         VariableMap inputVariables = new VariableMapImpl();
