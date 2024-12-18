@@ -2328,7 +2328,11 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "damagesListCMCMulti",
         "damagesListCCMCMulti",
         "damagesListPTRMulti",
-        "damagesListTrialMulti"
+        "damagesListTrialMulti",
+        "specifiedListCMCMulti",
+        "specifiedListCCMCMulti",
+        "specifiedListPTRMulti",
+        "specifiedListTrialMulti"
     })
     void when_multi_damagesListing_then_return_expected_config(String taskName) {
 
