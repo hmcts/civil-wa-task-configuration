@@ -316,6 +316,42 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "damagesListTrialInt",
                 "taskTypeName", "List a Trial"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCMulti",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCMulti",
+                "taskTypeName", "List a Multi Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCCMCMulti",
+                "taskTypeName", "List a CCMC"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListPTRMulti",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListTrialMulti",
+                "taskTypeName", "List a Trial"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCInt",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCInt",
+                "taskTypeName", "List a Intermediate Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListPTRInt",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListTrialInt",
+                "taskTypeName", "List a Trial"
             )
         );
 
@@ -333,7 +369,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(70));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(79));
     }
 
 }

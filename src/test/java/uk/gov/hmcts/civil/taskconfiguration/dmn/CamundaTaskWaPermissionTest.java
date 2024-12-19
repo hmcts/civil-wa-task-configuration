@@ -1327,7 +1327,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "damagesListPTRInt",
         "damagesListTrialInt"
     })
-    void given_damagesListCmcMulti_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
+    void given_damagesList_trial_type_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskName));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -1343,6 +1343,61 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "authorisations", "SKILL:AAA7:DAMAGES_MULTI_TRACK_TRIAL_MANAGEMENT",
+                "autoAssignable", false
+            )
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "specifiedListCMCMulti",
+        "specifiedListCCMCMulti",
+        "specifiedListCMCInt",
+    })
+    void given_specifiedList_cmc_type_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskName));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "authorisations", "SKILL:AAA6:MONEY_CLAIMS_CCMC_CMC_MANAGEMENT",
+                "autoAssignable", false
+            )
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "specifiedListPTRMulti",
+        "specifiedListTrialMulti",
+        "specifiedListPTRInt",
+        "specifiedListTrialInt"
+    })
+    void given_specifiedList_trial_type_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskName));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "authorisations", "SKILL:AAA6:SPECIFIED_MULTI_TRACK_TRIAL_MANAGEMENT",
                 "autoAssignable", false
             )
         )));
