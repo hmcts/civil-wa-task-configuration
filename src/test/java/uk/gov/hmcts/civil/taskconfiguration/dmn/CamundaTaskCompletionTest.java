@@ -109,6 +109,14 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                         "taskType", "NIHLFastTrackDirections",
                         "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "allocateMultiTrack",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "allocateIntermediateTrack",
+                        "completionMode", "Auto"
                     )
                 )
             ),
@@ -137,6 +145,14 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     ),
                     Map.of(
                         "taskType", "NIHLFastTrackDirections",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "allocateMultiTrack",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "allocateIntermediateTrack",
                         "completionMode", "Auto"
                     )
                 )
@@ -297,10 +313,18 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                 "GENERATE_DIRECTIONS_ORDER",
                     List.of(
                             Map.of(
-                                    "taskType", "OrderToSetAsideDefendedClaim",
-                                    "completionMode", "Auto"
+                                "taskType", "OrderToSetAsideDefendedClaim",
+                                "completionMode", "Auto"
                             ),
                             Map.of(
+                                "completionMode", "Auto"
+                            ),
+                            Map.of(
+                                "taskType", "allocateMultiTrack",
+                                "completionMode", "Auto"
+                            ),
+                            Map.of(
+                                "taskType", "allocateIntermediateTrack",
                                 "completionMode", "Auto"
                             )
                     )
@@ -529,6 +553,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(54));
+        assertThat(logic.getRules().size(), is(56));
     }
 }

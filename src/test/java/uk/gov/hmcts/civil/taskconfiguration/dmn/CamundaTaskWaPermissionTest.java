@@ -40,6 +40,27 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
     );
 
+    private static final Map<String, Serializable> circuit_judge = Map.of(
+        "autoAssignable", false,
+        "name", "circuit-judge",
+        "roleCategory", "JUDICIAL",
+        "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+    );
+
+    private static final Map<String, Serializable> district_judge = Map.of(
+        "autoAssignable", false,
+        "name", "district-judge",
+        "roleCategory", "JUDICIAL",
+        "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+    );
+
+    private static final Map<String, Serializable> leadership_judge = Map.of(
+        "autoAssignable", false,
+        "name", "leadership-judge",
+        "roleCategory", "JUDICIAL",
+        "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+    );
+
     private static final Map<String, Serializable> tribunalCaseworker = Map.of(
         "autoAssignable", false,
         "authorisations", "294",
@@ -1325,6 +1346,43 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "name", "hearing-centre-admin",
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
+                "autoAssignable", false
+            )
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "allocateMultiTrack",
+        "allocateIntermediateTrack"
+    })
+    void given_allocateMultiTrack_or_allocateIntermediateTrack_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskName));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "circuit-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "district-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "leadership-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
                 "autoAssignable", false
             )
         )));
