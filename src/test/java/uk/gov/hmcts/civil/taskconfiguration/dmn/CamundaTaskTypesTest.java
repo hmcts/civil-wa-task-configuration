@@ -268,6 +268,98 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "createHearingNoticeInt",
                 "taskTypeName", "Create a hearing notice"
+            ),
+            Map.of(
+                "taskTypeId", "allocateMultiTrack",
+                "taskTypeName", "Allocate Multi Track"
+            ),
+            Map.of(
+                "taskTypeId", "allocateMultiTrack",
+                "taskTypeName", "Allocate Multi Track - Clinical Negligence"
+            ),
+            Map.of(
+                "taskTypeId", "allocateMultiTrack",
+                "taskTypeName", "Allocate Multi Track - Serious Personal Injury"
+            ),
+            Map.of(
+                "taskTypeId", "allocateIntermediateTrack",
+                "taskTypeName", "Allocate Intermediate Track"
+            ),
+            Map.of(
+                "taskTypeId", "allocateIntermediateTrack",
+                "taskTypeName", "Allocate Intermediate Track - Clinical Negligence"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCMCMulti",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCMCMulti",
+                "taskTypeName", "List a Multi Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCCMCMulti",
+                "taskTypeName", "List a CCMC"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListPtrMulti",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListTrialMulti",
+                "taskTypeName", "List a Trial"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCMCInt",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCMCInt",
+                "taskTypeName", "List a Intermediate Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListPtrInt",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListTrialInt",
+                "taskTypeName", "List a Trial"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCMulti",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCMulti",
+                "taskTypeName", "List a Multi Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCCMCMulti",
+                "taskTypeName", "List a CCMC"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListPTRMulti",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListTrialMulti",
+                "taskTypeName", "List a Trial"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCInt",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCInt",
+                "taskTypeName", "List a Intermediate Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListPTRInt",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListTrialInt",
+                "taskTypeName", "List a Trial"
             )
         );
 
@@ -285,7 +377,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(58));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(81));
     }
 
 }
