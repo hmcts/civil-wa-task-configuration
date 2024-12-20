@@ -2310,6 +2310,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_return_allocate_multi_damages_listing_task_unspec(String eventName, String hearingType,
                                                                               String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("allocatedTrack", "MULTI_CLAIM");
         Map<String, Object> hearingTypeValue = new HashMap<>();
         hearingTypeValue.put("code", hearingType);
@@ -2342,6 +2343,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_return_allocate_intermediate_damages_listing_task_unspec(String eventName, String hearingType,
                                                                                      String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("allocatedTrack", "INTERMEDIATE_CLAIM");
         Map<String, Object> hearingTypeValue = new HashMap<>();
         hearingTypeValue.put("code", hearingType);
@@ -2376,6 +2378,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                                                                     String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "MULTI_CLAIM");
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
         Map<String, Object> hearingTypeValue = new HashMap<>();
         hearingTypeValue.put("code", hearingType);
         Map<String, Object> requestHearingNoticeDynamic = new HashMap<>();
@@ -2409,6 +2412,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                                                                            String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "INTERMEDIATE_CLAIM");
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
         Map<String, Object> hearingTypeValue = new HashMap<>();
         hearingTypeValue.put("code", hearingType);
         Map<String, Object> requestHearingNoticeDynamic = new HashMap<>();
