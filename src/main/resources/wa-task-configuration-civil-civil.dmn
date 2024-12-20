@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.29.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -3114,6 +3114,206 @@ else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1kj6c83">
           <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1os3d8a">
+        <inputEntry id="UnaryTests_17x9en8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_156jp29">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p6o38p">
+          <text>"confirmOrderReviewUnlessOrder","confirmOrderReviewFreeTrial","confirmOrderReviewGeneralOrder","confirmOrderReviewReserveJudgement","confirmOrderReviewOther","confirmOrderReviewDismissCase","confirmOrderReviewManageStay","confirmOrderReviewStayCase"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03jp6ld">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0t09eel">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06gbo4w">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dokiav">
+        <inputEntry id="UnaryTests_1013wbg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kn3qyh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qps9rf">
+          <text>"confirmOrderReviewUnlessOrder","confirmOrderReviewFreeTrial","confirmOrderReviewGeneralOrder","confirmOrderReviewReserveJudgement","confirmOrderReviewOther","confirmOrderReviewDismissCase","confirmOrderReviewManageStay","confirmOrderReviewStayCase"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vlnn0z">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qotifb">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15si5la">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00xuwwz">
+        <inputEntry id="UnaryTests_004h24w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pnjcvj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_105vfc7">
+          <text>"confirmOrderReviewUnlessOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ogz1yq">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1arzj9n">
+          <text>"[Review case - Unless order - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}/#notes/)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0adaxz3">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cg7ey6">
+        <inputEntry id="UnaryTests_0uoopd0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cmg65c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s5x8ku">
+          <text>"confirmOrderReviewFreeTrial"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15oezxe">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ggd5ul">
+          <text>"[Review case - Pre trial checklist - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}/#notes/)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0d5yc78">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tcvpdz">
+        <inputEntry id="UnaryTests_1j0pek7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lfhvru">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ink5yw">
+          <text>"confirmOrderReviewGeneralOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0quz7fg">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bx5frc">
+          <text>"[Review case - General order - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}/#notes/)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ugzaol">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ll0b69">
+        <inputEntry id="UnaryTests_0sewiq3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hohzv6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wokoow">
+          <text>"confirmOrderReviewReserveJudgement"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q65n53">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cjjx71">
+          <text>"[Review case - Reserve Judgment - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}/#notes/)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ehflvt">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1sch4db">
+        <inputEntry id="UnaryTests_1bve91d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l053lj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0j1i43a">
+          <text>"confirmOrderReviewOther"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0cbdu07">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mqq04r">
+          <text>"[Review case - Other - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}/#notes/)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10lwv7m">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kv7hl4">
+        <inputEntry id="UnaryTests_05kwa3b">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1526d1b">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1631u3l">
+          <text>"confirmOrderReviewDismissCase"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jpv9eh">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cjmmd8">
+          <text>"[Review case - Dismiss case - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}/#notes/)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qtz8ys">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kissbi">
+        <inputEntry id="UnaryTests_04wphwy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1el0axe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cr2osf">
+          <text>"confirmOrderReviewManageStay"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0feidlf">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fazshf">
+          <text>"[Review case - Lift stay - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}/#notes/)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0785rgu">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1d8s3u0">
+        <inputEntry id="UnaryTests_1jb9tny">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i7iuli">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s6fnp4">
+          <text>"confirmOrderReviewStayCase"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ok0uzj">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0z7niw8">
+          <text>"[Review case - Stay case - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}/#notes/)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i5ww8g">
+          <text>false</text>
         </outputEntry>
       </rule>
     </decisionTable>
