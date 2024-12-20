@@ -2300,10 +2300,141 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         }
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "HEARING_SCHEDULED_RETRIGGER, CASE_MANAGEMENT_CONFERENCE, List a CMC, damagesListCMCMulti",
+        "HEARING_SCHEDULED_RETRIGGER, OTHER, List a Multi Track hearing, damagesListCMCMulti",
+        "HEARING_SCHEDULED_RETRIGGER, COSTS_CASE_MANAGEMENT_CONFERENCE, List a CCMC, damagesListCCMCMulti",
+        "HEARING_SCHEDULED_RETRIGGER, PRE_TRIAL_REVIEW, List a PTR, damagesListPTRMulti",
+        "HEARING_SCHEDULED_RETRIGGER, TRIAL, List a Trial, damagesListTrialMulti"})
+    void given_input_should_return_allocate_multi_damages_listing_task_unspec(String eventName, String hearingType,
+                                                                              String taskDescription, String expectedTask) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("allocatedTrack", "MULTI_CLAIM");
+        Map<String, Object> hearingTypeValue = new HashMap<>();
+        hearingTypeValue.put("code", hearingType);
+        Map<String, Object> requestHearingNoticeDynamic = new HashMap<>();
+        requestHearingNoticeDynamic.put("value", hearingTypeValue);
+        data.put("requestHearingNoticeDynamic", requestHearingNoticeDynamic);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventName);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(taskDescription));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTask));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "HEARING_SCHEDULED_RETRIGGER, CASE_MANAGEMENT_CONFERENCE, List a CMC, damagesListCMCInt",
+        "HEARING_SCHEDULED_RETRIGGER, OTHER, List a Intermediate Track hearing, damagesListCMCInt",
+        "HEARING_SCHEDULED_RETRIGGER, PRE_TRIAL_REVIEW, List a PTR, damagesListPTRInt",
+        "HEARING_SCHEDULED_RETRIGGER, TRIAL, List a Trial, damagesListTrialInt"})
+    void given_input_should_return_allocate_intermediate_damages_listing_task_unspec(String eventName, String hearingType,
+                                                                                     String taskDescription, String expectedTask) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("allocatedTrack", "INTERMEDIATE_CLAIM");
+        Map<String, Object> hearingTypeValue = new HashMap<>();
+        hearingTypeValue.put("code", hearingType);
+        Map<String, Object> requestHearingNoticeDynamic = new HashMap<>();
+        requestHearingNoticeDynamic.put("value", hearingTypeValue);
+        data.put("requestHearingNoticeDynamic", requestHearingNoticeDynamic);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventName);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(taskDescription));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTask));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "HEARING_SCHEDULED_RETRIGGER, CASE_MANAGEMENT_CONFERENCE, List a CMC, specifiedListCMCMulti",
+        "HEARING_SCHEDULED_RETRIGGER, OTHER, List a Multi Track hearing, specifiedListCMCMulti",
+        "HEARING_SCHEDULED_RETRIGGER, COSTS_CASE_MANAGEMENT_CONFERENCE, List a CCMC, specifiedListCCMCMulti",
+        "HEARING_SCHEDULED_RETRIGGER, PRE_TRIAL_REVIEW, List a PTR, specifiedListPTRMulti",
+        "HEARING_SCHEDULED_RETRIGGER, TRIAL, List a Trial, specifiedListTrialMulti"})
+    void given_input_should_return_allocate_multi_listing_task_spec(String eventName, String hearingType,
+                                                                    String taskDescription, String expectedTask) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("responseClaimTrack", "MULTI_CLAIM");
+        Map<String, Object> hearingTypeValue = new HashMap<>();
+        hearingTypeValue.put("code", hearingType);
+        Map<String, Object> requestHearingNoticeDynamic = new HashMap<>();
+        requestHearingNoticeDynamic.put("value", hearingTypeValue);
+        data.put("requestHearingNoticeDynamic", requestHearingNoticeDynamic);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventName);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        System.out.println("ttttt " + workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(taskDescription));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTask));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "HEARING_SCHEDULED_RETRIGGER, CASE_MANAGEMENT_CONFERENCE, List a CMC, specifiedListCMCInt",
+        "HEARING_SCHEDULED_RETRIGGER, OTHER, List a Intermediate Track hearing, specifiedListCMCInt",
+        "HEARING_SCHEDULED_RETRIGGER, PRE_TRIAL_REVIEW, List a PTR, specifiedListPTRInt",
+        "HEARING_SCHEDULED_RETRIGGER, TRIAL, List a Trial, specifiedListTrialInt"})
+    void given_input_should_return_allocate_intermediate_listing_task_spec(String eventName, String hearingType,
+                                                                           String taskDescription, String expectedTask) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("responseClaimTrack", "INTERMEDIATE_CLAIM");
+        Map<String, Object> hearingTypeValue = new HashMap<>();
+        hearingTypeValue.put("code", hearingType);
+        Map<String, Object> requestHearingNoticeDynamic = new HashMap<>();
+        requestHearingNoticeDynamic.put("value", hearingTypeValue);
+        data.put("requestHearingNoticeDynamic", requestHearingNoticeDynamic);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventName);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(taskDescription));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTask));
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(289));
+        assertThat(logic.getRules().size(), is(303));
     }
 }
