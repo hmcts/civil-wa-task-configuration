@@ -44,8 +44,14 @@ public enum DmnDecisionTable {
     WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION("wa-task-permissions-civil-generalapplication",
                                                  "wa-task-permissions-civil-generalapplication.dmn"
     ),
+    WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION_MINTI_NONPROD("wa-task-permissions-civil-generalapplication",
+                                                               "wa-task-permissions-civil-generalapplication-nonprod.dmn"
+    ),
     WA_TASK_TYPES_CIVIL_GENERALAPPLICATION("wa-task-types-civil-generalapplication",
                                                  "wa-task-types-civil-generalapplication.dmn"
+    ),
+    WA_COURT_LOCATION_FOR_TASKS("wa-task-court-location-civil-civil",
+                                               "court_location_for_tasks.dmn"
     );
 
     @JsonValue
