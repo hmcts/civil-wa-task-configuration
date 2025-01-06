@@ -2697,21 +2697,21 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @CsvSource({
         "confirmOrderReviewUnlessOrder, "
-            + "[Review case - Unless order - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+            + "[Review case - Unless order - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
         "confirmOrderReviewFreeTrial, "
-            + "[Review case - Pre trial checklist - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+            + "[Review case - Pre trial checklist - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
         "confirmOrderReviewGeneralOrder, "
-            + "[Review case - General order - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+            + "[Review case - General order - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
         "confirmOrderReviewReserveJudgement, "
-            + "[Review case - Reserve Judgment - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+            + "[Review case - Reserve Judgment - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
         "confirmOrderReviewOther, "
-            + "[Review case - Other - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+            + "[Review case - Other - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
         "confirmOrderReviewDismissCase, "
-            + "[Review case - Dismiss case - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+            + "[Review case - Dismiss case - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
         "confirmOrderReviewManageStay, "
-            + "[Review case - Lift stay - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+            + "[Review case - Lift stay - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
         "confirmOrderReviewStayCase, "
-            + "[Review case - Stay case - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}/#notes/)",
+            + "[Review case - Stay case - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
     })
     void when_taskId_reviewCase_then_return_description(String taskType, String expectedValue) {
         VariableMap inputVariables = new VariableMapImpl();
