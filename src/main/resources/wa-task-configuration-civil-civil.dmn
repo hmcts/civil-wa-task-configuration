@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.30.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -656,7 +656,7 @@ else ""</text>
           <text>"reviewSpecificAccessRequestJudiciary","reviewSpecificAccessRequestAdmin","reviewSpecificAccessRequestLegalOps", "reviewSpecificAccessRequestCTSC","FastTrackDirections",
 "SmallClaimsTrackDirections",
 "LegalAdvisorSmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","manualDetermination","defendantWelshRequest", "uploadTranslatedOrderDocument","allocateMultiTrack","allocateIntermediateTrack","damagesListCMCMulti","damagesListCCMCMulti","damagesListPTRMulti","damagesListTrialMulti","damagesListCMCInt","damagesListPTRInt","damagesListTrialInt","specifiedListCMCMulti","specifiedListCCMCMulti","specifiedListPTRMulti","specifiedListTrialMulti","specifiedListCMCInt","specifiedListPTRInt","specifiedListTrialInt"</text>
+"SmallClaimsTrackDirectionsReferral","preHearingContact","adjournedReList","summaryJudgmentDirections","ScheduleAHearing","transferCaseOfflineNotSuitableSDO","reviewSpecificAccessRequestJudiciary","manualDetermination","defendantWelshRequest", "uploadTranslatedOrderDocument","allocateMultiTrack","allocateIntermediateTrack","damagesListCMCMulti","damagesListCCMCMulti","damagesListPTRMulti","damagesListTrialMulti","damagesListCMCInt","damagesListPTRInt","damagesListTrialInt","specifiedListCMCMulti","specifiedListCCMCMulti","specifiedListPTRMulti","specifiedListTrialMulti","specifiedListCMCInt","specifiedListPTRInt","specifiedListTrialInt","queryManagementRespondToQuery"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1dlkqcy">
           <text>"majorPriority"</text>
@@ -3116,7 +3116,7 @@ else ""</text>
           <text>true</text>
         </outputEntry>
       </rule>
-     <rule id="DecisionRule_0lnk4fb">
+      <rule id="DecisionRule_0lnk4fb">
         <inputEntry id="UnaryTests_14opnkf">
           <text></text>
         </inputEntry>
@@ -3213,6 +3213,46 @@ else ""</text>
           <text>2000</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0292po5">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1yokpzr">
+        <inputEntry id="UnaryTests_0yps8dz">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hg240b">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fwsbra">
+          <text>"queryManagementRespondToQuery"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0oraglh">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0uh0479">
+          <text>"[Respond to a query](/cases/case-details/${[CASE_REFERENCE]}/trigger/queryManagementRespondQuery)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0yowb4o">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1umzn7g">
+        <inputEntry id="UnaryTests_15wd21a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e42npt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pqb19a">
+          <text>"queryManagementRespondToQuery"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1f87e36">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0esv89f">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lpr9bw">
           <text>true</text>
         </outputEntry>
       </rule>
