@@ -2447,7 +2447,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(336));
+        assertThat(logic.getRules().size(), is(337));
     }
 
     @ParameterizedTest
@@ -2716,7 +2716,29 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(0).get("name"), is("Remove Hearing - HMC"));
     }
 
+    @Test
+    void generateDirectionsOrder_createOrderReviewTask_anyEndState() {
 
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", "HEARING_READINESS");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("reviewOrder"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Order Made - Review case"));
+    }
 
     private void addNonNullField(Map<String, Object> inputVars, String key, Object value) {
         if (value == null || (value instanceof String && ((String) value).trim().isEmpty())) {
