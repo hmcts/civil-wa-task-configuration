@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.30.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -3116,203 +3116,283 @@ else ""</text>
           <text>true</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1os3d8a">
-        <inputEntry id="UnaryTests_17x9en8">
+      <rule id="DecisionRule_0lnk4fb">
+        <inputEntry id="UnaryTests_14opnkf">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_156jp29">
-          <text></text>
+        <inputEntry id="UnaryTests_048mhdm">
+          <text>"HMC_NRO"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1p6o38p">
-          <text>"confirmOrderReviewUnlessOrder","confirmOrderReviewFreeTrial","confirmOrderReviewGeneralOrder","confirmOrderReviewReserveJudgement","confirmOrderReviewOther","confirmOrderReviewDismissCase","confirmOrderReviewManageStay","confirmOrderReviewStayCase"</text>
+        <inputEntry id="UnaryTests_1d2ec58">
+          <text>"ScheduleHMCHearing","RemoveHMCHearing"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_03jp6ld">
+        <outputEntry id="LiteralExpression_1amcg28">
           <text>"workType"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0t09eel">
-          <text>"routine_work"</text>
+        <outputEntry id="LiteralExpression_1o4rg74">
+          <text>"hearing_work"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_06gbo4w">
+        <outputEntry id="LiteralExpression_1tkqelk">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1dokiav">
-        <inputEntry id="UnaryTests_1013wbg">
+      <rule id="DecisionRule_18c908f">
+        <inputEntry id="UnaryTests_1llhdur">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1kn3qyh">
-          <text></text>
+        <inputEntry id="UnaryTests_1hx5lwx">
+          <text>"HMC_NRO"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0qps9rf">
-          <text>"confirmOrderReviewUnlessOrder","confirmOrderReviewFreeTrial","confirmOrderReviewGeneralOrder","confirmOrderReviewReserveJudgement","confirmOrderReviewOther","confirmOrderReviewDismissCase","confirmOrderReviewManageStay","confirmOrderReviewStayCase"</text>
+        <inputEntry id="UnaryTests_04sfgfg">
+          <text>"ScheduleHMCHearing","RemoveHMCHearing"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0vlnn0z">
+        <outputEntry id="LiteralExpression_10znxp0">
           <text>"roleCategory"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1qotifb">
+        <outputEntry id="LiteralExpression_0axnl7f">
           <text>"ADMIN"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_15si5la">
+        <outputEntry id="LiteralExpression_1a8jccs">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1peleub">
+        <inputEntry id="UnaryTests_1xlqgmm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n0oynt">
+          <text>"HMC_NRO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18k2two">
+          <text>"ScheduleHMCHearing","RemoveHMCHearing"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cq2b1q">
+          <text>"dueDateIntervalDays"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0286ig4">
+          <text>20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1b9bkux">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1yn6p4w">
+        <inputEntry id="UnaryTests_0rwh6fo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vzizd3">
+          <text>"HMC_NRO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13yob4b">
+          <text>"ScheduleHMCHearing","RemoveHMCHearing"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00h0z79">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0341v1h">
+          <text>"[Hearings (HMC)](/cases/case-details/${[CASE_REFERENCE]}/hearings)" </text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bdavj1">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_00xuwwz">
-        <inputEntry id="UnaryTests_004h24w">
+      <rule id="DecisionRule_0wpkx8o">
+        <inputEntry id="UnaryTests_1fk67gw">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1pnjcvj">
+        <inputEntry id="UnaryTests_0ib5gpq">
+          <text>"HMC_NRO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11ki92z">
+          <text>"RemoveHMCHearing"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hegna7">
+          <text>"majorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fftr3q">
+          <text>2000</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0292po5">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kv3uyc">
+        <inputEntry id="UnaryTests_10hkuyl">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_105vfc7">
+        <inputEntry id="UnaryTests_11nfuhu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_015ubaq">
+          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder", "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase", "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08x9v7h">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_013zu6t">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0s144tl">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0guhfsx">
+        <inputEntry id="UnaryTests_1cjhg5c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uvgsre">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ictop6">
           <text>"confirmOrderReviewUnlessOrder"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1ogz1yq">
+        <outputEntry id="LiteralExpression_15ctclj">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1arzj9n">
+        <outputEntry id="LiteralExpression_1txpt80">
           <text>"[Review case - Unless order - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}#notes)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0adaxz3">
+        <outputEntry id="LiteralExpression_1abb3j1">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0cg7ey6">
-        <inputEntry id="UnaryTests_0uoopd0">
+      <rule id="DecisionRule_0gpvp3f">
+        <inputEntry id="UnaryTests_13doj43">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1cmg65c">
+        <inputEntry id="UnaryTests_18sn7d2">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0s5x8ku">
+        <inputEntry id="UnaryTests_1uuccrt">
           <text>"confirmOrderReviewFreeTrial"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_15oezxe">
+        <outputEntry id="LiteralExpression_1hfici1">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1ggd5ul">
+        <outputEntry id="LiteralExpression_10tignb">
           <text>"[Review case - Pre trial checklist - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}#notes)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0d5yc78">
+        <outputEntry id="LiteralExpression_1v3pxhl">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0tcvpdz">
-        <inputEntry id="UnaryTests_1j0pek7">
+      <rule id="DecisionRule_0674atz">
+        <inputEntry id="UnaryTests_1350gxz">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1lfhvru">
+        <inputEntry id="UnaryTests_0ankyl7">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0ink5yw">
+        <inputEntry id="UnaryTests_1xg6co4">
           <text>"confirmOrderReviewGeneralOrder"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0quz7fg">
+        <outputEntry id="LiteralExpression_0mzmk2y">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1bx5frc">
+        <outputEntry id="LiteralExpression_0o3iifa">
           <text>"[Review case - General order - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}#notes)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0ugzaol">
+        <outputEntry id="LiteralExpression_1lcmrye">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1ll0b69">
-        <inputEntry id="UnaryTests_0sewiq3">
+      <rule id="DecisionRule_0f8utgn">
+        <inputEntry id="UnaryTests_13lm18u">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1hohzv6">
+        <inputEntry id="UnaryTests_1ri3q4t">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0wokoow">
+        <inputEntry id="UnaryTests_0i5fol2">
           <text>"confirmOrderReviewReserveJudgement"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1q65n53">
+        <outputEntry id="LiteralExpression_1h74byj">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0cjjx71">
+        <outputEntry id="LiteralExpression_1ir1ssb">
           <text>"[Review case - Reserve Judgment - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}#notes)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1ehflvt">
+        <outputEntry id="LiteralExpression_1x4pnhl">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1sch4db">
-        <inputEntry id="UnaryTests_1bve91d">
+      <rule id="DecisionRule_0ypd4cp">
+        <inputEntry id="UnaryTests_1f9m4z1">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1l053lj">
+        <inputEntry id="UnaryTests_1rsbfon">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0j1i43a">
+        <inputEntry id="UnaryTests_1ennoio">
           <text>"confirmOrderReviewOther"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0cbdu07">
+        <outputEntry id="LiteralExpression_043jej9">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1mqq04r">
+        <outputEntry id="LiteralExpression_0ncy23q">
           <text>"[Review case - Other - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}#notes)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_10lwv7m">
+        <outputEntry id="LiteralExpression_0i5e7zu">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1kv7hl4">
-        <inputEntry id="UnaryTests_05kwa3b">
+      <rule id="DecisionRule_10aqtoj">
+        <inputEntry id="UnaryTests_077f7cl">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1526d1b">
+        <inputEntry id="UnaryTests_1t4wu7f">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1631u3l">
+        <inputEntry id="UnaryTests_0tu556n">
           <text>"confirmOrderReviewDismissCase"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1jpv9eh">
+        <outputEntry id="LiteralExpression_00offhe">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0cjmmd8">
+        <outputEntry id="LiteralExpression_0289jle">
           <text>"[Review case - Dismiss case - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}#notes)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1qtz8ys">
+        <outputEntry id="LiteralExpression_0bq3tp0">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0kissbi">
-        <inputEntry id="UnaryTests_04wphwy">
+      <rule id="DecisionRule_0jbmj2j">
+        <inputEntry id="UnaryTests_1b5hamw">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1el0axe">
+        <inputEntry id="UnaryTests_16emj3o">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0cr2osf">
+        <inputEntry id="UnaryTests_0s2nqe7">
           <text>"confirmOrderReviewManageStay"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0feidlf">
+        <outputEntry id="LiteralExpression_11siddf">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0fazshf">
+        <outputEntry id="LiteralExpression_0k305hs">
           <text>"[Review case - Lift stay - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}#notes)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0785rgu">
+        <outputEntry id="LiteralExpression_0c3rtu9">
           <text>false</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1d8s3u0">
-        <inputEntry id="UnaryTests_1jb9tny">
+      <rule id="DecisionRule_1mkfrvb">
+        <inputEntry id="UnaryTests_0zoo1jo">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0i7iuli">
+        <inputEntry id="UnaryTests_19qfwq9">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0s6fnp4">
+        <inputEntry id="UnaryTests_1tcqdtj">
           <text>"confirmOrderReviewStayCase"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1ok0uzj">
+        <outputEntry id="LiteralExpression_07f6woh">
           <text>"description"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0z7niw8">
+        <outputEntry id="LiteralExpression_0gvi02p">
           <text>"[Review case - Stay case - " +caseData.obligationWAFlag.currentDate+"](/cases/case-details/${[CASE_REFERENCE]}#notes)"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0i5ww8g">
+        <outputEntry id="LiteralExpression_0vgsb4w">
           <text>false</text>
         </outputEntry>
       </rule>

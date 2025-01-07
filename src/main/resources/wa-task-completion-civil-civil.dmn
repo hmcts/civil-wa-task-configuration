@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.30.0">
   <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
@@ -185,6 +185,18 @@
           <text>"ScheduleAHearing"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_197j7kv">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i6io04">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1x2i2aj">
+          <text>"HEARING_SCHEDULED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g06ubh">
+          <text>"ScheduleHMCHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tv8a5h">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
@@ -859,63 +871,63 @@
           <text>"Auto"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_044rhov">
+      <rule id="DecisionRule_1o88s7r">
         <description>This task is completed when CW completes the "Dismiss case" event</description>
-        <inputEntry id="UnaryTests_012laf9">
+        <inputEntry id="UnaryTests_17m2epj">
           <text>"DISMISS_CASE"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_18o0vht">
+        <outputEntry id="LiteralExpression_0yclcai">
           <text>"confirmOrderReviewDismissCase"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1dgc1pc">
+        <outputEntry id="LiteralExpression_0173l5x">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0445w3n">
+      <rule id="DecisionRule_0znvhc6">
         <description>Left empty so event can be triggered without a task</description>
-        <inputEntry id="UnaryTests_1i84caf">
+        <inputEntry id="UnaryTests_1te0wdp">
           <text>"DISMISS_CASE"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0fymbgy">
+        <outputEntry id="LiteralExpression_0mag38k">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_06l5msb">
+        <outputEntry id="LiteralExpression_0mp2vzo">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1a0zwjg">
-        <description>This task is completed when CW completes the "Manage Stay" event</description>
-        <inputEntry id="UnaryTests_1ydhe7j">
+      <rule id="DecisionRule_1sohj4a">
+        <description>This task is completed when CW completes the "Manage stay" event</description>
+        <inputEntry id="UnaryTests_0kzz18m">
           <text>"MANAGE_STAY"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1greevn">
+        <outputEntry id="LiteralExpression_1jyh62n">
           <text>"confirmOrderReviewManageStay"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1nhcrlh">
+        <outputEntry id="LiteralExpression_04ljsow">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_1khwjws">
-        <description>This task is completed when CW completes the "Stay case" event</description>
-        <inputEntry id="UnaryTests_0uqg7wl">
+      <rule id="DecisionRule_0q3wk4p">
+        <description>This task is completed when CW completes the "Sta case" event</description>
+        <inputEntry id="UnaryTests_0knf8hc">
           <text>"STAY_CASE"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_0q37yu9">
+        <outputEntry id="LiteralExpression_1p8pmhi">
           <text>"confirmOrderReviewStayCase"</text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_1kssraw">
+        <outputEntry id="LiteralExpression_1dom1zf">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0abiem7">
+      <rule id="DecisionRule_1r430vd">
         <description>Left empty so event can be triggered without a task</description>
-        <inputEntry id="UnaryTests_0kyn5qs">
+        <inputEntry id="UnaryTests_09j5hcx">
           <text>"STAY_CASE"</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1dfhugq">
+        <outputEntry id="LiteralExpression_1myur5v">
           <text></text>
         </outputEntry>
-        <outputEntry id="LiteralExpression_0zt3aj3">
+        <outputEntry id="LiteralExpression_0m4j8nd">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
