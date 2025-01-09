@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.nonNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -2738,6 +2739,51 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(0).get("taskId"), is("reviewOrder"));
         assertThat(workTypeResultList
                        .get(0).get("name"), is("Order Made - Review case"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "HEARING_FEE_UNPAID, CASE_DISMISSED, MULTI_CLAIM, , , removeHearing",
+        "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT, , MULTI_CLAIM, , validateDiscontinuance, removeHearing",
+        "DISCONTINUE_CLAIM_CLAIMANT, , MULTI_CLAIM, discontinuanceType, , removeHearing",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, MULTI_CLAIM, , , removeHearing",
+        "SETTLE_CLAIM, CASE_SETTLED, MULTI_CLAIM, , , removeHearing",
+    })
+    void given_input_should_return_remove_hearing_minti_unspec(String eventName, String postState, String multiOrIntermediate,
+                                                        String discontinuanceType, String validateDiscontinuance, String taskId) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
+        data.put("hearingDate", "22-12-2024");
+        data.put("allocatedTrack", multiOrIntermediate);
+
+        if (nonNull(discontinuanceType)) {
+            data.put("isDiscontinuingAgainstBothDefendants", "YES");
+            data.put("courtPermissionNeeded", "NO");
+            data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        }
+        if (nonNull(validateDiscontinuance)) {
+            data.put("courtPermissionNeeded", "YES");
+            data.put("confirmOrderGivesPermission", "YES");
+            data.put("isDiscontinuingAgainstBothDefendants", "YES");
+            data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        }
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventName);
+        if (nonNull(postState)) {
+            inputVariables.putValue("postEventState", postState);
+        }
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        //TODO update tests after HMC uplift, as currently returning prod tasks alongside MINTI
+        // assertThat(workTypeResultList.size(), is(1));
+        // assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing -MINTI"));
+
+        assertThat(workTypeResultList.get(0).get("taskId"), is(taskId));
     }
 
     private void addNonNullField(Map<String, Object> inputVars, String key, Object value) {
