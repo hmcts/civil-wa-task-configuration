@@ -1314,6 +1314,35 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
+    @Test
+    void given_generate_directions_order_event_and_furtherhearingtoggle_should_trigger_task_adjournedReList() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> caseData = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+        data.put("finalOrderFurtherHearingToggle", List.of("SHOW"));
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        //When toggle gets removed from adjournedRelist task, one adjourned task should be deleted here
+        assertThat(workTypeResultList.size(), is(3));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("adjournedReList"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("adjournedReList"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("caseProgression"));
+        assertThat(workTypeResultList
+                       .get(2).get("taskId"), is("reviewOrder"));
+        assertThat(workTypeResultList.get(2).get("processCategories"), is("caseProgression"));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "CASE_PROGRESSION",
@@ -2447,7 +2476,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(337));
+        assertThat(logic.getRules().size(), is(338));
     }
 
     @ParameterizedTest
