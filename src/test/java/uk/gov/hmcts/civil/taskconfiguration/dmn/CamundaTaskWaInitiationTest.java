@@ -1823,9 +1823,24 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_input_should_return_take_case_offline_for_caseworker() {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "NOTIFY_CASEWORKER_TO_TAKE_CASE_OFFLINE");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Take Case Offline - Non EA Court"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("takeCaseOfflineApplicationNonEA"));
+    }
+
+    @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(247));
+        assertThat(logic.getRules().size(), is(248));
     }
 }
