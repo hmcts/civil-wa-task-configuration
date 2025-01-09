@@ -2781,7 +2781,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         //TODO update tests after HMC uplift, as currently returning prod tasks alongside MINTI
         // assertThat(workTypeResultList.size(), is(1));
-        // assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing -MINTI"));
+        // assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing"));
 
         assertThat(workTypeResultList.get(0).get("taskId"), is(taskId));
     }
