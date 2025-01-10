@@ -1826,8 +1826,14 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_return_take_case_offline_for_caseworker() {
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "NOTIFY_CASEWORKER_TO_TAKE_CASE_OFFLINE");
+        Map<String, Object> data = new HashMap<>();
+        data.put("gaEaCourtLocation", "true");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        inputVariables.putValue("eventId", "TRIGGER_UPDATE_GA_LOCATION");
         inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
