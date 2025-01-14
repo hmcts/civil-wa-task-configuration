@@ -53,6 +53,30 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     )
                 )
+            ),
+            Arguments.of(
+                "CASE_PROCEEDS_IN_CASEMAN",
+                asList(
+                    Map.of(
+                        "taskType", "transferCaseOffline",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "manualDetermination",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "ClaimSettledDivergenceTakeCaseOffline",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "JudgmentOnlineSetAsideTakeCaseOffline",
+                        "completionMode", "Auto"
+                    )
+                )
             )
         );
     }
@@ -85,6 +109,14 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                         "taskType", "NIHLFastTrackDirections",
                         "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "allocateMultiTrack",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "allocateIntermediateTrack",
+                        "completionMode", "Auto"
                     )
                 )
             ),
@@ -114,6 +146,14 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                     Map.of(
                         "taskType", "NIHLFastTrackDirections",
                         "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "allocateMultiTrack",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "allocateIntermediateTrack",
+                        "completionMode", "Auto"
                     )
                 )
             ),
@@ -142,11 +182,23 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ),
                     Map.of(
+                        "taskType", "ScheduleHMCHearing",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
                         "completionMode", "Auto"
 
                     ),
                     Map.of(
                         "taskType", "adjournedReList",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "createHearingNoticeMT",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "createHearingNoticeInt",
                         "completionMode", "Auto"
                     )
                 )
@@ -265,10 +317,18 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                 "GENERATE_DIRECTIONS_ORDER",
                     List.of(
                             Map.of(
-                                    "taskType", "OrderToSetAsideDefendedClaim",
-                                    "completionMode", "Auto"
+                                "taskType", "OrderToSetAsideDefendedClaim",
+                                "completionMode", "Auto"
                             ),
                             Map.of(
+                                "completionMode", "Auto"
+                            ),
+                            Map.of(
+                                "taskType", "allocateMultiTrack",
+                                "completionMode", "Auto"
+                            ),
+                            Map.of(
+                                "taskType", "allocateIntermediateTrack",
                                 "completionMode", "Auto"
                             )
                     )
@@ -276,29 +336,23 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    static Stream<Arguments> scenarioSettleClaimPaidInFull() {
+    static Stream<Arguments> scenarioHelpWithFeeEvent() {
 
         return Stream.of(
             Arguments.of(
-                "CASE_PROCEEDS_IN_CASEMAN",
+                "FEE_PAYMENT_OUTCOME",
                 asList(
                     Map.of(
-                        "taskType", "transferCaseOffline",
+                        "taskType", "HelpWithFeesHearingFee",
                         "completionMode", "Auto"
                     ),
                     Map.of(
-                        "taskType", "manualDetermination",
+                        "taskType", "HelpWithFeesClaimIssue",
                         "completionMode", "Auto"
                     ),
                     Map.of(
                         "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "taskType", "ClaimSettledDivergenceTakeCaseOffline",
-                        "completionMode", "Auto"
-                    )
-                )
-            )
+                    )))
         );
     }
 
@@ -315,6 +369,202 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                 )
             )
         );
+    }
+
+    static Stream<Arguments> bundlefailedAmendandRestich() {
+
+        return Stream.of(
+            Arguments.of(
+                "AMEND_RESTITCH_BUNDLE",
+                asList(
+                    Map.of(
+                        "taskType", "bundlefailedAmendandRestich",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+
+    static Stream<Arguments> manageStay() {
+
+        return Stream.of(
+            Arguments.of(
+                "MANAGE_STAY",
+                asList(
+                    Map.of(
+                        "taskType", "manageStay",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "confirmOrderReviewManageStay",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    static Stream<Arguments> confirmOrderReview() {
+
+        return Stream.of(
+            Arguments.of(
+                "CONFIRM_ORDER_REVIEW",
+                asList(
+                    Map.of(
+                        "taskType", "reviewOrder",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    static Stream<Arguments> confirmListingScenarioProvider() {
+
+        return Stream.of(
+            Arguments.of(
+                "CONFIRM_LISTING_COMPLETED",
+                asList(
+                    Map.of(
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListCMCMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListCCMCMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListPTRMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListTrialMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListCMCInt",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListPTRInt",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "damagesListTrialInt",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "specifiedListCMCMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "specifiedListCCMCMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "specifiedListPTRMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "specifiedListTrialMulti",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "specifiedListCMCInt",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "specifiedListPTRInt",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "specifiedListTrialInt",
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    static Stream<Arguments> dismissCase() {
+
+        return Stream.of(
+            Arguments.of(
+                "DISMISS_CASE",
+                asList(
+                    Map.of(
+                        "taskType", "confirmOrderReviewDismissCase",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    static Stream<Arguments> stayCase() {
+
+        return Stream.of(
+            Arguments.of(
+                "STAY_CASE",
+                asList(
+                    Map.of(
+                        "taskType", "confirmOrderReviewStayCase",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    )
+                )
+            )
+        );
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"dismissCase"})
+    void given_event_ids_should_evaluate_dismiss_case_dmn(String eventId,
+                                                          List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"stayCase"})
+    void given_event_ids_should_evaluate_stay_case_dmn(String eventId,
+                                                       List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"confirmOrderReview"})
+    void given_event_ids_should_evaluate_confirm_order_review_dmn(String eventId,
+                                                                  List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
     }
 
     @ParameterizedTest(name = "event id: {0}")
@@ -397,8 +647,17 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest(name = "event id: {0}")
-    @MethodSource({"scenarioSettleClaimPaidInFull"})
-    void given_event_ids_should_evaluate_SettleClPaidFull_dmn(String eventId, List<Map<String, String>> expectation) {
+    @MethodSource({"scenarioValidateDiscontinuation"})
+    void given_event_ids_should_evaluate_Discontinuance_dmn(String eventId, List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"scenarioHelpWithFeeEvent"})
+    void given_event_ids_should_evaluate_hwf_dmn(String eventId, List<Map<String, String>> expectation) {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
@@ -407,8 +666,26 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest(name = "event id: {0}")
-    @MethodSource({"scenarioValidateDiscontinuation"})
-    void given_event_ids_should_evaluate_Discontinuance_dmn(String eventId, List<Map<String, String>> expectation) {
+    @MethodSource({"bundlefailedAmendandRestich"})
+    void given_event_ids_should_evaluate_bundle_restitch_dmn(String eventId, List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"manageStay"})
+    void given_event_ids_should_manage_stay_dmn(String eventId, List<Map<String, String>> expectation) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(expectation));
+    }
+
+    @ParameterizedTest(name = "event id: {0}")
+    @MethodSource({"confirmListingScenarioProvider"})
+    void given_event_ids_should_confirm_listing_dmn(String eventId, List<Map<String, String>> expectation) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -420,6 +697,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(42));
+        assertThat(logic.getRules().size(), is(77));
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.3.0">
-  <decision id="wa-task-cancellation-civil-generalapplication" name="Civil GA Task cancellation DMN">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0">
+  <decision id="wa-task-cancellation-civil-generalapplication" name="Civil GA Task cancellation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_0z3jx1g" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
         <inputExpression id="InputExpression_1" typeRef="string">
@@ -112,6 +112,144 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_0bjv6l2">
           <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0b1irv4">
+        <inputEntry id="UnaryTests_13j2esn">
+          <text>"AWAITING_APPLICATION_PAYMENT"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p2grzy">
+          <text>"END_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xf92kk">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1n40ohp">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kczlaa">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11uc782">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1aksry3">
+          <text>"applicationFee"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1b2kits">
+        <inputEntry id="UnaryTests_0yfrqv4">
+          <text>"AWAITING_APPLICATION_PAYMENT"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h2lqvq">
+          <text>"END_BUSINESS_PROCESS_GASPEC"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0da92xr">
+          <text>"AWAITING_RESPONDENT_RESPONSE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yds3ce">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0krkgn4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pesd50">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14j64ae">
+          <text>"applicationFee"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1sehvtu">
+        <inputEntry id="UnaryTests_1xrnkhu">
+          <text>"APPLICATION_ADD_PAYMENT"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1aiwlz1">
+          <text>"MODIFY_STATE_AFTER_ADDITIONAL_FEE_PAID"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c7gqll">
+          <text>"APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1m5w3l0">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mj20f9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1j146pg">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ci810x">
+          <text>"applicationFee"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cy4wx1">
+        <inputEntry id="UnaryTests_1wls2c5">
+          <text>"APPLICATION_ADD_PAYMENT"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1eloghp">
+          <text>"MODIFY_STATE_AFTER_ADDITIONAL_FEE_PAID"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y8nc6e">
+          <text>"AWAITING_RESPONDENT_RESPONSE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bgivgf">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fhgguj">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0j2nooa">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1snaecl">
+          <text>"applicationFee"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qb28ns">
+        <inputEntry id="UnaryTests_0ly1tlt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h9rufz">
+          <text>"MAIN_CASE_CLOSED"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qij91a">
+          <text>"APPLICATION_CLOSED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nrrgo0">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07ucd3a">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_164qo1y">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08lonjo">
+          <text>"uploadTranslatedDocuments"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ysxqni">
+        <inputEntry id="UnaryTests_1oe3dgp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08s30bd">
+          <text>"APPLICATION_PROCEEDS_IN_HERITAGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01bkyqn">
+          <text>"PROCEEDS_IN_HERITAGE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jz0mp7">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nejeqm">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1txfbhq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0j01w8l">
+          <text>"uploadTranslatedDocuments"</text>
         </outputEntry>
       </rule>
     </decisionTable>

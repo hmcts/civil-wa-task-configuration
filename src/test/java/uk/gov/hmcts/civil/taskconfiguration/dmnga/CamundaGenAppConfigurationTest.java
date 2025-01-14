@@ -33,7 +33,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(48));
+        assertThat(logic.getRules().size(), is(52));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -206,8 +206,14 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "JudgeDecideOnApplication", "JudgeRevisitApplication",
         "LegalAdvisorDecideOnApplication", "LegalAdvisorRevisitApplication",
         "ScheduleApplicationHearing", "ReviewStayTheClaimApplicationOrder",
-        "ReviewUnlessOrderApplication", "ReviewApplicationOrder"
-    })
+        "ReviewUnlessOrderApplication", "ReviewApplicationOrder","applicationDocumentsWelshRequestAppSum",
+        "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
+        "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
+        "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
+        "applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo",
+        "applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule",
+        "applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection",
+        "applicationDocumentsWelshRequestFinalOrder"})
     void when_taskId_urgent_application_then_dueDateIntervalDays_return_two(String taskTypeId) {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
@@ -249,52 +255,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @CsvSource(value = {
         "JudgeDecideOnApplication", "JudgeRevisitApplication",
-        "LegalAdvisorDecideOnApplication", "LegalAdvisorRevisitApplication"
-    })
-    void when_taskId_not_urgent_application_then_dueDateIntervalDays_return_five(String taskTypeId) {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("claimant1PartyName", "claimant1PartyName");
-        caseData.put("claimant2PartyName", "claimant2PartyName");
-        caseData.put("generalAppUrgencyRequirement", Map.of(
-            "generalAppUrgency", "No"
-        ));
-        caseData.put("caseManagementLocation", Map.of(
-            "region", "4",
-            "baseLocation", "574546"
-
-        ));
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            taskTypeId,
-            "dueDate","2023-03-22T16:00:00Z"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("dueDateIntervalDays"))
-            .collect(Collectors.toList());
-
-        System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(1));
-
-        assertTrue(workTypeResultList.contains(Map.of(
-            "name", "dueDateIntervalDays",
-            "value", "20",
-            "canReconfigure","false"
-        )));
-    }
-
-    @ParameterizedTest
-    @CsvSource(value = {
+        "LegalAdvisorDecideOnApplication", "LegalAdvisorRevisitApplication",
         "ScheduleApplicationHearing", "ReviewStayTheClaimApplicationOrder",
         "ReviewUnlessOrderApplication", "ReviewApplicationOrder"
     })
-    void when_taskId_not_urgent_application_then_dueDateIntervalDays_return_ten(String taskTypeId) {
+    void when_taskId_not_urgent_application_then_dueDateIntervalDays_return_twenty(String taskTypeId) {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("claimant1PartyName", "claimant1PartyName");
         caseData.put("claimant2PartyName", "claimant2PartyName");
@@ -368,6 +333,57 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure","true"
         )));
 
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "applicationDocumentsWelshRequestAppSum",
+        "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
+        "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
+        "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
+        "applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo",
+        "applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule",
+        "applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection",
+        "applicationDocumentsWelshRequestFinalOrder"
+    })
+    void when_applicationDocumentsWelshRequest_then_return_output_attributes(String taskTypeId) {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("claimant1PartyName", "claimant1PartyName");
+        caseData.put("claimant2PartyName", "claimant2PartyName");
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", taskTypeId));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "majorPriority",
+            "value", "2000",
+            "canReconfigure","false"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "dueDateIntervalDays",
+            "value", "2",
+            "canReconfigure","false"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "worktype",
+            "value", "routine_work",
+            "canReconfigure","false"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "roleCategory",
+            "value", "CTSC",
+            "canReconfigure","false"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "description",
+            "value", "[Upload Translated Documents]"
+                + "(/cases/case-details/${[CASE_REFERENCE]}/trigger/UPLOAD_TRANSLATED_DOCUMENT"
+                + "/UPLOAD_TRANSLATED_DOCUMENTUploadTranslatedDocument)",
+            "canReconfigure","false"
+        )));
     }
 
     @Test
@@ -871,6 +887,14 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         ));
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> description = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("description"))
+            .collect(Collectors.toList());
+        assertTrue(description.contains(Map.of(
+            "name", "description",
+            "value", "Help with fees",
+            "canReconfigure","false"
+        )));
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
             .filter((r) -> r.containsValue("dueDateIntervalDays"))
@@ -884,11 +908,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
 
         List<Map<String, Object>> workTypeResultList1 = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("role_Category"))
+            .filter((r) -> r.containsValue("roleCategory"))
             .collect(Collectors.toList());
 
         assertTrue(workTypeResultList1.contains(Map.of(
-            "name", "role_Category",
+            "name", "roleCategory",
             "value", "CTSC",
             "canReconfigure","false"
         )));

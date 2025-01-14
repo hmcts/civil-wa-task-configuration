@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
-  <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.30.0">
+  <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
         <inputExpression id="LiteralExpression_1ngg4891" typeRef="string">
@@ -185,6 +185,18 @@
           <text>"ScheduleAHearing"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_197j7kv">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i6io04">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1x2i2aj">
+          <text>"HEARING_SCHEDULED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g06ubh">
+          <text>"ScheduleHMCHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tv8a5h">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
@@ -508,6 +520,414 @@
           <text>"uploadTranslatedOrderDocument"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1flxqz1">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09fe167">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1sxgri6">
+          <text>"FEE_PAYMENT_OUTCOME"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0poc2j4">
+          <text>"HelpWithFeesHearingFee"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hscqmn">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_053oxjx">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0dxn022">
+          <text>"FEE_PAYMENT_OUTCOME"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lnsje8">
+          <text>"HelpWithFeesClaimIssue"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0277a2i">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1l26khv">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_013n0nv">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fq8bns">
+          <text>"JudgmentOnlineSetAsideTakeCaseOffline"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07bgiko">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_038epiw">
+        <description>This Task is completed once the CW has moved any documents that caused ‘Create bundle’ event to fail, or that are not required in the bundle into ‘Unbundled folder’ in CFV and successfully completed the ‘Amend and restich bundle’ event and bundle has been created/re-stitched</description>
+        <inputEntry id="UnaryTests_0s398mf">
+          <text>"AMEND_RESTITCH_BUNDLE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1woiada">
+          <text>"bundlefailedAmendandRestich"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bmdwu9">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18ildj8">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_09igtzv">
+          <text>"AMEND_RESTITCH_BUNDLE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1iw3u7c">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0g2m5us">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qrrinw">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_0dgeq6y">
+          <text>"FEE_PAYMENT_OUTCOME"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1guhoe6">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1v256gd">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1b1ls7y">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1c548v6">
+          <text>"MANAGE_STAY"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tmjet4">
+          <text>"manageStay"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ofsswc">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kqx5k2">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0n344mr">
+          <text>"MANAGE_STAY"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ta6nx1">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15qbt0j">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qigu1c">
+        <description>This task is completed when CW completes the "confirm order review" event</description>
+        <inputEntry id="UnaryTests_18m5u5s">
+          <text>"CONFIRM_ORDER_REVIEW"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zh4u61">
+          <text>"reviewOrder"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09megt4">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_184tfgu">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_05npog2">
+          <text>"CONFIRM_ORDER_REVIEW"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07sdjd7">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03ecw9c">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1i4rjh9">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0tqe94o">
+          <text>"HEARING_SCHEDULED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0h8cad4">
+          <text>"createHearingNoticeMT"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0we9y0s">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xya07i">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1wtyj8l">
+          <text>"HEARING_SCHEDULED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pf5x1m">
+          <text>"createHearingNoticeInt"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1u9mcz8">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i1dk68">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0hkemhw">
+          <text>"GENERATE_DIRECTIONS_ORDER","CREATE_SDO","NotSuitable_SDO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18qviar">
+          <text>"allocateMultiTrack"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09licsy">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ficfb1">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_15t0nnb">
+          <text>"GENERATE_DIRECTIONS_ORDER","CREATE_SDO","NotSuitable_SDO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0e2f6t8">
+          <text>"allocateIntermediateTrack"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0prf23w">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1w1wf6d">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_0cwev0h">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a7nf1e">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1usuaut">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i44717">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0m3xjda">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00lvutg">
+          <text>"damagesListCMCMulti"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07t3tq5">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mxno1o">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1ksxspn">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1x9isbl">
+          <text>"damagesListCCMCMulti"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1a0e7mw">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ps3u77">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0b9183d">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03ocr1a">
+          <text>"damagesListPTRMulti"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08hpl1r">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08m650q">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1sh8heh">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fk0xor">
+          <text>"damagesListTrialMulti"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19gpapj">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13sltjo">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0mv562k">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ay5iga">
+          <text>"damagesListCMCInt"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lez95d">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c1wokg">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0o9fa0y">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07hmcdt">
+          <text>"damagesListPTRInt"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0iq9fot">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15dewa9">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0je6jig">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0p2zqvj">
+          <text>"damagesListTrialInt"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wn0ap9">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jl26f0">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_05dx35a">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lf4yuc">
+          <text>"specifiedListCMCMulti"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15vlpzx">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1s1hx6k">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0w9lt05">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0c0104p">
+          <text>"specifiedListCCMCMulti"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09zzg2q">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00d5qad">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1ijnoon">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fds2q2">
+          <text>"specifiedListPTRMulti"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ochq9x">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07xwlp5">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1uqsvcz">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1d02wmu">
+          <text>"specifiedListTrialMulti"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_011g4yj">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1s9t6n5">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0emg5k7">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_057zxlc">
+          <text>"specifiedListCMCInt"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h0gmvs">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jn4bah">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1r2u80l">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z9mxko">
+          <text>"specifiedListPTRInt"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19t4ui3">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1icg1j6">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_122i5dm">
+          <text>"CONFIRM_LISTING_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fgwzvc">
+          <text>"specifiedListTrialInt"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1d79k29">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o88s7r">
+        <description>This task is completed when CW completes the "Dismiss case" event</description>
+        <inputEntry id="UnaryTests_17m2epj">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yclcai">
+          <text>"confirmOrderReviewDismissCase"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0173l5x">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0znvhc6">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_1te0wdp">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mag38k">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mp2vzo">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1sohj4a">
+        <description>This task is completed when CW completes the "Manage stay" event</description>
+        <inputEntry id="UnaryTests_0kzz18m">
+          <text>"MANAGE_STAY"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jyh62n">
+          <text>"confirmOrderReviewManageStay"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04ljsow">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q3wk4p">
+        <description>This task is completed when CW completes the "Sta case" event</description>
+        <inputEntry id="UnaryTests_0knf8hc">
+          <text>"STAY_CASE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p8pmhi">
+          <text>"confirmOrderReviewStayCase"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dom1zf">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1r430vd">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_09j5hcx">
+          <text>"STAY_CASE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1myur5v">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m4j8nd">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
