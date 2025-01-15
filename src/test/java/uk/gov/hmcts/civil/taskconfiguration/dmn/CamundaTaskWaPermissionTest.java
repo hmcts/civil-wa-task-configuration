@@ -1252,6 +1252,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
             ),
             Map.of(
+                "name", "hearing-centre-team-leader",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
                 "name", "hearing-centre-admin",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false,
@@ -1520,6 +1526,68 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "roleCategory", "ADMIN",
                 "authorisations", "SKILL:AAA6:SPECIFIED_MULTI_TRACK_TRIAL_MANAGEMENT",
                 "autoAssignable", false
+            )
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "confirmOrderReviewUnlessOrder",
+        "confirmOrderReviewFreeTrial",
+        "confirmOrderReviewGeneralOrder",
+        "confirmOrderReviewReserveJudgement",
+        "confirmOrderReviewOther",
+        "confirmOrderReviewStayCase",
+        "confirmOrderReviewManageStay",
+        "confirmOrderReviewDismissCase"
+    })
+    void given_reviewcase_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskId) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskId));
+        inputVariables.putValue("caseData",Map.of("featureToggleWA", "CE_B2"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "nbc-team-leader",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "national-business-centre",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "hearing-centre-admin-team-leader",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "ctsc-team-leader",
+                "roleCategory", "CTSC",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "ctsc",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "CTSC"
             )
         )));
     }
