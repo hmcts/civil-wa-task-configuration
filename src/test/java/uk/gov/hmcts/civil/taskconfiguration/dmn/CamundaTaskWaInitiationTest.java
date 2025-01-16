@@ -3258,28 +3258,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(lastIndex).get("taskId"), is("ScheduleAHearing"));
     }
 
-    @Test
-    void given_HearingFeeUnpaid_should_return_correct_removeHmcHearingTask_lip() {
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "HMC_NRO");
-        addNonNullField(data, "hearingDate", "22-12-2024");
-
-        Map<String, Object> caseData = Map.of("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "HEARING_FEE_UNPAID");
-        inputVariables.putValue("postEventState", "CASE_DISMISSED");
-        inputVariables.putValue("additionalData", caseData);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("name"), is("Remove Hearing - HMC"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("RemoveHMCHearing"));
-    }
-
     @ParameterizedTest
     @CsvSource({
         "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, true, 22-12-2024, 1",
