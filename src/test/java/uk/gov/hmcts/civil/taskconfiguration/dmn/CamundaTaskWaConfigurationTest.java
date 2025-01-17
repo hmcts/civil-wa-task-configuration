@@ -2864,7 +2864,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "Take Case Offline - Application CML updated",
+            "value", "take_case_offline",
             "canReconfigure", "false"
         )));
         List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
