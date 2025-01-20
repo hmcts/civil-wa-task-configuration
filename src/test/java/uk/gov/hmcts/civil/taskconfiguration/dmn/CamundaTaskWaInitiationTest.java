@@ -2448,7 +2448,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(363));
+        assertThat(logic.getRules().size(), is(364));
     }
 
     @ParameterizedTest
@@ -2481,11 +2481,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_lip_claim_settled_create_remove_hearing_task() {
+    void given_lip_claim_settled_create_remove_hearing_task_smallTrack() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
         data.put("hearingDate", "22-12-2024");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -2500,9 +2501,35 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(
             workTypeResultList
-                .get(0).get("taskId"), is("ClaimSettledRemoveHearing")
+                .get(0).get("taskId"), is("removeHearing")
         );
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
+    }
+
+    @Test
+    void given_lip_claim_settled_create_remove_hearing_task_fastTrack() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("responseClaimTrack", "FAST_CLAIM");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "LIP_CLAIM_SETTLED");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(
+            workTypeResultList
+                .get(0).get("taskId"), is("removeHearing")
+        );
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
     // Temp may return 2 tasks until HMC-NRO cui task uplifts
