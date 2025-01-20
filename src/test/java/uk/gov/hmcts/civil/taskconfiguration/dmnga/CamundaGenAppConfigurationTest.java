@@ -368,7 +368,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure","false"
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "name", "worktype",
+            "name", "workType",
             "value", "routine_work",
             "canReconfigure","false"
         )));
@@ -918,11 +918,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
 
         List<Map<String, Object>> workTypeResultList2 = dmnDecisionTableResult.getResultList().stream()
-            .filter((r) -> r.containsValue("worktype"))
+            .filter((r) -> r.containsValue("workType"))
             .collect(Collectors.toList());
 
         assertTrue(workTypeResultList2.contains(Map.of(
-            "name", "worktype",
+            "name", "workType",
             "value", "routine_work",
             "canReconfigure","false"
         )));
