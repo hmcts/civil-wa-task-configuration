@@ -738,7 +738,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "TWO_V_ONE,",
     })
     void claimant_res_claimType_Nihl_less_than_1000_then_FastTrackDirectionsNihl(String claimantResponseScenarioFlag,
-                                                                                String respondent2ClaimResponseType) {
+                                                                                 String respondent2ClaimResponseType) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", "FAST_CLAIM");
@@ -772,7 +772,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "100001,FAST_CLAIM,"
     })
     void when_toc_location_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
-                                                                               String allocatedTrack) {
+                                                                           String allocatedTrack) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", allocatedTrack);
@@ -1738,7 +1738,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline"));
+                       .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
     }
 
@@ -1764,7 +1764,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline")
+                       .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline")
         );
         assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
     }
@@ -1791,7 +1791,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("removeHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1817,7 +1817,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("removeHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1842,7 +1842,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("removeHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -2023,8 +2023,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         ", INTERMEDIATE_CLAIM, , , Transfer Case Offline, transferCaseOffline",
     })
     void minti_cui_claimant_response_trigger_offline_task(String allocatedTrack, String responseClaimTrack,
-                                                       String orderType, String caseManagementOrderSelection,
-                                                       String expectedName, String expectedTaskId) {
+                                                          String orderType, String caseManagementOrderSelection,
+                                                          String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
             data.put("allocatedTrack", allocatedTrack);
@@ -2058,8 +2058,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         ", INTERMEDIATE_CLAIM, , , Transfer Case Offline, transferCaseOffline",
     })
     void minti_lr_claimant_response_lip_defendant_trigger_offline_task(String allocatedTrack, String responseClaimTrack,
-                                                          String orderType, String caseManagementOrderSelection,
-                                                          String expectedName, String expectedTaskId) {
+                                                                       String orderType, String caseManagementOrderSelection,
+                                                                       String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
             data.put("allocatedTrack", allocatedTrack);
@@ -2448,7 +2448,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(363));
+        assertThat(logic.getRules().size(), is(364));
     }
 
     @ParameterizedTest
@@ -3419,6 +3419,26 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
             return;
         }
         inputVars.put(key, value);
+    }
+
+    @Test
+    void given_input_should_return_take_case_offline_for_caseworker() {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> data = new HashMap<>();
+        data.put("gaEaCourtLocation", "true");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        inputVariables.putValue("eventId", "TRIGGER_UPDATE_GA_LOCATION");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Take Case Offline - Non EA Court"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("takeCaseOfflineApplicationNonEA"));
     }
 
 }
