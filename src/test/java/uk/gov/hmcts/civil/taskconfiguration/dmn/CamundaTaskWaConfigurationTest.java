@@ -2932,7 +2932,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @Test
     void when_taskId_takeCaseOfflineApplicationNonEA_then_return_config() {
         Map<String, Object> caseData = new HashMap<>();
-        caseData.put("featureToggleWA", "SD");
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
         ));
@@ -2954,7 +2953,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "take_case_offline",
+            "value", "routine_work",
             "canReconfigure", "false"
         )));
         List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
