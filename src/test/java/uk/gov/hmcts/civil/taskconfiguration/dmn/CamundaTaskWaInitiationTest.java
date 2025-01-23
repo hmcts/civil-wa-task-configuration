@@ -1315,6 +1315,35 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
+    @Test
+    void given_generate_directions_order_event_and_furtherhearingtoggle_should_trigger_task_adjournedReList() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> caseData = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+        data.put("finalOrderFurtherHearingToggle", List.of("SHOW"));
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        //When toggle gets removed from adjournedRelist task, one adjourned task should be deleted here
+        assertThat(workTypeResultList.size(), is(3));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("adjournedReList"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("adjournedReList"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("caseProgression"));
+        assertThat(workTypeResultList
+                       .get(2).get("taskId"), is("reviewOrder"));
+        assertThat(workTypeResultList.get(2).get("processCategories"), is("caseProgression"));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "CASE_PROGRESSION",
@@ -2481,11 +2510,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_lip_claim_settled_create_remove_hearing_task() {
+    void given_lip_claim_settled_create_remove_hearing_task_smallTrack() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
         data.put("hearingDate", "22-12-2024");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -2500,9 +2530,35 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(
             workTypeResultList
-                .get(0).get("taskId"), is("ClaimSettledRemoveHearing")
+                .get(0).get("taskId"), is("removeHearing")
         );
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
+    }
+
+    @Test
+    void given_lip_claim_settled_create_remove_hearing_task_fastTrack() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("responseClaimTrack", "FAST_CLAIM");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "LIP_CLAIM_SETTLED");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(
+            workTypeResultList
+                .get(0).get("taskId"), is("removeHearing")
+        );
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
     // Temp may return 2 tasks until HMC-NRO cui task uplifts
