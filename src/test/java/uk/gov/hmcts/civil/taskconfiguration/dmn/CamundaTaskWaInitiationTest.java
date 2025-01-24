@@ -2286,7 +2286,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(348));
+        assertThat(logic.getRules().size(), is(345));
     }
 
     @ParameterizedTest
@@ -2991,37 +2991,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing",
         "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
         "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,, false, true,, TRIAL_HEARING, "
-            + "Schedule a Fast Track Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,, true, false,, TRIAL_HEARING, "
-            + "Schedule a Fast Track Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,, false, false,, TRIAL_HEARING, "
-            + "Schedule a Fast Track Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, FAST_CLAIM, false, true,, TRIAL_HEARING, "
-            + "Schedule a Fast Track Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, FAST_CLAIM, true, false,, TRIAL_HEARING, "
-            + "Schedule a Fast Track Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, FAST_CLAIM, false, false,, TRIAL_HEARING, "
-            + "Schedule a Fast Track Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,, false, true,, TRIAL_HEARING, "
-            + "Schedule a Small Claims Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,, true, false,, TRIAL_HEARING, "
-            + "Schedule a Small Claims Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,, false, false,, TRIAL_HEARING, "
-            + "Schedule a Small Claims Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, SMALL_CLAIM, false, true,, TRIAL_HEARING, "
-            + "Schedule a Small Claims Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, SMALL_CLAIM, truw, false,, TRIAL_HEARING, "
-            + "Schedule a Small Claims Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,, SMALL_CLAIM, false, false,, TRIAL_HEARING, "
-            + "Schedule a Small Claims Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, "
-            + "Schedule a Disposal Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, "
-            + "Schedule a Disposal Hearing",
-        "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, "
-            + "Schedule a Disposal Hearing"
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing"
     })
     void given_input_should_return_correct_scheduleHmcHearingTask_lip(
         String eventId,
