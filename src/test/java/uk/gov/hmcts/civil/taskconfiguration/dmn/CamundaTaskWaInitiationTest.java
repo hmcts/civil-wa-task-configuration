@@ -2447,7 +2447,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(405));
+        assertThat(logic.getRules().size(), is(407));
     }
 
     @ParameterizedTest
@@ -3394,15 +3394,15 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, true, 22-12-2024, 1, true",
         "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, true, false, 22-12-2024, 1, true",
         "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, false, 22-12-2024, 1, true",
-        "SETTLE_CLAIM, CASE_SETTLED, false, true, 22-12-2024, 1, true",
+        "LIP_CLAIM_SETTLED, CASE_SETTLED, false, true, 22-12-2024, 1, true",
         "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024, 1, true",
-        "SETTLE_CLAIM, CASE_SETTLED, false, false, 22-12-2024, 1, true",
+        "LIP_CLAIM_SETTLED, CASE_SETTLED, false, false, 22-12-2024, 1, true",
         "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, true, 22-12-2024, 1, false",
         "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, true, false, 22-12-2024, 1, false",
         "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, false, 22-12-2024, 1, false",
-        "SETTLE_CLAIM, CASE_SETTLED, false, true, 22-12-2024, 1, false",
+        "LIP_CLAIM_SETTLED, CASE_SETTLED, false, true, 22-12-2024, 1, false",
         "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024, 1, false",
-        "SETTLE_CLAIM, CASE_SETTLED, false, false, 22-12-2024, 1, false"
+        "LIP_CLAIM_SETTLED, CASE_SETTLED, false, false, 22-12-2024, 1, false"
     })
     void given_input_should_return_correct_removeHmcHearingTask_whenHmcLiPEnabled(
         String eventId,
