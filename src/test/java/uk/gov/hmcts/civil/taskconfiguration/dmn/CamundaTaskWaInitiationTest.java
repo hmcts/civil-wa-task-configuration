@@ -3357,7 +3357,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "true, false, false",
         "false, true, false"
     })
-    void given_HearingFeeUnpaid_should_return_correct_removeHmcHearingTask_whenlipHMCEnabled(boolean applicant1Represented,
+    void given_HearingFeeUnpaid_should_return_correct_removeHmcHearingTask_whenlipHmcEnabled(boolean applicant1Represented,
                                                                                              boolean respondent1Represented,
                                                                                              boolean isHmcLiPEnabled) {
 
@@ -3379,7 +3379,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(2));
-        if(isHmcLiPEnabled) {
+        if (isHmcLiPEnabled) {
             assertThat(workTypeResultList.get(1).get("name"), is("Remove Hearing - HMC"));
             assertThat(workTypeResultList.get(1).get("taskId"), is("RemoveHMCHearing"));
         } else {
