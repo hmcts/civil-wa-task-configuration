@@ -16,8 +16,8 @@ serviceToken=$($(realpath $workspace)/bin/utils/idam-lease-service-token.sh civi
   $(docker run --rm toolbelt/oathtool --totp -b ${s2sSecret}))
 
 dmnFilepath="$(realpath $workspace)/src/main/resources"
-
-for file in $(find ${dmnFilepath} -name '*.dmn')
+echo "Uploading prod DMNs..."
+for file in $(find ${dmnFilepath} -name '*.dmn' -not -name '*-nonprod.dmn')
 do
   uploadResponse=$(curl --insecure -v --silent -w "\n%{http_code}" --show-error -X POST \
     ${CAMUNDA_BASE_URL:-http://localhost:9404}/engine-rest/deployment/create \
@@ -41,4 +41,32 @@ echo "$(basename ${file}) upload failed with http code ${upload_http_code} and r
 continue;
 
 done
+echo "checking if there are any non prod dmns to upload for env: ${env} and then uploading it"
 
+if [ "${env}" == "preview" ] || [ "${env}" == "demo" ] || [ "${env}" == "perftest" ] || [ "${env}" == "ithc" ]; then
+echo "Uploading non-prod DMNs..."
+for file in $(find ${dmnFilepath} -name '*-nonprod.dmn')
+do
+  uploadResponse=$(curl --insecure -v --silent -w "\n%{http_code}" --show-error -X POST \
+    ${CAMUNDA_BASE_URL:-http://localhost:9404}/engine-rest/deployment/create \
+    -H "Accept: application/json" \
+    -H "ServiceAuthorization: Bearer ${serviceToken}" \
+    -F "deployment-name=$(basename ${file})" \
+    -F "deploy-changed-only=true" \
+    -F "deployment-source=$product" \
+    ${tenant_id:+'-F' "tenant-id=$tenant_id"} \
+    -F "file=@${dmnFilepath}/$(basename ${file})")
+
+upload_http_code=$(echo "$uploadResponse" | tail -n1)
+upload_response_content=$(echo "$uploadResponse" | sed '$d')
+
+if [[ "${upload_http_code}" == '200' ]]; then
+  echo "$(basename ${file}) non prod diagram uploaded successfully (${upload_response_content})"
+  continue;
+fi
+
+echo "$(basename ${file}) upload failed with http code ${upload_http_code} and response (${upload_response_content})"
+continue;
+
+done
+fi

@@ -36,7 +36,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(93));
+
+        assertThat(logic.getRules().size(), is(166));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -659,8 +660,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         ));
 
-        caseData.put("featureToggleWA", "Prod");
-
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
@@ -696,7 +695,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void when_taskId_schedule_a_hearing_then_return_expected_decision_hmc() {
+    void when_taskId_adjourned_relist_and_hmc_ea_yes_then_return_expected_decision() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
@@ -707,7 +706,97 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         ));
 
-        caseData.put("featureToggleWA", "HMC");
+        caseData.put("hmcEaCourtLocation", "Yes");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "adjournedReList"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Schedule a hearing using the Hearings tab]"
+                + "(/cases/case-details/${[CASE_REFERENCE]}/hearings)"
+        )));
+    }
+
+    @Test
+    void when_taskId_adjourned_relist_and_hmc_ea_null_then_return_expected_decision() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "adjournedReList"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Case Adjourned - Relist Hearing](/cases/case-details/${[CASE_REFERENCE]}"
+                + "/trigger/HEARING_SCHEDULED/HEARING_SCHEDULEDHearingNoticeSelect)"
+        )));
+    }
+
+    @Test
+    void when_taskId_adjourned_relist_and_hmc_ea_no_then_return_expected_decision() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+
+        caseData.put("hmcEaCourtLocation", "No");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "adjournedReList"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Case Adjourned - Relist Hearing](/cases/case-details/${[CASE_REFERENCE]}"
+                + "/trigger/HEARING_SCHEDULED/HEARING_SCHEDULEDHearingNoticeSelect)"
+        )));
+    }
+
+    @Test
+    void when_taskId_schedule_a_hearing_and_hmc_ea_yes_then_return_expected_decision_hmc() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        caseData.put("hmcEaCourtLocation", "Yes");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -721,7 +810,103 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "description",
-            "value", "[Add a case note](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)"
+            "value", "[Schedule a hearing using the Hearings tab]"
+                + "(/cases/case-details/${[CASE_REFERENCE]}/hearings)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "hearing_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "dueDateIntervalDays",
+            "value", "20"
+        )));
+    }
+
+    @Test
+    void when_taskId_schedule_a_hearing_hmc_ea_no_then_return_expected_decision_hmc() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        caseData.put("hmcEaCourtLocation", "No");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ScheduleAHearing"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Directions - Schedule A Hearing](/cases/case-details/"
+                + "${[CASE_REFERENCE]}/trigger/HEARING_SCHEDULED/HEARING_SCHEDULEDHearingNoticeSelect)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "hearing_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "dueDateIntervalDays",
+            "value", "20"
+        )));
+    }
+
+
+    @Test
+    void when_taskId_schedule_a_hearing_hmc_ea_null_then_return_expected_decision_hmc() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        caseData.put("hmcEaCourtLocation", "No");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ScheduleAHearing"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Directions - Schedule A Hearing](/cases/case-details/"
+                + "${[CASE_REFERENCE]}/trigger/HEARING_SCHEDULED/HEARING_SCHEDULEDHearingNoticeSelect)"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
@@ -907,7 +1092,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "partyName", "Firstname LastName"
 
         ));
-        caseData.put("featureToggleWA", "CUI_CP");
         inputVariables.putValue("caseData", caseData);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -932,8 +1116,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
         ));
-
-        caseData.put("featureToggleWA", "CUI_CP");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -1190,8 +1372,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         ));
 
-        caseData.put("featureToggleWA", "HMC");
-
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
@@ -1238,8 +1418,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         ));
 
-        caseData.put("featureToggleWA", "HMC");
-
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
@@ -1266,36 +1444,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
                 "name", "description",
                 "value", "[Add a case note](/cases/case-details/${[CASE_REFERENCE]}/trigger"
                         + "/ADD_CASE_NOTE/ADD_CASE_NOTE)"
-        )));
-    }
-
-    @Test
-    void when_taskId_schedule_a_hearing_then_return_expected_decision() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        caseData.put("applicant2", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-
-        caseData.put("featureToggleWA", "HMC");
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "ScheduleAHearing"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
-            "name", "description",
-            "value", "[Add a case note](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)"
         )));
     }
 
@@ -1480,7 +1628,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "hearingID", "HEARING1234",
             "hearingDateTime", "2024-01-07T21:36:05"
         ));
-        caseData.put("featureToggleWA", "NHD");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
 
@@ -1509,7 +1656,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
         ));
-        caseData.put("featureToggleWA", "NHD");
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
@@ -1580,8 +1726,1111 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    @Test
+    void when_taskId_final_order_welsh_request() {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "finalOrderIssuedWelshRequest"
+        ));
+        inputVariables.putValue("caseData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Upload Translated Documents](/cases/case-details/${[CASE_REFERENCE]}/trigger/"
+                + "UPLOAD_TRANSLATED_DOCUMENT/UPLOAD_TRANSLATED_DOCUMENTUploadTranslatedDocument)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "routine_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+    }
+
+    @Test
+    void when_taskId_ClaimSettledDivergenceTakeCaseOffline_then_return_routine_work_desc() {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "SD");
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ClaimSettledDivergenceTakeCaseOffline"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "true"
+        )));
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "CTSC",
+            "canReconfigure", "true"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "majorPriority",
+            "value", "3000"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Claim Paid in Full Divergence - Take Case Offline]"
+                + "(/cases/case-details/${[CASE_REFERENCE]}/trigger"
+                + "/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"
+        )));
+    }
+
+    @Test
+    void when_taskId_ClaimDiscontinuedDivergenceTakeCaseOffline_then_return_config() {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "SD");
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ClaimDiscontinuedDivergenceTakeCaseOffline"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "true"
+        )));
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "CTSC",
+            "canReconfigure", "true"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "majorPriority",
+            "value", "3000"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Claim Discontinued](/cases/case-details/${[CASE_REFERENCE]}"
+                + "/trigger/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"
+        )));
+    }
+
+    @Test
+    void when_taskId_ValidateDiscontinuance_then_return_config() {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "SD");
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ValidateDiscontinuance"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "true"
+        )));
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "CTSC",
+            "canReconfigure", "true"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "majorPriority",
+            "value", "3000"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Validate Discontinuance](/cases/case-details/${[CASE_REFERENCE]}/trigger/"
+                + "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT/VALIDATE_DISCONTINUE_CLAIM_CLAIMANT)"
+        )));
+    }
+
+    @Test
+    void when_taskId_JudgmentOnlineSetAsideTakeCaseOffline_then_return_config() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "JO");
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "JudgmentOnlineSetAsideTakeCaseOffline"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "true"
+        )));
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "CTSC",
+            "canReconfigure", "true"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "majorPriority",
+            "value", "3000"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[SetAside - Take Case Offline](/cases/case-details/"
+                + "${[CASE_REFERENCE]}/trigger/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"
+        )));
+    }
+
     private Map<String, String> configDecision(String name, String canReconfigure, String value) {
         return Map.of("name", name, "canReconfigure", canReconfigure, "value", value);
     }
-}
 
+    @Test
+    void when_taskId_then_return_routine_work_BundlefailedAmendAndRestich() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "bundlefailedAmendandRestich"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "false"
+        )));
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "ADMIN",
+            "canReconfigure", "false"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "5"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure",
+            "false",
+            "name",
+            "description",
+            "value",
+            "[Amend and re-stitch bundle](/cases/case-details/${[CASE_REFERENCE]}"
+                + "/trigger/AMEND_RESTITCH_BUNDLE/AMEND_RESTITCH_BUNDLERestitchBundle)"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "reviewMessageCW; Small Claim;; "
+            + "[Small Claim, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageCW; Fast Track;; "
+            + "[Fast Track, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageLA; Small Claim;; "
+            + "[Small Claim, LA, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageLA; Fast Track;; "
+            + "[Fast Track, LA, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageJudicial; Small Claim; CJ; "
+            + "[Small Claim, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageJudicial; Fast Track; CJ; "
+            + "[Fast Track, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageJudicial; Small Claim; DJ; "
+            + "[Small Claim, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageJudicial; Fast Track; DJ; "
+            + "[Fast Track, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageJudicial; Small Claim; Judge; "
+            + "[Small Claim, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageJudicial; Fast Track; Judge; "
+            + "[Fast Track, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No"
+        }, delimiter = ';')
+    void when_reviewMessage_then_return_allocatedTrackAndDescription(
+        String taskType, String allocatedTrack,
+        String judgeLabel, String expectedDescription, String isUrgent) {
+
+        Map<String, Object> caseData = new HashMap<>(); // allow null values
+
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        caseData.put("lastMessage", Map.of(
+            "isUrgent", isUrgent
+        ));
+        caseData.put("lastMessageAllocatedTrack", allocatedTrack);
+        caseData.put("lastMessageJudgeLabel", judgeLabel);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            taskType
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "majorPriority",
+            "value", isUrgent.equals("Yes") ? "2000" : "5000"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "routine_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", expectedDescription
+        )));
+    }
+
+    @Test
+    void when_taskId_then_return_routine_work_ManageStay_notUrgent() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "manageStay"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "false"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Manage stay](/cases/case-details/${[CASE_REFERENCE]}/trigger/MANAGE_STAY)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "6"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "majorPriority",
+            "value", "5000"
+        )));
+    }
+
+    @Test
+    void when_taskId_then_return_routine_work_ManageStay_urgent() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        caseData.put("urgentFlag", "Yes");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "manageStay"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "routine_work",
+            "canReconfigure", "false"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Manage stay](/cases/case-details/${[CASE_REFERENCE]}/trigger/MANAGE_STAY)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "6"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "majorPriority",
+            "value", "2000"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateSkipNonWorkingDays",
+            "value", "false"
+        )));
+    }
+
+    @Test
+    void when_taskId_ScheduleHmcHearing_then_return_config() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "HMC_NRO");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ScheduleHMCHearing"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Hearings (HMC)](/cases/case-details/${[CASE_REFERENCE]}/hearings)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "workType",
+            "value", "hearing_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "dueDateIntervalDays",
+            "value", "20"
+        )));
+    }
+
+    @Test
+    void when_taskId_RemoveHmcHearing_then_return_config() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "HMC_NRO");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "RemoveHMCHearing"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Hearings (HMC)](/cases/case-details/${[CASE_REFERENCE]}/hearings)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "workType",
+            "value", "hearing_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "dueDateIntervalDays",
+            "value", "20"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "majorPriority",
+            "value", "2000"
+        )));
+    }
+
+    @Test
+    void when_taskId_ScheduleAHearing_then_return_config() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "HMC_NRO");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "ScheduleAHearing"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Create a hearing notice](/cases/case-details/${[CASE_REFERENCE]}"
+                + "/trigger/HEARING_SCHEDULED/HEARING_SCHEDULEDHearingNoticeSelect)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "hearing_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+    }
+
+    @Test
+    void when_taskId_removeHearing_then_return_config_hmc_nro() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("featureToggleWA", "HMC_NRO");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "removeHearing"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Add a case note](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "hearing_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "dueDateIntervalDays",
+            "value", "20"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "majorPriority",
+            "value", "2000"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "reviewOrder, Prod, 1, "
+            + "[Order Made - Review case](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)",
+        "reviewOrder, CE_B2, 2, "
+            + "[Confirm order review]"
+            + "(/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_ORDER_REVIEW/CONFIRM_ORDER_REVIEW)"
+    })
+    void when_taskId_reviewOrder_then_return_description(String taskType,
+                                                         String featureToggle, int expectedSize, String expectedValue) {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        caseData.put("applicant1", Map.of("partyName", "Firstname LastName"));
+        caseData.put("featureToggleWA", featureToggle);
+        inputVariables.putValue("caseData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("description"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(expectedSize));
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "description",
+            "value", expectedValue,
+            "canReconfigure", "true"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "createHearingNoticeMT, multi_track_hearing_work",
+        "createHearingNoticeInt, intermediate_track_hearing_work",
+    })
+    void when_createHearingNoticeInt_createHearingNoticeMT_then_return_expected_config(String taskType, String workType) {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("caseManagementLocation", Map.of(
+            "baseLocation", "2",
+            "region", "1"
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        caseData.put("description", null);
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", taskType
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Create a hearing notice](/cases/case-details/${[CASE_REFERENCE]}/trigger/HEARING_SCHEDULED)"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", workType
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "location",
+            "value", "2"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "region",
+            "value", "1"
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "allocateMultiTrack, multi_track_decision_making_work",
+        "allocateIntermediateTrack, intermediate_track_decision_making_work"
+    })
+    void when_allocateMultiTrack_or_allocateIntermediateTrack_then_return_expected_config(String taskName, String workType) {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("caseManagementLocation", Map.of(
+            "baseLocation", "2",
+            "region", "1"
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        caseData.put("description", null);
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", taskName
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "[Make an order [Intermediate Track or Multi Track]](/cases/case-details/${[CASE_REFERENCE]}/trigger/GENERATE_DIRECTIONS_ORDER)"
+                + "<br /><br />[Standard Directions Order [Small Claims or Fast Track]](/cases/case-details/${[CASE_REFERENCE]}/trigger/CREATE_SDO)"
+                + "<br /><br />[Not Suitable for SDO](/cases/case-details/${[CASE_REFERENCE]}/trigger/NotSuitable_SDO)"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", workType
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "JUDICIAL"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "location",
+            "value", "2"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "region",
+            "value", "1"
+        )));
+
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "damagesListCMCMulti",
+        "damagesListCCMCMulti",
+        "damagesListPTRMulti",
+        "damagesListTrialMulti",
+        "specifiedListCMCMulti",
+        "specifiedListCCMCMulti",
+        "specifiedListPTRMulti",
+        "specifiedListTrialMulti"
+    })
+    void when_multi_Listing_then_return_expected_config(String taskName) {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("taskManagementLocations", Map.of(
+            "cmcListingLocation", Map.of("region", "1",
+                                         "location", "1234",
+                                         "locationName", "a location name"),
+            "ccmcListingLocation", Map.of("region", "2",
+                                          "location", "54321",
+                                          "locationName", "a different location name"),
+            "ptrListingLocation", Map.of("region", "3",
+                                         "location", "15154",
+                                         "locationName", "ptr location name"),
+            "trialListingLocation", Map.of("region", "4",
+                                           "location", "57771",
+                                           "locationName", "trial location name")
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        caseData.put("description", null);
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", taskName
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value",
+            "[Confirm Listing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_LISTING_COMPLETED/CONFIRM_LISTING_COMPLETEDConfirmListing)"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "multi_track_hearing_work"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMINISTRATOR"
+        )));
+
+        switch (taskName) {
+            case "damagesListCMCMulti":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "1234"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "1"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "a location name"
+                )));
+                break;
+            case "damagesListCCMCMulti":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "54321"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "2"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "a different location name"
+                )));
+                break;
+            case "damagesListPTRMulti":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "15154"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "3"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "ptr location name"
+                )));
+                break;
+            case "damagesListTrialMulti":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "57771"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "4"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "trial location name"
+                )));
+                break;
+            default:
+                break;
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "damagesListCMCInt",
+        "damagesListPTRInt",
+        "damagesListTrialInt",
+        "specifiedListCMCInt",
+        "specifiedListPTRInt",
+        "specifiedListTrialInt"
+    })
+    void when_intermediate_Listing_then_return_expected_config(String taskName) {
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("taskManagementLocations", Map.of(
+            "cmcListingLocation", Map.of("region", "1",
+                                         "location", "1234",
+                                         "locationName", "a location name"),
+            "ptrListingLocation", Map.of("region", "3",
+                                         "location", "15154",
+                                         "locationName", "ptr location name"),
+            "trialListingLocation", Map.of("region", "4",
+                                           "location", "57771",
+                                           "locationName", "trial location name")
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        caseData.put("description", null);
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", taskName
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value",
+            "[Confirm Listing](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_LISTING_COMPLETED/CONFIRM_LISTING_COMPLETEDConfirmListing)"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "intermediate_track_hearing_work"
+        )));
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMINISTRATOR"
+        )));
+
+        switch (taskName) {
+            case "damagesListCMCInt":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "1234"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "1"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "a location name"
+                )));
+                break;
+            case "damagesListPTRInt":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "15154"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "3"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "ptr location name"
+                )));
+                break;
+            case "damagesListTrialInt":
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "location",
+                    "value", "57771"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "region",
+                    "value", "4"
+                )));
+                assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+                    "canReconfigure", "true",
+                    "name", "locationName",
+                    "value", "trial location name"
+                )));
+                break;
+            default:
+                break;
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "confirmOrderReviewUnlessOrder, "
+            + "[Review case - Unless order - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
+        "confirmOrderReviewFreeTrial, "
+            + "[Review case - Pre trial checklist - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
+        "confirmOrderReviewGeneralOrder, "
+            + "[Review case - General order - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
+        "confirmOrderReviewReserveJudgement, "
+            + "[Review case - Reserve Judgment - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
+        "confirmOrderReviewOther, "
+            + "[Review case - Other - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
+        "confirmOrderReviewDismissCase, "
+            + "[Review case - Dismiss case - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
+        "confirmOrderReviewManageStay, "
+            + "[Review case - Lift stay - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
+        "confirmOrderReviewStayCase, "
+            + "[Review case - Stay case - 16 December 2024](/cases/case-details/${[CASE_REFERENCE]}#notes)",
+    })
+    void when_taskId_reviewCase_then_return_description(String taskType, String expectedValue) {
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> caseData = new HashMap<>();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("obligationWAFlag", Map.of("currentDate", "16 December 2024"));
+        inputVariables.putValue("caseData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("description"))
+            .collect(Collectors.toList());
+
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "description",
+            "value", expectedValue,
+            "canReconfigure", "false"
+        )));
+    }
+}

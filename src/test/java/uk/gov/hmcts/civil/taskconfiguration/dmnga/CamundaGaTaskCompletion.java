@@ -105,6 +105,37 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                         "taskType", "ReviewRevisitedApplication",
 
                         "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "INITIATE_GENERAL_APPLICATION_AFTER_PAYMENT",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "MODIFY_STATE_AFTER_ADDITIONAL_FEE_PAID",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesAdditionalApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
+                "FEE_PAYMENT_OUTCOME_GA",
+                asList(
+                    Map.of(
+                        "taskType", "HelpWithFeesApplicationFee",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "HelpWithFeesAdditionalApplicationFee",
+                        "completionMode", "Auto"
                     )))
         );
     }
@@ -124,7 +155,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(9));
+        assertThat(logic.getRules().size(), is(26));
 
     }
 }

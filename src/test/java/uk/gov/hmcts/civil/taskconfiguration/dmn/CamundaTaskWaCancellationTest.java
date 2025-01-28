@@ -26,11 +26,13 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"scenarioTakesCaseOfflineEventProceedsInHeritageSystem",
+    @MethodSource({"scenarioWhenCaseIsStayed",
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForReviewCaseFlags",
         "scenarioTakesCaseOfflineEventCaseDismissedSystem", "scenarioProviderRoutineTransfer",
         "scenarioProviderCaseFlags","scenarioTransferCaseOnlineReconfigure","scenarioRetriggerCasesReconfigure",
-        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioProceedsInHeritageSystem"})
+        "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioProceedsInHeritageSystem",
+        "scenarioUpdateNextHearingDetailsCasesReconfigure", "scenarioUpdateNextHearingInfoCasesReconfigure",
+        "scenarioNotSuitableSdoCancelTasks", "scenarioWhenCaseIsStayed", "scenarioWhenManageStay", "scenarioDismissCase"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -84,6 +86,90 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "requestTranslation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "orderJudgmentSetAside"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "helpWithFees"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "claimantIntention"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "paidInFull"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "intentionToProceed"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "updateContactInformation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "RemoveHearing"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "NationalRollout"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "multiOrIntermediateClaim"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "discontinued"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "setAsideJo"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "sendReplyMessage"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewUnlessOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewFreeTrial"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewGeneralOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewReserveJudgement"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewOther"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewStayCase"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewManageStay"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewDismissCase"
             )
         );
         return Stream.of(
@@ -119,6 +205,86 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "updateContactInformation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "orderJudgmentSetAside"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "helpWithFees"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "claimantIntention"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "paidInFull"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "intentionToProceed"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "updateContactInformation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "RemoveHearing"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "NationalRollout"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "multiOrIntermediateClaim"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "discontinued"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "setAsideJo"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "sendReplyMessage"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewUnlessOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewFreeTrial"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewGeneralOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewReserveJudgement"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewOther"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewStayCase"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewManageStay"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewDismissCase"
             )
         );
         return Stream.of(
@@ -166,6 +332,90 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "requestTranslation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "orderJudgmentSetAside"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "helpWithFees"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "claimantIntention"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "paidInFull"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "intentionToProceed"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "updateContactInformation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "RemoveHearing"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "NationalRollout"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "multiOrIntermediateClaim"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "discontinued"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "setAsideJo"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "sendReplyMessage"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewUnlessOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewFreeTrial"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewGeneralOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewReserveJudgement"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewOther"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewStayCase"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewManageStay"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewDismissCase"
             )
         );
         return Stream.of(
@@ -268,6 +518,22 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioUpdateNextHearingInfoCasesReconfigure() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "ReConfigure"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "",
+                "UpdateNextHearingInfo",
+                "",
+                outcome
+            )
+        );
+    }
+
     public static Stream<Arguments> scenarioProceedsInHeritageSystem() {
         List<Map<String, String>> outcome = List.of(
             Map.of(
@@ -305,6 +571,82 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "orderJudgmentSetAside"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "RemoveHearing"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "helpWithFees"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "claimantIntention"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "paidInFull"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "intentionToProceed"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "NationalRollout"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "discontinued"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "multiOrIntermediateClaim"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "setAsideJo"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "sendReplyMessage"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewUnlessOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewFreeTrial"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewGeneralOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewReserveJudgement"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewOther"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewStayCase"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewManageStay"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewDismissCase"
             )
         );
         return Stream.of(
@@ -319,11 +661,11 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, String>> outcome = List.of(
             Map.of(
                 "action", "Cancel",
-                "processCategories", "defaultJudgment"
+                "processCategories", "standardDirectionsOrder"
             ),
             Map.of(
                 "action", "Cancel",
-                "processCategories", "standardDirectionsOrder"
+                "processCategories", "defaultJudgment"
             )
         );
         return Stream.of(
@@ -336,12 +678,115 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    public static Stream<Arguments> scenarioWhenCaseIsStayed() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "standardDirectionsOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "caseProgression"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "defaultJudgment"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "multiOrIntermediateClaim"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewStayCase"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                null,
+                "STAY_CASE",
+                null,
+                outcome
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioWhenManageStay() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "manageStay"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewManageStay"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                null,
+                "MANAGE_STAY",
+                null,
+                outcome
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioDismissCase() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "multiOrIntermediateClaim"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewDismissCase"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewUnlessOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewFreeTrial"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewGeneralOrder"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewReserveJudgement"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewOther"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewStayCase"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "confirmOrderReviewManageStay"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                null,
+                "DISMISS_CASE",
+                null,
+                outcome
+            )
+        );
+    }
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(27));
+        assertThat(logic.getRules().size(), is(89));
     }
 }

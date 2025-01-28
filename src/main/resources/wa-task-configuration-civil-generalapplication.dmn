@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
-  <decision id="wa-task-configuration-civil-generalapplication" name="Civil GA Task configuration DMN">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0">
+  <decision id="wa-task-configuration-civil-generalapplication" name="Civil GA Task configuration DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_14cx079" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7f" label="CCD Case Data" camunda:inputVariable="caseData">
         <inputExpression id="LiteralExpression_0mra7c4" typeRef="string">
@@ -26,7 +26,7 @@ null</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0naviny">
-          <text></text>
+          <text>not("applicationDocumentsWelshRequestAppSum","applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder","applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo","applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc","applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo","applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule","applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection","applicationDocumentsWelshRequestFinalOrder")</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0k0b5ur">
           <text>"majorPriority"</text>
@@ -585,7 +585,7 @@ else ""</text>
           <text>"nextHearingDate,dueDate,priorityDate"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0zb17ke">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_15pfhsg">
@@ -602,7 +602,7 @@ else ""</text>
           <text>now()</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0rfzn9d">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_16fvrwu">
@@ -619,7 +619,7 @@ else ""</text>
           <text>time("16:00")</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_01y0e7d">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0s8xd4s">
@@ -636,7 +636,7 @@ else ""</text>
           <text>"https://www.gov.uk/bank-holidays/england-and-wales.json, https://raw.githubusercontent.com/hmcts/civil-wa-task-configuration/master/src/main/resources/privilege-calendar.json"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_12l04ly">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0rhc5kc">
@@ -653,7 +653,7 @@ else ""</text>
           <text>"SATURDAY,SUNDAY"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0o8dy4n">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1mxzbaq">
@@ -670,7 +670,7 @@ else ""</text>
           <text>"true"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1js3ss6">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_07czpit">
@@ -687,7 +687,7 @@ else ""</text>
           <text>"No"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0fmjj26">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1of8g49">
@@ -704,7 +704,7 @@ else ""</text>
           <text>"dueDate"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0g2jamu">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_07lpn5q">
@@ -721,7 +721,7 @@ else ""</text>
           <text>if(caseData.generalAppUrgencyRequirement.generalAppUrgency != null and  caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 20</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0csfl6x">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_13ywfhz">
@@ -738,7 +738,7 @@ else ""</text>
           <text>if(caseData.generalAppUrgencyRequirement.generalAppUrgency != null and  caseData.generalAppUrgencyRequirement.generalAppUrgency = "Yes") then 2 else 20</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1g9vydt">
-          <text>false</text>
+          <text>"false"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1x5h2p5">
@@ -798,6 +798,125 @@ else ""</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1fvqjoh">
           <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xqpn3r">
+        <inputEntry id="UnaryTests_1v0qciz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14fvvgp">
+          <text>"HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee","applicationDocumentsWelshRequestAppSum","applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder","applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo","applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc","applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo","applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule","applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection","applicationDocumentsWelshRequestFinalOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tn1njh">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08bd3ti">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_180rt5g">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0y7ch5r">
+        <inputEntry id="UnaryTests_0h6g07l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mcfxew">
+          <text>"HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee","applicationDocumentsWelshRequestAppSum","applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder","applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo","applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc","applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo","applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule","applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection","applicationDocumentsWelshRequestFinalOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qzlkdg">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11p5syv">
+          <text>"CTSC"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jcp6np">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mcoefa">
+        <inputEntry id="UnaryTests_1w9t71f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qocljf">
+          <text>"HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yyntdd">
+          <text>"dueDateIntervalDays"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bdy2rz">
+          <text>10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0x9z6mv">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0y6i19i">
+        <inputEntry id="UnaryTests_02nbe2t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tpnztg">
+          <text>"HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02a4mgp">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1djsnic">
+          <text>"Help with fees"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08pxclk">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03y55zt">
+        <inputEntry id="UnaryTests_1uuq5kb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1omgsd3">
+          <text>"applicationDocumentsWelshRequestAppSum","applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder","applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo","applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc","applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo","applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule","applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection","applicationDocumentsWelshRequestFinalOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yl0vqw">
+          <text>"majorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0aa9uux">
+          <text>"2000"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wlq6kg">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bgjlno">
+        <inputEntry id="UnaryTests_0fdpe52">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wc040l">
+          <text>"applicationDocumentsWelshRequestAppSum","applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder","applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo","applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc","applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo","applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule","applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection","applicationDocumentsWelshRequestFinalOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vw1gtj">
+          <text>"dueDateIntervalDays"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qttp9c">
+          <text>2</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15zgrv3">
+          <text>"false"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05afx4m">
+        <inputEntry id="UnaryTests_196zxnv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sh2cnw">
+          <text>"applicationDocumentsWelshRequestAppSum","applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder","applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo","applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc","applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo","applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule","applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection","applicationDocumentsWelshRequestFinalOrder"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1etjeaa">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1besh3x">
+          <text> "[Upload Translated Documents](/cases/case-details/${[CASE_REFERENCE]}/trigger/UPLOAD_TRANSLATED_DOCUMENT/UPLOAD_TRANSLATED_DOCUMENTUploadTranslatedDocument)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rz5yis">
+          <text>"false"</text>
         </outputEntry>
       </rule>
     </decisionTable>

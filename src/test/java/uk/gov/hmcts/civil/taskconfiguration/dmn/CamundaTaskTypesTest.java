@@ -156,6 +156,218 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "OrderToSetAsideDefendedClaim",
                 "taskTypeName", "Defence received in time - order that judgment is set aside"
+            ),
+            Map.of(
+                "taskTypeId", "ClaimSettledDivergenceTakeCaseOffline",
+                "taskTypeName", "Claim Settled Divergence - Take Case Offline"
+            ),
+            Map.of(
+                "taskTypeId", "ClaimDiscontinuedDivergenceTakeCaseOffline",
+                "taskTypeName", "Claim Discontinued Divergence - Take Case Offline"
+            ),
+            Map.of(
+                "taskTypeId", "ClaimDiscontinuedRemoveHearing",
+                "taskTypeName", "Claim Discontinued - Remove Hearing"
+            ),
+            Map.of(
+                "taskTypeId", "ValidateDiscontinuance",
+                "taskTypeName", "Claim Discontinued - Validate Discontinuance"
+            ),
+            Map.of(
+                "taskTypeId", "JudgmentOnlineSetAsideTakeCaseOffline",
+                "taskTypeName", "Set Aside - Take Case Offline"
+            ),
+            Map.of(
+                "taskTypeId", "claimantWelshRequest",
+                "taskTypeName", "Claimant Welsh Request"
+            ),
+            Map.of(
+                "taskTypeId", "HelpWithFeesClaimIssue",
+                "taskTypeName", "Help With Fees Claim Issue"
+            ),
+            Map.of(
+                "taskTypeId", "transferCaseOfflineLiP",
+                "taskTypeName", "Transfer Case Offline"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestAppSum",
+                "taskTypeName", "Application Documents Welsh Request - Application Summary document"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestOrderMade",
+                "taskTypeName", "Application Documents Welsh Request - General Order"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestHearingOrder",
+                "taskTypeName", "Application Documents Welsh Request - Hearing Order"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestWithNotice",
+                "taskTypeName", "Application Documents Welsh Request - Without notice to notice document"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestRespondToMoreInfo",
+                "taskTypeName", "Application Documents Welsh Request - Response to the Request for more information"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestRespondToWrittenRep",
+                "taskTypeName", "Application Documents Welsh Request - Response to Written Representations"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestAddlDoc",
+                "taskTypeName", "Application Documents Welsh Request - Uploaded Documents"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestRespondToJudge",
+                "taskTypeName", "Application Documents Welsh Request - Respond to a Judge Direction Order"
+            ),
+            Map.of(
+                "taskTypeId", "HelpWithFeesAdditionalApplicationFee",
+                "taskTypeName", "Help With Fees Additional Application Fee"
+            ),
+            Map.of(
+                "taskTypeId", "HelpWithFeesApplicationFee",
+                "taskTypeName", "Help With Fees Application Fee"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestMoreInfo",
+                "taskTypeName", "Application Documents Welsh Request - Request for More Information"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestWrittenResp",
+                "taskTypeName", "Application Documents Welsh Request - Written Representations"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestHearingSchedule",
+                "taskTypeName", "Application Documents Welsh Request - Hearing Notice"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestAppDismissed",
+                "taskTypeName", "Application Documents Welsh Request - Dismissal Order"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestJudgeDirection",
+                "taskTypeName", "Application Documents Welsh Request - Judges Directions"
+            ),
+            Map.of(
+                "taskTypeId", "applicationDocumentsWelshRequestFinalOrder",
+                "taskTypeName", "Application Documents Welsh Request - Final Order"
+            ),
+            Map.of(
+                "taskTypeId", "manageStay",
+                "taskTypeName", "Manage Stay"
+            ),
+            Map.of(
+                "taskTypeId", "createHearingNoticeMT",
+                "taskTypeName", "Create a hearing notice"
+            ),
+            Map.of(
+                "taskTypeId", "createHearingNoticeInt",
+                "taskTypeName", "Create a hearing notice"
+            ),
+            Map.of(
+                "taskTypeId", "allocateMultiTrack",
+                "taskTypeName", "Allocate Multi Track"
+            ),
+            Map.of(
+                "taskTypeId", "allocateMultiTrack",
+                "taskTypeName", "Allocate Multi Track - Clinical Negligence"
+            ),
+            Map.of(
+                "taskTypeId", "allocateMultiTrack",
+                "taskTypeName", "Allocate Multi Track - Serious Personal Injury"
+            ),
+            Map.of(
+                "taskTypeId", "allocateIntermediateTrack",
+                "taskTypeName", "Allocate Intermediate Track"
+            ),
+            Map.of(
+                "taskTypeId", "allocateIntermediateTrack",
+                "taskTypeName", "Allocate Intermediate Track - Clinical Negligence"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCMCMulti",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCMCMulti",
+                "taskTypeName", "List a Multi Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCCMCMulti",
+                "taskTypeName", "List a CCMC"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListPtrMulti",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListTrialMulti",
+                "taskTypeName", "List a Trial"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCMCInt",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListCMCInt",
+                "taskTypeName", "List a Intermediate Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListPtrInt",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "damagesListTrialInt",
+                "taskTypeName", "List a Trial"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCMulti",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCMulti",
+                "taskTypeName", "List a Multi Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCCMCMulti",
+                "taskTypeName", "List a CCMC"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListPTRMulti",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListTrialMulti",
+                "taskTypeName", "List a Trial"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCInt",
+                "taskTypeName", "List a CMC"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListCMCInt",
+                "taskTypeName", "List a Intermediate Track hearing"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListPTRInt",
+                "taskTypeName", "List a PTR"
+            ),
+            Map.of(
+                "taskTypeId", "specifiedListTrialInt",
+                "taskTypeName", "List a Trial"
+            ),
+            Map.of(
+                "taskTypeId", "ScheduleHMCHearing",
+                "taskTypeName", "Schedule HMC Hearing"
+            ),
+            Map.of(
+                "taskTypeId", "RemoveHMCHearing",
+                "taskTypeName", "Remove HMC Hearing"
+            ),
+            Map.of(
+                "taskTypeId", "removeHearing",
+                "taskTypeName", "Remove Hearing"
             )
         );
 
@@ -173,7 +385,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(30));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(83));
     }
 
 }
