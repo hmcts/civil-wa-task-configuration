@@ -2172,18 +2172,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE_SPEC, ,200000 , Allocate Multi Track",
-        "MANAGE_STAY, ,200000 , Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, ,200000 , Allocate Multi Track",
-        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 200000, Allocate Multi Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 200000, Allocate Multi Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 200000, Allocate Multi Track - Clinical Negligence",
-        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250001, Allocate Multi Track - Serious Personal Injury",
-        "MANAGE_STAY, PERSONAL_INJURY, 250001, Allocate Multi Track - Serious Personal Injury",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250001, Allocate Multi Track - Serious Personal Injury",
-        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250000, Allocate Multi Track",
-        "MANAGE_STAY, PERSONAL_INJURY, 250000, Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250000, Allocate Multi Track"
+        "CLAIMANT_RESPONSE_SPEC, ,200000 , Multi Track Directions",
+        "MANAGE_STAY, ,200000 , Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, ,200000 , Multi Track Directions",
+        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 200000, Multi Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 200000, Multi Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 200000, Multi Track Directions - Clinical Negligence",
+        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250001, Multi Track Directions - Serious Personal Injury",
+        "MANAGE_STAY, PERSONAL_INJURY, 250001, Multi Track Directions - Serious Personal Injury",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250001, Multi Track Directions - Serious Personal Injury",
+        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250000, Multi Track Directions",
+        "MANAGE_STAY, PERSONAL_INJURY, 250000, Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250000, Multi Track Directions"
     })
     void given_input_should_return_allocate_minti_multi_claim_task_spec(String eventName, String claimType,
                                                                         Integer claimAmountPounds, String taskDescription) {
@@ -2216,18 +2216,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE, ,20000000, Allocate Multi Track",
-        "MANAGE_STAY, ,20000000, Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, ,20000000, Allocate Multi Track",
-        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 20000000, Allocate Multi Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 20000000, Allocate Multi Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 20000000, Allocate Multi Track - Clinical Negligence",
-        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000001, Allocate Multi Track - Serious Personal Injury",
-        "MANAGE_STAY, PERSONAL_INJURY, 25000001, Allocate Multi Track - Serious Personal Injury",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000001, Allocate Multi Track - Serious Personal Injury",
-        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000000, Allocate Multi Track",
-        "MANAGE_STAY, PERSONAL_INJURY, 25000000, Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000000, Allocate Multi Track"
+        "CLAIMANT_RESPONSE, ,20000000, Multi Track Directions",
+        "MANAGE_STAY, ,20000000, Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, ,20000000, Multi Track Directions",
+        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 20000000, Multi Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 20000000, Multi Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 20000000, Multi Track Directions - Clinical Negligence",
+        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000001, Multi Track Directions - Serious Personal Injury",
+        "MANAGE_STAY, PERSONAL_INJURY, 25000001, Multi Track Directions - Serious Personal Injury",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000001, Multi Track Directions - Serious Personal Injury",
+        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000000, Multi Track Directions",
+        "MANAGE_STAY, PERSONAL_INJURY, 25000000, Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000000, Multi Track Directions"
     })
     void given_input_should_return_allocate_minti_multi_claim_task_unspec(String eventName, String claimType,
                                                                           String claimAmountPennies, String taskDescription) {
@@ -2261,12 +2261,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE_SPEC, , 100000 , Allocate Intermediate Track",
-        "MANAGE_STAY, , 100000 , Allocate Intermediate Track",
-        "TRANSFER_ONLINE_CASE, , 100000 , Allocate Intermediate Track",
-        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
+        "CLAIMANT_RESPONSE_SPEC, , 100000 , Intermediate Track Directions",
+        "MANAGE_STAY, , 100000 , Intermediate Track Directions",
+        "TRANSFER_ONLINE_CASE, , 100000 , Intermediate Track Directions",
+        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
     })
     void given_input_should_return_allocate_minti_intermediate_claim_task_spec(String eventName, String claimType,
                                                                                Integer claimAmountPounds, String taskDescription) {
@@ -2299,12 +2299,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE, , 100000 , Allocate Intermediate Track",
-        "MANAGE_STAY, , 100000 , Allocate Intermediate Track",
-        "TRANSFER_ONLINE_CASE, , 100000 , Allocate Intermediate Track",
-        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
+        "CLAIMANT_RESPONSE, , 100000 , Intermediate Track Directions",
+        "MANAGE_STAY, , 100000 , Intermediate Track Directions",
+        "TRANSFER_ONLINE_CASE, , 100000 , Intermediate Track Directions",
+        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
     })
     void given_input_should_return_allocate_minti_intermediate_claim_task_unspec(String eventName, String claimType,
                                                                                  String claimAmountPennies, String taskDescription) {
@@ -3270,12 +3270,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing, 1",
         "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Schedule a Small Claims Hearing, 1",
         "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,,false, true, DISPOSAL,, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,, true, false, DISPOSAL,, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
-        "MANAGE_STAY, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1"
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,,false, true, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,,false, true, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, true, false, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, true, false, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, false, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, false, false, DISPOSAL,, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing, 1"
     })
     void given_input_should_return_correct_scheduleHmcHearingTask_manageStay_lip(
         String eventId,

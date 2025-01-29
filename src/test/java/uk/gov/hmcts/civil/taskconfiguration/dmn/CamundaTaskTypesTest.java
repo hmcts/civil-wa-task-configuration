@@ -267,23 +267,23 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "allocateMultiTrack",
-                "taskTypeName", "Allocate Multi Track"
+                "taskTypeName", "Multi Track Directions"
             ),
             Map.of(
                 "taskTypeId", "allocateMultiTrack",
-                "taskTypeName", "Allocate Multi Track - Clinical Negligence"
+                "taskTypeName", "Multi Track Directions - Clinical Negligence"
             ),
             Map.of(
                 "taskTypeId", "allocateMultiTrack",
-                "taskTypeName", "Allocate Multi Track - Serious Personal Injury"
+                "taskTypeName", "Multi Track Directions - Serious Personal Injury"
             ),
             Map.of(
                 "taskTypeId", "allocateIntermediateTrack",
-                "taskTypeName", "Allocate Intermediate Track"
+                "taskTypeName", "Intermediate Track Directions "
             ),
             Map.of(
                 "taskTypeId", "allocateIntermediateTrack",
-                "taskTypeName", "Allocate Intermediate Track - Clinical Negligence"
+                "taskTypeName", "Intermediate Track Directions  - Clinical Negligence"
             ),
             Map.of(
                 "taskTypeId", "damagesListCMCMulti",
