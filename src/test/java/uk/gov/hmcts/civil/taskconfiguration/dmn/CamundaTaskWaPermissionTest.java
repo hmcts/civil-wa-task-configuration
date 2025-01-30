@@ -1254,7 +1254,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     })
     void given_hmc_hearing_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", Map.of("featureToggleWA", "HMC_NRO"));
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
