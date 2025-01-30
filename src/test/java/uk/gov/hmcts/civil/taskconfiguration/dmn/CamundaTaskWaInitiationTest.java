@@ -2010,8 +2010,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "FAST_CLAIM, , , , Schedule a Fast Track Hearing, ScheduleAHearing",
         ", SMALL_CLAIM, , , Schedule a Small Claims Hearing, ScheduleAHearing",
         ", FAST_CLAIM, , , Schedule a Fast Track Hearing, ScheduleAHearing",
-        ", , DISPOSAL, , Schedule a Disposal Hearing, ScheduleAHearing",
-        ", , , DISPOSAL_HEARING, Schedule a Disposal Hearing, ScheduleAHearing"
+        "FAST_CLAIM, , DISPOSAL, , Schedule a Disposal Hearing, ScheduleAHearing",
+        "SMALL_CLAIM, , DISPOSAL, , Schedule a Disposal Hearing, ScheduleAHearing"
     })
     void given_input_should_return_correct_hearingTask(String allocatedTrack, String responseClaimTrack,
                                                        String orderType, String caseManagementOrderSelection,
@@ -2477,7 +2477,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(365));
+        assertThat(logic.getRules().size(), is(368));
     }
 
     @ParameterizedTest
