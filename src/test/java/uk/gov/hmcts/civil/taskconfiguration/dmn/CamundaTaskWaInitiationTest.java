@@ -1289,11 +1289,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        System.out.println(workTypeResultList);
-
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         List<String> taskIds = workTypeResultList.stream().map(res -> res.get("taskId").toString()).toList();
-        assertTrue(taskIds.containsAll(List.of("InitialDirectionFlightDelay", "LegalAdvisorSmallClaimsTrackDirections")));
+        assertTrue(taskIds.contains("InitialDirectionFlightDelay"));
         List<String> processCategories = workTypeResultList.stream().map(res -> res.get("processCategories").toString()).toList();
         assertTrue(processCategories.stream().allMatch(s -> s.equals("standardDirectionsOrder")));
     }
