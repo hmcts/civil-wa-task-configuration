@@ -794,9 +794,9 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "All_FINAL_ORDERS_ISSUED",
-                "CONFIRM_ORDER_REVIEW",
                 null,
+                "CONFIRM_ORDER_REVIEW",
+                "All_FINAL_ORDERS_ISSUED",
                 outcome
             )
         );
