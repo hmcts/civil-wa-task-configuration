@@ -205,7 +205,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(2));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
         assertThat(workTypeResultList
                        .get(1).get("taskId"), is("OnlineCaseTransferReceived"));
@@ -305,7 +305,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void when_transfer_online_change_location_recreate_sdo_task_response_fastClaimTrackDirections() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("totalClaimAmount", 2000);
+        data.put("totalClaimAmount", 10_001);
         data.put("responseClaimTrack", "FAST_CLAIM");
         data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         data.put("featureToggleWA", "WA3.5");
@@ -2287,7 +2287,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(347));
+        assertThat(logic.getRules().size(), is(344));
     }
 
     @ParameterizedTest
