@@ -3305,7 +3305,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Transfer Case Offline, false",
         "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Transfer Case Offline, false",
     })
-    void given_input_should_return_correct_scheduleHmcHearingTaskForSDO_EaCourt(
+    void given_input_should_return_correct_scheduleHmcHearingTaskForSdo_EaCourt(
         String eventId,
         String postEventState,
         String allocatedTrack,
