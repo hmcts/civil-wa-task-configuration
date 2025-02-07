@@ -3301,7 +3301,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
         //This will be 3 until CE_B2 goes live a pre-existing tasks gets removed.
-        String taskId = applicant1Represented&& respondent1Represented ? "ScheduleHMCHearing" : "ScheduleAHearing";
+        String taskId = applicant1Represented && respondent1Represented ? "ScheduleHMCHearing" : "ScheduleAHearing";
         if (nonNull(furtherHearingRequired)) {
             assertThat(workTypeResultList.size(), is(3));
             assertThat(workTypeResultList.get(0).get("name"), is("Order Made - Review case"));
