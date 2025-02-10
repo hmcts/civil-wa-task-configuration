@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
 
@@ -1586,6 +1587,60 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
+            )
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "queryManagementRespondToQuery"
+    })
+    void given_queryManagementRespondToQuery_taskType_when_evaluate_dmn_then_return_expected_rule(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "ctsc",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "CTSC",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "national-business-centre",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "hearing-centre-team-leader",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "autoAssignable", true
+            ),
+            Map.of(
+                "name", "ctsc-team-leader",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "CTSC",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "nbc-team-leader",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "autoAssignable", true
             )
         )));
     }
