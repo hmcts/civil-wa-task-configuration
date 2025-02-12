@@ -1819,8 +1819,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "FAST_CLAIM, , , , Schedule a Fast Track Hearing, ScheduleAHearing",
         ", SMALL_CLAIM, , , Schedule a Small Claims Hearing, ScheduleAHearing",
         ", FAST_CLAIM, , , Schedule a Fast Track Hearing, ScheduleAHearing",
-        ", , DISPOSAL, , Schedule a Disposal Hearing, ScheduleAHearing",
-        ", , , DISPOSAL_HEARING, Schedule a Disposal Hearing, ScheduleAHearing"
+        "SMALL_CLAIM, , DISPOSAL, , Schedule a Disposal Hearing, ScheduleAHearing",
+        "FAST_CLAIM, , , DISPOSAL_HEARING, Schedule a Disposal Hearing, ScheduleAHearing"
     })
     void given_input_should_return_correct_hearingTask(String allocatedTrack, String responseClaimTrack,
                                                        String orderType, String caseManagementOrderSelection,
@@ -1981,18 +1981,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE_SPEC, ,200000 , Allocate Multi Track",
-        "MANAGE_STAY, ,200000 , Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, ,200000 , Allocate Multi Track",
-        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 200000, Allocate Multi Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 200000, Allocate Multi Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 200000, Allocate Multi Track - Clinical Negligence",
-        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250001, Allocate Multi Track - Serious Personal Injury",
-        "MANAGE_STAY, PERSONAL_INJURY, 250001, Allocate Multi Track - Serious Personal Injury",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250001, Allocate Multi Track - Serious Personal Injury",
-        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250000, Allocate Multi Track",
-        "MANAGE_STAY, PERSONAL_INJURY, 250000, Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250000, Allocate Multi Track"
+        "CLAIMANT_RESPONSE_SPEC, ,200000 , Multi Track Directions",
+        "MANAGE_STAY, ,200000 , Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, ,200000 , Multi Track Directions",
+        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 200000, Multi Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 200000, Multi Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 200000, Multi Track Directions - Clinical Negligence",
+        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250001, Multi Track Directions - Serious Personal Injury",
+        "MANAGE_STAY, PERSONAL_INJURY, 250001, Multi Track Directions - Serious Personal Injury",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250001, Multi Track Directions - Serious Personal Injury",
+        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250000, Multi Track Directions",
+        "MANAGE_STAY, PERSONAL_INJURY, 250000, Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250000, Multi Track Directions"
     })
     void given_input_should_return_allocate_minti_multi_claim_task_spec(String eventName, String claimType,
                                                                         Integer claimAmountPounds, String taskDescription) {
@@ -2025,18 +2025,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE, ,20000000, Allocate Multi Track",
-        "MANAGE_STAY, ,20000000, Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, ,20000000, Allocate Multi Track",
-        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 20000000, Allocate Multi Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 20000000, Allocate Multi Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 20000000, Allocate Multi Track - Clinical Negligence",
-        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000001, Allocate Multi Track - Serious Personal Injury",
-        "MANAGE_STAY, PERSONAL_INJURY, 25000001, Allocate Multi Track - Serious Personal Injury",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000001, Allocate Multi Track - Serious Personal Injury",
-        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000000, Allocate Multi Track",
-        "MANAGE_STAY, PERSONAL_INJURY, 25000000, Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000000, Allocate Multi Track"
+        "CLAIMANT_RESPONSE, ,20000000, Multi Track Directions",
+        "MANAGE_STAY, ,20000000, Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, ,20000000, Multi Track Directions",
+        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 20000000, Multi Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 20000000, Multi Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 20000000, Multi Track Directions - Clinical Negligence",
+        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000001, Multi Track Directions - Serious Personal Injury",
+        "MANAGE_STAY, PERSONAL_INJURY, 25000001, Multi Track Directions - Serious Personal Injury",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000001, Multi Track Directions - Serious Personal Injury",
+        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000000, Multi Track Directions",
+        "MANAGE_STAY, PERSONAL_INJURY, 25000000, Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000000, Multi Track Directions"
     })
     void given_input_should_return_allocate_minti_multi_claim_task_unspec(String eventName, String claimType,
                                                                           String claimAmountPennies, String taskDescription) {
@@ -2070,12 +2070,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE_SPEC, , 100000 , Allocate Intermediate Track",
-        "MANAGE_STAY, , 100000 , Allocate Intermediate Track",
-        "TRANSFER_ONLINE_CASE, , 100000 , Allocate Intermediate Track",
-        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
+        "CLAIMANT_RESPONSE_SPEC, , 100000 , Intermediate Track Directions",
+        "MANAGE_STAY, , 100000 , Intermediate Track Directions",
+        "TRANSFER_ONLINE_CASE, , 100000 , Intermediate Track Directions",
+        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
     })
     void given_input_should_return_allocate_minti_intermediate_claim_task_spec(String eventName, String claimType,
                                                                                Integer claimAmountPounds, String taskDescription) {
@@ -2108,12 +2108,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE, , 100000 , Allocate Intermediate Track",
-        "MANAGE_STAY, , 100000 , Allocate Intermediate Track",
-        "TRANSFER_ONLINE_CASE, , 100000 , Allocate Intermediate Track",
-        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
+        "CLAIMANT_RESPONSE, , 100000 , Intermediate Track Directions",
+        "MANAGE_STAY, , 100000 , Intermediate Track Directions",
+        "TRANSFER_ONLINE_CASE, , 100000 , Intermediate Track Directions",
+        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
     })
     void given_input_should_return_allocate_minti_intermediate_claim_task_unspec(String eventName, String claimType,
                                                                                  String claimAmountPennies, String taskDescription) {
@@ -2286,7 +2286,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(367));
+        assertThat(logic.getRules().size(), is(370));
     }
 
     @ParameterizedTest
@@ -2959,21 +2959,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
         "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
         "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing",
-        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing",
-        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing",
-        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Schedule a Fast Track Hearing",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Schedule a Small Claims Hearing",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Schedule a Small Claims Hearing",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Schedule a Small Claims Hearing",
-        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing",
-        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing",
-        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing",
-        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing",
-        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing",
-        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing",
         "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing",
         "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Reschedule a Fast Track Hearing",
         "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing",
@@ -2993,7 +2978,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
         "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing"
     })
-    void given_input_should_return_correct_scheduleHmcHearingTask_lip(
+    void given_input_should_return_correct_scheduleHmcHearingTask_createSdoEvent_ea_lip(
         String eventId,
         String postEventState,
         String allocatedTrack,
@@ -3031,6 +3016,61 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing",
+    })
+    void given_input_should_return_correct_scheduleHmcHearingTask_lip(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+        data.put("eaCourtLocation", "true");
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing",
         "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing",
         "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing",
@@ -3043,12 +3083,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing",
         "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Schedule a Small Claims Hearing",
         "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing",
-        "MANAGE_STAY, CASE_PROGRESSION,,,false, true, DISPOSAL,, Schedule a Disposal Hearing",
-        "MANAGE_STAY, CASE_PROGRESSION,,, true, false, DISPOSAL,, Schedule a Disposal Hearing",
-        "MANAGE_STAY, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing",
-        "MANAGE_STAY, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
-        "MANAGE_STAY, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
-        "MANAGE_STAY, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing"
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,,false, true, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,,false, true, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, true, false, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, true, false, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, false, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, false, false, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing"
     })
     void given_input_should_return_correct_scheduleHmcHearingTask_manageStay_lip(
         String eventId,
