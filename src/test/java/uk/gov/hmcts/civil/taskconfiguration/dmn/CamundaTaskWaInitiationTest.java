@@ -3384,7 +3384,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
         //This will be 2 until Hmc Lip goes live a pre-existing tasks gets removed.
-        int expectedTasks = isEaCourt ? 2 :1;
+        int expectedTasks = isEaCourt ? 2 : 1;
         int taskToCheck = isEaCourt ? 1 : 0;
         assertThat(workTypeResultList.size(), is(expectedTasks));
         assertThat(workTypeResultList.get(taskToCheck).get("name"), is(expectedTaskName));
