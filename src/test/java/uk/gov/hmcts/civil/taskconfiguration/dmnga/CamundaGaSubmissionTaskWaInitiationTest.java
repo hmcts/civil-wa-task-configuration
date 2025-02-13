@@ -1352,7 +1352,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @CsvSource(value = {
         "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
     })
-    void when_change_state_addln_response_time_expired_preSDO_referToLA(
+    void when_change_state_addln_response_time_expired_preSdo_referToLa(
         String eventId) {
 
         Map<String, Object> data = new HashMap<>();
@@ -1387,7 +1387,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @CsvSource(value = {
         "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
     })
-    void when_change_state_addln_response_time_expired_preSDO_referToLAMultiApp(
+    void when_change_state_addln_response_time_expired_preSdo_referToLaMultiApp(
         String eventId) {
 
         Map<String, Object> data = new HashMap<>();
