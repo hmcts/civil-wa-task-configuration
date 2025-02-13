@@ -1901,10 +1901,20 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "INTERMEDIATE_CLAIM, INTERMEDIATE_CLAIM, Create a hearing notice, createHearingNoticeInt"
+        ", INTERMEDIATE_CLAIM, OTHER, Create a hearing notice - Other, createHearingNoticeInt",
+        "INTERMEDIATE_CLAIM, , CASE_MANAGEMENT_CONFERENCE, Create a hearing notice - CMC, createHearingNoticeInt",
+        ", INTERMEDIATE_CLAIM, TRIAL, Create a hearing notice - Trial, createHearingNoticeInt",
+        "INTERMEDIATE_CLAIM, , PRE_TRIAL_REVIEW, Create a hearing notice - PTR, createHearingNoticeInt"
     })
-    void minti_hearing_notice_intermediate_track(String allocatedTrack, String responseClaimTrack, String expectedName, String expectedTaskId) {
+    void minti_hearing_notice_intermediate_track(String allocatedTrack, String responseClaimTrack, String hearingTypeConfirmed,
+                                                 String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
+
+        Map<String, Object> hearingTypeValue = new HashMap<>();
+        hearingTypeValue.put("code", hearingTypeConfirmed);
+        Map<String, Object> hearingListingConfirmedDynamicList = new HashMap<>();
+        hearingListingConfirmedDynamicList.put("value", hearingTypeValue);
+        data.put("hearingListedDynamicList", hearingListingConfirmedDynamicList);
 
         data.put("featureToggleWA", "multiOrIntermediateClaim");
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
@@ -1921,17 +1931,27 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
 
     @ParameterizedTest
     @CsvSource({
-        "MULTI_CLAIM, MULTI_CLAIM, Create a hearing notice, createHearingNoticeMT"
+        ", MULTI_CLAIM, OTHER, Create a hearing notice - Other, createHearingNoticeMT",
+        "MULTI_CLAIM, , COSTS_CASE_MANAGEMENT_CONFERENCE, Create a hearing notice - CCMC, createHearingNoticeMT",
+        ", MULTI_CLAIM, TRIAL, Create a hearing notice - Trial, createHearingNoticeMT",
+        "MULTI_CLAIM, , PRE_TRIAL_REVIEW, Create a hearing notice - PTR, createHearingNoticeMT"
     })
-    void minti_hearing_notice_multi_track(String allocatedTrack, String responseClaimTrack, String expectedName, String expectedTaskId) {
+    void minti_hearing_notice_multi_track(String allocatedTrack, String responseClaimTrack, String hearingTypeConfirmed,
+                                          String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
+
+        Map<String, Object> hearingTypeValue = new HashMap<>();
+        hearingTypeValue.put("code", hearingTypeConfirmed);
+        Map<String, Object> hearingListingConfirmedDynamicList = new HashMap<>();
+        hearingListingConfirmedDynamicList.put("value", hearingTypeValue);
+        data.put("hearingListedDynamicList", hearingListingConfirmedDynamicList);
 
         data.put("featureToggleWA", "multiOrIntermediateClaim");
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
@@ -1948,7 +1968,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
@@ -2260,7 +2280,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(377));
+        assertThat(logic.getRules().size(), is(375));
     }
 
     @ParameterizedTest
