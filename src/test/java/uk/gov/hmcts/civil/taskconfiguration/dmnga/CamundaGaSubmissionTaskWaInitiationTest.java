@@ -5170,4 +5170,20 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
                    is("Application Documents Welsh Request - Judges Directions"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestJudgeDirection"));
     }
+
+    @Test
+    void given_input_should_create_reviewApplicationOrder() {
+        Map<String, Object> caseData = new HashMap<>();
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "END_JUDGE_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("postEventState", "APPLICATION_DISMISSED");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"),
+                   is("Review application order"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplicationOrder"));
+    }
 }
