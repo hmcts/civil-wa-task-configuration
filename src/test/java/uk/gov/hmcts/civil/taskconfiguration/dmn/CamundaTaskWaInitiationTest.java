@@ -2909,8 +2909,13 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(0).get("name"), is("Remove Hearing - HMC"));
     }
 
-    @Test
-    void generateDirectionsOrder_createOrderReviewTask_anyEndState() {
+    @ParameterizedTest
+    @CsvSource({
+        "MULTI_CLAIM, Order Made - Review case - Multi track",
+        "INTERMEDIATE_CLAIM, Order Made - Review case - Intermediate track",
+        "FAST_CLAIM, Order Made - Review case"
+    })
+    void generateDirectionsOrder_createOrderReviewTask_anyEndState(String claimTrack, String description) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CE_B2");
@@ -2920,6 +2925,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("actualTrack", claimTrack);
         inputVariables.putValue("postEventState", "HEARING_READINESS");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -2930,7 +2936,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("reviewOrder"));
         assertThat(workTypeResultList
-                       .get(0).get("name"), is("Order Made - Review case"));
+                       .get(0).get("name"), is(description));
     }
 
     @ParameterizedTest
