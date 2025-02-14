@@ -1559,4 +1559,34 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             )
         )));
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "takeCaseOfflineApplicationNonEA"
+    })
+    void given_takeCaseOfflineApplicationNonEA_taskType_when_evaluate_dmn_then_return_expected_rule(String taskType) {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "national-business-centre",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "hearing-centre-admin",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false
+            )
+        )));
+    }
 }
