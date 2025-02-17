@@ -2260,7 +2260,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(377));
+        assertThat(logic.getRules().size(), is(379));
     }
 
     @ParameterizedTest
@@ -3818,4 +3818,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("takeCaseOfflineApplicationNonEA"));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "true,Respond to a Hearing Related Query",
+        "false,Respond to a Query"
+    })
+    void given_input_should_return_expected_qm_task(boolean isHearingRelated, String expectedTaskName) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> caseData = new HashMap<>();
+        String queryId = "query-id";
+        data.put("qmLatestQuery", Map.of(
+            "queryId", queryId,
+            "isHearingRelated", isHearingRelated
+        ));
+        caseData.put("Data", data);
+
+        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("queryManagementRespondToQuery"));
+    }
 }
