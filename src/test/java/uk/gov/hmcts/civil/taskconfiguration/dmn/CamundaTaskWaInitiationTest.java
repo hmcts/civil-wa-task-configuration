@@ -2280,7 +2280,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(375));
+        assertThat(logic.getRules().size(), is(377));
     }
 
     @ParameterizedTest
@@ -2909,13 +2909,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(0).get("name"), is("Remove Hearing - HMC"));
     }
 
-    @ParameterizedTest
-    @CsvSource({
-        "MULTI_CLAIM, Order Made - Review case - Multi track",
-        "INTERMEDIATE_CLAIM, Order Made - Review case - Intermediate track",
-        "FAST_CLAIM, Order Made - Review case"
-    })
-    void generateDirectionsOrder_createOrderReviewTask_anyEndState(String claimTrack, String description) {
+    @Test
+    void generateDirectionsOrder_createOrderReviewTask_anyEndState() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CE_B2");
@@ -2925,7 +2920,35 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
-        inputVariables.putValue("actualTrack", claimTrack);
+        inputVariables.putValue("postEventState", "HEARING_READINESS");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("reviewOrder"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Order Made - Review case"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "MULTI_CLAIM, Order Made - Review case - Multi track",
+        "INTERMEDIATE_CLAIM, Order Made - Review case - Intermediate track",
+    })
+    void generateDirectionsOrder_createOrderReviewTask_anyEndStateMinti(String claimTrack, String description) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
+        data.put("allocatedTrack", claimTrack);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
         inputVariables.putValue("postEventState", "HEARING_READINESS");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
