@@ -1831,67 +1831,24 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
 
-    // Temp may return 2 tasks until HMC NRO goes live and legacy tasks are removed.
     @ParameterizedTest
     @CsvSource({
-        ", MULTI_CLAIM, , , Transfer Case Offline, transferCaseOffline",
-        ", INTERMEDIATE_CLAIM, , , Transfer Case Offline, transferCaseOffline",
+        "MULTI_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, CLAIMANT_RESPONSE_SPEC, AWAITING_APPLICANT_INTENTION",
+        "INTERMEDIATE_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, CLAIMANT_RESPONSE_SPEC, AWAITING_APPLICANT_INTENTION",
+        "MULTI_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, UPDATE_CLAIMANT_INTENTION_CLAIM_STATE, AWAITING_APPLICANT_INTENTION",
+        "INTERMEDIATE_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, UPDATE_CLAIMANT_INTENTION_CLAIM_STATE, AWAITING_APPLICANT_INTENTION",
     })
-    void minti_cui_claimant_response_trigger_offline_task(String allocatedTrack, String responseClaimTrack,
-                                                          String orderType, String caseManagementOrderSelection,
-                                                          String expectedName, String expectedTaskId) {
+    void minti_lr_claimant_response_lip_defendant_trigger_offline_task_spec(String responseClaimTrack,
+                                                                       String expectedName, String expectedTaskId, String eventId, String postState) {
+
         Map<String, Object> data = new HashMap<>();
-        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
-            data.put("allocatedTrack", allocatedTrack);
-        }
-        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
-            data.put("responseClaimTrack", responseClaimTrack);
-        }
-        if (orderType != null && !orderType.isEmpty()) {
-            data.put("orderType", orderType);
-        }
-        if (caseManagementOrderSelection != null && !caseManagementOrderSelection.isEmpty()) {
-            data.put("caseManagementOrderSelection", caseManagementOrderSelection);
-        }
+        data.put("featureToggleWA", "multiOrIntermediateClaim");
+        data.put("responseClaimTrack", responseClaimTrack);
+
         Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
-        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
-        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-        ", MULTI_CLAIM, , , Transfer Case Offline, transferCaseOffline",
-        ", INTERMEDIATE_CLAIM, , , Transfer Case Offline, transferCaseOffline",
-    })
-    void minti_lr_claimant_response_lip_defendant_trigger_offline_task(String allocatedTrack, String responseClaimTrack,
-                                                                       String orderType, String caseManagementOrderSelection,
-                                                                       String expectedName, String expectedTaskId) {
-        Map<String, Object> data = new HashMap<>();
-        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
-            data.put("allocatedTrack", allocatedTrack);
-        }
-        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
-            data.put("responseClaimTrack", responseClaimTrack);
-        }
-        if (orderType != null && !orderType.isEmpty()) {
-            data.put("orderType", orderType);
-        }
-        if (caseManagementOrderSelection != null && !caseManagementOrderSelection.isEmpty()) {
-            data.put("caseManagementOrderSelection", caseManagementOrderSelection);
-        }
-        Map<String, Object> caseData = Map.of("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
-        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postState);
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
