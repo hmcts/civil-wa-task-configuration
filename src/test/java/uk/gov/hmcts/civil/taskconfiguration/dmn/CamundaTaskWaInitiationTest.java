@@ -1888,10 +1888,20 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "MULTI_CLAIM, MULTI_CLAIM, Create a hearing notice, createHearingNoticeMT"
+        ", MULTI_CLAIM, OTHER, Create a hearing notice - Other, createHearingNoticeMT",
+        "MULTI_CLAIM, , COSTS_CASE_MANAGEMENT_CONFERENCE, Create a hearing notice - CCMC, createHearingNoticeMT",
+        ", MULTI_CLAIM, TRIAL, Create a hearing notice - Trial, createHearingNoticeMT",
+        "MULTI_CLAIM, , PRE_TRIAL_REVIEW, Create a hearing notice - PTR, createHearingNoticeMT"
     })
-    void minti_hearing_notice_multi_track(String allocatedTrack, String responseClaimTrack, String expectedName, String expectedTaskId) {
+    void minti_hearing_notice_multi_track(String allocatedTrack, String responseClaimTrack, String hearingTypeConfirmed,
+                                          String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
+
+        Map<String, Object> hearingTypeValue = new HashMap<>();
+        hearingTypeValue.put("code", hearingTypeConfirmed);
+        Map<String, Object> hearingListingConfirmedDynamicList = new HashMap<>();
+        hearingListingConfirmedDynamicList.put("value", hearingTypeValue);
+        data.put("hearingListedDynamicList", hearingListingConfirmedDynamicList);
 
         data.put("featureToggleWA", "multiOrIntermediateClaim");
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
@@ -1908,7 +1918,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
