@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -32,7 +31,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_with_consent_order_creation_with_case_loc_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -40,7 +39,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("gaWaTrackLabel", " - Fast Track");
         Map<String, Object> caseData = new HashMap<>();
@@ -55,7 +54,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for summary judgement - Fast Track"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to summary judgement - Fast Track"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
@@ -66,7 +65,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_with_consent_order_creation_with_case_loc_local_court_lip(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -74,7 +73,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -89,7 +88,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for summary judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to summary judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -99,7 +98,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_with_consent_order_uncloaked_referToJudge_judgeRevisit_with_case_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -107,7 +106,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("referToJudge", Map.of(
             "judgeReferAdditionalInfo", "judge refer"
@@ -139,7 +138,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_with_consent_order_uncloaked_ReferToJudge_judgeRevisit_with_ccmcc_location(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -147,7 +146,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("referToJudge", Map.of(
             "judgeReferAdditionalInfo", "judge refer"
@@ -180,7 +179,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_with_consent_order_uncloaked_judgeRevisit_after_additionalPaymentMade(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -188,7 +187,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT")
+            "types", List.of("STRIKE_OUT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -217,7 +216,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_ga_with_consent_order_uncloaked_judgeRevisit_after_additionalPaymentMade(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -225,7 +224,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT")
+            "types", List.of("STRIKE_OUT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -254,7 +253,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_consent_order_uncloaked_ReferLegalAdvisor_LegalAdvisorRevisit_with_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -262,7 +261,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("referToLegalAdvisor", Map.of(
             "judgeReferAdditionalInfo", "judge refer"
@@ -294,7 +293,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_with_consent_order_uncloaked_ReferToLegalAdvisor_LaRevisit_with_ccmcc_location(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -302,7 +301,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("referToLegalAdvisor", Map.of(
             "judgeReferAdditionalInfo", "judge refer"
@@ -334,7 +333,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_with_consent_order_uncloaked_LegalAdvisorRevisit_after_additionalPaymentMade(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -342,7 +341,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("EXTEND_TIME")
+            "types", List.of("EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -371,7 +370,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_ga_with_consent_order_uncloaked_JudgeRevisit_after_additionalPaymentMade(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -379,7 +378,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("EXTEND_TIME")
+            "types", List.of("EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -409,7 +408,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_multiple_ga_with_consent_order_creation_with_case_at_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -417,7 +416,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -442,7 +441,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_multiple_ga_with_consent_order_creation_with_case_at_local_court_lip(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -450,7 +449,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -475,7 +474,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_var_judgement_creation_with_case_with_ccmcc_location(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -483,7 +482,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("VARY_PAYMENT_TERMS_OF_JUDGMENT")
+            "types", List.of("VARY_PAYMENT_TERMS_OF_JUDGMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -497,7 +496,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for vary payment terms of judgment"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to vary payment terms of judgment"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
@@ -507,7 +506,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_var_judgement_creation_with_case_loc_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -515,7 +514,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("VARY_PAYMENT_TERMS_OF_JUDGMENT")
+            "types", List.of("VARY_PAYMENT_TERMS_OF_JUDGMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -529,7 +528,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for vary payment terms of judgment"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to vary payment terms of judgment"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
@@ -540,7 +539,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_multiple_ga_with_consent_order_creation_with_case_loc_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -548,7 +547,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -573,7 +572,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_multiple_ga_with_consent_order_creation_with_case_loc_local_court_lip(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -581,7 +580,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT","STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -607,7 +606,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_ga_with_consent_order_creation_with_case_loc_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -615,7 +614,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SETTLE_BY_CONSENT")
+            "types", List.of("SETTLE_BY_CONSENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -629,7 +628,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for settle by consent"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to settle by consent"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
@@ -640,7 +639,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_ga_with_consent_order_creation_with_case_loc_local_court_lip(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -648,7 +647,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SETTLE_BY_CONSENT")
+            "types", List.of("SETTLE_BY_CONSENT")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -663,7 +662,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for settle by consent"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to settle by consent"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -674,7 +673,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_ga_with_consent_order_creation_with_case_ccmcc_location(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -682,7 +681,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT")
+            "types", List.of("SET_ASIDE_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -696,7 +695,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for set aside judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to set aside judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
@@ -707,7 +706,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_ga_with_consent_order_creation_with_case_ccmcc_location_lip_legal_advisor(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -715,7 +714,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT")
+            "types", List.of("SET_ASIDE_JUDGEMENT")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -730,7 +729,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for set aside judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to set aside judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
@@ -741,7 +740,6 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_ga_with_consent_order_creation_with_case_ccmcc_location_lip_judge(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -749,7 +747,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SETTLE_BY_CONSENT")
+            "types", List.of("SETTLE_BY_CONSENT")
         ));
         data.put("isGaRespondentOneLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -764,7 +762,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for settle by consent"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to settle by consent"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -775,7 +773,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -783,7 +781,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
+            "types", List.of("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -808,7 +806,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location_lip_judge(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -816,7 +814,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
+            "types", List.of("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
         ));
         data.put("isGaRespondentOneLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -843,7 +841,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_non_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location_lip_legal_advisor(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -851,7 +849,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SET_ASIDE_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         data.put("isGaRespondentOneLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -877,7 +875,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -885,7 +883,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
+            "types", List.of("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -910,7 +908,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location_lip_judge(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -918,7 +916,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
+            "types", List.of("SET_ASIDE_JUDGEMENT","SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         data.put("isGaRespondentOneLip", true);
@@ -945,7 +943,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_urgent_multiple_ga_with_consent_order_creation_with_case_ccmcc_location_lip_legal_advisor(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -953,7 +951,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT","STAY_THE_CLAIM")
+            "types", List.of("SET_ASIDE_JUDGEMENT","STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         data.put("isGaRespondentOneLip", true);
@@ -979,7 +977,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_with_consent_order_creation_with_case_ccmcc_location(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -987,7 +985,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         data.put("gaWaTrackLabel", " - Intermediate Track");
         Map<String, Object> caseData = new HashMap<>();
@@ -1002,7 +1000,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim - Intermediate Track"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim - Intermediate Track"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewApplication"));
     }
 
@@ -1013,7 +1011,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_with_consent_order_creation_with_case_ccmcc_location_lip(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1021,7 +1019,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         data.put("isGaRespondentOneLip", true);
@@ -1036,7 +1034,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -1047,7 +1045,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_addln_response_time_expired_nonurgent_consent_order_app_with_case_loc_local_court(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1058,7 +1056,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1085,7 +1083,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_addln_response_time_expired_nonurgent_consent_order_app_with_case_loc_local_court_lip(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1096,7 +1094,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         data.put("isGaRespondentOneLip", true);
@@ -1124,7 +1122,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_addln_response_time_expired_urgent_mltple_consent_order_app_with_case_loc_local_court(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1135,7 +1133,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1162,7 +1160,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_addln_response_time_expired_urgent_mltple_consent_order_app_with_case_loc_local_court_lip(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1173,7 +1171,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1201,7 +1199,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_response_nonurgent_multiple_consent_order_app_with_case_loc_local_court(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1212,7 +1210,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1239,7 +1237,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_response_nonurgent_multiple_consent_order_app_with_case_loc_local_court_lip(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1250,7 +1248,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1278,7 +1276,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_urgent_consent_order_app_with_case_loc_local_court(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1289,7 +1287,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1316,7 +1314,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_urgent_consent_order_app_with_case_loc_local_court_lip(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1327,7 +1325,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1362,7 +1360,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("EXTEND_TIME")
+            "types", List.of("EXTEND_TIME")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1397,7 +1395,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("EXTEND_TIME", "AMEND_A_STMT_OF_CASE")
+            "types", List.of("EXTEND_TIME", "AMEND_A_STMT_OF_CASE")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1427,7 +1425,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_nonurgent_consent_order_app_with_case_ccmcc_location(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1438,7 +1436,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1465,7 +1463,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_nonurgent_consent_order_app_with_case_ccmcc_location_lip_judge(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1476,7 +1474,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1504,7 +1502,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_nonurgent_consent_order_app_with_case_ccmcc_location_lip_legal_advisor(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1515,7 +1513,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1543,7 +1541,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_urgent_consent_order_app_with_case_ccmmcc_location(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1554,7 +1552,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1581,7 +1579,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_urgent_consent_order_app_with_case_ccmmcc_location_lip_judge(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1592,7 +1590,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1620,7 +1618,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_urgent_consent_order_app_with_case_ccmmcc_location_lip_legal_advisor(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1631,7 +1629,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1659,7 +1657,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_nonurgent_multple_consent_order_app_with_case_ccmcc_locatn(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1670,7 +1668,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1697,7 +1695,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_nonurgent_multple_consent_order_app_with_case_ccmcc_locatn_lip_judge(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1708,7 +1706,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1736,7 +1734,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_nonurgent_multple_consent_order_app_with_case_ccmcc_locatn_lip_legal_advisor(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -1747,7 +1745,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SET_ASIDE_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1775,7 +1773,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_urgent_multple_consent_order_app_with_case_ccmcc_location(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1786,7 +1784,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         data.put("gaWaTrackLabel", " - Small Claims");
         Map<String, Object> caseData = new HashMap<>();
@@ -1814,7 +1812,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_urgent_multple_consent_order_app_with_case_ccmcc_location_lip_judge(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1825,7 +1823,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1853,7 +1851,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_addln_response_urgent_multple_consent_order_app_with_case_ccmcc_location_lip_legal_advisor(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1864,7 +1862,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SET_ASIDE_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         data.put("isGaApplicantLip", true);
         Map<String, Object> caseData = new HashMap<>();
@@ -1891,7 +1889,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_creation_with_case_loc_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1899,7 +1897,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1913,7 +1911,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for summary judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to summary judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -1923,7 +1921,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_creation_with_pre_sdo_refer_legalAdvisor(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1931,7 +1929,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1945,7 +1943,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
@@ -1962,7 +1960,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1976,7 +1974,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -1986,7 +1984,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_urgent_ga_creation_with_case_loc_local_court_multiple_types(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -1994,7 +1992,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "STIKE_OUT")
+            "types", List.of("STAY_THE_CLAIM", "STIKE_OUT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2019,7 +2017,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     void when_urgent_ga_creation_with_pre_sdo_multiple_types_refer_legalAdvisor(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -2028,7 +2026,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppConsentOrder", null);
         data.put("generalAppSuperClaimType", "SPEC_CLAIM");
         data.put("generalAppType", Map.of(
-            "types", asList("EXTEND_TIME", "SET_ASIDE_JUDGEMENT")
+            "types", List.of("EXTEND_TIME", "SET_ASIDE_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2061,7 +2059,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppSuperClaimType", "SPEC_CLAIM");
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("EXTEND_TIME", "SET_ASIDE_JUDGEMENT")
+            "types", List.of("EXTEND_TIME", "SET_ASIDE_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2086,7 +2084,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_ga_creation_with_case_loc_local_court_single_application(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -2094,7 +2092,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2108,7 +2106,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for summary judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to summary judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -2126,7 +2124,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppSuperClaimType", "SPEC_CLAIM");
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT")
+            "types", List.of("SET_ASIDE_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2140,7 +2138,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for set aside judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to set aside judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
@@ -2158,7 +2156,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppConsentOrder", null);
         data.put("generalAppSuperClaimType", "SPEC_CLAIM");
         data.put("generalAppType", Map.of(
-            "types", asList("SET_ASIDE_JUDGEMENT")
+            "types", List.of("SET_ASIDE_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2172,7 +2170,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for set aside judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to set aside judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -2182,7 +2180,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_non_urgent_ga_creation_with_case_loc_local_court_multiple_types(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -2190,7 +2188,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "AMEND_A_STMT_OF_CASE")
+            "types", List.of("STRIKE_OUT", "AMEND_A_STMT_OF_CASE")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2221,7 +2219,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM", "EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2252,7 +2250,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM", "EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2273,7 +2271,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_response_nonurgent_app_with_case_loc_local_court_multiple_types() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -2281,7 +2279,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2309,7 +2307,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM", "EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2337,7 +2335,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM", "EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2358,14 +2356,14 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_response_nonurgent_app_with_case_loc_local_court_single_ga_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
         ));
         data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT")
+            "types", List.of("STRIKE_OUT")
         ));
         data.put("generalAppConsentOrder", null);
         data.put("gaWaTrackLabel", " - Small Claims");
@@ -2381,7 +2379,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for strike out - Small Claims"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to strike out - Small Claims"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -2395,7 +2393,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         data.put("generalAppConsentOrder", null);
         Map<String, Object> caseData = new HashMap<>();
@@ -2410,7 +2408,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
@@ -2424,7 +2422,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppConsentOrder", null);
         data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2438,7 +2436,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -2453,7 +2451,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("generalAppConsentOrder", null);
         data.put("isCcmccLocation", false);
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT")
+            "types", List.of("STRIKE_OUT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2467,7 +2465,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for strike out"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to strike out"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -2481,7 +2479,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2495,7 +2493,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -2509,7 +2507,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2523,7 +2521,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
@@ -2537,7 +2535,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT","SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT","SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2565,7 +2563,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM","EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2593,7 +2591,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM","EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2621,7 +2619,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2648,7 +2646,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM", "EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2675,7 +2673,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM", "EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2696,7 +2694,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_change_state_to_await_judicial_decision_nonurgent_app_with_case_loc_local_court_single_ga_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -2704,7 +2702,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2718,7 +2716,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for summary judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to summary judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -2732,7 +2730,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2746,7 +2744,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
@@ -2760,7 +2758,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2774,14 +2772,14 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
     @Test
     void when_change_state_to_await_judicial_decision_urgent_app_with_case_loc_local_court() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -2789,7 +2787,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2803,7 +2801,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for summary judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to summary judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
@@ -2817,7 +2815,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2831,7 +2829,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
@@ -2845,7 +2843,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2859,14 +2857,14 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
     }
 
     @Test
     void when_change_state_to_await_judicial_decision_urgent_app_with_case_loc_local_court_multi_ga_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -2874,7 +2872,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT","STRIKE_OUT")
+            "types", List.of("SUMMARY_JUDGEMENT","STRIKE_OUT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2902,7 +2900,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM","EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2930,7 +2928,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", null);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM","EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2964,7 +2962,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2994,7 +2992,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_change_state_to_trigger_location_update_nonurgent_app_with_case_loc_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -3005,7 +3003,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3031,7 +3029,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_change_state_to_addln_response_time_expired_nonurgent_app_with_case_loc_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -3042,7 +3040,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         data.put("gaWaTrackLabel", " - Fast Track");
         Map<String, Object> caseData = new HashMap<>();
@@ -3083,7 +3081,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM", "EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3120,7 +3118,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM", "EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3156,7 +3154,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM", "EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3187,7 +3185,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_trigger_location_nonurgent_app_with_case_loc_local_court_single_ga_type(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -3198,7 +3196,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT")
+            "types", List.of("STRIKE_OUT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3225,7 +3223,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_change_state_to_addln_response_time_expired_nonurgent_app_with_case_loc_local_court_single_ga_type(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -3236,7 +3234,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT")
+            "types", List.of("STRIKE_OUT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3274,7 +3272,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3315,7 +3313,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3341,7 +3339,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     })
     void when_change_state_to_addln_response_time_expired_urgent_app_with_case_loc_local_court(String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -3352,7 +3350,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3389,7 +3387,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3426,7 +3424,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3449,7 +3447,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_change_state_to_addln_response_time_expired_urgent_app_with_case_loc_local_court_multiple_ga_types() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -3460,7 +3458,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT","STRIKE_OUT")
+            "types", List.of("SUMMARY_JUDGEMENT","STRIKE_OUT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3493,7 +3491,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM","EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3527,7 +3525,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM","EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3555,7 +3553,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_taskId_then_return_decision_making_work_for_urgent_listed_for_hearing(String eventId) {
 
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -3566,7 +3564,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT","STRIKE_OUT")
+            "types", List.of("SUMMARY_JUDGEMENT","STRIKE_OUT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3603,7 +3601,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM","EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3631,7 +3629,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     void when_taskId_then_return_decision_making_work_for_urgent_listed_for_hearing_post_sdo_refer_judge(
         String eventId) {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -3642,7 +3640,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM","EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3670,7 +3668,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         String eventId) {
 
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -3681,7 +3679,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM","EXTEND_TIME")
+            "types", List.of("STAY_THE_CLAIM","EXTEND_TIME")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3892,7 +3890,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_taskId_then_return_decision_making_work_for_Order_Made() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("isCcmccLocation", true);
         data.put("generalAppConsentOrder", null);
@@ -4100,7 +4098,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_judge_urgent_app_for_await_judicial_decision_ccmc_single_appln() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -4111,7 +4109,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4125,7 +4123,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for summary judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to summary judgement"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
 
     }
@@ -4133,7 +4131,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_judge_urgent_app_for_await_judicial_decision_multiple_appln_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -4145,7 +4143,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4166,7 +4164,6 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_judge_non_urgent_app_for_await_judicial_decision_ccmc_single_appln() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -4177,7 +4174,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4192,13 +4189,12 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeDecideOnApplication"));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for summary judgement"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to summary judgement"));
     }
 
     @Test
     void when_refer_to_judge_non_urgent_app_for_await_judicial_decision_multiple_appln_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -4209,7 +4205,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4230,7 +4226,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_judge_urgent_app_for_await_judicial_decision_ccmcc_location_no() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -4241,7 +4237,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4260,7 +4256,6 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_judge_urgent_app_for_addln_response_expired_single_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -4271,7 +4266,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4295,7 +4290,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_judge_urgent_app_for_addln_response_expired_multiple_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -4307,7 +4302,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4331,7 +4326,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_judge_nonurgent_app_for_addln_response_expired_single_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -4342,7 +4337,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4366,7 +4361,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_judge_non_urgent_app_for_addln_response_expired_multiple_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -4378,7 +4373,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("STRIKE_OUT", "SUMMARY_JUDGEMENT")
+            "types", List.of("STRIKE_OUT", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4408,7 +4403,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM")
+            "types", List.of("STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4422,7 +4417,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for stay the claim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to stay the claim"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
@@ -4435,7 +4430,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "SUMMARY_JUDGEMENT")
+            "types", List.of("STAY_THE_CLAIM", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4462,7 +4457,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
-            "types", asList("STAY_THE_CLAIM", "SUMMARY_JUDGEMENT")
+            "types", List.of("STAY_THE_CLAIM", "SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4489,7 +4484,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         ));
         data.put("isCcmccLocation", true);
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         data.put("gaWaTrackLabel", " ");
         Map<String, Object> caseData = new HashMap<>();
@@ -4504,14 +4499,14 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Application for summary judgement "));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application to summary judgement "));
         assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorDecideOnApplication"));
     }
 
     @Test
     void when_refer_to_legalAdvisor_nonurgent_app_for_addln_response_expired_single_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -4522,7 +4517,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4546,7 +4541,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_legalAdvisor_nonurgent_app_for_addln_response_expired_multiple_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", false
@@ -4557,7 +4552,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4580,7 +4575,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_legalAdvisor_urgent_app_for_addln_response_expired_single_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -4591,7 +4586,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT")
+            "types", List.of("SUMMARY_JUDGEMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -4615,7 +4610,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void when_refer_to_legalAdvisor_urgent_app_for_addln_response_expired_multiple_type() {
 
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 5*/
+
         Map<String, Object> data = new HashMap<>();
         data.put("generalAppUrgencyRequirement", Map.of(
             "generalAppUrgency", true
@@ -4626,7 +4621,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
+            "types", List.of("SUMMARY_JUDGEMENT", "STAY_THE_CLAIM")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
