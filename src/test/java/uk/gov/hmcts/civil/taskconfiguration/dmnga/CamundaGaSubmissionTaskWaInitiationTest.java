@@ -1350,6 +1350,78 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_change_state_addln_response_time_expired_preSdo_referToLa(
+        String eventId) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("isCcmccLocation", true);
+        data.put("generalAppConsentOrder", true);
+        data.put("judicialDecision", Map.of(
+            "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
+        ));
+        data.put("generalAppType", Map.of(
+            "types", asList("EXTEND_TIME")
+        ));
+        data.put("isGaApplicantLip", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("name"),
+                   is("extend time App - revisited make order for written representations"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorRevisitApplication"));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_change_state_addln_response_time_expired_preSdo_referToLaMultiApp(
+        String eventId) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("isCcmccLocation", true);
+        data.put("generalAppConsentOrder", true);
+        data.put("judicialDecision", Map.of(
+            "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
+        ));
+        data.put("generalAppType", Map.of(
+            "types", asList("EXTEND_TIME", "AMEND_A_STMT_OF_CASE")
+        ));
+        data.put("isGaApplicantLip", true);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", "ADDITIONAL_RESPONSE_TIME_EXPIRED");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("name"),
+                   is("Application for multiple types - revisited make order for written representations"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorRevisitApplication"));
+    }
+
+
+
+    @ParameterizedTest
+    @CsvSource(value = {
         "CHANGE_STATE_TO_ADDITIONAL_RESPONSE_TIME_EXPIRED"
     })
     void when_change_state_addln_response_nonurgent_consent_order_app_with_case_ccmcc_location(
@@ -5051,10 +5123,13 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.size(), is(2));
         assertThat(workTypeResultList.get(0).get("name"),
                    is("Application Documents Welsh Request - Dismissal Order"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestAppDismissed"));
+        assertThat(workTypeResultList.get(1).get("name"),
+                   is("Review application order"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("ReviewApplicationOrder"));
     }
 
     @Test

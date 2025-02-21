@@ -797,6 +797,54 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
+    @Test
+    void when_taskId_transfer_case_offline_minti_then_return_expected_decision() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+
+        caseData.put("featureToggleWA", "Prod");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType",
+            "transferCaseOfflineMinti"
+        ));
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Transfer Case Offline](/cases/case-details/${[CASE_REFERENCE]}"
+                + "/trigger/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "routine_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "name", "dueDateIntervalDays",
+            "value", "20"
+        )));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "reviewOrder"
@@ -2170,21 +2218,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @ParameterizedTest
-    @CsvSource({
-        "reviewOrder, Prod, 1, "
-            + "[Order Made - Review case](/cases/case-details/${[CASE_REFERENCE]}/trigger/ADD_CASE_NOTE/ADD_CASE_NOTE)",
-        "reviewOrder, CE_B2, 2, "
-            + "[Confirm order review]"
-            + "(/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_ORDER_REVIEW/CONFIRM_ORDER_REVIEW)"
-    })
-    void when_taskId_reviewOrder_then_return_description(String taskType,
-                                                         String featureToggle, int expectedSize, String expectedValue) {
+    @Test
+    void when_taskId_reviewOrder_then_return_description() {
         VariableMap inputVariables = new VariableMapImpl();
         Map<String, Object> caseData = new HashMap<>();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "reviewOrder"));
         caseData.put("applicant1", Map.of("partyName", "Firstname LastName"));
-        caseData.put("featureToggleWA", featureToggle);
         inputVariables.putValue("caseData", caseData);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -2194,11 +2233,11 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             .collect(Collectors.toList());
 
         System.out.println(workTypeResultList);
-        assertThat(workTypeResultList.size(), is(expectedSize));
+        assertThat(workTypeResultList.size(), is(1));
 
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "description",
-            "value", expectedValue,
+            "value", "[Confirm order review](/cases/case-details/${[CASE_REFERENCE]}/trigger/CONFIRM_ORDER_REVIEW/CONFIRM_ORDER_REVIEW)",
             "canReconfigure", "true"
         )));
     }
