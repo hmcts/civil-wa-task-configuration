@@ -1610,7 +1610,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("Review summary judgement App - revisited make order for written representations"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @ParameterizedTest
