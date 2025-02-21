@@ -2977,15 +2977,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("stay the claim App - revisited make order for written representations"));
-        assertThat(workTypeResultList
-                       .get(1).get("name"),
-                   is("stay the claim App - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @ParameterizedTest
@@ -3056,15 +3052,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("Application for multiple types - revisited make order for written representations - Fast Track"));
-        assertThat(workTypeResultList
-                       .get(1).get("name"),
-                   is("Application for multiple types - revisited make order for written representations - Fast Track"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @ParameterizedTest
@@ -3096,11 +3088,10 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("Application for multiple types - revisited make order for written representations"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
     }
 
@@ -3169,15 +3160,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("Application for multiple types - revisited make order for written representations"));
-        assertThat(workTypeResultList
-                       .get(1).get("name"),
-                   is("Application for multiple types - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @ParameterizedTest
@@ -3249,12 +3236,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("strike out App - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @ParameterizedTest
@@ -3287,15 +3273,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("stay the claim App - revisited make order for written representations"));
-        assertThat(workTypeResultList
-                       .get(1).get("name"),
-                   is("stay the claim App - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @ParameterizedTest
@@ -3365,12 +3347,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("summary judgement App - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
 
@@ -3402,12 +3383,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("stay the claim App - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @ParameterizedTest
@@ -3473,12 +3453,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("Application for multiple types - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @Test
@@ -3506,12 +3485,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("Application for multiple types - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @Test
@@ -3540,12 +3518,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("Application for multiple types - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @ParameterizedTest
@@ -3616,12 +3593,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("Application for multiple types - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @ParameterizedTest
@@ -3694,15 +3670,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("name"),
                    is("Application for multiple types - revisited make order for written representations"));
-        assertThat(workTypeResultList
-                       .get(1).get("name"),
-                   is("Application for multiple types - revisited make order for written representations"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("JudgeRevisitApplication"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("LegalAdvisorRevisitApplication"));
     }
 
     @Test
