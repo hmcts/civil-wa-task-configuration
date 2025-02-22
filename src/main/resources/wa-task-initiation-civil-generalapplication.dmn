@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0wgjriw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
   <decision id="wa-task-initiation-civil-generalapplication" name="Civil GA Task initiation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_141h4ty" hitPolicy="COLLECT" biodi:annotationsWidth="404">
       <input id="Input_1" label="Event Id" camunda:inputVariable="eventId">
@@ -4317,7 +4317,78 @@ or (list contains(additionalData.Data.generalAppType.types, "VARY_ORDER"))</text
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1gz0bqk">
-          <text>"generalApplications"</text>
+          <text>"generalApplicationsBeforeSdo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08watzk">
+        <inputEntry id="UnaryTests_0ul6b06">
+          <text>"END_BUSINESS_PROCESS_GASPEC","TRIGGER_LOCATION_UPDATE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05effw3">
+          <text>"PROCEEDS_IN_HERITAGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0titgql">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0isx0c5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u3jtxq">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16n4hmq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00kssyy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1so4qx7">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q7c22h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02nvc3a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m37k4x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16mwqv6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00xk2rf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15kiago">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10enfqd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0315f5v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zt8lgl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v6j6a3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zofy2u">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lzy0so">
+          <text>"ReviewOfflineApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_072dtez">
+          <text> "Application for " + lower case(replace(additionalData.Data.generalAppType.types[1], "_"," "))+(if additionalData.Data.gaWaTrackLabel = null then "" else additionalData.Data.gaWaTrackLabel)</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x4q7ww">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hya9yw">
+          <text>"generalApplicationsBeforeSdo"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_11lrnz5">

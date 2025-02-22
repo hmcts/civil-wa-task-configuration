@@ -2240,7 +2240,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(368));
+        assertThat(logic.getRules().size(), is(369));
     }
 
     @ParameterizedTest
@@ -3807,6 +3807,21 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Take Case Offline - Non EA Court"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("takeCaseOfflineApplicationNonEA"));
+    }
+
+    @Test
+    void given_input_should_return_take_case_offline_for_caseworker_whenGaIsVaryJudgement() {
+
+        VariableMap inputVariables = new VariableMapImpl();
+
+        inputVariables.putValue("eventId", "TRIGGER_MAIN_CASE_FROM_GA");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Take Case Offline - determination to be completed offline"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("takeCaseOfflineVaryJudgmentApplication"));
     }
 
     @ParameterizedTest

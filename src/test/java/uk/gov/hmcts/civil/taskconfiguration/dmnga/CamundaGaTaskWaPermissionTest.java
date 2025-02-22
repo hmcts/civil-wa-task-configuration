@@ -71,7 +71,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         @SuppressWarnings("checkstyle:indentation")
         @ParameterizedTest
         @CsvSource(value = {
-            "ScheduleApplicationHearing", "ReviewApplication", "ReviewRevisitedApplication"
+            "ScheduleApplicationHearing", "ReviewApplication", "ReviewRevisitedApplication", "ReviewOfflineApplication"
         })
         void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc(String taskType) {
             VariableMap inputVariables = new VariableMapImpl();
@@ -98,7 +98,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         @SuppressWarnings("checkstyle:indentation")
         @ParameterizedTest
         @CsvSource(value = {
-            "ScheduleApplicationHearing", "ReviewApplication", "ReviewRevisitedApplication"
+            "ScheduleApplicationHearing", "ReviewApplication", "ReviewRevisitedApplication", "ReviewOfflineApplication"
         })
         void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withoutCcmcc(String taskType) {
             VariableMap inputVariables = new VariableMapImpl();

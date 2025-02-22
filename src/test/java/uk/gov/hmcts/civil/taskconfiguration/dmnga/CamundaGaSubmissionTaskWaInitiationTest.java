@@ -535,6 +535,38 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
 
     @ParameterizedTest
     @CsvSource(value = {
+        "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE"
+    })
+    void when_var_judgement_moved_offline_loc_local_court(String eventId) {
+
+        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
+        Map<String, Object> data = new HashMap<>();
+        data.put("generalAppUrgencyRequirement", Map.of(
+            "generalAppUrgency", true
+        ));
+        data.put("isCcmccLocation", false);
+        data.put("generalAppConsentOrder", true);
+        data.put("generalAppType", Map.of(
+            "types", asList("VARY_PAYMENT_TERMS_OF_JUDGMENT")
+        ));
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", "PROCEEDS_IN_HERITAGE");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application for vary payment terms of judgment"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ReviewOfflineApplication"));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
         "END_BUSINESS_PROCESS_GASPEC", "TRIGGER_LOCATION_UPDATE","RESPOND_TO_APPLICATION",
         "CHANGE_STATE_TO_AWAITING_JUDICIAL_DECISION"
     })
