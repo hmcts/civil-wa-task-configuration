@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -2147,6 +2147,30 @@
           <text>"confirmOrderReviewManageStay"</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1w4wo5d">
+        <description></description>
+        <inputEntry id="UnaryTests_1dvw239">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jjto3n">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yxz9ia">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ho8cu0">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_063tviq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1q0ofq7">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1n8nfvk">
+          <text>"queryManagement_queryID_"</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_08alj1h">
         <description>"When all final orders issued, all outstanding tasks should be cancelled"</description>
         <inputEntry id="UnaryTests_0ip4wzw">
@@ -2193,6 +2217,52 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_0if17se">
           <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rfkdzt">
+        <inputEntry id="UnaryTests_04xuc07">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1abcw0x">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dti1s1">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_083itm5">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14gho5s">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17ulvfl">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lbfhob">
+          <text>"queryResponseTasks"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rigyoi">
+        <inputEntry id="UnaryTests_0wvnlc1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03i980k">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kkisop">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0esprvn">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04qn1v7">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wby6ks">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jy4vjc">
+          <text>"queryResponseTasks"</text>
         </outputEntry>
       </rule>
     </decisionTable>
