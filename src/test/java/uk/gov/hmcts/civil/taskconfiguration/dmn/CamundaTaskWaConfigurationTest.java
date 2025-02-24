@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(170));
+        assertThat(logic.getRules().size(), is(169));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -643,66 +643,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "false",
             "name", "dueDateIntervalDays",
             "value", "10"
-        )));
-    }
-
-    @Test
-    void when_taskId_adjourned_relist_and_hmc_ea_yes_then_return_expected_decision() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        caseData.put("applicant2", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-
-        caseData.put("hmcEaCourtLocation", "Yes");
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "adjournedReList"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "false",
-            "name", "description",
-            "value", "[Schedule a hearing using the Hearings tab]"
-                + "(/cases/case-details/${[CASE_REFERENCE]}/hearings)"
-        )));
-    }
-
-    @Test
-    void when_taskId_adjourned_relist_and_hmc_ea_null_then_return_expected_decision() {
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("applicant1", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-        caseData.put("applicant2", Map.of(
-            "partyName", "Firstname LastName"
-
-        ));
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("caseData", caseData);
-        inputVariables.putValue("taskAttributes", Map.of(
-            "taskType",
-            "adjournedReList"
-        ));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "false",
-            "name", "description",
-            "value", "[Case Adjourned - Relist Hearing](/cases/case-details/${[CASE_REFERENCE]}"
-                + "/trigger/HEARING_SCHEDULED/HEARING_SCHEDULEDHearingNoticeSelect)"
         )));
     }
 

@@ -438,35 +438,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     @SuppressWarnings("checkstyle:indentation")
     @ParameterizedTest
     @CsvSource(value = {
-        "AdjournedReList"
-    })
-    void given_AdjournedReList_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-        inputVariables.putValue("caseData",Map.of("featureToggleWA", "Prod"));
-        inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
-            Map.of(
-                "name", "task-supervisor",
-                "value", "Read,Manage,Cancel,Unassign,Assign",
-                "autoAssignable", false
-            ),
-            Map.of(
-                "name", "hearing-centre-admin",
-                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                "roleCategory", "ADMIN",
-                "autoAssignable", false
-            )
-        )));
-
-    }
-
-    @SuppressWarnings("checkstyle:indentation")
-    @ParameterizedTest
-    @CsvSource(value = {
         "scheduleHearing"
     })
     void given_scheduleHearing_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
