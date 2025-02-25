@@ -546,7 +546,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         data.put("isCcmccLocation", false);
         data.put("generalAppConsentOrder", true);
         data.put("generalAppType", Map.of(
-            "types", asList("VARY_PAYMENT_TERMS_OF_JUDGMENT")
+            "types", List.of("VARY_PAYMENT_TERMS_OF_JUDGMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -5186,7 +5186,7 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
             "decision", "MAKE_ORDER_FOR_WRITTEN_REPRESENTATIONS"
         ));
         data.put("generalAppType", Map.of(
-            "types", asList("VARY_PAYMENT_TERMS_OF_JUDGMENT")
+            "types", List.of("VARY_PAYMENT_TERMS_OF_JUDGMENT")
         ));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
