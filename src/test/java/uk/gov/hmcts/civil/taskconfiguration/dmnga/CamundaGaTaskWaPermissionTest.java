@@ -21,7 +21,6 @@ import java.util.stream.Stream;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable.WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION;
-import static uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable.WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION_MINTI_NONPROD;
 
 public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
 
