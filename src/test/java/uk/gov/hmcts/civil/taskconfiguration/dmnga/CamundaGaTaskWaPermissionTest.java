@@ -23,7 +23,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable.WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION;
 import static uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable.WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION_MINTI_NONPROD;
 
-@SuppressWarnings("HideUtilityClassConstructor")
 public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
 
     @Nested
@@ -487,15 +486,6 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 )
             )));
         }
-    }
-
-    @Nested
-    class MintiNonProd {
-        @BeforeAll
-        public static void initialization() {
-            CURRENT_DMN_DECISION_TABLE = WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION_MINTI_NONPROD;
-        }
-        // future non prod tests
     }
 
 }
