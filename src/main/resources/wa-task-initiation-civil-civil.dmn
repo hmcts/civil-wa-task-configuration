@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.29.0">
   <decision id="wa-task-initiation-civil-civil" name="Civil Task initiation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_0jtevuc" hitPolicy="COLLECT" biodi:annotationsWidth="400">
       <input id="Input_1" label="Event Id" biodi:width="259" camunda:inputVariable="eventId">
@@ -25,18 +25,19 @@
       </input>
       <input id="InputClause_01azws9" label="Pre SDO" camunda:inputVariable="preSDO">
         <inputExpression id="LiteralExpression_0l70nie" typeRef="boolean">
-          <text>if postEventState = "CASE_SETTLED" or postEventState = "CASE_DISCONTINUED"
-then true
-else {
-   "__postSdoStates": [
-     "JUDICIAL_REFERRAL",
-     "CASE_PROGRESSION",
-     "HEARING_READINESS",
-     "PREPARE_FOR_HEARING_CONDUCT_HEARING",
-     "All_FINAL_ORDERS_ISSUED"
+          <text>if postEventState = null then null else
+{
+   "__preSdoStates": [
+     "CASE_ISSUED",
+     "AWAITING_CASE_DETAILS_NOTIFICATION",
+     "AWAITING_RESPONDENT_ACKNOWLEDGEMENT",
+     "AWAITING_APPLICANT_INTENTION",
+     "IN_MEDIATION",
+     "CASE_SETTLED",
+     "CASE_DISCONTINUED"
    ],
    "__state": if postEventState = "CASE_STAYED" then additionalData.Data.preStayState else postEventState,
-   "__isPreSDO": not(list contains(__postSdoStates, __state))
+   "__isPreSDO": list contains(__preSdoStates, __state)
 }.__isPreSDO</text>
         </inputExpression>
       </input>
