@@ -21,7 +21,6 @@ import java.util.stream.Stream;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable.WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION;
-import static uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable.WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION_MINTI_NONPROD;
 
 public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
 
@@ -71,7 +70,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         @SuppressWarnings("checkstyle:indentation")
         @ParameterizedTest
         @CsvSource(value = {
-            "ScheduleApplicationHearing", "ReviewApplication", "ReviewRevisitedApplication"
+            "ScheduleApplicationHearing", "ReviewApplication", "ReviewRevisitedApplication", "ReviewOfflineApplication"
         })
         void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc(String taskType) {
             VariableMap inputVariables = new VariableMapImpl();
@@ -98,7 +97,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         @SuppressWarnings("checkstyle:indentation")
         @ParameterizedTest
         @CsvSource(value = {
-            "ScheduleApplicationHearing", "ReviewApplication", "ReviewRevisitedApplication"
+            "ScheduleApplicationHearing", "ReviewApplication", "ReviewRevisitedApplication", "ReviewOfflineApplication"
         })
         void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withoutCcmcc(String taskType) {
             VariableMap inputVariables = new VariableMapImpl();
@@ -249,12 +248,26 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                     "autoAssignable", false
                 ),
                 Map.of(
+                    "name", "allocated-judge",
+                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                    "roleCategory", "JUDICIAL",
+                    "assignmentPriority", 0,
+                    "autoAssignable", true
+                ),
+                Map.of(
+                    "name", "lead-judge",
+                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                    "roleCategory", "JUDICIAL",
+                    "assignmentPriority", 1,
+                    "autoAssignable", true
+                ),
+                Map.of(
                     "name", "judge",
                     "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                     "roleCategory", "JUDICIAL",
                     "authorisations", "294",
-                    "assignmentPriority", 1,
-                    "autoAssignable", false
+                    "assignmentPriority", 2,
+                    "autoAssignable", true
                 )
             )));
         }
@@ -472,56 +485,6 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 )
             )));
         }
-    }
-
-    @Nested
-    class MintiNonProd {
-        @BeforeAll
-        public static void initialization() {
-            CURRENT_DMN_DECISION_TABLE = WA_TASK_PERMISSIONS_CIVIL_GENERALAPPLICATION_MINTI_NONPROD;
-        }
-
-        @ParameterizedTest
-        @CsvSource(value = {
-            "JudgeDecideOnApplication", "JudgeRevisitApplication"
-        })
-        void given_judgeDecideOnApp_RevisitApp_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskType) {
-            VariableMap inputVariables = new VariableMapImpl();
-            inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-
-            DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-            MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
-                Map.of(
-                    "name", "task-supervisor",
-                    "value", "Read,Manage,Unassign,Assign,Cancel",
-                    "autoAssignable", false
-                ),
-                Map.of(
-                    "name", "allocated-judge",
-                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                    "roleCategory", "JUDICIAL",
-                    "assignmentPriority", 0,
-                    "autoAssignable", true
-                ),
-                Map.of(
-                    "name", "lead-judge",
-                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                    "roleCategory", "JUDICIAL",
-                    "assignmentPriority", 1,
-                    "autoAssignable", true
-                ),
-                Map.of(
-                    "name", "judge",
-                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                    "roleCategory", "JUDICIAL",
-                    "authorisations", "294",
-                    "assignmentPriority", 2,
-                    "autoAssignable", true
-                )
-            )));
-        }
-
     }
 
 }
