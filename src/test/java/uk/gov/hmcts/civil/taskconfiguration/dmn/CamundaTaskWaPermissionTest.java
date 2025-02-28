@@ -1594,7 +1594,8 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "takeCaseOfflineApplicationNonEA"
+        "takeCaseOfflineApplicationNonEA",
+        "takeCaseOfflineVaryJudgmentApplication"
     })
     void given_takeCaseOfflineApplicationNonEA_taskType_when_evaluate_dmn_then_return_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
