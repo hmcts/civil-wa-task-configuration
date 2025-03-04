@@ -380,6 +380,42 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "LegalAdvisorRevisitApplication",
                 "taskTypeName", "Legal Advisor Revisit Application"
+            ),
+            Map.of(
+                "taskTypeId", "JudgeRevisitApplication",
+                "taskTypeName", "Judge Revisit Application"
+            ),
+            Map.of(
+                "taskTypeId", "JudgeDecideOnApplication",
+                "taskTypeName", "Judge Decide On Application"
+            ),
+            Map.of(
+            "taskTypeId", "ReviewApplication",
+            "taskTypeName", "Review Application"
+            ),
+            Map.of(
+                "taskTypeId", "ReviewRevisitedApplication",
+                "taskTypeName", "Review Revisited Application"
+            ),
+            Map.of(
+                "taskTypeId", "ScheduleApplicationHearing",
+                "taskTypeName", "Schedule Application Hearing"
+            ),
+            Map.of(
+                "taskTypeId", "ReviewApplicationOrder",
+                "taskTypeName", "Review Application Order"
+            ),
+            Map.of(
+                "taskTypeId", "ReviewStayTheClaimApplicationOrder",
+                "taskTypeName", "Review Stay The Claim Application Order"
+            ),
+            Map.of(
+                "taskTypeId", "ReviewUnlessOrderApplication",
+                "taskTypeName", "Review Unless Order Application"
+            ),
+            Map.of(
+                "taskTypeId", "LegalAdvisorDecideOnApplication",
+                "taskTypeName", "Legal Advisor Decide On Application"
             )
         );
 
@@ -397,7 +433,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(86));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(95));
     }
 
 }
