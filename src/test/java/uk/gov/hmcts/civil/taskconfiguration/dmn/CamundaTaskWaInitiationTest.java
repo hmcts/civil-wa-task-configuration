@@ -184,7 +184,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(2));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
         assertThat(workTypeResultList
                        .get(1).get("taskId"), is("OnlineCaseTransferReceived"));
@@ -284,7 +284,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void when_transfer_online_change_location_recreate_sdo_task_response_fastClaimTrackDirections() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("totalClaimAmount", 2000);
+        data.put("totalClaimAmount", 10_001);
         data.put("responseClaimTrack", "FAST_CLAIM");
         data.put("notSuitableSdoOptions", "CHANGE_LOCATION");
         data.put("featureToggleWA", "WA3.5");
@@ -819,7 +819,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
@@ -868,7 +868,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
@@ -1042,9 +1042,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("InitialDirectionFlightDelay"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+        List<String> taskIds = workTypeResultList.stream().map(res -> res.get("taskId").toString()).toList();
+        assertTrue(taskIds.contains("InitialDirectionFlightDelay"));
+        List<String> processCategories = workTypeResultList.stream().map(res -> res.get("processCategories").toString()).toList();
+        assertTrue(processCategories.stream().allMatch(s -> s.equals("standardDirectionsOrder")));
     }
 
     @Test
@@ -1491,7 +1492,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                         }
                         return true;
                     }));
-            ;
+
         }
     }
 
@@ -1672,8 +1673,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource({
         "100001, , FAST_CLAIM, , Fast Track Directions, FastTrackDirections",
         "100001, , SMALL_CLAIM, , Small Claims Track Directions, SmallClaimsTrackDirections",
-        ", 2000, , FAST_CLAIM, Fast Track Directions, FastTrackDirections",
-        ", 2000, , SMALL_CLAIM, Small Claims Track Directions, SmallClaimsTrackDirections",
+        ", 10001, , FAST_CLAIM, Fast Track Directions, FastTrackDirections",
         ", 900, , SMALL_CLAIM, Legal Advisor Small Claims Track Directions, LegalAdvisorSmallClaimsTrackDirections"
     })
     void given_input_should_return_correct_task(String claimValue, String totalClaimAmount,
@@ -2194,7 +2194,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(368));
+        assertThat(logic.getRules().size(), is(364));
     }
 
     @ParameterizedTest
