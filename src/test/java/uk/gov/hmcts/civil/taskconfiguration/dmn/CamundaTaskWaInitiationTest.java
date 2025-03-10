@@ -974,6 +974,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_claim_move_to_judicial_referral_should_return_legal_advisor_sdo() {
         Map<String, Object> data = new HashMap<>();
         data.put("totalClaimAmount", 800);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2194,7 +2195,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(364));
+        assertThat(logic.getRules().size(), is(369));
     }
 
     @ParameterizedTest
