@@ -1077,15 +1077,21 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Manage,Cancel,Unassign,Assign"
             ),
             Map.of(
-                "name", "ctsc-team-leader",
+                "name", "hearing-centre-admin",
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                "roleCategory", "CTSC",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             ),
             Map.of(
-                "name", "ctsc",
+                "name", "hearing-centre-team-leader",
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                "roleCategory", "CTSC",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "hearing-centre-admin-team-leader",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
                 "autoAssignable", false
             )
         )));
