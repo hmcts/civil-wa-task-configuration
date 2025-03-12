@@ -3,7 +3,7 @@ appVersion: "1.0"
 description: A Helm chart for civil-wa-task-configuration
 name: civil-task-configuration
 home: https://github.com/hmcts/civil-wa-task-configuration
-version: 0.0.16
+version: 0.0.17
 maintainers:
   - name: HMCTS CIVIL team
 dependencies:
@@ -27,3 +27,17 @@ dependencies:
     version: 0.0.28
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
     condition: camunda-bpm.enabled
+  - name: servicebus
+    version: 1.1.0
+    repository: 'oci://hmctspublic.azurecr.io/helm'
+    condition: servicebus.enabled
+  # WA
+  - name: wa
+    version: ~1.0.6
+    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
+    condition: civil-wa.enabled
+  # CCD message publisher
+  - name: ccd-message-publisher
+    version: ~0.1.7
+    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
+    condition: civil-wa.enabled
