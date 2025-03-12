@@ -106,6 +106,11 @@ java:
     SERVICE_REQUEST_UPDATE_CLAIM_ISSUED: https://${SERVICE_FQDN}/service-request-update-claim-issued
     CIVIL_S2S_AUTHORISED_SERVICES: payment_app,ccd_data,civil_service,civil-citizen-ui
     ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
+  secrets:
+    CMC_DB_PASSWORD:
+      secretRef: postgres
+      key: PASSWORD
+      disabled: true
   postgresql:
     enabled: true
     releaseNameOverride: ${SERVICE_NAME}-postgresql
@@ -212,6 +217,8 @@ ccd:
         CASE_DOCUMENT_AM_API_ATTACH_DOCUMENT_ENABLED: false
         DATA_STORE_DB_HOST: ${SERVICE_NAME}-postgresql
         DATA_STORE_IDAM_KEY: ${CCD_DATA_STORE_S2S_SECRET}
+        DATA_STORE_DB_OPTIONS: "?stringtype=unspecified"
+        DATA_STORE_DB_PASSWORD: ${POSTGRES_PASSWORD}
         DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_ps,bulk_scan_orchestrator,ccpay_bubble,ctsc_work_allocation,em_ccd_orchestrator,xui_webapp,civil_service,ccd_case_document_am_api
         IDAM_API_BASE_URL: https://idam-api.aat.platform.hmcts.net
         IDAM_OIDC_URL:  https://idam-web-public.aat.platform.hmcts.net
@@ -243,6 +250,8 @@ ccd:
         IDAM_USER_URL: https://idam-web-public.aat.platform.hmcts.net
         DEFINITION_STORE_TX_TIMEOUT_DEFAULT: 60
         WELSH_TRANSLATION_ENABLED: false
+        DEFINITION_STORE_DB_OPTIONS: "?stringtype=unspecified"
+        DEFINITION_STORE_DB_PASSWORD: ${POSTGRES_PASSWORD}
       disableKeyVaults: true
       ingressHost: ccd-definition-store-${SERVICE_FQDN}
       secrets:
