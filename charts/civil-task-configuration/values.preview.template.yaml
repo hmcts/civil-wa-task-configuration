@@ -94,6 +94,7 @@ civil-service:
       ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
       CIVIL_S2S_AUTHORISED_SERVICES: payment_app,ccd_data,civil_service,civil-citizen-ui
       DOCMOSIS_TORNADO_URL: https://docmosis.preview.platform.hmcts.net
+      CCD_EVENTS_TOPIC_NAME: ${SERVICE_NAME}-asb-events
     postgresql:
       enabled: true
       releaseNameOverride: ${SERVICE_NAME}-postgresql
@@ -330,6 +331,69 @@ wa:
         secretRef: "{{ .Values.global.postgresSecret }}"
         key: PASSWORD
         disabled: true
+  wa-message-cron-service:
+    job:
+      releaseNameOverride: "{{ .Release.Name }}-wa-mcs"
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      aadIdentityName: wa
+      keyVaults:
+        wa:
+          secrets:
+            - s2s-secret-case-event-handler
+      environment:
+        WA_CASE_EVENT_HANDLER_SERVICE_URL: http://{{ .Release.Name }}-wa-case-event-handler
+
+  wa-initiation-batch:
+    job:
+      releaseNameOverride: "{{ .Release.Name }}-wa-tbi"
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      aadIdentityName: wa
+      keyVaults:
+        wa:
+          secrets:
+            - s2s-secret-task-monitor
+      environment:
+        S2S_URL: "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+        S2S_MICROSERVICE_NAME_TASK_MONITOR: "wa_task_monitor"
+        WA_TASK_MONITOR_SERVICE_URL: http://{{ .Release.Name }}-wa-task-monitor
+        JOB_NAME: "INITIATION"
+        ALLOW_CONFIG_MUTATIONS: true
+
+  wa-reconfiguration-batch:
+    job:
+      releaseNameOverride: "{{ .Release.Name }}-wa-tbr"
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      aadIdentityName: wa
+      keyVaults:
+        wa:
+          secrets:
+            - s2s-secret-task-monitor
+      environment:
+        S2S_URL: "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+        S2S_MICROSERVICE_NAME_TASK_MONITOR: "wa_task_monitor"
+        WA_TASK_MONITOR_SERVICE_URL: http://{{ .Release.Name }}-wa-task-monitor
+        JOB_NAME: "RECONFIGURATION"
+        ALLOW_CONFIG_MUTATIONS: true
+
+  wa-termination-batch:
+    job:
+      releaseNameOverride: "{{ .Release.Name }}-wa-tbt"
+      kind: CronJob
+      schedule: "*/5 * * * *"
+      aadIdentityName: wa
+      keyVaults:
+        wa:
+          secrets:
+            - s2s-secret-task-monitor
+      environment:
+        S2S_URL: "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+        S2S_MICROSERVICE_NAME_TASK_MONITOR: "wa_task_monitor"
+        WA_TASK_MONITOR_SERVICE_URL: http://{{ .Release.Name }}-wa-task-monitor
+        JOB_NAME: "TERMINATION"
+        ALLOW_CONFIG_MUTATIONS: true
   camunda-bpm:
     java:
       environment:
@@ -358,10 +422,6 @@ ccd-message-publisher:
           - name: AppInsightsInstrumentationKey
             alias: azure.application-insights.instrumentation-key
     environment:
-      #      DATA_STORE_DB_HOST: civil-preview.postgres.database.azure.com
-      #      DATA_STORE_DB_NAME: "pr-${CHANGE_ID}-data-store"
-      #      DATA_STORE_DB_USERNAME: hmcts
-      #      DATA_STORE_DB_OPTIONS: "?stringtype=unspecified&reWriteBatchedInserts=true&sslmode=require"
       DATA_STORE_DB_HOST: "{{ .Release.Name }}-postgresql"
       DATA_STORE_DB_NAME: "data-store"
       DATA_STORE_DB_USERNAME: hmcts
