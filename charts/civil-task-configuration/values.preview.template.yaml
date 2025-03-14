@@ -8,6 +8,8 @@ civil-wa:
   enabled: true
 camunda-bpm:
   enabled: false
+
+
 servicebus:
   enabled: true
   releaseNameOverride: ${SERVICE_NAME}-asb
@@ -18,6 +20,10 @@ servicebus:
       - name: ccd-case-events
         subscriptionNeeded: yes
         requiresSession: true
+      - name: crd-topic
+        subscriptionNeeded: yes
+      - name: jrd-topic
+        subscriptionNeeded: yes
 
 civil-service:
   java:
@@ -95,6 +101,7 @@ civil-service:
       CIVIL_S2S_AUTHORISED_SERVICES: payment_app,ccd_data,civil_service,civil-citizen-ui
       DOCMOSIS_TORNADO_URL: https://docmosis.preview.platform.hmcts.net
       CCD_EVENTS_TOPIC_NAME: ${SERVICE_NAME}-asb-events
+      CCD_EVENTS_SUBSCRIPTION_NAME: ${SERVICE_NAME}-asb-events
     postgresql:
       enabled: true
       releaseNameOverride: ${SERVICE_NAME}-postgresql
