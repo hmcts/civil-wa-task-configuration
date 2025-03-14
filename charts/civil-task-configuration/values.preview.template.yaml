@@ -5,12 +5,16 @@ civil-wa:
   enabled: true
 camunda-bpm:
   enabled: false
+
+
 civil-service:
   java:
-    applicationPort: 4000
-    image: 'hmctspublic.azurecr.io/civil/service:latest'
+    releaseNameOverride: ${SERVICE_NAME}-java
     imagePullPolicy: Always
     ingressHost: ${SERVICE_NAME}.preview.platform.hmcts.net
+    devcpuRequests: 500m
+    devmemoryRequests: 2048Mi
+    devmemoryLimits: 4096Mi
     keyVaults:
       civil:
         resourceGroup: civil
@@ -31,14 +35,8 @@ civil-service:
             alias: CIVIL_PRD_ADMIN_USERNAME
           - name: prd-admin-user-password
             alias: CIVIL_PRD_ADMIN_PASSWORD
-          - name: appinsights-connection-string
-            alias: appinsights-connection-string
-          - name: AppInsightsInstrumentationKey
-            alias: azure.application-insights.instrumentation-key
           - name: docmosis-api-key
             alias: docmosis.tornado.key
-  #        - name: cmc-db-password-v11
-  #          alias: CMC_DB_PASSWORD
           - name: gov-notify-api-key
             alias: GOV_NOTIFY_API_KEY
           - name: sendgrid-api-key
@@ -66,56 +64,30 @@ civil-service:
           - name: hmc-servicebus-shared-access-key-tf
             alias: HMC_HEARINGS_TOPIC_ACCESS_KEY
     environment:
-      IDAM_CLIENT_ID: civil-service
-      IDAM_CLIENT_REDIRECT_URI: https://civil-camunda-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/oauth2/callback
-      IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
-      IDAM_WEB_URL: https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net
-      IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      MANAGE_CASE_UI_BASE_URL: https://manage-case.{{ .Values.global.environment }}.platform.hmcts.net
-      SPRING_SECURITY_ENABLED: true
-      CMC_DB_PORT: 5432
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: https://forgerock-am.service.core-compute-idam-{{ .Values.global.environment }}.internal:8443/openam/oauth2/hmcts
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/jwks
-      AUTH_IDAM_CLIENT_BASEURL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
-      AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      OIDC_ISSUER: https://forgerock-am.service.core-compute-idam-aat2.internal:8443/openam/oauth2/realms/root/realms/hmcts
+      PAYMENTS_CALLBACK_URL: https://${SERVICE_FQDN}/service-request-update
       TESTING_SUPPORT_ENABLED: true
-      FEES_API_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      GENAPP_LRD_URL: http://rd-location-ref-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      GENAPP_JRD_URL: http://rd-judicial-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      PAYMENTS_API_URL: http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      DOCMOSIS_TORNADO_URL: https://docmosis.aat.platform.hmcts.net
-      DOCUMENT_MANAGEMENT_URL: http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      SEND_LETTER_URL: http://rpe-send-letter-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      CUI_URL: https://civil-citizen-ui.{{ .Values.global.environment }}.platform.hmcts.net
-      CUI_URL_RESPOND_TO_CLAIM: https://civil-citizen-ui.{{ .Values.global.environment }}.platform.hmcts.net/first-contact/start
-      SPRING_CLOUD_BOOTSTRAP_ENABLED: true
-      RD_PROFESSIONAL_API_URL: http://rd-professional-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      RD_COMMONDATA_API_URL: http://rd-commondata-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      LAUNCH_DARKLY_ENV: ${SERVICE_FQDN}
       CORE_CASE_DATA_API_URL: http://${SERVICE_NAME}-ccd-data-store-api
-      CASE_DOCUMENT_AM_URL: http://ccd-case-document-am-api-aat.service.core-compute-aat.internal
       CMC_DB_HOST: "{{ .Values.postgresql.releaseNameOverride}}"
       CMC_DB_CONNECTION_OPTIONS: '?sslmode=allow'
       CMC_DB_USERNAME: "{{ .Values.postgresql.auth.username}}"
-      CMC_DB_PASSWORD: "{{ .Values.postgresql.auth.password}}"
       REFERENCE_DATABASE_MIGRATION: true
-      CAMUNDA_URL: http://${SERVICE_NAME}-camunda/engine-rest/
+      CAMUNDA_URL: https://camunda-${SERVICE_FQDN}/engine-rest/
       STITCHING_API_ENABLED: false
+      SERVICE_REQUEST_UPDATE: https://${SERVICE_NAME}.platform.hmcts.net/service-request-update
+      SERVICE_REQUEST_UPDATE_CLAIM_ISSUED: https://${SERVICE_NAME}.platform.hmcts.net/service-request-update-claim-issued
+      ACA_SERVICE_API_BASEURL: http://${SERVICE_NAME}-aac-manage-case-assignment
+      RELEASE_REVISION: "{{ .Release.Revision }}"
       POLLING_EVENT_EMITTER_ENABLED: false
-      SERVICE_REQUEST_UPDATE: https://${SERVICE_FQDN}/service-request-update
-      SERVICE_REQUEST_UPDATE_CLAIM_ISSUED: https://${SERVICE_FQDN}/service-request-update-claim-issued
-      CIVIL_S2S_AUTHORISED_SERVICES: payment_app,ccd_data,civil_service,civil-citizen-ui
+      HMC_HEARINGS_SUBSCRIPTION_ENABLED: false
       ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
-    secrets:
-      CMC_DB_PASSWORD:
-        secretRef: postgres
-        key: PASSWORD
-        disabled: true
+      CIVIL_S2S_AUTHORISED_SERVICES: payment_app,ccd_data,civil_service,civil-citizen-ui
+      DOCMOSIS_TORNADO_URL: https://docmosis.preview.platform.hmcts.net
     postgresql:
       enabled: true
       releaseNameOverride: ${SERVICE_NAME}-postgresql
       image:
+        registry: hmctspublic.azurecr.io
+        repository: imported/bitnami/postgresql
         tag: '11.6.0'
       primary:
         persistence:
@@ -124,22 +96,23 @@ civil-service:
           requests:
             cpu: 25m
         initdb:
-            scripts:
-              init.sql: |-
-                CREATE DATABASE cmc WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "camunda" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "role_assignment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "wa-task-management-api" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "wa-case-event-handler" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "wa_workflow_api" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "cft_task_db" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "ts_translation_service" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-                CREATE DATABASE "org_role_mapping" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+          scripts:
+            init.sql: |
+              CREATE DATABASE cmc WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "camunda" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "role-assignment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "wa-task-management-api" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "wa-case-event-handler" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "wa_workflow_api" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "cft_task_db" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "ts_translation_service" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "org_role_mapping" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
       auth:
-        username: hmcts
-        password: hmcts
+        username: ${POSTGRES_USER}
+        password: ${POSTGRES_PASSWORD}
+        postgresPassword: ${POSTGRES_PASSWORD}
 
 idam-pr:
   releaseNameOverride: ${SERVICE_NAME}-xui-idam-pr
