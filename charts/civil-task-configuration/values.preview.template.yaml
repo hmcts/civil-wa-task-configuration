@@ -102,6 +102,14 @@ civil-service:
       DOCMOSIS_TORNADO_URL: https://docmosis.preview.platform.hmcts.net
       CCD_EVENTS_TOPIC_NAME: ${SERVICE_NAME}-asb-events
       CCD_EVENTS_SUBSCRIPTION_NAME: ${SERVICE_NAME}-asb-events
+    secrets:
+      CMC_DB_PASSWORD:
+        secretRef: postgres
+        key: PASSWORD
+        disabled: true
+      CCD_EVENTS_TOPIC_CONNECTION_STRING:
+        secretRef: civil-sb-preview
+        key: connectionString
     postgresql:
       enabled: true
       releaseNameOverride: ${SERVICE_NAME}-postgresql
@@ -148,6 +156,7 @@ civil-service:
               CREATE DATABASE "wa-case-event-handler" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
               CREATE DATABASE "wa_workflow_api" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
               CREATE DATABASE "cft_task_db" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "cft_task_db_replica" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
 
 idam-pr:
   releaseNameOverride: ${SERVICE_NAME}-xui-idam-pr
