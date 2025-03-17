@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.20.0">
   <decision id="wa-task-configuration-civil-generalapplication" name="Civil GA Task configuration DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_14cx079" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7f" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -129,7 +129,7 @@ else "Civil"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ssoq5v">
-          <text>"JudgeDecideOnApplication", "JudgeRevisitApplication", "LegalAdvisorDecideOnApplication"</text>
+          <text>"JudgeDecideOnApplication","JudgeRevisitApplication","LegalAdvisorDecideOnApplication","LegalAdvisorRevisitApplication"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1lvlmxm">
           <text>"workType"</text>
@@ -197,7 +197,7 @@ else "Civil"</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0vklwoo">
-          <text>"ScheduleApplicationHearing", "reviewSpecificAccessRequestAdmin","ReviewApplication", "ReviewRevisitedApplication"</text>
+          <text>"ScheduleApplicationHearing", "reviewSpecificAccessRequestAdmin","ReviewApplication", "ReviewRevisitedApplication","ReviewOfflineApplication"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_13szol7">
           <text>"roleCategory"</text>
@@ -712,7 +712,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_06h31n1">
-          <text>"JudgeDecideOnApplication","JudgeRevisitApplication","LegalAdvisorDecideOnApplication","LegalAdvisorRevisitApplication","ReviewApplication", "ReviewRevisitedApplication" </text>
+          <text>"JudgeDecideOnApplication","JudgeRevisitApplication","LegalAdvisorDecideOnApplication","LegalAdvisorRevisitApplication","ReviewApplication", "ReviewRevisitedApplication" ,"ReviewOfflineApplication"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0sc2itk">
           <text>"dueDateIntervalDays"</text>
@@ -748,7 +748,7 @@ else ""</text>
         <inputEntry id="UnaryTests_0krch8j">
           <text>
 
-"ReviewApplication", "ReviewRevisitedApplication"</text>
+"ReviewApplication", "ReviewRevisitedApplication","ReviewOfflineApplication"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1eueqsi">
           <text>"workType"</text>
@@ -778,6 +778,23 @@ else ""</text>
 "[ReviewApplication](/cases/case-details/${[CASE_REFERENCE]})"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1o6lw7x">
+          <text>"true"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0lm3sv2">
+        <inputEntry id="UnaryTests_08y58j7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_117f01g">
+          <text>"ReviewOfflineApplication"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06qwz8g">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wh2vgw">
+          <text>"[Take case offline - determination to be completed offline]"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0n6ran7">
           <text>"true"</text>
         </outputEntry>
       </rule>
