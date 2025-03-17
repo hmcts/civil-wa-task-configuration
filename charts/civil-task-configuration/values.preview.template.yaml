@@ -81,7 +81,29 @@ civil-service:
             alias: mediation.emails.recipient
           - name: hmc-servicebus-shared-access-key-tf
             alias: HMC_HEARINGS_TOPIC_ACCESS_KEY
+          - name: ccd-shared-servicebus-connection-string
+            alias: CCD_EVENTS_TOPIC_CONNECTION_STRING
     environment:
+      IDAM_CLIENT_ID: civil-service
+      IDAM_CLIENT_REDIRECT_URI: https://civil-ccd-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/oauth2/callback
+      IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
+      IDAM_WEB_URL: https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net
+      IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      MANAGE_CASE_UI_BASE_URL: https://manage-case.{{ .Values.global.environment }}.platform.hmcts.net
+      SPRING_SECURITY_ENABLED: true
+      CMC_DB_PORT: 5432
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: https://forgerock-am.service.core-compute-idam-{{ .Values.global.environment }}.internal:8443/openam/oauth2/hmcts
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/jwks
+      AUTH_IDAM_CLIENT_BASEURL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
+      AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      OIDC_ISSUER: https://forgerock-am.service.core-compute-idam-aat2.internal:8443/openam/oauth2/realms/root/realms/hmcts
+      FEES_API_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      PAYMENTS_API_URL: http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      GENAPP_LRD_URL: http://rd-location-ref-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      GENAPP_JRD_URL: http://rd-judicial-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      DOCUMENT_MANAGEMENT_URL: http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      SPRING_CLOUD_BOOTSTRAP_ENABLED: true
+      RD_PROFESSIONAL_API_URL: http://rd-professional-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
       PAYMENTS_CALLBACK_URL: https://${SERVICE_FQDN}/service-request-update
       TESTING_SUPPORT_ENABLED: true
       CORE_CASE_DATA_API_URL: http://${SERVICE_NAME}-ccd-data-store-api
@@ -100,7 +122,7 @@ civil-service:
       HMC_HEARINGS_SUBSCRIPTION_ENABLED: false
       ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
       CIVIL_S2S_AUTHORISED_SERVICES: payment_app,ccd_data,civil_service,civil-citizen-ui
-      DOCMOSIS_TORNADO_URL: https://docmosis.preview.platform.hmcts.net
+      DOCMOSIS_TORNADO_URL: https://docmosis.aat.platform.hmcts.net
       CCD_EVENTS_TOPIC_NAME: ${SERVICE_NAME}-asb-events
       CCD_EVENTS_SUBSCRIPTION_NAME: ${SERVICE_NAME}-asb-events
       LAUNCH_DARKLY_ENV: ${SERVICE_FQDN}
@@ -434,6 +456,9 @@ wa:
         CAMUNDA_API_AUTH_ENABLED: false
         CAMUNDA_DB_HOST: ${SERVICE_NAME}-postgresql
         CAMUNDA_BPM_DATABASE_SCHEMA_UPDATE: true
+        ingressHost: camunda-${SERVICE_FQDN}
+        disableKeyVaults: true
+        releaseNameOverride: ${SERVICE_NAME}-camunda
         S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
       secrets:
         CAMUNDA_DB_PASSWORD:
