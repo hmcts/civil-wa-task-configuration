@@ -387,65 +387,23 @@ wa:
         secretRef: "{{ .Values.global.postgresSecret }}"
         key: PASSWORD
         disabled: true
-  wa-message-cron-service:
-    job:
-      releaseNameOverride: "{{ .Release.Name }}-wa-mcs"
-      kind: CronJob
-      schedule: "*/5 * * * *"
-      keyVaults:
-        wa:
-          secrets:
-            - s2s-secret-case-event-handler
-      environment:
-        WA_CASE_EVENT_HANDLER_SERVICE_URL: http://{{ .Release.Name }}-wa-case-event-handler
-
   wa-initiation-batch:
     job:
-      releaseNameOverride: "{{ .Release.Name }}-wa-tbi"
-      kind: CronJob
-      schedule: "*/5 * * * *"
-      keyVaults:
-        wa:
-          secrets:
-            - s2s-secret-task-monitor
-      environment:
-        S2S_URL: "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-        S2S_MICROSERVICE_NAME_TASK_MONITOR: "wa_task_monitor"
-        WA_TASK_MONITOR_SERVICE_URL: http://{{ .Release.Name }}-wa-task-monitor
-        JOB_NAME: "INITIATION"
-        ALLOW_CONFIG_MUTATIONS: true
-
+      schedule: "*/1 * * * *"
+      releaseNameOverride: "{{ .Release.Name }}-wa-task-batch"
   wa-reconfiguration-batch:
     job:
-      releaseNameOverride: "{{ .Release.Name }}-wa-tbr"
-      kind: CronJob
-      schedule: "*/5 * * * *"
-      keyVaults:
-        wa:
-          secrets:
-            - s2s-secret-task-monitor
-      environment:
-        S2S_URL: "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-        S2S_MICROSERVICE_NAME_TASK_MONITOR: "wa_task_monitor"
-        WA_TASK_MONITOR_SERVICE_URL: http://{{ .Release.Name }}-wa-task-monitor
-        JOB_NAME: "RECONFIGURATION"
-        ALLOW_CONFIG_MUTATIONS: true
-
+      schedule: "*/1 * * * *"
+      releaseNameOverride: "{{ .Release.Name }}-reconfiguration"
   wa-termination-batch:
     job:
-      releaseNameOverride: "{{ .Release.Name }}-wa-tbt"
-      kind: CronJob
-      schedule: "*/5 * * * *"
-      keyVaults:
-        wa:
-          secrets:
-            - s2s-secret-task-monitor
-      environment:
-        S2S_URL: "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
-        S2S_MICROSERVICE_NAME_TASK_MONITOR: "wa_task_monitor"
-        WA_TASK_MONITOR_SERVICE_URL: http://{{ .Release.Name }}-wa-task-monitor
-        JOB_NAME: "TERMINATION"
-        ALLOW_CONFIG_MUTATIONS: true
+      schedule: "*/1 * * * *"
+      releaseNameOverride: "{{ .Release.Name }}-termination-batch"
+  wa-message-cron-service:
+    job:
+      schedule: "*/1 * * * *"
+      releaseNameOverride: "{{ .Release.Name }}-wa-message-cron"
+
   camunda-bpm:
     java:
       environment:
