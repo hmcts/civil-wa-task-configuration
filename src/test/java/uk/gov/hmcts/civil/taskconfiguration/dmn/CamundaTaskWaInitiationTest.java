@@ -184,7 +184,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(2));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("FastTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
         assertThat(workTypeResultList
                        .get(1).get("taskId"), is("OnlineCaseTransferReceived"));
@@ -242,7 +242,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(2));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("FastTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
         assertThat(workTypeResultList
                        .get(1).get("taskId"), is("OnlineCaseTransferReceived"));
@@ -269,6 +269,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        System.out.println(workTypeResultList);
         assertThat(workTypeResultList.size(), is(2));
 
 
@@ -2195,7 +2197,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(369));
+        assertThat(logic.getRules().size(), is(367));
     }
 
     @ParameterizedTest
