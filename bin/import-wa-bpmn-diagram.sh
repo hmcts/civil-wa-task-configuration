@@ -7,7 +7,6 @@ serviceToken=$($(realpath $workspace)/bin/utils/idam-lease-service-token.sh civi
   $(docker run --rm hmctspublic.azurecr.io/imported/toolbelt/oathtool --totp -b ${S2S_SECRET:-AABBCCDDEEFFGGHH}))
 
 filepath="$(realpath $workspace)/resources"
-
 for file in $(find ${filepath} -name '*.bpmn')
 do
   uploadResponse=$(curl --insecure -v --silent -w "\n%{http_code}" --show-error -X POST \
