@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,6 +30,11 @@ class CamundaTaskWaCancelAllTest {
     private static final int cancelActionIndex = 0;
     private static final int cancelProcessCategoryIndex = 3;
     private static final String cancelActionName = "\"Cancel\"";
+
+    private static final List<String> categoriesExcludedFromCancellation = List.of(
+        "queryResponseTasks",
+        "queryManagement_queryID"
+    );
 
     private static DmnDecision cancelDecision;
     private static DmnDecision initiateDecision;
@@ -56,7 +62,11 @@ class CamundaTaskWaCancelAllTest {
      */
     @Test
     void caseProceedsInCaseMan_cancelAllTasks() {
-        assertEventCancelsEverything("\"CASE_PROCEEDS_IN_CASEMAN\"", Collections.emptySet());
+        assertEventCancels(
+            "\"CASE_PROCEEDS_IN_CASEMAN\"",
+            Collections.emptySet(),
+            categoriesExcludedFromCancellation
+        );
     }
 
     /**
@@ -65,7 +75,11 @@ class CamundaTaskWaCancelAllTest {
      */
     @Test
     void caseProceedsInHeritageSystem_cancelAllTasks() {
-        assertEventCancelsEverything("\"PROCEEDS_IN_HERITAGE_SYSTEM\"", Collections.emptySet());
+        assertEventCancels(
+            "\"PROCEEDS_IN_HERITAGE_SYSTEM\"",
+            Collections.emptySet(),
+            categoriesExcludedFromCancellation
+        );;
     }
 
     /**
@@ -75,17 +89,15 @@ class CamundaTaskWaCancelAllTest {
      * @param eventName      the event name
      * @param noNeedToCancel process ids that don't require cancellation by eventName
      */
-    private void assertEventCancelsEverything(String eventName, Collection<String> noNeedToCancel) {
+    private void assertEventCancels(String eventName, Collection<String> noNeedToCancel, List<String> excludedCategories) {
         Set<String> categoryIdentifiers = getProcessIdentifiers();
         // if there are process identifiers that the event should not cancel, they are here
         Optional.ofNullable(noNeedToCancel).ifPresent(categoryIdentifiers::removeAll);
 
         categoryIdentifiers.removeAll(getCancelledProcessIdentifiers(eventName));
 
-        // Currently QM events have unique case categories utilising the queryId. Cancelling these tasks will be fixed in
-        // future ticket.
         categoryIdentifiers = categoryIdentifiers.stream()
-            .filter(categoryId -> !categoryId.contains("queryManagement_queryID_"))
+            .filter(categoryId -> excludedCategories.stream().noneMatch(categoryId::contains))
             .collect(Collectors.toSet());
 
         Assertions.assertTrue(categoryIdentifiers.isEmpty());

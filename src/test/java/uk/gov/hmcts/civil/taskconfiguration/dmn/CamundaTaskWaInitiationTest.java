@@ -1214,7 +1214,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1263,7 +1263,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1571,7 +1571,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1597,7 +1597,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -1622,7 +1622,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
@@ -2194,7 +2194,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(368));
+        assertThat(logic.getRules().size(), is(373));
     }
 
     @ParameterizedTest
@@ -3084,8 +3084,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("removeHearing"));
 
     }
 
@@ -3099,7 +3099,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         boolean applicant1Represented,
         boolean respondent1Represented) {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "SD");
+        data.put("featureToggleWA", "HMC_LIP");
         data.put("hearingDate", "22-12-2024");
         data.put("courtPermissionNeeded", "YES");
         data.put("confirmOrderGivesPermission", "YES");
@@ -3136,7 +3136,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         boolean respondent1Represented) {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "SD");
+        data.put("featureToggleWA", "HMC_LIP");
         data.put("hearingDate", "22-12-2024");
         data.put("isDiscontinuingAgainstBothDefendants", "YES");
         data.put("courtPermissionNeeded", "NO");
@@ -3579,7 +3579,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     ) {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "SD");
+        data.put("featureToggleWA", "HMC_LIP");
         addNonNullField(data, "hearingDate", hearingDate);
         addNonNullField(data, "applicant1Represented", applicant1Represented);
         addNonNullField(data, "respondent1Represented", respondent1Represented);
@@ -3609,7 +3609,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         boolean applicant1Represented,
         boolean respondent1Represented) {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "SD");
+        data.put("featureToggleWA", "HMC_LIP");
         data.put("hearingDate", "22-12-2024");
         data.put("courtPermissionNeeded", "YES");
         data.put("confirmOrderGivesPermission", "YES");
@@ -3689,7 +3689,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         boolean respondent1Represented) {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "SD");
+        data.put("featureToggleWA", "HMC_LIP");
         data.put("hearingDate", "22-12-2024");
         data.put("isDiscontinuingAgainstBothDefendants", "YES");
         data.put("courtPermissionNeeded", "NO");
@@ -3779,10 +3779,28 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "true,Respond to a Hearing Related Query",
-        "false,Respond to a Query"
+        "CASE_ISSUED,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_CASE_DETAILS,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_APPLICANT_INTENTION,false,respondToQueryCTSC,Respond to a query",
+        "IN_MEDIATION,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
+        "CASE_SETTLED,false,respondToQueryCTSC,Respond to a query",
+        "CASE_DISCONTINUED,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,true,respondToQueryAdmin,Respond to a hearing related query",
+        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
+        "HEARING_READINESS,false,respondToQueryCTSC,Respond to a query",
+        "HEARING_READINESS,true,respondToQueryAdmin,Respond to a hearing related query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryCTSC,Respond to a query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToQueryAdmin,Respond to a hearing related query",
+        "DECISION_OUTCOME,false,respondToQueryCTSC,Respond to a query",
+        "DECISION_OUTCOME,true,respondToQueryAdmin,Respond to a hearing related query",
+        "All_FINAL_ORDERS_ISSUED,false,respondToQueryCTSC,Respond to a query",
+        "All_FINAL_ORDERS_ISSUED,true,respondToQueryAdmin,Respond to a hearing related query",
     })
-    void given_input_should_return_expected_qm_task(boolean isHearingRelated, String expectedTaskName) {
+    void given_input_should_return_expected_qm(String state, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
 
         VariableMap inputVariables = new VariableMapImpl();
         Map<String, Object> data = new HashMap<>();
@@ -3795,6 +3813,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("Data", data);
 
         inputVariables.putValue("eventId", "queryManagementRaiseQuery");
+        inputVariables.putValue("postEventState", state);
         inputVariables.putValue("additionalData", caseData);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
@@ -3802,7 +3821,39 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("queryManagementRespondToQuery"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
+    })
+    void given_input_should_return_expected_qm_task_for_stayed_case(String preStayState, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> caseData = new HashMap<>();
+        String queryId = "query-id";
+        data.put("preStayState", preStayState);
+        data.put("qmLatestQuery", Map.of(
+            "queryId", queryId,
+            "isHearingRelated", isHearingRelated
+        ));
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
+        inputVariables.putValue("postEventState", "CASE_STAYED");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
     }
 }
