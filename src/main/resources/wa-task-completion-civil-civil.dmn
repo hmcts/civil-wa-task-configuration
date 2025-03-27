@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.30.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.29.0">
   <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
@@ -236,18 +236,6 @@
           <text>"Auto"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_05kyo0b">
-        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
-        <inputEntry id="UnaryTests_0zofvr2">
-          <text>"HEARING_SCHEDULED"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1jjya9q">
-          <text>"adjournedReList"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1fpbv2l">
-          <text>"Auto"</text>
-        </outputEntry>
-      </rule>
       <rule id="DecisionRule_1z0h6cn">
         <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
         <inputEntry id="UnaryTests_0kqb6ub">
@@ -293,6 +281,18 @@
           <text>"transferCaseOffline"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1vc2wpy">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nh3po7">
+        <description>This Task is completed once the user has completed the CASE_PROCEEDS_IN_CASEMAN event.</description>
+        <inputEntry id="UnaryTests_0bdikja">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vylmmv">
+          <text>"transferCaseOfflineMinti"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kqkmxd">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
@@ -448,18 +448,6 @@
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_123l0oz">
-          <text>"Auto"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0zkvdsx">
-        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
-        <inputEntry id="UnaryTests_0g954v9">
-          <text>"ADD_CASE_NOTE"</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1npj5iz">
-          <text>"ClaimSettledRemoveHearing"</text>
-        </outputEntry>
-        <outputEntry id="LiteralExpression_1wlcb1m">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
@@ -868,6 +856,90 @@
           <text>"specifiedListTrialInt"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1d79k29">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o88s7r">
+        <description>This task is completed when CW completes the "Dismiss case" event</description>
+        <inputEntry id="UnaryTests_17m2epj">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yclcai">
+          <text>"confirmOrderReviewDismissCase"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0173l5x">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0znvhc6">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_1te0wdp">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mag38k">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mp2vzo">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1sohj4a">
+        <description>This task is completed when CW completes the "Manage stay" event</description>
+        <inputEntry id="UnaryTests_0kzz18m">
+          <text>"MANAGE_STAY"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jyh62n">
+          <text>"confirmOrderReviewManageStay"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04ljsow">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q3wk4p">
+        <description>This task is completed when CW completes the "Sta case" event</description>
+        <inputEntry id="UnaryTests_0knf8hc">
+          <text>"STAY_CASE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p8pmhi">
+          <text>"confirmOrderReviewStayCase"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dom1zf">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1r430vd">
+        <description>Left empty so event can be triggered without a task</description>
+        <inputEntry id="UnaryTests_09j5hcx">
+          <text>"STAY_CASE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1myur5v">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m4j8nd">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0t54ako">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1beqf4n">
+          <text>"queryManagementRespondQuery"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_167kiky">
+          <text>"respondToQueryCTSC"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_095sykk">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0b9p0po">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_047axff">
+          <text>"queryManagementRespondQuery"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bzr4a8">
+          <text>"respondToQueryAdmin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jd24cv">
           <text>"Auto"</text>
         </outputEntry>
       </rule>

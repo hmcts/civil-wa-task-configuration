@@ -106,10 +106,6 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Hearing/Trial Readiness - Pre hearing"
             ),
             Map.of(
-                "taskTypeId", "adjournedReList",
-                "taskTypeName", "Hearing/Trial Readiness - Adjourned"
-            ),
-            Map.of(
                 "taskTypeId", "transferOnlineCase",
                 "taskTypeName", "Request for Transfer Online Case"
             ),
@@ -156,10 +152,6 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "OrderToSetAsideDefendedClaim",
                 "taskTypeName", "Defence received in time - order that judgment is set aside"
-            ),
-            Map.of(
-                "taskTypeId", "ClaimSettledRemoveHearing",
-                "taskTypeName", "Claim Settled - Remove Hearing"
             ),
             Map.of(
                 "taskTypeId", "ClaimSettledDivergenceTakeCaseOffline",
@@ -271,23 +263,23 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "allocateMultiTrack",
-                "taskTypeName", "Allocate Multi Track"
+                "taskTypeName", "Multi Track Directions"
             ),
             Map.of(
                 "taskTypeId", "allocateMultiTrack",
-                "taskTypeName", "Allocate Multi Track - Clinical Negligence"
+                "taskTypeName", "Multi Track Directions - Clinical Negligence"
             ),
             Map.of(
                 "taskTypeId", "allocateMultiTrack",
-                "taskTypeName", "Allocate Multi Track - Serious Personal Injury"
+                "taskTypeName", "Multi Track Directions - Serious Personal Injury"
             ),
             Map.of(
                 "taskTypeId", "allocateIntermediateTrack",
-                "taskTypeName", "Allocate Intermediate Track"
+                "taskTypeName", "Intermediate Track Directions"
             ),
             Map.of(
                 "taskTypeId", "allocateIntermediateTrack",
-                "taskTypeName", "Allocate Intermediate Track - Clinical Negligence"
+                "taskTypeName", "Intermediate Track Directions - Clinical Negligence"
             ),
             Map.of(
                 "taskTypeId", "damagesListCMCMulti",
@@ -368,6 +360,74 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "RemoveHMCHearing",
                 "taskTypeName", "Remove HMC Hearing"
+            ),
+            Map.of(
+                "taskTypeId", "removeHearing",
+                "taskTypeName", "Remove Hearing"
+            ),
+            Map.of(
+                "taskTypeId", "transferCaseOfflineMinti",
+                "taskTypeName", "Transfer Case Offline"
+            ),
+            Map.of(
+                "taskTypeId", "LegalAdvisorRevisitApplication",
+                "taskTypeName", "Legal Advisor Revisit Application"
+            ),
+            Map.of(
+                "taskTypeId", "JudgeRevisitApplication",
+                "taskTypeName", "Judge Revisit Application"
+            ),
+            Map.of(
+                "taskTypeId", "JudgeDecideOnApplication",
+                "taskTypeName", "Judge Decide On Application"
+            ),
+            Map.of(
+            "taskTypeId", "ReviewApplication",
+            "taskTypeName", "Review Application"
+            ),
+            Map.of(
+                "taskTypeId", "ReviewRevisitedApplication",
+                "taskTypeName", "Review Revisited Application"
+            ),
+            Map.of(
+                "taskTypeId", "ScheduleApplicationHearing",
+                "taskTypeName", "Schedule Application Hearing"
+            ),
+            Map.of(
+                "taskTypeId", "ReviewApplicationOrder",
+                "taskTypeName", "Review Application Order"
+            ),
+            Map.of(
+                "taskTypeId", "ReviewStayTheClaimApplicationOrder",
+                "taskTypeName", "Review Stay The Claim Application Order"
+            ),
+            Map.of(
+                "taskTypeId", "ReviewUnlessOrderApplication",
+                "taskTypeName", "Review Unless Order Application"
+            ),
+            Map.of(
+                "taskTypeId", "LegalAdvisorDecideOnApplication",
+                "taskTypeName", "Legal Advisor Decide On Application"
+            ),
+            Map.of(
+                "taskTypeId", "respondToQueryCTSC",
+                "taskTypeName", "Respond to a query"
+            ),
+            Map.of(
+                "taskTypeId", "respondToQueryAdmin",
+                "taskTypeName", "Respond to a hearing related query"
+            ),
+            Map.of(
+                "taskTypeId", "reviewMessageJudicial",
+                "taskTypeName", "Review message"
+            ),
+            Map.of(
+                "taskTypeId", "reviewMessageCW",
+                "taskTypeName", "Review message"
+            ),
+            Map.of(
+                "taskTypeId", "reviewMessageLA",
+                "taskTypeName", "Review message"
             )
         );
 
@@ -385,7 +445,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(83));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(98));
     }
 
 }

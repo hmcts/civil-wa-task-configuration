@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.nonNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -30,27 +31,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @BeforeAll
     public static void initialization() {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_INITIATION_CIVIL_DAMAGES;
-    }
-
-    @Test
-    void given_input_should_return_notify_interim_dj_outcome_dmn() {
-
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "WA3.5");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "NOTIFY_INTERIM_JUDGMENT_DEFENDANT");
-        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Directions after Judgment (Damages)"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("summaryJudgmentDirections"));
     }
 
     @Test
@@ -71,90 +51,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Transfer Case Offline"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_dj_small_claim() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "Prod");
-        data.put("allocatedTrack", "SMALL_CLAIM");
-        data.put("caseManagementOrderSelection", "TRIAL_HEARING");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "STANDARD_DIRECTION_ORDER_DJ");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Small Claim Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_dj_fast_claim() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "Prod");
-        data.put("allocatedTrack", "FAST_CLAIM");
-        data.put("caseManagementOrderSelection", "TRIAL_HEARING");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "STANDARD_DIRECTION_ORDER_DJ");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Track Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_dj_disposal_claim() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "Prod");
-        data.put("caseManagementOrderSelection", "DISPOSAL_HEARING");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "STANDARD_DIRECTION_ORDER_DJ");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_dj_disposal_claim_relisted() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("caseManagementOrderSelection", "DISPOSAL_HEARING");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "HEARING_SCHEDULED_RETRIGGER");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
     @Test
@@ -198,149 +94,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Transfer Case Offline"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_small_claim_unspec_and_spec() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "Prod");
-        data.put("allocatedTrack", "SMALL_CLAIM");
-        data.put("responseClaimTrack", "SMALL_CLAIM");
-
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CREATE_SDO");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Small Claim Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Small Claim Hearing"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_fast_claim_unspec_and_spec() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "Prod");
-        data.put("allocatedTrack", "FAST_CLAIM");
-        data.put("responseClaimTrack", "FAST_CLAIM");
-
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CREATE_SDO");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Track Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Fast Track Hearing"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_disposal() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", true);
-        data.put("featureToggleWA", "Prod");
-        data.put("orderType", "DISPOSAL");
-
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CREATE_SDO");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_small_claim_unspec_and_spec_relisted() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("allocatedTrack", "SMALL_CLAIM");
-        data.put("responseClaimTrack", "SMALL_CLAIM");
-
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "HEARING_SCHEDULED_RETRIGGER");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Small Claim Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Small Claim Hearing"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_fast_claim_unspec_and_spec_relisted() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("allocatedTrack", "FAST_CLAIM");
-        data.put("responseClaimTrack", "FAST_CLAIM");
-
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "HEARING_SCHEDULED_RETRIGGER");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Fast Track Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
-        assertThat(workTypeResultList.get(1).get("name"), is("Schedule A Fast Track Hearing"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
-    }
-
-    @Test
-    void given_input_should_return_schedule_hearing_disposal_relisted() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("orderType", "DISPOSAL");
-
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "HEARING_SCHEDULED_RETRIGGER");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Schedule A Disposal Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
     }
 
     @Test
@@ -737,7 +490,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "TWO_V_ONE,",
     })
     void claimant_res_claimType_Nihl_less_than_1000_then_FastTrackDirectionsNihl(String claimantResponseScenarioFlag,
-                                                                                String respondent2ClaimResponseType) {
+                                                                                 String respondent2ClaimResponseType) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", "FAST_CLAIM");
@@ -771,7 +524,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "100001,FAST_CLAIM,"
     })
     void when_toc_location_and_claimType_Nihl_then_FastTrackDirectionsNihl(Integer statementOfValueInPennies,
-                                                                               String allocatedTrack) {
+                                                                           String allocatedTrack) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("allocatedTrack", allocatedTrack);
@@ -1295,89 +1048,132 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_court_officer_order_event_should_trigger_task_adjournedReList() {
+    void when_final_order_issued_for_cui_claimant_and_defendant_bilingual_caseProgression() {
+
         Map<String, Object> data = new HashMap<>();
+        Map<String, Object> respondentResponseLanguage = new HashMap<>();
+        respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
+
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("respondent1LiPResponse", respondentResponseLanguage);
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "COURT_OFFICER_ORDER");
-        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
         inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-
+        inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.size(), is(2));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("adjournedReList"));
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
+    void when_final_order_issued_for_cui_claimant_and_defendant_bilingual_caseProgression_allFinalOrdersIssued() {
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> respondentResponseLanguage = new HashMap<>();
+        respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
+
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("respondent1LiPResponse", respondentResponseLanguage);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", "All_FINAL_ORDERS_ISSUED");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
+    void when_final_order_issued_for_cui_claimant_bilingual_allFinalOrdersIssued() {
+
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", "All_FINAL_ORDERS_ISSUED");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
+    void when_final_order_issued_for_cui_claimant_bilingual_caseProgression() {
+
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
+    void when_final_order_issued_for_cui_defendant_bilingual_CaseProgression() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> respondentResponseLanguage = new HashMap<>();
+        respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
+
+        data.put("respondent1LiPResponse", respondentResponseLanguage);
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("reviewOrder"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-        "CASE_PROGRESSION",
-        "All_FINAL_ORDERS_ISSUED",
-    })
-    void when_final_order_issued_for_cui_claimant_and_defendant_bilingual(String stateName) {
-
-        Map<String, Object> data = new HashMap<>();
-        Map<String, Object> respondentResponseLanguage = new HashMap<>();
-        respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
-
-        data.put("claimantBilingualLanguagePreference", "BOTH");
-        data.put("respondent1LiPResponse", respondentResponseLanguage);
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
-        inputVariables.putValue("postEventState", stateName);
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(2));
         assertThat(workTypeResultList
                        .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
         assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
     }
 
-    @ParameterizedTest
-    @CsvSource({
-        "CASE_PROGRESSION",
-        "All_FINAL_ORDERS_ISSUED",
-    })
-    void when_final_order_issued_for_cui_claimant_bilingual(String stateName) {
-
-        Map<String, Object> data = new HashMap<>();
-
-        data.put("claimantBilingualLanguagePreference", "BOTH");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
-        inputVariables.putValue("postEventState", stateName);
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList
-                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
-        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-        "CASE_PROGRESSION",
-        "All_FINAL_ORDERS_ISSUED",
-    })
-    void when_final_order_issued_for_cui_defendant_bilingual(String stateName) {
-
+    @Test
+    void when_final_order_issued_for_cui_defendant_bilingual_AllFinalOrdersIssued() {
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> respondentResponseLanguage = new HashMap<>();
         respondentResponseLanguage.put("respondent1ResponseLanguage", "BOTH");
@@ -1388,7 +1184,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
-        inputVariables.putValue("postEventState", stateName);
+        inputVariables.putValue("postEventState", "All_FINAL_ORDERS_ISSUED");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -1418,9 +1214,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("ClaimSettledRemoveHearing"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("removeHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
     @Test
@@ -1448,7 +1243,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                    is("ClaimSettledDivergenceTakeCaseOffline"));
     }
 
-    // Temp may return 2 tasks until HMC-NRO cui task uplifts
     @Test
     void given_claim_is_settled_mark_paid_in_full_create_remove_hearing_task() {
 
@@ -1469,8 +1263,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("ClaimSettledRemoveHearing"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
     @ParameterizedTest
@@ -1612,11 +1406,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @Test
     void when_default_judgment_claim_value_over_25000_create_take_case_offline() {
-        //TODO : on release of multi intermediate feature, clean up test and DMN to remove
-        // current prod version of  summaryJudgmentDirections entry
-        // multiOrIntermediateClaim toggled summaryJudgmentDirections version will then be prod
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("claimValue", Map.of("statementOfValueInPennies", 2500001));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1629,22 +1419,15 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("summaryJudgmentDirections"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("defaultJudgment"));
-        assertThat(workTypeResultList.get(0).get("name"), is("Directions after Judgment (Damages)"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("transferCaseOffline"));
-        assertThat(workTypeResultList.get(1).get("processCategories"), is("multiOrIntermediateClaim"));
-        assertThat(workTypeResultList.get(1).get("name"), is("Transfer Case Offline"));
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("multiOrIntermediateClaim"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Transfer Case Offline"));
     }
 
     @Test
     void when_default_judgment_claim_value_less_or_equal_25000_create_summary_judgment_directions() {
-        //TODO : on release of multi intermediate feature, clean up test and DMN to remove
-        // current prod version of  summaryJudgmentDirections entry
-        // multiOrIntermediateClaim toggled summaryJudgmentDirections version will then be prod
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("claimValue", Map.of("statementOfValueInPennies", 2500000));
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1657,13 +1440,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("taskId"), is("summaryJudgmentDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("defaultJudgment"));
         assertThat(workTypeResultList.get(0).get("name"), is("Directions after Judgment (Damages)"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("summaryJudgmentDirections"));
-        assertThat(workTypeResultList.get(1).get("processCategories"), is("defaultJudgment"));
-        assertThat(workTypeResultList.get(1).get("name"), is("Directions after Judgment (Damages)"));
     }
 
     @Test
@@ -1738,7 +1518,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline"));
+                       .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
     }
 
@@ -1764,7 +1544,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline")
+                       .get(0).get("taskId"), is("ClaimDiscontinuedDivergenceTakeCaseOffline")
         );
         assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
     }
@@ -1791,8 +1571,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("ClaimDiscontinuedRemoveHearing"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
     @Test
@@ -1817,8 +1597,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("ClaimDiscontinuedRemoveHearing"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
     @Test
@@ -1842,8 +1622,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                .get(0).get("taskId"), is("ClaimDiscontinuedRemoveHearing"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+                       .get(0).get("taskId"), is("removeHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
     @Test
@@ -1977,12 +1757,12 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "SMALL_CLAIM, , , , Schedule A Small Claim Hearing, ScheduleAHearing",
-        "FAST_CLAIM, , , , Schedule A Fast Track Hearing, ScheduleAHearing",
-        ", SMALL_CLAIM, , , Schedule A Small Claim Hearing, ScheduleAHearing",
-        ", FAST_CLAIM, , , Schedule A Fast Track Hearing, ScheduleAHearing",
-        ", , DISPOSAL, , Schedule A Disposal Hearing, ScheduleAHearing",
-        ", , , DISPOSAL_HEARING, Schedule A Disposal Hearing, ScheduleAHearing"
+        "SMALL_CLAIM, , , , Schedule a Small Claims Hearing, ScheduleAHearing",
+        "FAST_CLAIM, , , , Schedule a Fast Track Hearing, ScheduleAHearing",
+        ", SMALL_CLAIM, , , Schedule a Small Claims Hearing, ScheduleAHearing",
+        ", FAST_CLAIM, , , Schedule a Fast Track Hearing, ScheduleAHearing",
+        "SMALL_CLAIM, , DISPOSAL, , Schedule a Disposal Hearing, ScheduleAHearing",
+        "FAST_CLAIM, , , DISPOSAL_HEARING, Schedule a Disposal Hearing, ScheduleAHearing"
     })
     void given_input_should_return_correct_hearingTask(String allocatedTrack, String responseClaimTrack,
                                                        String orderType, String caseManagementOrderSelection,
@@ -2018,29 +1798,21 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        ", MULTI_CLAIM, , , Transfer Case Offline, transferCaseOffline",
-        ", INTERMEDIATE_CLAIM, , , Transfer Case Offline, transferCaseOffline",
+        "MULTI_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, CLAIMANT_RESPONSE_SPEC, AWAITING_APPLICANT_INTENTION",
+        "INTERMEDIATE_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, CLAIMANT_RESPONSE_SPEC, AWAITING_APPLICANT_INTENTION",
+        "MULTI_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, UPDATE_CLAIMANT_INTENTION_CLAIM_STATE, AWAITING_APPLICANT_INTENTION",
+        "INTERMEDIATE_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, UPDATE_CLAIMANT_INTENTION_CLAIM_STATE, AWAITING_APPLICANT_INTENTION",
     })
-    void minti_cui_claimant_response_trigger_offline_task(String allocatedTrack, String responseClaimTrack,
-                                                       String orderType, String caseManagementOrderSelection,
-                                                       String expectedName, String expectedTaskId) {
+    void minti_lr_claimant_response_lip_defendant_trigger_offline_task_spec(String responseClaimTrack,
+                                                                       String expectedName, String expectedTaskId, String eventId, String postState) {
+
         Map<String, Object> data = new HashMap<>();
-        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
-            data.put("allocatedTrack", allocatedTrack);
-        }
-        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
-            data.put("responseClaimTrack", responseClaimTrack);
-        }
-        if (orderType != null && !orderType.isEmpty()) {
-            data.put("orderType", orderType);
-        }
-        if (caseManagementOrderSelection != null && !caseManagementOrderSelection.isEmpty()) {
-            data.put("caseManagementOrderSelection", caseManagementOrderSelection);
-        }
+        data.put("responseClaimTrack", responseClaimTrack);
+
         Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "UPDATE_CLAIMANT_INTENTION_CLAIM_STATE");
-        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postState);
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -2053,47 +1825,21 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        ", MULTI_CLAIM, , , Transfer Case Offline, transferCaseOffline",
-        ", INTERMEDIATE_CLAIM, , , Transfer Case Offline, transferCaseOffline",
+        ", INTERMEDIATE_CLAIM, OTHER, Create a hearing notice - Other, createHearingNoticeInt",
+        "INTERMEDIATE_CLAIM, , CASE_MANAGEMENT_CONFERENCE, Create a hearing notice - CMC, createHearingNoticeInt",
+        ", INTERMEDIATE_CLAIM, TRIAL, Create a hearing notice - Trial, createHearingNoticeInt",
+        "INTERMEDIATE_CLAIM, , PRE_TRIAL_REVIEW, Create a hearing notice - PTR, createHearingNoticeInt"
     })
-    void minti_lr_claimant_response_lip_defendant_trigger_offline_task(String allocatedTrack, String responseClaimTrack,
-                                                          String orderType, String caseManagementOrderSelection,
-                                                          String expectedName, String expectedTaskId) {
-        Map<String, Object> data = new HashMap<>();
-        if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
-            data.put("allocatedTrack", allocatedTrack);
-        }
-        if (responseClaimTrack != null && !responseClaimTrack.isEmpty()) {
-            data.put("responseClaimTrack", responseClaimTrack);
-        }
-        if (orderType != null && !orderType.isEmpty()) {
-            data.put("orderType", orderType);
-        }
-        if (caseManagementOrderSelection != null && !caseManagementOrderSelection.isEmpty()) {
-            data.put("caseManagementOrderSelection", caseManagementOrderSelection);
-        }
-        Map<String, Object> caseData = Map.of("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
-        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
-        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-        "INTERMEDIATE_CLAIM, INTERMEDIATE_CLAIM, Create a hearing notice, createHearingNoticeInt"
-    })
-    void minti_hearing_notice_intermediate_track(String allocatedTrack, String responseClaimTrack, String expectedName, String expectedTaskId) {
+    void minti_hearing_notice_intermediate_track(String allocatedTrack, String responseClaimTrack, String hearingTypeConfirmed,
+                                                 String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
 
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
+        Map<String, Object> hearingTypeValue = new HashMap<>();
+        hearingTypeValue.put("code", hearingTypeConfirmed);
+        Map<String, Object> hearingListingConfirmedDynamicList = new HashMap<>();
+        hearingListingConfirmedDynamicList.put("value", hearingTypeValue);
+        data.put("hearingListedDynamicList", hearingListingConfirmedDynamicList);
+
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
             data.put("allocatedTrack", allocatedTrack);
         }
@@ -2108,19 +1854,28 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
 
     @ParameterizedTest
     @CsvSource({
-        "MULTI_CLAIM, MULTI_CLAIM, Create a hearing notice, createHearingNoticeMT"
+        ", MULTI_CLAIM, OTHER, Create a hearing notice - Other, createHearingNoticeMT",
+        "MULTI_CLAIM, , COSTS_CASE_MANAGEMENT_CONFERENCE, Create a hearing notice - CCMC, createHearingNoticeMT",
+        ", MULTI_CLAIM, TRIAL, Create a hearing notice - Trial, createHearingNoticeMT",
+        "MULTI_CLAIM, , PRE_TRIAL_REVIEW, Create a hearing notice - PTR, createHearingNoticeMT"
     })
-    void minti_hearing_notice_multi_track(String allocatedTrack, String responseClaimTrack, String expectedName, String expectedTaskId) {
+    void minti_hearing_notice_multi_track(String allocatedTrack, String responseClaimTrack, String hearingTypeConfirmed,
+                                          String expectedName, String expectedTaskId) {
         Map<String, Object> data = new HashMap<>();
 
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
+        Map<String, Object> hearingTypeValue = new HashMap<>();
+        hearingTypeValue.put("code", hearingTypeConfirmed);
+        Map<String, Object> hearingListingConfirmedDynamicList = new HashMap<>();
+        hearingListingConfirmedDynamicList.put("value", hearingTypeValue);
+        data.put("hearingListedDynamicList", hearingListingConfirmedDynamicList);
+
         if (allocatedTrack != null && !allocatedTrack.isEmpty()) {
             data.put("allocatedTrack", allocatedTrack);
         }
@@ -2135,30 +1890,29 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedName));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE_SPEC, ,200000 , Allocate Multi Track",
-        "MANAGE_STAY, ,200000 , Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, ,200000 , Allocate Multi Track",
-        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 200000, Allocate Multi Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 200000, Allocate Multi Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 200000, Allocate Multi Track - Clinical Negligence",
-        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250001, Allocate Multi Track - Serious Personal Injury",
-        "MANAGE_STAY, PERSONAL_INJURY, 250001, Allocate Multi Track - Serious Personal Injury",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250001, Allocate Multi Track - Serious Personal Injury",
-        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250000, Allocate Multi Track",
-        "MANAGE_STAY, PERSONAL_INJURY, 250000, Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250000, Allocate Multi Track"
+        "CLAIMANT_RESPONSE_SPEC, ,200000 , Multi Track Directions",
+        "MANAGE_STAY, ,200000 , Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, ,200000 , Multi Track Directions",
+        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 200000, Multi Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 200000, Multi Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 200000, Multi Track Directions - Clinical Negligence",
+        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250001, Multi Track Directions - Serious Personal Injury",
+        "MANAGE_STAY, PERSONAL_INJURY, 250001, Multi Track Directions - Serious Personal Injury",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250001, Multi Track Directions - Serious Personal Injury",
+        "CLAIMANT_RESPONSE_SPEC, PERSONAL_INJURY, 250000, Multi Track Directions",
+        "MANAGE_STAY, PERSONAL_INJURY, 250000, Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 250000, Multi Track Directions"
     })
     void given_input_should_return_allocate_minti_multi_claim_task_spec(String eventName, String claimType,
                                                                         Integer claimAmountPounds, String taskDescription) {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("responseClaimTrack", "MULTI_CLAIM");
         data.put("claimType", claimType);
         data.put("totalClaimAmount", claimAmountPounds);
@@ -2186,23 +1940,22 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE, ,20000000, Allocate Multi Track",
-        "MANAGE_STAY, ,20000000, Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, ,20000000, Allocate Multi Track",
-        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 20000000, Allocate Multi Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 20000000, Allocate Multi Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 20000000, Allocate Multi Track - Clinical Negligence",
-        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000001, Allocate Multi Track - Serious Personal Injury",
-        "MANAGE_STAY, PERSONAL_INJURY, 25000001, Allocate Multi Track - Serious Personal Injury",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000001, Allocate Multi Track - Serious Personal Injury",
-        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000000, Allocate Multi Track",
-        "MANAGE_STAY, PERSONAL_INJURY, 25000000, Allocate Multi Track",
-        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000000, Allocate Multi Track"
+        "CLAIMANT_RESPONSE, ,20000000, Multi Track Directions",
+        "MANAGE_STAY, ,20000000, Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, ,20000000, Multi Track Directions",
+        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 20000000, Multi Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 20000000, Multi Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 20000000, Multi Track Directions - Clinical Negligence",
+        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000001, Multi Track Directions - Serious Personal Injury",
+        "MANAGE_STAY, PERSONAL_INJURY, 25000001, Multi Track Directions - Serious Personal Injury",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000001, Multi Track Directions - Serious Personal Injury",
+        "CLAIMANT_RESPONSE, PERSONAL_INJURY, 25000000, Multi Track Directions",
+        "MANAGE_STAY, PERSONAL_INJURY, 25000000, Multi Track Directions",
+        "TRANSFER_ONLINE_CASE, PERSONAL_INJURY, 25000000, Multi Track Directions"
     })
     void given_input_should_return_allocate_minti_multi_claim_task_unspec(String eventName, String claimType,
                                                                           String claimAmountPennies, String taskDescription) {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("allocatedTrack", "MULTI_CLAIM");
         data.put("claimType", claimType);
         data.put("claimValue", Map.of(
@@ -2231,17 +1984,16 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE_SPEC, , 100000 , Allocate Intermediate Track",
-        "MANAGE_STAY, , 100000 , Allocate Intermediate Track",
-        "TRANSFER_ONLINE_CASE, , 100000 , Allocate Intermediate Track",
-        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
+        "CLAIMANT_RESPONSE_SPEC, , 100000 , Intermediate Track Directions",
+        "MANAGE_STAY, , 100000 , Intermediate Track Directions",
+        "TRANSFER_ONLINE_CASE, , 100000 , Intermediate Track Directions",
+        "CLAIMANT_RESPONSE_SPEC, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
     })
     void given_input_should_return_allocate_minti_intermediate_claim_task_spec(String eventName, String claimType,
                                                                                Integer claimAmountPounds, String taskDescription) {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("responseClaimTrack", "INTERMEDIATE_CLAIM");
         data.put("claimType", claimType);
         data.put("totalClaimAmount", claimAmountPounds);
@@ -2269,17 +2021,16 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CLAIMANT_RESPONSE, , 100000 , Allocate Intermediate Track",
-        "MANAGE_STAY, , 100000 , Allocate Intermediate Track",
-        "TRANSFER_ONLINE_CASE, , 100000 , Allocate Intermediate Track",
-        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
-        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Allocate Intermediate Track - Clinical Negligence",
+        "CLAIMANT_RESPONSE, , 100000 , Intermediate Track Directions",
+        "MANAGE_STAY, , 100000 , Intermediate Track Directions",
+        "TRANSFER_ONLINE_CASE, , 100000 , Intermediate Track Directions",
+        "CLAIMANT_RESPONSE, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "MANAGE_STAY, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
+        "TRANSFER_ONLINE_CASE, CLINICAL_NEGLIGENCE, 100000, Intermediate Track Directions - Clinical Negligence",
     })
     void given_input_should_return_allocate_minti_intermediate_claim_task_unspec(String eventName, String claimType,
                                                                                  String claimAmountPennies, String taskDescription) {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("allocatedTrack", "INTERMEDIATE_CLAIM");
         data.put("claimType", claimType);
         data.put(
@@ -2318,7 +2069,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_return_allocate_multi_damages_listing_task_unspec(String eventName, String hearingType,
                                                                               String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("allocatedTrack", "MULTI_CLAIM");
         Map<String, Object> hearingTypeValue = new HashMap<>();
         hearingTypeValue.put("code", hearingType);
@@ -2351,7 +2101,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_return_allocate_intermediate_damages_listing_task_unspec(String eventName, String hearingType,
                                                                                      String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         data.put("allocatedTrack", "INTERMEDIATE_CLAIM");
         Map<String, Object> hearingTypeValue = new HashMap<>();
         hearingTypeValue.put("code", hearingType);
@@ -2386,7 +2135,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                                                                     String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "MULTI_CLAIM");
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         Map<String, Object> hearingTypeValue = new HashMap<>();
         hearingTypeValue.put("code", hearingType);
         Map<String, Object> requestHearingNoticeDynamic = new HashMap<>();
@@ -2420,7 +2168,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                                                                            String taskDescription, String expectedTask) {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "INTERMEDIATE_CLAIM");
-        data.put("featureToggleWA", "multiOrIntermediateClaim");
         Map<String, Object> hearingTypeValue = new HashMap<>();
         hearingTypeValue.put("code", hearingType);
         Map<String, Object> requestHearingNoticeDynamic = new HashMap<>();
@@ -2447,15 +2194,45 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(328));
+        assertThat(logic.getRules().size(), is(373));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "UNLESS_ORDER, confirmOrderReviewUnlessOrder",
+        "PRE_TRIAL_CHECKLIST, confirmOrderReviewFreeTrial",
+        "GENERAL_ORDER, confirmOrderReviewGeneralOrder",
+        "RESERVE_JUDGMENT, confirmOrderReviewReserveJudgement",
+        "OTHER, confirmOrderReviewOther",
+        "STAY_A_CASE, confirmOrderReviewStayCase",
+        "LIFT_A_STAY, confirmOrderReviewManageStay",
+        "DISMISS_CASE, confirmOrderReviewDismissCase"
+    })
+    void given_input_should_return_correct_reviewCaseTask(String waFlag, String expectedTaskId) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+        data.put("obligationWAFlag", Map.of("obligationReason", waFlag));
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "ORDER_REVIEW_OBLIGATION_CHECK");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Review case"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
     }
 
     @Test
-    void given_lip_claim_settled_create_remove_hearing_task() {
+    void given_lip_claim_settled_create_remove_hearing_task_smallTrack() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
         data.put("hearingDate", "22-12-2024");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -2470,31 +2247,56 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(
             workTypeResultList
-                .get(0).get("taskId"), is("ClaimSettledRemoveHearing")
+                .get(0).get("taskId"), is("removeHearing")
         );
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("RemoveHearing"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
     }
 
-    // Temp may return 2 tasks until HMC-NRO cui task uplifts
+    @Test
+    void given_lip_claim_settled_create_remove_hearing_task_fastTrack() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("responseClaimTrack", "FAST_CLAIM");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "LIP_CLAIM_SETTLED");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(
+            workTypeResultList
+                .get(0).get("taskId"), is("removeHearing")
+        );
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
+    }
+
     @ParameterizedTest
     @CsvSource({
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, true,,, Reschedule a Fast Track Hearing - HMC, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, true ,true,,, Reschedule a Small Claims Hearing - HMC, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true, DISPOSAL,, Reschedule a Disposal Hearing - HMC, 2",
-        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, 2",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,,true,true,,, Schedule a Fast Track Hearing - HMC, 1",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,,true,true,,, Schedule a Small Claims Hearing - HMC, 1",
-        "CREATE_SDO, CASE_PROGRESSION,,,true,true,DISPOSAL,, Schedule a Disposal Hearing - HMC, 1",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,,true,true,,, Reschedule a Fast Track Hearing - HMC, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,,true,true,,, Reschedule a Small Claims Hearing - HMC, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,true,true, DISPOSAL,, Reschedule a Disposal Hearing - HMC, 2",
-        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,true,true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, 2",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, true,,, Reschedule a Fast Track Hearing - HMC",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, true ,true,,, Reschedule a Small Claims Hearing - HMC",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true, DISPOSAL,, Reschedule a Disposal Hearing - HMC",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,,true,true,,, Schedule a Fast Track Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,,true,true,,, Schedule a Small Claims Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,,,true,true,DISPOSAL,, Schedule a Disposal Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,,true,true,,, Reschedule a Fast Track Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,,true,true,,, Reschedule a Small Claims Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,true,true, DISPOSAL,, Reschedule a Disposal Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,,true,true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC",
         "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, FAST_CLAIM,,true,true,,TRIAL_HEARING, "
-            + "Schedule a Fast Track Hearing - HMC, 1",
+            + "Schedule a Fast Track Hearing - HMC",
         "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION, SMALL_CLAIM,,true,true,,TRIAL_HEARING, "
-            + "Schedule a Small Claims Hearing - HMC, 1",
+            + "Schedule a Small Claims Hearing - HMC",
         "STANDARD_DIRECTION_ORDER_DJ, CASE_PROGRESSION,,,true,true,, DISPOSAL_HEARING, Schedule a Disposal Hearing - HMC, 1",
-        "COURT_OFFICER_ORDER, CASE_PROGRESSION,,,true,true,,, Reschedule a Hearing - HMC, 2",
+        "COURT_OFFICER_ORDER, CASE_PROGRESSION,,,true,true,,, Reschedule a Hearing - HMC",
     })
     void given_input_should_return_correct_scheduleHmcHearingTask_noLip(
         String eventId,
@@ -2505,12 +2307,16 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         boolean respondent1Represented,
         String orderType,
         String caseManagementOrderSelection,
-        String expectedTaskName,
-        int expectedNumberOfTasks
+        String expectedTaskName
     ) {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "HMC_NRO");
+
+        boolean directionsOrderEvent = eventId.equals("GENERATE_DIRECTIONS_ORDER");
+        if (directionsOrderEvent) {
+            addNonNullField(data, "finalOrderFurtherHearingToggle", "SHOW");
+        }
+
         addNonNullField(data, "applicant1Represented", applicant1Represented);
         addNonNullField(data, "respondent1Represented", respondent1Represented);
         addNonNullField(data, "allocatedTrack", allocatedTrack);
@@ -2528,10 +2334,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        int lastIndex = expectedNumberOfTasks - 1;
-        assertThat(workTypeResultList.size(), is(expectedNumberOfTasks));
-        assertThat(workTypeResultList.get(lastIndex).get("name"), is(expectedTaskName));
-        assertThat(workTypeResultList.get(lastIndex).get("taskId"), is("ScheduleHMCHearing"));
+        int listSize = directionsOrderEvent ? 2 : 1;
+        assertThat(workTypeResultList.size(), is(listSize));
+        assertThat(workTypeResultList.get(listSize - 1).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.get(listSize - 1).get("taskId"), is("ScheduleHMCHearing"));
     }
 
     @ParameterizedTest
@@ -2579,12 +2385,13 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(lastIndex).get("taskId"), is("ScheduleHMCHearing"));
     }
 
-    // Temp return 2 tasks until HMC-NRO cui task uplifts
+    // Temp may return 2 tasks until HMC NRO goes live and legacy tasks are removed.
     @Test
-    void given_HearingFeeUnpaid_should_return_correct_removeHmcHearingTask_noLip() {
+    void given_HearingFeeUnpaid_should_return_correct_removeHmcHearingTask_noLipSmallClaimUnspec() {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "HMC_NRO");
+
+        data.put("allocatedTrack", "SMALL_CLAIM");
         addNonNullField(data, "hearingDate", "22-12-2024");
 
         Map<String, Object> caseData = Map.of("Data", data);
@@ -2597,9 +2404,109 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("name"), is("Remove Hearing - HMC"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+    }
+
+    @Test
+    void given_HearingFeeUnpaid_should_return_correct_removeHmcHearingTask_noLipFastClaimUnspec() {
+
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("allocatedTrack", "FAST_CLAIM");
+        addNonNullField(data, "hearingDate", "22-12-2024");
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "HEARING_FEE_UNPAID");
+        inputVariables.putValue("postEventState", "CASE_DISMISSED");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+    }
+
+    @Test
+    void given_HearingFeeUnpaid_should_return_correct_removeHmcHearingTask_noLipSmallClaimSpec() {
+
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        addNonNullField(data, "hearingDate", "22-12-2024");
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "HEARING_FEE_UNPAID");
+        inputVariables.putValue("postEventState", "CASE_DISMISSED");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+    }
+
+    @Test
+    void given_HearingFeeUnpaid_should_return_correct_removeHmcHearingTask_noLipFastClaimSpec() {
+
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("responseClaimTrack", "FAST_CLAIM");
+        addNonNullField(data, "hearingDate", "22-12-2024");
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "HEARING_FEE_UNPAID");
+        inputVariables.putValue("postEventState", "CASE_DISMISSED");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, 22-12-2024",
+        "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024"
+    })
+    void given_input_should_return_correct_removeHmcHearingTask_noLipSmallClaimUnspec(
+        String eventId,
+        String postEventState,
+        String hearingDate
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("allocatedTrack", "SMALL_CLAIM");
+        addNonNullField(data, "hearingDate", hearingDate);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
     }
 
     @ParameterizedTest
@@ -2607,7 +2514,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, 22-12-2024, 1",
         "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024, 1"
     })
-    void given_input_should_return_correct_removeHmcHearingTask_noLip(
+    void given_input_should_return_correct_removeHmcHearingTask_noLipFastClaimUnspec(
         String eventId,
         String postEventState,
         String hearingDate,
@@ -2616,6 +2523,71 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
+        data.put("allocatedTrack", "FAST_CLAIM");
+        addNonNullField(data, "hearingDate", hearingDate);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(expectedNumberOfTasks));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, 22-12-2024, 1",
+        "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024, 1"
+    })
+    void given_input_should_return_correct_removeHmcHearingTask_noLipSmallClaimSpec(
+        String eventId,
+        String postEventState,
+        String hearingDate,
+        int expectedNumberOfTasks
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        addNonNullField(data, "hearingDate", hearingDate);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(expectedNumberOfTasks));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, 22-12-2024, 1",
+        "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024, 1"
+    })
+    void given_input_should_return_correct_removeHmcHearingTask_noLipFastClaimSpec(
+        String eventId,
+        String postEventState,
+        String hearingDate,
+        int expectedNumberOfTasks
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("responseClaimTrack", "FAST_CLAIM");
         addNonNullField(data, "hearingDate", hearingDate);
 
         Map<String, Object> caseData = Map.of("Data", data);
@@ -2634,7 +2606,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void claim_is_discontinued_create_removeHmcHearingTask_noLip() {
+    void claim_is_discontinued_create_removeHmcHearingTask_noLipSmallClaimUnspec() {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
         data.put("hearingDate", "22-12-2024");
@@ -2642,6 +2614,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("confirmOrderGivesPermission", "YES");
         data.put("isDiscontinuingAgainstBothDefendants", "YES");
         data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        data.put("allocatedTrack", "SMALL_CLAIM");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
@@ -2660,12 +2633,94 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void discontinuance_create_RemoveHmcHearingTask_noLip() {
+    void claim_is_discontinued_create_removeHmcHearingTask_noLipFastClaimUnspec() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        data.put("allocatedTrack", "FAST_CLAIM");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing - HMC"));
+    }
+
+    @Test
+    void claim_is_discontinued_create_removeHmcHearingTask_noLipSmallClaimSpec() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing - HMC"));
+    }
+
+    @Test
+    void claim_is_discontinued_create_removeHmcHearingTask_noLipFastClaimSpec() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        data.put("responseClaimTrack", "FAST_CLAIM");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing - HMC"));
+    }
+
+    @Test
+    void discontinuance_create_RemoveHmcHearingTask_noLipSmallClaimUnspec() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
         data.put("hearingDate", "22-12-2024");
         data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("allocatedTrack", "SMALL_CLAIM");
         data.put("courtPermissionNeeded", "NO");
         data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
 
@@ -2687,7 +2742,978 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(0).get("name"), is("Remove Hearing - HMC"));
     }
 
+    @Test
+    void discontinuance_create_RemoveHmcHearingTask_noLipFastClaimUnspec() {
 
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("allocatedTrack", "FAST_CLAIM");
+        data.put("courtPermissionNeeded", "NO");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing - HMC"));
+    }
+
+    @Test
+    void discontinuance_create_RemoveHmcHearingTask_noLipSmallClaimSpec() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("courtPermissionNeeded", "NO");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing - HMC"));
+    }
+
+    @Test
+    void discontinuance_create_RemoveHmcHearingTask_noLipFastClaimSpec() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("hearingDate", "22-12-2024");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("responseClaimTrack", "FAST_CLAIM");
+        data.put("courtPermissionNeeded", "NO");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing - HMC"));
+    }
+
+    @Test
+    void generateDirectionsOrder_createOrderReviewTask_anyEndState() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_DIRECTIONS_ORDER");
+        inputVariables.putValue("postEventState", "HEARING_READINESS");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("reviewOrder"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Order Made - Review case"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Reschedule a Fast Track Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Reschedule a Fast Track Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, true, false,,, Reschedule a Fast Track Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Reschedule a Fast Track Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Reschedule a Small Claims Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Reschedule a Small Claims Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Reschedule a Small Claims Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Reschedule a Small Claims Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Reschedule a Small Claims Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Reschedule a Small Claims Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true, DISPOSAL,, Reschedule a Disposal Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, false, DISPOSAL,, Reschedule a Disposal Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Reschedule a Fast Track Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Reschedule a Fast Track Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, true, false,,, Reschedule a Fast Track Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Reschedule a Fast Track Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Reschedule a Small Claims Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Reschedule a Small Claims Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Reschedule a Small Claims Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Reschedule a Small Claims Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Reschedule a Small Claims Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Reschedule a Small Claims Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, true, DISPOSAL,, Reschedule a Disposal Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, true, false, DISPOSAL,, Reschedule a Disposal Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing"
+    })
+    void given_input_should_return_correct_scheduleHmcHearingTask_createSdoEvent_ea_lip(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        boolean generateDirectionsOrder = eventId.equals("GENERATE_DIRECTIONS_ORDER");
+        if (generateDirectionsOrder) {
+            addNonNullField(data, "finalOrderFurtherHearingToggle", "SHOW");
+        }
+
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        int resultSizeList = generateDirectionsOrder ? 2 : 1;
+        assertThat(workTypeResultList.size(), is(resultSizeList));
+        assertThat(workTypeResultList.get(resultSizeList - 1).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.get(resultSizeList - 1).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Schedule a Fast Track Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing",
+    })
+    void given_input_should_return_correct_scheduleHmcHearingTask_lip(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+        data.put("eaCourtLocation", "true");
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, true,false,,, Schedule a Fast Track Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Schedule a Fast Track Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Schedule a Small Claims Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Schedule a Small Claims Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Schedule a Small Claims Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Schedule a Small Claims Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,,false, true, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,,false, true, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, true, false, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, true, false, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, false, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, false, false, DISPOSAL,, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing"
+    })
+    void given_input_should_return_correct_scheduleHmcHearingTask_manageStay_lip(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleAHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, true, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, true, false, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, false, 22-12-2024",
+        "SETTLE_CLAIM, CASE_SETTLED, false, true, 22-12-2024",
+        "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024",
+        "SETTLE_CLAIM, CASE_SETTLED, false, false, 22-12-2024",
+    })
+    void given_input_should_return_correct_removeHmcHearingTask_lip(
+        String eventId,
+        String postEventState,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String hearingDate
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        addNonNullField(data, "hearingDate", hearingDate);
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("removeHearing"));
+
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "false, true",
+        "true, false",
+        "false, false",
+    })
+    void claim_is_discontinued_create_removeHmcHearingTask_lip(
+        boolean applicant1Represented,
+        boolean respondent1Represented) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        data.put("hearingDate", "22-12-2024");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing - HMC"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "false, true",
+        "true, false",
+        "false, false",
+    })
+    void discontinuance_create_RemoveHmcHearingTask_lip(
+        boolean applicant1Represented,
+        boolean respondent1Represented) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        data.put("hearingDate", "22-12-2024");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("courtPermissionNeeded", "NO");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing - HMC"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Reschedule a Fast Track Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Reschedule a Fast Track Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, true, false,,, Reschedule a Fast Track Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Reschedule a Fast Track Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Reschedule a Small Claims Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Reschedule a Small Claims Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Reschedule a Small Claims Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Reschedule a Small Claims Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Reschedule a Small Claims Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Reschedule a Small Claims Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, true, DISPOSAL,, Reschedule a Disposal Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, true, false, DISPOSAL,, Reschedule a Disposal Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC",
+        "HEARING_SCHEDULED_RETRIGGER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC"
+    })
+    void given_input_should_return_correct_scheduleHmcHearingTask_hearingScheduledRetrigger_lipEnabled(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        //This will be 2 until Hmc Lip goes live a pre-existing tasks gets removed.
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(1).get("name"), is(expectedTaskName));
+
+        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, true,,, Reschedule a Fast Track Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, true, true,,, Reschedule a Fast Track Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Reschedule a Fast Track Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Reschedule a Fast Track Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, true, true,,, Reschedule a Small Claims Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Reschedule a Small Claims Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Reschedule a Small Claims Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, true, true,,, Reschedule a Small Claims Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Reschedule a Small Claims Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Reschedule a Small Claims Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true, DISPOSAL,, Reschedule a Disposal Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true, DISPOSAL,, Reschedule a Disposal Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, SHOW",
+
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, true,,, Reschedule a Fast Track Hearing - HMC, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, true, true,,, Reschedule a Fast Track Hearing - HMC, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, true, true,,, Reschedule a Small Claims Hearing - HMC, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, true, true,,, Reschedule a Small Claims Hearing - HMC, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true, DISPOSAL,, Reschedule a Disposal Hearing - HMC,",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true, DISPOSAL,, Reschedule a Disposal Hearing,",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing,",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, "
+    })
+    void given_input_should_return_correct_rescheduleHmcHearingTask_generateDirectionsOrder_caseEventBatch2(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName,
+        String furtherHearingRequired
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CE_B2");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+        addNonNullField(data, "finalOrderFurtherHearingToggle", furtherHearingRequired);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        //This will be 3 until CE_B2 goes live a pre-existing tasks gets removed.
+        String taskId = applicant1Represented && respondent1Represented ? "ScheduleHMCHearing" : "ScheduleAHearing";
+        if (nonNull(furtherHearingRequired)) {
+            assertThat(workTypeResultList.size(), is(2));
+            assertThat(workTypeResultList.get(0).get("name"), is("Order Made - Review case"));
+            assertThat(workTypeResultList.get(0).get("taskId"), is("reviewOrder"));
+            assertThat(workTypeResultList.get(1).get("name"), is(expectedTaskName));
+            assertThat(workTypeResultList.get(1).get("taskId"), is(taskId));
+        } else {
+            assertThat(workTypeResultList.size(), is(1));
+            assertThat(workTypeResultList.get(0).get("name"), is("Order Made - Review case"));
+            assertThat(workTypeResultList.get(0).get("taskId"), is("reviewOrder"));
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Reschedule a Fast Track Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Reschedule a Fast Track Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, true, false,,, Reschedule a Fast Track Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Reschedule a Fast Track Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Reschedule a Small Claims Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Reschedule a Small Claims Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Reschedule a Small Claims Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Reschedule a Small Claims Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Reschedule a Small Claims Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Reschedule a Small Claims Hearing - HMC, SHOW",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true, DISPOSAL,, Reschedule a Disposal Hearing - HMC, true",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, false, DISPOSAL,, Reschedule a Disposal Hearing - HMC, true",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing - HMC, true",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, true",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, true",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing - HMC, true",
+
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, true, false,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Reschedule a Fast Track Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Reschedule a Small Claims Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true, DISPOSAL,, Reschedule a Disposal Hearing,",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, false, DISPOSAL,, Reschedule a Disposal Hearing,",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false, DISPOSAL,, Reschedule a Disposal Hearing,",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, ",
+        "GENERATE_DIRECTIONS_ORDER, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Reschedule a Disposal Hearing, "
+    })
+    void given_input_should_return_correct_rescheduleHmcHearingTask_generateDirectionsOrder_lipEnabled(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName,
+        String furtherHearingRequired
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+        addNonNullField(data, "finalOrderFurtherHearingToggle", furtherHearingRequired);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        //This will be 3 until Hmc Lip goes live and pre-existing tasks gets removed.
+        if (nonNull(furtherHearingRequired)) {
+            assertThat(workTypeResultList.size(), is(3));
+            assertThat(workTypeResultList.get(0).get("name"), is("Order Made - Review case"));
+            assertThat(workTypeResultList.get(0).get("taskId"), is("reviewOrder"));
+            assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleAHearing"));
+            assertThat(workTypeResultList.get(2).get("name"), is(expectedTaskName));
+            assertThat(workTypeResultList.get(2).get("taskId"), is("ScheduleHMCHearing"));
+        } else {
+            assertThat(workTypeResultList.size(), is(1));
+            assertThat(workTypeResultList.get(0).get("name"), is("Order Made - Review case"));
+            assertThat(workTypeResultList.get(0).get("taskId"), is("reviewOrder"));
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Schedule a Fast Track Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Schedule a Small Claims Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Schedule a Small Claims Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Schedule a Small Claims Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing - HMC, true",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Transfer Case Offline, false",
+    })
+    void given_input_should_return_correct_scheduleHmcHearingTaskForSdo_EaCourt(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName,
+        boolean isEaCourt
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+        addNonNullField(data, "eaCourtLocation", isEaCourt);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        //This will be 2 until Hmc Lip goes live a pre-existing tasks gets removed.
+        int expectedTasks = isEaCourt ? 2 : 1;
+        int taskToCheck = isEaCourt ? 1 : 0;
+        assertThat(workTypeResultList.size(), is(expectedTasks));
+        assertThat(workTypeResultList.get(taskToCheck).get("name"), is(expectedTaskName));
+
+        if (isEaCourt) {
+            assertThat(workTypeResultList.get(taskToCheck).get("taskId"), is("ScheduleHMCHearing"));
+        } else {
+            assertThat(workTypeResultList.get(taskToCheck).get("taskId"), is("transferCaseOffline"));
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, true,false,,, Schedule a Fast Track Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Schedule a Fast Track Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Schedule a Small Claims Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Schedule a Small Claims Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Schedule a Small Claims Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, true, false,,, Schedule a Small Claims Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,,,false, true, DISPOSAL,, Schedule a Disposal Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,,, true, false, DISPOSAL,, Schedule a Disposal Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,,, false, true,, DISPOSAL_HEARING, Schedule a Disposal Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,,, true, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing - HMC",
+        "MANAGE_STAY, CASE_PROGRESSION,,, false, false,, DISPOSAL_HEARING, Schedule a Disposal Hearing - HMC"
+    })
+    void given_input_should_return_correct_scheduleHmcHearingTaskWhen_manageStay_and_hmcLipEnabled(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        int resultList = orderType != null || caseManagementOrderSelection != null ? 1 : 2;
+        assertThat(workTypeResultList.size(), is(resultList));
+        assertThat(workTypeResultList.get(resultList - 1).get("name"), is(expectedTaskName));
+
+        assertThat(workTypeResultList.get(resultList - 1).get("taskId"), is("ScheduleHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "false, false",
+        "true, false",
+        "false, true"
+    })
+    void given_HearingFeeUnpaid_should_return_correct_removeHmcHearingTask_whenlipHmcEnabled(boolean applicant1Represented,
+                                                                                             boolean respondent1Represented) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        addNonNullField(data, "hearingDate", "22-12-2024");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "HEARING_FEE_UNPAID");
+        inputVariables.putValue("postEventState", "CASE_DISMISSED");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        //This will be 2 until Hmc Lip goes live a pre-existing tasks gets removed.
+        assertThat(workTypeResultList.size(), is(2));
+
+        assertThat(workTypeResultList.get(1).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("RemoveHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, true, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, true, false, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, false, 22-12-2024",
+        "LIP_CLAIM_SETTLED, CASE_SETTLED, false, true, 22-12-2024",
+        "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024",
+        "LIP_CLAIM_SETTLED, CASE_SETTLED, false, false, 22-12-2024"
+    })
+    void given_input_should_return_correct_removeHmcHearingTask_whenHmcLiPEnabled(
+        String eventId,
+        String postEventState,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String hearingDate
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        addNonNullField(data, "hearingDate", hearingDate);
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "false, true",
+        "true, false",
+        "false, false"
+    })
+    void claim_is_discontinued_create_removeHmcHearingTask_hmcLiPEnabled(
+        boolean applicant1Represented,
+        boolean respondent1Represented) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        data.put("hearingDate", "22-12-2024");
+        data.put("courtPermissionNeeded", "YES");
+        data.put("confirmOrderGivesPermission", "YES");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "HEARING_FEE_UNPAID, CASE_DISMISSED, MULTI_CLAIM, , , removeHearing",
+        "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT, , MULTI_CLAIM, , validateDiscontinuance, removeHearing",
+        "DISCONTINUE_CLAIM_CLAIMANT, , MULTI_CLAIM, discontinuanceType, , removeHearing",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, MULTI_CLAIM, , , removeHearing",
+        "SETTLE_CLAIM, CASE_SETTLED, MULTI_CLAIM, , , removeHearing",
+    })
+    void given_input_should_return_remove_hearing_minti_unspec(String eventName, String postState, String multiOrIntermediate,
+                                                               String discontinuanceType, String validateDiscontinuance, String taskId) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("hearingDate", "22-12-2024");
+        data.put("allocatedTrack", multiOrIntermediate);
+
+        if (nonNull(discontinuanceType)) {
+            data.put("isDiscontinuingAgainstBothDefendants", "YES");
+            data.put("courtPermissionNeeded", "NO");
+            data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        }
+        if (nonNull(validateDiscontinuance)) {
+            data.put("courtPermissionNeeded", "YES");
+            data.put("confirmOrderGivesPermission", "YES");
+            data.put("isDiscontinuingAgainstBothDefendants", "YES");
+            data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        }
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventName);
+        if (nonNull(postState)) {
+            inputVariables.putValue("postEventState", postState);
+        }
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("removeHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "false, true",
+        "true, false",
+        "false, false"
+    })
+    void discontinuance_create_RemoveHmcHearingTask_hmcLiPEnabled(
+        boolean applicant1Represented,
+        boolean respondent1Represented) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "HMC_LIP");
+        data.put("hearingDate", "22-12-2024");
+        data.put("isDiscontinuingAgainstBothDefendants", "YES");
+        data.put("courtPermissionNeeded", "NO");
+        data.put("typeOfDiscontinuance", "FULL_DISCONTINUANCE");
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("RemoveHMCHearing"));
+        assertThat(workTypeResultList
+                       .get(0).get("name"), is("Remove Hearing - HMC"));
+
+        assertThat(workTypeResultList.size(), is(1));
+    }
 
     private void addNonNullField(Map<String, Object> inputVars, String key, Object value) {
         if (value == null || (value instanceof String && ((String) value).trim().isEmpty())) {
@@ -2696,4 +3722,138 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         inputVars.put(key, value);
     }
 
+    @Test
+    void given_input_should_return_take_case_offline_for_caseworker() {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> data = new HashMap<>();
+        data.put("gaEaCourtLocation", "true");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        inputVariables.putValue("eventId", "TRIGGER_UPDATE_GA_LOCATION");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Take Case Offline - Non EA Court"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("takeCaseOfflineApplicationNonEA"));
+    }
+
+    @Test
+    void given_input_should_return_take_case_offline_for_caseworker_when_Transfer_case_online_event() {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> data = new HashMap<>();
+        data.put("gaEaCourtLocation", "true");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        inputVariables.putValue("eventId", "TRIGGER_TASK_RECONFIG_GA");
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Take Case Offline - Non EA Court"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("takeCaseOfflineApplicationNonEA"));
+    }
+
+    @Test
+    void given_input_should_return_take_case_offline_for_caseworker_whenGaIsVaryJudgement() {
+
+        VariableMap inputVariables = new VariableMapImpl();
+
+        inputVariables.putValue("eventId", "TRIGGER_MAIN_CASE_FROM_GA");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Take Case Offline - determination to be completed offline"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("takeCaseOfflineVaryJudgmentApplication"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CASE_ISSUED,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_CASE_DETAILS,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_APPLICANT_INTENTION,false,respondToQueryCTSC,Respond to a query",
+        "IN_MEDIATION,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
+        "CASE_SETTLED,false,respondToQueryCTSC,Respond to a query",
+        "CASE_DISCONTINUED,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,true,respondToQueryAdmin,Respond to a hearing related query",
+        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
+        "HEARING_READINESS,false,respondToQueryCTSC,Respond to a query",
+        "HEARING_READINESS,true,respondToQueryAdmin,Respond to a hearing related query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryCTSC,Respond to a query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToQueryAdmin,Respond to a hearing related query",
+        "DECISION_OUTCOME,false,respondToQueryCTSC,Respond to a query",
+        "DECISION_OUTCOME,true,respondToQueryAdmin,Respond to a hearing related query",
+        "All_FINAL_ORDERS_ISSUED,false,respondToQueryCTSC,Respond to a query",
+        "All_FINAL_ORDERS_ISSUED,true,respondToQueryAdmin,Respond to a hearing related query",
+    })
+    void given_input_should_return_expected_qm(String state, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
+
+        VariableMap inputVariables = new VariableMapImpl();
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> caseData = new HashMap<>();
+        String queryId = "query-id";
+        data.put("qmLatestQuery", Map.of(
+            "queryId", queryId,
+            "isHearingRelated", isHearingRelated
+        ));
+        caseData.put("Data", data);
+
+        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
+        inputVariables.putValue("postEventState", state);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
+    })
+    void given_input_should_return_expected_qm_task_for_stayed_case(String preStayState, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> caseData = new HashMap<>();
+        String queryId = "query-id";
+        data.put("preStayState", preStayState);
+        data.put("qmLatestQuery", Map.of(
+            "queryId", queryId,
+            "isHearingRelated", isHearingRelated
+        ));
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
+        inputVariables.putValue("postEventState", "CASE_STAYED");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
+    }
 }

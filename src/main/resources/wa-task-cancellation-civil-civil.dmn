@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.28.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -1521,6 +1521,702 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_0v1y5mm">
           <text>"multiOrIntermediateClaim"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1s6rsl5">
+        <description>"When stay requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1skio4r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09pz15e">
+          <text>"STAY_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lqadjd">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hfv1kk">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mvzog8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pnh2mr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_051aann">
+          <text>"confirmOrderReviewStayCase"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01ajwip">
+        <description>"When manage stay requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0vq58ko">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18k50a5">
+          <text>"MANAGE_STAY"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02zwxfo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02hsfzs">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nuhn80">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zvgsii">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i3vrnq">
+          <text>"confirmOrderReviewManageStay"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oqh3c1">
+        <description>"When dismiss case requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0f87qj5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rcwquk">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_175x95t">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11gq0vt">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zu0rki">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_084rkd4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h32av3">
+          <text>"confirmOrderReviewDismissCase"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qz4a79">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0dj6c3r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vd41x7">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18iqn4x">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jsmwjo">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1if3ztf">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ubt9d8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0liz4b5">
+          <text>"confirmOrderReviewUnlessOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mpvfoq">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0og3axp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sbflg6">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05hhy2e">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_168ltek">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wg64oo">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jyq6y8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xc8nvx">
+          <text>"confirmOrderReviewFreeTrial"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r9beft">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_18b2w2r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ef72id">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08xm0b7">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1od5v1n">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dgc7sr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0v53taj">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zc22c4">
+          <text>"confirmOrderReviewGeneralOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_103vaox">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0jz97uq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xfwvj9">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1syt2ed">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dswwo9">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02e0pud">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0f8p08y">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k7p1mo">
+          <text>"confirmOrderReviewReserveJudgement"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0etkfyj">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1r2f31c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19mylb4">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ft7jjy">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12y1052">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p6t7ro">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_145onwy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0unjt0n">
+          <text>"confirmOrderReviewOther"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1htnqnp">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0w53b6a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ef5i69">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k773oz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06ns2hz">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0em8lko">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13t2ubr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hlbg2c">
+          <text>"confirmOrderReviewStayCase"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06nc3ib">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0ti7mxg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c6yjkt">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_181dvr2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hsyygk">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19rlw67">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tynphr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cut0ej">
+          <text>"confirmOrderReviewManageStay"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0v3j7n9">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1nf0mu9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1clfzt0">
+          <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rrjwu1">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09479fk">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jojkfq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_163owvq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1r0qbxc">
+          <text>"confirmOrderReviewDismissCase"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mdftk8">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1asytr4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hl4kwp">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g5djls">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g9aian">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ewqw8h">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ir2ek4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1i22o65">
+          <text>"confirmOrderReviewUnlessOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tugd6l">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1iwcj48">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w6zrpt">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nz8qfz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00i159p">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o59cz7">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06zar1n">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mv3pcg">
+          <text>"confirmOrderReviewFreeTrial"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1j8ge22">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_17fel1v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bkar9m">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mzws9o">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bxbxy1">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_024ccct">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01n03cy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1da8yxl">
+          <text>"confirmOrderReviewGeneralOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tli2pc">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0wltvaf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gnezh9">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15wnmns">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lqvty3">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07n4vre">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1c16fxb">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08tz26u">
+          <text>"confirmOrderReviewReserveJudgement"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q42tws">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0yb1l4b">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m8849l">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c1zn7e">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vxblc8">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_101n92w">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_060t1uc">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_040iuuh">
+          <text>"confirmOrderReviewOther"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_191rfy3">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0sp1v7c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11bh8uf">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14my7vo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uf0iyz">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17aehvf">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1isvdpj">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bs2vo4">
+          <text>"confirmOrderReviewStayCase"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uw2uj8">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0wqg8b4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tja8tr">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14hfwox">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wtq247">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1e986t4">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_175ofvc">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pz3w4m">
+          <text>"confirmOrderReviewManageStay"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01lw711">
+        <description>"When a case goes offline, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_14ytnat">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rzg3vg">
+          <text>"PROCEEDS_IN_HERITAGE_SYSTEM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1udoxfg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19ftxxg">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16vx0q1">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dookui">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0u1k7ef">
+          <text>"confirmOrderReviewDismissCase"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nw5vwg">
+        <description>"When dismiss case requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1imie39">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wxsr26">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_069xs9y">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1mn9m0q">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_114lqf5">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dwj8ym">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ks9bvd">
+          <text>"confirmOrderReviewUnlessOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15yuqw1">
+        <description>"When dismiss case requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0zadsbo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19hxl9f">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a1miqt">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qxi3t7">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1e31mvi">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f62pjx">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hr8l2m">
+          <text>"confirmOrderReviewFreeTrial"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fkmg1c">
+        <description>"When dismiss case requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_1q29r3y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wkd3yz">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07ajgks">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bo1b2e">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01ayhs2">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00eleqm">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1r6qvv9">
+          <text>"confirmOrderReviewGeneralOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13fk2v6">
+        <description>"When dismiss case requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_06ba2uc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16m5rde">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ufe4ev">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08fw0q4">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1v8r0qi">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0d49whm">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0py0hmo">
+          <text>"confirmOrderReviewReserveJudgement"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i0ll05">
+        <description>"When dismiss case requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0sk91bw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0it3mjd">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1k4jvk3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lgeyq9">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0is5fiz">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0o76xw8">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0q22k0t">
+          <text>"confirmOrderReviewOther"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oie3vm">
+        <description>"When dismiss case requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0ktohcv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fdpblp">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pdi5hq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1y75f17">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kfssli">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lzd4yo">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0p7oq87">
+          <text>"confirmOrderReviewStayCase"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fjxhv5">
+        <description>"When dismiss case requested, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0s0mjk0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a49925">
+          <text>"DISMISS_CASE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15fak1l">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04owq3p">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03ykbun">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x4awgk">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i3mxat">
+          <text>"confirmOrderReviewManageStay"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08alj1h">
+        <description>"When all final orders issued, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0ip4wzw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1es4ib4">
+          <text>"CONFIRM_ORDER_REVIEW"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1osnwu5">
+          <text>"All_FINAL_ORDERS_ISSUED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gn00zn">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11eb41v">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0yu2j9a">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1850su5">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oyrun2">
+        <description>"When all final orders issued, all outstanding tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0vaterx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oyw3ox">
+          <text>"CONFIRM_ORDER_REVIEW"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_122m4ot">
+          <text>"All_FINAL_ORDERS_ISSUED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hwfbg8">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0f0q495">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09mmf8u">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0if17se">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1v3q5te">
+        <description>"After NOC, all outstanding query tasks should be cancelled"</description>
+        <inputEntry id="UnaryTests_0ovaj60">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h4la07">
+          <text>"APPLY_NOC_DECISION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_195e8ni">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0by1eh3">
+          <text>"Cancel"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1soa95p">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dka4w9">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mlat35">
+          <text>"queryResponseTasks"</text>
         </outputEntry>
       </rule>
     </decisionTable>
