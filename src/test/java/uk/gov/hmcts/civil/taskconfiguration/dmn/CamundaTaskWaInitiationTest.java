@@ -819,7 +819,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
@@ -868,7 +868,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("SmallClaimsTrackDirections"));
+                       .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
     }
 
@@ -974,6 +974,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_claim_move_to_judicial_referral_should_return_legal_advisor_sdo() {
         Map<String, Object> data = new HashMap<>();
         data.put("totalClaimAmount", 800);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -1672,8 +1673,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource({
         "100001, , FAST_CLAIM, , Fast Track Directions, FastTrackDirections",
         "100001, , SMALL_CLAIM, , Small Claims Track Directions, SmallClaimsTrackDirections",
-        ", 2000, , FAST_CLAIM, Fast Track Directions, FastTrackDirections",
-        ", 2000, , SMALL_CLAIM, Small Claims Track Directions, SmallClaimsTrackDirections",
+        ", 10001, , FAST_CLAIM, Fast Track Directions, FastTrackDirections",
+        ", 10000, , FAST_CLAIM, Fast Track Directions, FastTrackDirections",
         ", 900, , SMALL_CLAIM, Legal Advisor Small Claims Track Directions, LegalAdvisorSmallClaimsTrackDirections"
     })
     void given_input_should_return_correct_task(String claimValue, String totalClaimAmount,
@@ -2194,7 +2195,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(373));
+        assertThat(logic.getRules().size(), is(375));
     }
 
     @ParameterizedTest
