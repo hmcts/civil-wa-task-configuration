@@ -3084,8 +3084,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("removeHearing"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
 
     }
 
