@@ -2194,7 +2194,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(375));
+        assertThat(logic.getRules().size(), is(372));
     }
 
     @ParameterizedTest
@@ -2555,70 +2555,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
-        data.put("responseClaimTrack", "SMALL_CLAIM");
-        addNonNullField(data, "hearingDate", hearingDate);
-
-        Map<String, Object> caseData = Map.of("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", eventId);
-        inputVariables.putValue("postEventState", postEventState);
-        inputVariables.putValue("additionalData", caseData);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(expectedNumberOfTasks));
-        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-        "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024, 1"
-    })
-    void given_input_should_return_correct_removeHmcHearingTask_LipFastClaimSpec(
-        String eventId,
-        String postEventState,
-        String hearingDate,
-        int expectedNumberOfTasks
-    ) {
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "LIPVLR");
-        data.put("responseClaimTrack", "FAST_CLAIM");
-        data.put("applicant1Represented", false);
-        addNonNullField(data, "hearingDate", hearingDate);
-
-        Map<String, Object> caseData = Map.of("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", eventId);
-        inputVariables.putValue("postEventState", postEventState);
-        inputVariables.putValue("additionalData", caseData);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(expectedNumberOfTasks));
-        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-        "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024, 1"
-    })
-    void given_input_should_return_correct_removeHmcHearingTask_LipSmallClaimSpec(
-        String eventId,
-        String postEventState,
-        String hearingDate,
-        int expectedNumberOfTasks
-    ) {
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "LIPVLR");
-        data.put("applicant1Represented", false);
         data.put("responseClaimTrack", "SMALL_CLAIM");
         addNonNullField(data, "hearingDate", hearingDate);
 
