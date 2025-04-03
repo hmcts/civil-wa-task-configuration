@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.30.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="wa-initiation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.33.1">
   <decision id="wa-task-initiation-civil-civil" name="Civil Task initiation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_0jtevuc" hitPolicy="COLLECT" biodi:annotationsWidth="400">
       <input id="Input_1" label="Event Id" biodi:width="259" camunda:inputVariable="eventId">
@@ -487,12 +487,14 @@ else
           <text>if(additionalData != null
     and additionalData.Data != null
     and additionalData.Data.claimantBilingualLanguagePreference!= null
-    and additionalData.Data.claimantBilingualLanguagePreference="BOTH"
+    and((additionalData.Data.claimantBilingualLanguagePreference = "WELSH") or
+   (additionalData.Data.claimantBilingualLanguagePreference ="BOTH"))
 ) then
    true
 else if (additionalData.Data.respondent1LiPResponse!= null
     and additionalData.Data.respondent1LiPResponse.respondent1ResponseLanguage!= null
-    and additionalData.Data.respondent1LiPResponse.respondent1ResponseLanguage = "BOTH")
+    and ((additionalData.Data.respondent1LiPResponse.respondent1ResponseLanguage = "WELSH")
+    or (additionalData.Data.respondent1LiPResponse.respondent1ResponseLanguage = "BOTH")))
 then
    true
 else
@@ -45206,7 +45208,7 @@ else
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0cya597">
-          <text></text>
+          <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1x2z71b">
           <text></text>
@@ -45281,6 +45283,200 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1oti5w3">
+          <text>"requestTranslation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0truxpy">
+        <inputEntry id="UnaryTests_1h10snr">
+          <text>"CREATE_SDO"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16fstpx">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qlvf6p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rzcuzs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_047qxzz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kx390l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ham581">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lxfmea">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r2l6i5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10whmlo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08xfjms">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16epzjo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06mjgm3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vci1t4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0avgdvr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tgob7y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d0gyj4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0033913">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qwlq4h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0roqr0v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a004gi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_070nu8y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16jq7g2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06fpsfz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oneng9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p136i1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11c05em">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18zynmz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0icf9w3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1teoutg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x0jn2h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q6da5w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wmmips">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_017vzz4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z9cak0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zd9art">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18tgjtb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06j42j1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_079xvl1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1arcy6z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14jz0ha">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wddc8p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lvdt1l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gruwn5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nn2rg4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05m8a0x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12yz0v1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bjvxew">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1osrdtd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qu6qtp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0300zqp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10zk8zt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kbe546">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0to703l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nmon9x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10wazn8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09i07qe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13tbvs4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0adm97l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0axqzrx">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hbvoi9">
+          <text>"uploadTranslatedOrderDocument"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_103kf4e">
+          <text>"Upload Translated Order document"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1es2k8t">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0actpmg">
           <text>"requestTranslation"</text>
         </outputEntry>
       </rule>
@@ -45400,7 +45596,7 @@ else
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1shmfmg">
-          <text></text>
+          <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_13jyyrv">
           <text></text>
@@ -45788,7 +45984,7 @@ else
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0jbzo2m">
-          <text></text>
+          <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0h2p55r">
           <text></text>
@@ -45863,6 +46059,200 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_18szad0">
+          <text>"requestTranslation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00ftgb0">
+        <inputEntry id="UnaryTests_0mkwrtl">
+          <text>"STANDARD_DIRECTION_ORDER_DJ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bfzu7j">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oak8se">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17sj3os">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16bans1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xym8p4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zgu6wp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ww7ljc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gsjr60">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_123zv17">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lv6bat">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03m6zco">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ffjppl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08e1lwj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05o5n85">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_115j2oi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04y4n2x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v4dyg9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11e9vqr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_037f6d8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p9rw11">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tplaah">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uokmzl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k6b7hu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uwar47">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05ysze3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vzjvrg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_038pimo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00tatr9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0digcnf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13wq9h7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dtst6q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mmo07u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18dq7t4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16xcun5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09upcav">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07nlt29">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c72mp1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05t9eb9">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f83s2u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pgtbe9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cjc43f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bsehxs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i6b9s7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jcvbeq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1puzpqh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13jd2t1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wk3lhk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14h10vz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xfvpc0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06ibpi2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nhjcgp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x8i11z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_166p4f3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02afijh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tvz9kz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vplyav">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tuijs0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pjerur">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fnkvhd">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gr7j37">
+          <text>"uploadTranslatedOrderDocument"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rf6rcu">
+          <text>"Upload Translated Order document"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wlr5iu">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_165bbcc">
           <text>"requestTranslation"</text>
         </outputEntry>
       </rule>
@@ -45982,7 +46372,7 @@ else
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_05dbr4d">
-          <text></text>
+          <text>false</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0f724xn">
           <text></text>
@@ -46057,6 +46447,200 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0ld37ep">
+          <text>"requestTranslation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pi1vfp">
+        <inputEntry id="UnaryTests_0wften6">
+          <text>"STANDARD_DIRECTION_ORDER_DJ"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hgofhz">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jofvmp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ttbhza">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jkyjui">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1eiei1m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07zqbah">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11r8izh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_083ynst">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fjx08q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vr9jpi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c1hpuq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qm4ne1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xthyvn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nuyp4g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nrffxv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1471w6p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15ysoaj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h1nx1i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08ikn6c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oa82oy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dmkrn9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tjbhx9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hwn3qk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09fni4d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v5rqpz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l7di8g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n9fcb6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1om1nr7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mv889u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09nm0af">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xg4x5r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dhuezz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10etlmg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ai32k8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0463nhq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jbuvde">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zy89j9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hp11cd">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pv8ljk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06v58jc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ps2xot">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ndscqr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yjbwps">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q6wvxg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l4mb0l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w71mem">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qpz44u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_159ydqy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0j38bww">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jjegnj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a2if30">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ul181u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jsqjli">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qdt0ea">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03vpmmj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hypths">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05qndcz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1aum3vg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13xedss">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ie6rlh">
+          <text>"uploadTranslatedOrderDocument"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0g842sd">
+          <text>"Upload Translated Order document"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13k26ff">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12jpytw">
           <text>"requestTranslation"</text>
         </outputEntry>
       </rule>
@@ -71916,7 +72500,7 @@ else
           <text>"CASE_SETTLED"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_17luvk1">
-          <text>"HMC_LIP"</text>
+          <text>"HMC_LIP",</text>
         </inputEntry>
         <inputEntry id="UnaryTests_12qt9fl">
           <text></text>
@@ -73267,6 +73851,588 @@ else
         </outputEntry>
         <outputEntry id="LiteralExpression_09gs4mq">
           <text>"queryResponseTasks,queryManagement_queryID_" + additionalData.Data.qmLatestQuery.queryId</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o9kv2x">
+        <inputEntry id="UnaryTests_0enk2e2">
+          <text>"REQUEST_FOR_RECONSIDERATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y3f0le">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02x5mr2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o14ijt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gwyr6a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i1vgda">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l9kcnd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ua1c30">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v7g1hn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16ujg3u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tc13yc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sbp115">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ndt267">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ao0ee0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0enubj1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xhgm1d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c27tfv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jkmv8w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1do4pap">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06qf5vz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1upfszb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d7z275">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bu0rc5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12ltodr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gge733">
+          <text>"WELSH","BOTH"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nhph9p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yotp0i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_195k7op">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g59h3u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1escu8o">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10ibgn7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fngno9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qcvuam">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ftzzk0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uwdazp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yrrv0x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h0mdbi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09f37r6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ly5jni">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15c1d5y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vcsyhw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rpj7hm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t6jbn7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jdo5ml">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xwkx7n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06abm8m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cejara">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06tjruu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0girt6k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bz7zb8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n09u77">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jyu9s3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tqmc4w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q5485q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1593l1c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00hkihb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06fblud">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10h0rhu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xbmfjr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ezj8e5">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07vu3ek">
+          <text>"uploadTranslatedOrderDocument"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09ajc8b">
+          <text>"Upload Translated Order document"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i1if23">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1f7kx5p">
+          <text>"requestTranslation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1br963u">
+        <inputEntry id="UnaryTests_0x9v6ys">
+          <text>"REQUEST_FOR_RECONSIDERATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hedjny">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dse8ax">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o9cp2f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wpuil5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nxp0ne">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00bdicn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0910www">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d6d3f7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kgr3yx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ym72yd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wp786r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h2bllz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yjjh6j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08jt7sp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m25tcx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14n96u2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wis1m9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t7al9h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c00gfw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h49qne">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oxntpw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14tulca">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_189rdoz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uryfra">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ezwb00">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ofyu0f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cp1dsl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17bares">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h7ybhv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rdvtkn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tgcsto">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l3iah6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1o9upc9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yxx1dv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uhrv3b">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ssqrm8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w5zset">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_109b35h">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ijviam">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19ascbc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08owfux">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qspp8z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13ikm2l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0423sew">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uscwj7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a28kxb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sl478c">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15upj7n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rjsy33">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mlsjip">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iuj3qy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17rvbtn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v0i677">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d70x6t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g1jbrq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0taeqkf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1inm70l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14s2vp1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1k7slwc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_020u69o">
+          <text>"uploadTranslatedOrderDocument"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12sfx9m">
+          <text>"Upload Translated Order document"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kz7xuy">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_107t0hs">
+          <text>"requestTranslation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0f5qfxn">
+        <inputEntry id="UnaryTests_1f1m79v">
+          <text>"REQUEST_FOR_RECONSIDERATION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11dzl33">
+          <text>"CASE_PROGRESSION"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k74lzz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_006o27k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0273fac">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1axr7iy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vz15l5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qj8jud">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wjvocf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04u9di8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1npxmj7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04rd7gk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k5f0qz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ljlclh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zikabt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n232rx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_003r1yo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1585q0x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nlnbwh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hzl8v2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e83v39">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kwk7e2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p3qcml">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o1bjzv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05ere5t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00i1hrk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0at6dwb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11t9hbh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mlcqx9">
+          <text>"WELSH","BOTH"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d7x02y">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lsl2rp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ar39v1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ztraq1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lc0squ">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fnzj2e">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lz8bjj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dwkbf3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uj86wc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08w35nb">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0njyzdz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ayhacl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iw1dhb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h1tn8d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hriota">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uv3bh2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dqf3n3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14ieqas">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1g95aq9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ojosp0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r62x7u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08dl689">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1161dqm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0msswo0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kv41sg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1esaz0h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pjcx06">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fp5v5s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uxo5t8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gn0nf0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ppwdf8">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uq50v5">
+          <text>"uploadTranslatedOrderDocument"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wyklpu">
+          <text>"Upload Translated Order document"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fi9uhe">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ydrlf7">
+          <text>"requestTranslation"</text>
         </outputEntry>
       </rule>
     </decisionTable>
