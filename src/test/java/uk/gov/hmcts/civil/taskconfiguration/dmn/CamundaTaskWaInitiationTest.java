@@ -3067,6 +3067,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
 
     }
+
     @ParameterizedTest
     @CsvSource({
         "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, false, true, 22-12-2024",
