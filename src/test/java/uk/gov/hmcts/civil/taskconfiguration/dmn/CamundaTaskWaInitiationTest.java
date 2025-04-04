@@ -2173,7 +2173,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(381));
+        assertThat(logic.getRules().size(), is(378));
     }
 
     @ParameterizedTest
@@ -3878,8 +3878,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource({
         "CREATE_SDO, WELSH, ENGLISH",
         "CREATE_SDO, ENGLISH, BOTH",
-        "STANDARD_DIRECTION_ORDER_DJ, WELSH, ENGLISH",
-        "STANDARD_DIRECTION_ORDER_DJ, ENGLISH, BOTH",
         "REQUEST_FOR_RECONSIDERATION, WELSH, ENGLISH",
         "REQUEST_FOR_RECONSIDERATION, ENGLISH, BOTH"
     })
@@ -3910,7 +3908,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     @ParameterizedTest
     @CsvSource({
         "CREATE_SDO, ENGLISH, ENGLISH",
-        "STANDARD_DIRECTION_ORDER_DJ, ENGLISH, ENGLISH",
         "REQUEST_FOR_RECONSIDERATION, ENGLISH, ENGLISH"
     })
     void given_input_should_not_return_upload_translated_order_document(
