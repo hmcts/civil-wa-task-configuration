@@ -3876,14 +3876,15 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CREATE_SDO, WELSH, ENGLISH",
-        "CREATE_SDO, ENGLISH, BOTH",
-        "REQUEST_FOR_RECONSIDERATION, WELSH, ENGLISH",
-        "REQUEST_FOR_RECONSIDERATION, ENGLISH, BOTH"
+        "CREATE_SDO, WELSH, ENGLISH, prod",
+        "CREATE_SDO, ENGLISH, BOTH, CUI_WELSH",
+        "REQUEST_FOR_RECONSIDERATION, WELSH, ENGLISH, CUI_WELSH",
+        "REQUEST_FOR_RECONSIDERATION, ENGLISH, BOTH, CUI_WELSH"
     })
     void given_input_should_return_upload_translated_order_document(
-        String eventId, String DQLanguage, String lipBilingual) {
+        String eventId, String DqLanguage, String lipBilingual, String toggle) {
         Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", toggle);
         data.put("claimantBilingualLanguagePreference", lipBilingual);
         data.put("applicant1DQLanguage", Map.of("documents", DqLanguage));
 
