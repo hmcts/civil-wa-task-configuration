@@ -1197,28 +1197,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_claim_is_settled_create_remove_hearing_task() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "SD");
-        data.put("applicant1Represented", false);
-        data.put("hearingDate", "22-12-2024");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "SETTLE_CLAIM");
-        inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CASE_SETTLED");
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("removeHearing"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
-    }
-
-    @Test
     void given_claim_is_settled_mark_paid_in_full_divergence_create_takeCaseOffline_task() {
 
         Map<String, Object> data = new HashMap<>();
@@ -2195,7 +2173,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(373));
+        assertThat(logic.getRules().size(), is(372));
     }
 
     @ParameterizedTest
@@ -3058,14 +3036,45 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, false, true, 22-12-2024",
-        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, true, false, 22-12-2024",
-        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, false, false, 22-12-2024",
-        "SETTLE_CLAIM, CASE_SETTLED, false, true, 22-12-2024",
-        "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024",
-        "SETTLE_CLAIM, CASE_SETTLED, false, false, 22-12-2024",
+        "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024"
     })
     void given_input_should_return_correct_removeHmcHearingTask_lip(
+        String eventId,
+        String postEventState,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String hearingDate
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        addNonNullField(data, "hearingDate", hearingDate);
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data,"preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, false, true, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, true, false, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, false, false, 22-12-2024"
+    })
+    void given_input_should_return_correct_removeHearingTask(
         String eventId,
         String postEventState,
         boolean applicant1Represented,
