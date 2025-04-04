@@ -3882,10 +3882,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "REQUEST_FOR_RECONSIDERATION, ENGLISH, BOTH"
     })
     void given_input_should_return_upload_translated_order_document(
-        String eventId, String DQLanguage, String lipBilingual ) {
+        String eventId, String DQLanguage, String lipBilingual) {
         Map<String, Object> data = new HashMap<>();
         data.put("claimantBilingualLanguagePreference", lipBilingual);
-        data.put("applicant1DQLanguage", Map.of("documents", DQLanguage));
+        data.put("applicant1DQLanguage", Map.of("documents", DqLanguage));
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -3911,10 +3911,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "REQUEST_FOR_RECONSIDERATION, ENGLISH, ENGLISH"
     })
     void given_input_should_not_return_upload_translated_order_document(
-        String eventId, String DQLanguage, String lipBilingual ) {
+        String eventId, String DqLanguage, String lipBilingual) {
         Map<String, Object> data = new HashMap<>();
         data.put("claimantBilingualLanguagePreference", lipBilingual);
-        data.put("applicant1DQLanguage", Map.of("documents", DQLanguage));
+        data.put("applicant1DQLanguage", Map.of("documents", DqLanguage));
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
