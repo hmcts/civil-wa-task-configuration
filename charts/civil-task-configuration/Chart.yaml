@@ -3,18 +3,18 @@ appVersion: "1.0"
 description: A Helm chart for civil-wa-task-configuration
 name: civil-task-configuration
 home: https://github.com/hmcts/civil-wa-task-configuration
-version: 0.0.16
+version: 0.0.19
 maintainers:
   - name: HMCTS CIVIL team
 dependencies:
-  - name: java
-    version: 5.3.0
+  - name: civil-service
+    version: 0.0.80
     repository: 'oci://hmctspublic.azurecr.io/helm'
+    condition: civil-service.enabled
   - name: ccd
-    version: 8.0.29
+    version: 9.2.1
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
-    tags:
-      - civil-ccd-stack
+    condition: civil-ccd-stack.enabled
   - name: xui-webapp
     version: ~1.0.8
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
@@ -24,6 +24,23 @@ dependencies:
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
     condition: idam-pr.enabled
   - name: camunda-bpm
-    version: 0.0.28
+    version: 0.0.44
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
     condition: camunda-bpm.enabled
+  - name: servicebus
+    version: 1.1.0
+    repository: 'oci://hmctspublic.azurecr.io/helm'
+    condition: servicebus.enabled
+  # WA
+  - name: wa
+    version: ~1.0.6
+    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
+    condition: civil-wa.enabled
+  # CCD message publisher
+  - name: ccd-message-publisher
+    version: ~0.1.7
+    repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
+    condition: civil-wa.enabled
+  - name: java
+    version: 5.3.0
+    repository: 'oci://hmctspublic.azurecr.io/helm'
