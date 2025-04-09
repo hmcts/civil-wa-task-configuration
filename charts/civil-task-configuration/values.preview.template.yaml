@@ -1,129 +1,190 @@
-tags:
-  civil-ccd-stack: true
+global:
+  jobKind: CronJob
+
+civil-ccd-stack:
+  enabled: true
+
+civil-wa:
+  enabled: true
+camunda-bpm:
+  enabled: false
 
 java:
-  applicationPort: 4000
-  image: 'hmctspublic.azurecr.io/civil/service:latest'
-  imagePullPolicy: Always
-  ingressHost: ${SERVICE_NAME}.preview.platform.hmcts.net
-  keyVaults:
-    civil:
-      resourceGroup: civil
-      secrets:
-        - name: civil-idam-client-secret
-          alias: idam.client.secret
-        - name: microservicekey-civil-service
-          alias: idam.s2s-auth.totp_secret
-        - name: system-update-user-username
-          alias: CIVIL_SYSTEM_UPDATE_USERNAME
-        - name: system-update-user-password
-          alias: CIVIL_SYSTEM_UPDATE_PASSWORD
-        - name: cross-access-user-username
-          alias: CIVIL_CROSS_ACCESS_USERNAME
-        - name: cross-access-user-password
-          alias: CIVIL_CROSS_ACCESS_PASSWORD
-        - name: prd-admin-user-username
-          alias: CIVIL_PRD_ADMIN_USERNAME
-        - name: prd-admin-user-password
-          alias: CIVIL_PRD_ADMIN_PASSWORD
-        - name: appinsights-connection-string
-          alias: appinsights-connection-string
-        - name: AppInsightsInstrumentationKey
-          alias: azure.application-insights.instrumentation-key
-        - name: docmosis-api-key
-          alias: docmosis.tornado.key
-#        - name: cmc-db-password-v11
-#          alias: CMC_DB_PASSWORD
-        - name: gov-notify-api-key
-          alias: GOV_NOTIFY_API_KEY
-        - name: sendgrid-api-key
-          alias: SENDGRID_API_KEY
-        - name: robotics-notification-sender
-          alias: robotics.notification.sender
-        - name: robotics-notification-recipient
-          alias: robotics.notification.recipient
-        - name: launch-darkly-sdk-key-non-prod
-          alias: LAUNCH_DARKLY_SDK_KEY
-        - name: robotics-notification-multipartyrecipient
-          alias: robotics.notification.multipartyrecipient
-        - name: robotics-notification-recipient-spec
-          alias: robotics.notification.specRecipient
-        - name: robotics-notification-recipient-lipj
-          alias: robotics.notification.lipJRecipient
-        - name: ordnance-survey-api-key
-          alias: OS_POSTCODE_LOOKUP_API_KEY
-        - name: notification-caseworker-spec-receiver
-          alias: notification.caseworker.spec.receiver
-        - name: mediation-notification-sender
-          alias: mediation.emails.sender
-        - name: mediation-notification-recipient
-          alias: mediation.emails.recipient
-        - name: hmc-servicebus-shared-access-key-tf
-          alias: HMC_HEARINGS_TOPIC_ACCESS_KEY
-  environment:
-    IDAM_CLIENT_ID: civil-service
-    IDAM_CLIENT_REDIRECT_URI: https://civil-camunda-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/oauth2/callback
-    IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
-    IDAM_WEB_URL: https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net
-    IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    MANAGE_CASE_UI_BASE_URL: https://manage-case.{{ .Values.global.environment }}.platform.hmcts.net
-    SPRING_SECURITY_ENABLED: true
-    CMC_DB_PORT: 5432
-    SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: https://forgerock-am.service.core-compute-idam-{{ .Values.global.environment }}.internal:8443/openam/oauth2/hmcts
-    SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/jwks
-    AUTH_IDAM_CLIENT_BASEURL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
-    AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    OIDC_ISSUER: https://forgerock-am.service.core-compute-idam-aat2.internal:8443/openam/oauth2/realms/root/realms/hmcts
-    TESTING_SUPPORT_ENABLED: true
-    FEES_API_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    GENAPP_LRD_URL: http://rd-location-ref-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    GENAPP_JRD_URL: http://rd-judicial-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    PAYMENTS_API_URL: http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    DOCMOSIS_TORNADO_URL: https://docmosis.aat.platform.hmcts.net
-    DOCUMENT_MANAGEMENT_URL: http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    SEND_LETTER_URL: http://rpe-send-letter-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    CUI_URL: https://civil-citizen-ui.{{ .Values.global.environment }}.platform.hmcts.net
-    CUI_URL_RESPOND_TO_CLAIM: https://civil-citizen-ui.{{ .Values.global.environment }}.platform.hmcts.net/first-contact/start
-    SPRING_CLOUD_BOOTSTRAP_ENABLED: true
-    RD_PROFESSIONAL_API_URL: http://rd-professional-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    RD_COMMONDATA_API_URL: http://rd-commondata-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-    LAUNCH_DARKLY_ENV: ${SERVICE_FQDN}
-    CORE_CASE_DATA_API_URL: http://${SERVICE_NAME}-ccd-data-store-api
-    CASE_DOCUMENT_AM_URL: http://ccd-case-document-am-api-aat.service.core-compute-aat.internal
-    CMC_DB_HOST: "{{ .Values.postgresql.releaseNameOverride}}"
-    CMC_DB_CONNECTION_OPTIONS: '?sslmode=allow'
-    CMC_DB_USERNAME: "{{ .Values.postgresql.auth.username}}"
-    CMC_DB_PASSWORD: "{{ .Values.postgresql.auth.password}}"
-    REFERENCE_DATABASE_MIGRATION: true
-    CAMUNDA_URL: http://${SERVICE_NAME}-camunda/engine-rest/
-    STITCHING_API_ENABLED: false
-    POLLING_EVENT_EMITTER_ENABLED: false
-    SERVICE_REQUEST_UPDATE: https://${SERVICE_FQDN}/service-request-update
-    SERVICE_REQUEST_UPDATE_CLAIM_ISSUED: https://${SERVICE_FQDN}/service-request-update-claim-issued
-    CIVIL_S2S_AUTHORISED_SERVICES: payment_app,ccd_data,civil_service,civil-citizen-ui
-    ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
-  postgresql:
-    enabled: true
-    releaseNameOverride: ${SERVICE_NAME}-postgresql
-    image:
-      tag: '11.6.0'
-    primary:
-      persistence:
-        enabled: false
-      resources:
-        requests:
-          cpu: 25m
-      initdb:
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
+
+servicebus:
+  enabled: true
+  releaseNameOverride: ${SERVICE_NAME}
+  resourceGroup: civil-aso-preview-rg
+  sbNamespace: civil-servicebus-preview # due to a bug https://github.com/kubernetes-sigs/kustomize/issues/5072 this value is set to civil, when this bug is resolved, the sbNamespace should be changed to the actual name of the Service Bus Namespace (civil-sb-preview)
+  setup:
+    topics:
+      - name: asb-events
+        subscriptionNeeded: yes
+        requiresSession: true
+      - name: crd-topic
+        subscriptionNeeded: yes
+      - name: jrd-topic
+        subscriptionNeeded: yes
+
+civil-service:
+  enabled: true
+  java:
+    releaseNameOverride: ${SERVICE_NAME}-civil-service
+    imagePullPolicy: Always
+    ingressHost: ${SERVICE_NAME}-civil-service.preview.platform.hmcts.net
+    devcpuRequests: 500m
+    devmemoryRequests: 2048Mi
+    devmemoryLimits: 4096Mi
+    keyVaults:
+      civil:
+        resourceGroup: civil
+        secrets:
+          - name: civil-idam-client-secret
+            alias: idam.client.secret
+          - name: microservicekey-civil-service
+            alias: idam.s2s-auth.totp_secret
+          - name: system-update-user-username
+            alias: CIVIL_SYSTEM_UPDATE_USERNAME
+          - name: system-update-user-password
+            alias: CIVIL_SYSTEM_UPDATE_PASSWORD
+          - name: cross-access-user-username
+            alias: CIVIL_CROSS_ACCESS_USERNAME
+          - name: cross-access-user-password
+            alias: CIVIL_CROSS_ACCESS_PASSWORD
+          - name: prd-admin-user-username
+            alias: CIVIL_PRD_ADMIN_USERNAME
+          - name: prd-admin-user-password
+            alias: CIVIL_PRD_ADMIN_PASSWORD
+          - name: docmosis-api-key
+            alias: docmosis.tornado.key
+          - name: gov-notify-api-key
+            alias: GOV_NOTIFY_API_KEY
+          - name: sendgrid-api-key
+            alias: SENDGRID_API_KEY
+          - name: robotics-notification-sender
+            alias: robotics.notification.sender
+          - name: robotics-notification-recipient
+            alias: robotics.notification.recipient
+          - name: launch-darkly-sdk-key-non-prod
+            alias: LAUNCH_DARKLY_SDK_KEY
+          - name: robotics-notification-multipartyrecipient
+            alias: robotics.notification.multipartyrecipient
+          - name: robotics-notification-recipient-spec
+            alias: robotics.notification.specRecipient
+          - name: robotics-notification-recipient-lipj
+            alias: robotics.notification.lipJRecipient
+          - name: ordnance-survey-api-key
+            alias: OS_POSTCODE_LOOKUP_API_KEY
+          - name: notification-caseworker-spec-receiver
+            alias: notification.caseworker.spec.receiver
+          - name: mediation-notification-sender
+            alias: mediation.emails.sender
+          - name: mediation-notification-recipient
+            alias: mediation.emails.recipient
+          - name: hmc-servicebus-shared-access-key-tf
+            alias: HMC_HEARINGS_TOPIC_ACCESS_KEY
+          - name: ccd-shared-servicebus-connection-string
+            alias: CCD_EVENTS_TOPIC_CONNECTION_STRING
+    environment:
+      IDAM_CLIENT_ID: civil-service
+      IDAM_CLIENT_REDIRECT_URI: https://civil-ccd-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal/oauth2/callback
+      IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
+      IDAM_WEB_URL: https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net
+      IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      MANAGE_CASE_UI_BASE_URL: https://manage-case.{{ .Values.global.environment }}.platform.hmcts.net
+      SPRING_SECURITY_ENABLED: true
+      CMC_DB_PORT: 5432
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: https://forgerock-am.service.core-compute-idam-{{ .Values.global.environment }}.internal:8443/openam/oauth2/hmcts
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net/o/jwks
+      AUTH_IDAM_CLIENT_BASEURL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
+      AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      OIDC_ISSUER: https://forgerock-am.service.core-compute-idam-aat2.internal:8443/openam/oauth2/realms/root/realms/hmcts
+      FEES_API_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      PAYMENTS_API_URL: http://payment-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      GENAPP_LRD_URL: http://rd-location-ref-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      GENAPP_JRD_URL: http://rd-judicial-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      DOCUMENT_MANAGEMENT_URL: http://dm-store-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      SPRING_CLOUD_BOOTSTRAP_ENABLED: true
+      RD_PROFESSIONAL_API_URL: http://rd-professional-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      PAYMENTS_CALLBACK_URL: https://${SERVICE_FQDN}/service-request-update
+      TESTING_SUPPORT_ENABLED: true
+      CORE_CASE_DATA_API_URL: http://${SERVICE_NAME}-ccd-data-store-api
+      CMC_DB_HOST: "{{ .Values.postgresql.releaseNameOverride}}"
+      CMC_DB_CONNECTION_OPTIONS: '?sslmode=allow'
+      CMC_DB_USERNAME: "{{ .Values.postgresql.auth.username}}"
+      CMC_DB_PASSWORD: "{{ .Values.postgresql.auth.postgresPassword}}"
+      REFERENCE_DATABASE_MIGRATION: true
+      CAMUNDA_URL: https://camunda-${SERVICE_FQDN}/engine-rest/
+      STITCHING_API_ENABLED: false
+      SERVICE_REQUEST_UPDATE: https://${SERVICE_NAME}.platform.hmcts.net/service-request-update
+      SERVICE_REQUEST_UPDATE_CLAIM_ISSUED: https://${SERVICE_NAME}.platform.hmcts.net/service-request-update-claim-issued
+      ACA_SERVICE_API_BASEURL: http://${SERVICE_NAME}-aac-manage-case-assignment
+      RELEASE_REVISION: "{{ .Release.Revision }}"
+      POLLING_EVENT_EMITTER_ENABLED: false
+      HMC_HEARINGS_SUBSCRIPTION_ENABLED: false
+      ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
+      CIVIL_S2S_AUTHORISED_SERVICES: payment_app,ccd_data,civil_service,civil-citizen-ui
+      DOCMOSIS_TORNADO_URL: https://docmosis.aat.platform.hmcts.net
+      CCD_EVENTS_TOPIC_NAME: ${SERVICE_NAME}-asb-events
+      CCD_EVENTS_SUBSCRIPTION_NAME: ${SERVICE_NAME}-asb-events
+      LAUNCH_DARKLY_ENV: ${SERVICE_FQDN}
+    secrets:
+      CMC_DB_PASSWORD:
+        secretRef: postgres
+        key: PASSWORD
+        disabled: true
+      CCD_EVENTS_TOPIC_CONNECTION_STRING:
+        secretRef: civil-sb-preview
+        key: connectionString
+    postgresql:
+      enabled: true
+      releaseNameOverride: ${SERVICE_NAME}-postgresql
+      image:
+        registry: hmctspublic.azurecr.io
+        repository: imported/bitnami/postgresql
+        tag: '11.6.0'
+      auth:
+        username: ${POSTGRES_USER}
+        password: ${POSTGRES_PASSWORD}
+        database: cft_task_db
+        postgresPassword: ${POSTGRES_PASSWORD}
+      primary:
+        persistence:
+          enabled: false
+        extraEnvVars:
+          - name: POSTGRESQL_WAL_LEVEL
+            value: "logical"
+          - name: POSTGRESQL_MAX_CONNECTIONS
+            value: "400"
+        extendedConfiguration: |
+          max_connections = 400
+          shared_buffers = 512MB
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2048Mi
+        podAnnotations:
+          cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+        initdb:
+          user: postgres
+          password: ${POSTGRES_PASSWORD}
           scripts:
-            init.sql: |-
+            01_init_civil.sql: |
               CREATE DATABASE cmc WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
               CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
               CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
               CREATE DATABASE "camunda" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
               CREATE DATABASE "role_assignment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
-    auth:
-      username: hmcts
-      password: hmcts
+              CREATE DATABASE "ts_translation_service" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "emstitch" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+            02_init_wa.sql: |
+              CREATE DATABASE "wa-task-management-api" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "wa-case-event-handler" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "wa_workflow_api" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "cft_task_db" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+              CREATE DATABASE "cft_task_db_replica" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
 
 idam-pr:
   releaseNameOverride: ${SERVICE_NAME}-xui-idam-pr
@@ -151,6 +212,7 @@ xui-webapp:
       SERVICES_CCD_DATA_STORE_API: http://${SERVICE_NAME}-ccd-data-store-api
       SERVICES_TERMS_AND_CONDITIONS: http://xui-terms-and-conditions-${SERVICE_FQDN}.service.core-compute-preview.internal
       JURISDICTIONS: CIVIL
+      WA_SUPPORTED_JURISDICTIONS: "IA,PRIVATELAW,CIVIL"
       LAUNCH_DARKLY_CLIENT_ID: ~
 ccd:
   ccd:
@@ -167,7 +229,7 @@ ccd:
     postgresql:
       enabled: false
     ras:
-      enabled: true
+      enabled: false
 
     userProfileImporter:
       enabled: false
@@ -183,6 +245,9 @@ ccd:
     idamApiUrl: https://idam-api.aat.platform.hmcts.net
     idamWebUrl: https://idam-web-public.aat.platform.hmcts.net
     s2sUrl: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    postgresUsername: hmcts
+    postgresPassword: ${POSTGRES_PASSWORD}
+    postgresSecret: postgres
 
   ccd-api-gateway-web:
     nodejs:
@@ -205,7 +270,9 @@ ccd:
         CASE_DOCUMENT_AM_API_ATTACH_DOCUMENT_ENABLED: false
         DATA_STORE_DB_HOST: ${SERVICE_NAME}-postgresql
         DATA_STORE_IDAM_KEY: ${CCD_DATA_STORE_S2S_SECRET}
-        DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_ps,bulk_scan_orchestrator,ccpay_bubble,ctsc_work_allocation,em_ccd_orchestrator,xui_webapp,civil_service,ccd_case_document_am_api
+        DATA_STORE_DB_OPTIONS: "?stringtype=unspecified"
+        DATA_STORE_DB_PASSWORD: ${POSTGRES_PASSWORD}
+        DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_ps,bulk_scan_orchestrator,ccpay_bubble,ctsc_work_allocation,em_ccd_orchestrator,xui_webapp,civil_service,ccd_case_document_am_api,aac_manage_case_assignment,wa_task_management_api,wa_task_monitor,wa_case_event_handler,wa_workflow_api,civil_general_applications
         IDAM_API_BASE_URL: https://idam-api.aat.platform.hmcts.net
         IDAM_OIDC_URL:  https://idam-web-public.aat.platform.hmcts.net
         OIDC_ISSUER: https://forgerock-am.service.core-compute-idam-aat2.internal:8443/openam/oauth2/realms/root/realms/hmcts
@@ -221,13 +288,11 @@ ccd:
         ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
       disableKeyVaults: true
       ingressHost: ccd-data-store-api-${SERVICE_FQDN}
-
-  am-role-assignment-service:
-    java:
-      keyVaults:
-        am:
-          secrets:
-            - role-assignment-service-LD-SDK-KEY
+      secrets:
+        DATA_STORE_DB_PASSWORD:
+          secretRef: "{{ .Values.global.postgresSecret }}"
+          key: PASSWORD
+          disabled: true
 
   ccd-definition-store-api:
     java:
@@ -238,26 +303,153 @@ ccd:
         IDAM_USER_URL: https://idam-web-public.aat.platform.hmcts.net
         DEFINITION_STORE_TX_TIMEOUT_DEFAULT: 60
         WELSH_TRANSLATION_ENABLED: false
+        DEFINITION_STORE_DB_OPTIONS: "?stringtype=unspecified"
+        DEFINITION_STORE_DB_PASSWORD: ${POSTGRES_PASSWORD}
       disableKeyVaults: true
       ingressHost: ccd-definition-store-${SERVICE_FQDN}
+      secrets:
+        DEFINITION_STORE_DB_PASSWORD:
+          secretRef: "{{ .Values.global.postgresSecret }}"
+          key: PASSWORD
+          disabled: true
 
   postgresql:
     persistence:
       enabled: false
 
-camunda-bpm:
-  enabled: true
+wa:
+  global:
+    postgresUsername: hmcts
+    postgresSecret: postgres
+    postgresHost: ${SERVICE_NAME}-postgresql
+  #    postgresHost: civil-preview.postgres.database.azure.com
+  #    databaseNamePrefix: "pr-${CHANGE_ID}-"
+  wa:
+    postgresql:
+      enabled: false
+  wa-case-event-handler:
+    java:
+      ingressHost: wa-case-event-handler-${SERVICE_FQDN}
+      releaseNameOverride: ${SERVICE_NAME}-wa-case-event-handler
+      secrets:
+        AZURE_SERVICE_BUS_CONNECTION_STRING:
+          secretRef: civil-sb-preview
+          key: connectionString
+        POSTGRES_PASSWORD:
+          secretRef: "{{ .Values.global.postgresSecret }}"
+          key: PASSWORD
+          disabled: true
+      environment:
+        CCD_URL: http://{{ .Release.Name }}-ccd-data-store-api
+        CCD_SEARCH_URL: http://{{ .Release.Name }}-ccd-data-store-api
+        ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
+        AZURE_SERVICE_BUS_TOPIC_NAME: ${SERVICE_NAME}-asb-events
+        AZURE_SERVICE_BUS_SUBSCRIPTION_NAME: ${SERVICE_NAME}-asb-events
+        #AZURE_SERVICE_BUS_TOPIC_NAME: servicebus-topic-{{ .Release.Name }}-asb-ccd-case-events
+        AZURE_SERVICE_BUS_CCD_CASE_EVENTS_SUBSCRIPTION_NAME: ${SERVICE_NAME}-asb-events
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_CONNECTION_OPTIONS: "?stringtype=unspecified"
+
+  wa-task-monitor:
+    java:
+      ingressHost: wa-task-monitor-${SERVICE_FQDN}
+      environment:
+        WA_TASK_MANAGEMENT_API_URL: http://{{ .Release.Name }}-wa-task-management-api
+        ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
+
+  wa-task-management-api:
+    java:
+      ingressHost: wa-task-mng-${SERVICE_FQDN}
+      environment:
+        ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
+        POSTGRES_CONNECTION_OPTIONS: "?stringtype=unspecified"
+        POSTGRES_HOST: "{{ .Release.Name }}-postgresql"
+        POSTGRES_REPLICA_HOST: "{{ .Release.Name }}-postgresql"
+        POSTGRES_REPLICA_PORT: 5432
+        POSTGRES_NAME: "cft_task_db"
+        POSTGRES_REPLICA_NAME: "cft_task_db_replica"
+        POSTGRES_USERNAME: postgres
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        REPLICATION_USERNAME: postgres
+        REPLICATION_PASSWORD: ${POSTGRES_PASSWORD}
+        SPRING_PROFILES_ACTIVE: "preview"
+        DB_READER_USERNAME: postgres
+      secrets:
+        POSTGRES_PASSWORD:
+          secretRef: "{{ .Values.global.postgresSecret }}"
+          key: PASSWORD
+          disabled: true
+  wa-workflow-api:
+    java:
+      environment:
+        DB_READER_USERNAME: "hmcts"
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_CONNECTION_OPTIONS: "?stringtype=unspecified"
+        CAMUNDA_URL: https://camunda-${SERVICE_FQDN}/engine-rest/
+    secrets:
+      POSTGRES_PASSWORD:
+        secretRef: "{{ .Values.global.postgresSecret }}"
+        key: PASSWORD
+        disabled: true
+  wa-initiation-batch:
+    job:
+      schedule: "*/1 * * * *"
+      releaseNameOverride: "{{ .Release.Name }}-wa-task-batch"
+  wa-reconfiguration-batch:
+    job:
+      schedule: "*/1 * * * *"
+      releaseNameOverride: "{{ .Release.Name }}-reconfiguration"
+  wa-termination-batch:
+    job:
+      schedule: "*/1 * * * *"
+      releaseNameOverride: "{{ .Release.Name }}-termination-batch"
+  wa-message-cron-service:
+    job:
+      schedule: "*/1 * * * *"
+      releaseNameOverride: "{{ .Release.Name }}-wa-message-cron"
+
+  camunda-bpm:
+    java:
+      environment:
+        CAMUNDA_DB_USER_NAME: "hmcts"
+        CAMUNDA_DB_PASSWORD: ${POSTGRES_PASSWORD}
+        CAMUNDA_DB_CONN_OPTIONS: "?stringtype=unspecified"
+        CAMUNDA_DB_NAME: 'camunda'
+        TASK_MANAGEMENT_API_URL: http://{{ .Release.Name }}-wa-task-management-api
+        CAMUNDA_API_AUTH_ENABLED: false
+        CAMUNDA_DB_HOST: ${SERVICE_NAME}-postgresql
+        CAMUNDA_BPM_DATABASE_SCHEMA_UPDATE: true
+        ingressHost: camunda-${SERVICE_FQDN}
+        disableKeyVaults: true
+        releaseNameOverride: ${SERVICE_NAME}-camunda
+        S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+      secrets:
+        CAMUNDA_DB_PASSWORD:
+          secretRef: "{{ .Values.global.postgresSecret }}"
+          key: PASSWORD
+          disabled: true
+
+ccd-message-publisher:
   java:
-    disableKeyVaults: true
-    releaseNameOverride: ${SERVICE_NAME}-camunda
-    ingressHost: camunda-${SERVICE_FQDN}
-    imagePullPolicy: Always
+    ingressHost: ccd-message-publisher-${SERVICE_FQDN}
+    releaseNameOverride: ${SERVICE_NAME}-ccd-message-publisher
+    keyVaults:
+      ccd:
+        secrets:
+          - name: AppInsightsInstrumentationKey
+            alias: azure.application-insights.instrumentation-key
     environment:
-      CAMUNDA_API_AUTH_ENABLED: false
-      CAMUNDA_DB_HOST: ${SERVICE_NAME}-postgresql
-      CAMUNDA_DB_NAME: camunda
-      CAMUNDA_DB_USER_NAME: hmcts
-      CAMUNDA_DB_PASSWORD: hmcts
-      CAMUNDA_BPM_DATABASE_SCHEMA_UPDATE: true
-      S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-      CAMUNDA_DB_CONN_OPTIONS: ""
+      DATA_STORE_DB_HOST: "{{ .Release.Name }}-postgresql"
+      DATA_STORE_DB_NAME: "data-store"
+      DATA_STORE_DB_USERNAME: hmcts
+      DATA_STORE_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DATA_STORE_DB_OPTIONS: "?stringtype=unspecified"
+      CCD_CASE_EVENTS_DESTINATION: ${SERVICE_NAME}-asb-events
+    secrets:
+      SERVICE_BUS_CONNECTION_STRING:
+        secretRef: civil-sb-preview
+        key: connectionString
+      DATA_STORE_DB_PASSWORD:
+        secretRef: postgres
+        key: PASSWORD
+        disabled: true
