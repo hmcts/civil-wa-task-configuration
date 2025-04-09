@@ -206,6 +206,11 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
                 outcome
             ),
             Arguments.of(
+                "AWAITING_APPLICATION_PAYMENT", "END_BUSINESS_PROCESS_GASPEC",
+                "APPLICATION_DISMISSED",
+                outcome
+            ),
+            Arguments.of(
                 "APPLICATION_ADD_PAYMENT", "MODIFY_STATE_AFTER_ADDITIONAL_FEE_PAID",
                 "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION",
                 outcome
@@ -279,7 +284,7 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(10));
+        assertThat(logic.getRules().size(), is(11));
     }
 
 
