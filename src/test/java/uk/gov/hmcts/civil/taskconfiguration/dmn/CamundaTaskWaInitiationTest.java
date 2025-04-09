@@ -1197,28 +1197,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_claim_is_settled_create_remove_hearing_task() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "SD");
-        data.put("applicant1Represented", false);
-        data.put("hearingDate", "22-12-2024");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "SETTLE_CLAIM");
-        inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CASE_SETTLED");
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("removeHearing"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("caseProgression"));
-    }
-
-    @Test
     void given_claim_is_settled_mark_paid_in_full_divergence_create_takeCaseOffline_task() {
 
         Map<String, Object> data = new HashMap<>();
@@ -1250,13 +1228,14 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "SD");
         data.put("applicant1Represented", false);
         data.put("hearingDate", "22-12-2024");
+        data.put("preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "SETTLE_CLAIM_MARK_PAID_FULL");
         inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CLOSED");
+        inputVariables.putValue("postEventState", "CASE_STAYED");
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -2194,7 +2173,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(373));
+        assertThat(logic.getRules().size(), is(372));
     }
 
     @ParameterizedTest
@@ -2480,7 +2459,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, 22-12-2024",
         "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024"
     })
     void given_input_should_return_correct_removeHmcHearingTask_noLipSmallClaimUnspec(
@@ -2493,6 +2472,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "SD");
         data.put("allocatedTrack", "SMALL_CLAIM");
         addNonNullField(data, "hearingDate", hearingDate);
+        addNonNullField(data,"preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
 
         Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
@@ -2511,7 +2491,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, 22-12-2024, 1",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, 22-12-2024, 1",
         "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024, 1"
     })
     void given_input_should_return_correct_removeHmcHearingTask_noLipFastClaimUnspec(
@@ -2525,6 +2505,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "SD");
         data.put("allocatedTrack", "FAST_CLAIM");
         addNonNullField(data, "hearingDate", hearingDate);
+        addNonNullField(data,"preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
 
         Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
@@ -2543,7 +2524,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, 22-12-2024, 1",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, 22-12-2024, 1",
         "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024, 1"
     })
     void given_input_should_return_correct_removeHmcHearingTask_noLipSmallClaimSpec(
@@ -2557,6 +2538,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "SD");
         data.put("responseClaimTrack", "SMALL_CLAIM");
         addNonNullField(data, "hearingDate", hearingDate);
+        addNonNullField(data,"preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
 
         Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
@@ -2575,7 +2557,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, 22-12-2024, 1",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, 22-12-2024, 1",
         "SETTLE_CLAIM, CASE_SETTLED, 22-12-2024, 1"
     })
     void given_input_should_return_correct_removeHmcHearingTask_noLipFastClaimSpec(
@@ -2589,6 +2571,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "SD");
         data.put("responseClaimTrack", "FAST_CLAIM");
         addNonNullField(data, "hearingDate", hearingDate);
+        addNonNullField(data,"preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
 
         Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
@@ -3053,12 +3036,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, true, 22-12-2024",
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, true, false, 22-12-2024",
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, false, 22-12-2024",
-        "SETTLE_CLAIM, CASE_SETTLED, false, true, 22-12-2024",
-        "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024",
-        "SETTLE_CLAIM, CASE_SETTLED, false, false, 22-12-2024",
+        "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024"
     })
     void given_input_should_return_correct_removeHmcHearingTask_lip(
         String eventId,
@@ -3073,6 +3051,43 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         addNonNullField(data, "hearingDate", hearingDate);
         addNonNullField(data, "applicant1Represented", applicant1Represented);
         addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data,"preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Remove Hearing - HMC"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("RemoveHMCHearing"));
+
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, false, true, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, true, false, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, false, false, 22-12-2024"
+    })
+    void given_input_should_return_correct_removeHearingTask(
+        String eventId,
+        String postEventState,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String hearingDate
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        addNonNullField(data, "hearingDate", hearingDate);
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data,"preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
         Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
@@ -3563,9 +3578,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, true, 22-12-2024",
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, true, false, 22-12-2024",
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, false, false, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, false, true, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, true, false, 22-12-2024",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, false, false, 22-12-2024",
         "LIP_CLAIM_SETTLED, CASE_SETTLED, false, true, 22-12-2024",
         "SETTLE_CLAIM, CASE_SETTLED, true, false, 22-12-2024",
         "LIP_CLAIM_SETTLED, CASE_SETTLED, false, false, 22-12-2024"
@@ -3583,6 +3598,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         addNonNullField(data, "hearingDate", hearingDate);
         addNonNullField(data, "applicant1Represented", applicant1Represented);
         addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
         Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", eventId);
@@ -3639,7 +3655,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "HEARING_FEE_UNPAID, CASE_DISMISSED, MULTI_CLAIM, , , removeHearing",
         "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT, , MULTI_CLAIM, , validateDiscontinuance, removeHearing",
         "DISCONTINUE_CLAIM_CLAIMANT, , MULTI_CLAIM, discontinuanceType, , removeHearing",
-        "SETTLE_CLAIM_MARK_PAID_FULL, CLOSED, MULTI_CLAIM, , , removeHearing",
+        "SETTLE_CLAIM_MARK_PAID_FULL, CASE_STAYED, MULTI_CLAIM, , , removeHearing",
         "SETTLE_CLAIM, CASE_SETTLED, MULTI_CLAIM, , , removeHearing",
     })
     void given_input_should_return_remove_hearing_minti_unspec(String eventName, String postState, String multiOrIntermediate,
@@ -3647,6 +3663,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         Map<String, Object> data = new HashMap<>();
         data.put("hearingDate", "22-12-2024");
         data.put("allocatedTrack", multiOrIntermediate);
+        data.put("preStayState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
 
         if (nonNull(discontinuanceType)) {
             data.put("isDiscontinuingAgainstBothDefendants", "YES");
