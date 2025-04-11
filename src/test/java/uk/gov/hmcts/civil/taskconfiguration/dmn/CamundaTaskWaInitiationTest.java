@@ -2174,7 +2174,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(376));
+        assertThat(logic.getRules().size(), is(382));
     }
 
     @ParameterizedTest
@@ -3873,5 +3873,63 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CREATE_SDO, WELSH, ENGLISH, prod",
+        "CREATE_SDO, ENGLISH, BOTH, CUI_WELSH",
+        "REQUEST_FOR_RECONSIDERATION, WELSH, ENGLISH, CUI_WELSH",
+        "REQUEST_FOR_RECONSIDERATION, ENGLISH, BOTH, CUI_WELSH"
+    })
+    void given_input_should_return_upload_translated_order_document(
+        String eventId, String dqLanguage, String lipBilingual, String toggle) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", toggle);
+        data.put("claimantBilingualLanguagePreference", lipBilingual);
+        data.put("applicant1DQLanguage", Map.of("documents", dqLanguage));
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CREATE_SDO, ENGLISH, ENGLISH",
+        "REQUEST_FOR_RECONSIDERATION, ENGLISH, ENGLISH"
+    })
+    void given_input_should_not_return_upload_translated_order_document(
+        String eventId, String dqLanguage, String lipBilingual) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("claimantBilingualLanguagePreference", lipBilingual);
+        data.put("applicant1DQLanguage", Map.of("documents", dqLanguage));
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(0));
     }
 }
