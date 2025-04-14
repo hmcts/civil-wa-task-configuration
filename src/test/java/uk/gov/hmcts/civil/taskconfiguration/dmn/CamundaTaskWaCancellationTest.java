@@ -816,8 +816,21 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
                 "APPLY_NOC_DECISION",
                 null,
                 outcome
+            ),
+            Arguments.of(
+                null,
+                "APPLY_NOC_DECISION_LIP",
+                null,
+                outcome
+            ),
+            Arguments.of(
+                null,
+                "APPLY_NOC_DECISION_DEFENDANT_LIP",
+                null,
+                outcome
             )
         );
+
     }
 
     @Test
@@ -826,6 +839,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(92));
+        assertThat(logic.getRules().size(), is(94));
     }
 }
