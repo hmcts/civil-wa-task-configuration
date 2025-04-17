@@ -2702,7 +2702,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "routine_work",
+            "value", "query_work",
             "canReconfigure", "false"
         )));
         List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
@@ -2749,7 +2749,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "routine_work",
+            "value", "query_work",
             "canReconfigure", "false"
         )));
         List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
