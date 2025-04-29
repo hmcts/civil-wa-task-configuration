@@ -727,6 +727,68 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_english_to_welsh_input_should_return_review_claimant_welsh_request_decision() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> documents = new HashMap<>();
+        Map<String, Object> respondentCaseData = new HashMap<>();
+
+        respondentCaseData.put("respondent1ResponseLanguage", "BOTH");
+        documents.put("documents", "ENGLISH");
+        data.put("claimantBilingualLanguagePreference", "ENGLISH");
+        data.put("applicant1DQLanguage", documents);
+        data.put("respondent1LiPResponse", respondentCaseData);
+        data.put("featureToggleWA", "CUI_WELSH");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_RESPONSE_DQ_LIP_SEALED");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("claimantWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
+    void given_english_to_welsh_input_should_return_review_respondent_welsh_request_decision() {
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> documents = new HashMap<>();
+        Map<String, Object> respondentCaseData = new HashMap<>();
+
+        respondentCaseData.put("respondent1ResponseLanguage", "ENGLISH");
+        documents.put("documents", "ENGLISH");
+        data.put("claimantBilingualLanguagePreference", "BOTH");
+        data.put("respondent1DQLanguage", documents);
+        data.put("respondent1LiPResponse", respondentCaseData);
+        data.put("featureToggleWA", "CUI_WELSH");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DEFENDANT_RESPONSE_CUI");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_RESPONDENT_ACKNOWLEDGEMENT");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("defendantWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @Test
     void given_input_should_return_review_case_flag_for_defendant_during_support_needs() {
         Map<String, Object> data = new HashMap<>();
         data.put("respondent1DQVulnerabilityQuestions", Map.of("vulnerabilityAdjustmentsRequired", true));
@@ -2174,7 +2236,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(382));
+        assertThat(logic.getRules().size(), is(384));
     }
 
     @ParameterizedTest
