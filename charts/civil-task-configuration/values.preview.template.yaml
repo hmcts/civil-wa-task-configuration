@@ -202,7 +202,7 @@ xui-webapp:
     devmemoryLimits: 2Gi
     imagePullPolicy: Always
     releaseNameOverride: ${SERVICE_NAME}-xui-webapp
-    image: hmctspublic.azurecr.io/xui/webapp:pr-4431
+    image: hmctspublic.azurecr.io/xui/webapp:latest
     ingressHost: xui-${SERVICE_FQDN}
     environment:
       HEALTH_CCD_COMPONENT_API: http://${SERVICE_NAME}-ccd-api-gw/health
@@ -211,8 +211,6 @@ xui-webapp:
       SERVICES_CCD_COMPONENT_API: http://${SERVICE_NAME}-ccd-api-gw
       SERVICES_CCD_DATA_STORE_API: http://${SERVICE_NAME}-ccd-data-store-api
       SERVICES_TERMS_AND_CONDITIONS: http://xui-terms-and-conditions-${SERVICE_FQDN}.service.core-compute-preview.internal
-      SERVICES_WORK_ALLOCATION_TASK_API: http://{{ .Release.Name }}-wa-task-management-api
-      SERVICES_WA_WORKFLOW_API_URL: http://wa-workflow-api-${SERVICE_FQDN}
       JURISDICTIONS: CIVIL
       WA_SUPPORTED_JURISDICTIONS: "IA,PRIVATELAW,CIVIL"
       LAUNCH_DARKLY_CLIENT_ID: ~
