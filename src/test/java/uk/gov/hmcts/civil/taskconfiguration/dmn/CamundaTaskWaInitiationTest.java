@@ -2217,7 +2217,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        data.put( "respondent1Represented", false);
+        data.put("respondent1Represented", false);
         inputVariables.putValue("eventId", "LIP_CLAIM_SETTLED");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "CASE_SETTLED");
@@ -2244,7 +2244,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        data.put( "applicant1Represented", false);
+        data.put("applicant1Represented", false);
         inputVariables.putValue("eventId", "LIP_CLAIM_SETTLED");
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "CASE_SETTLED");
