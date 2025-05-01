@@ -726,17 +726,26 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
 
-    @Test
-    void given_english_to_welsh_input_should_return_review_claimant_welsh_request_decision() {
+    @ParameterizedTest
+    @CsvSource({
+        "BOTH, WELSH, ENGLISH, ENGLISH",
+        "ENGLISH, WELSH, ENGLISH, ENGLISH",
+        "BOTH, ENGLISH, ENGLISH, ENGLISH",
+        "ENGLISH, ENGLISH, WELSH, ENGLISH",
+        "ENGLISH, ENGLISH, ENGLISH, BOTH"
+    })
+    void given_english_to_welsh_input_should_return_review_claimant_welsh_request_decision(String respondentLang,
+                                                                                           String respondentDqDocLang,
+                                                                                           String claimantLang,
+                                                                                           String claimantDqDocLang) {
         Map<String, Object> data = new HashMap<>();
-        Map<String, Object> documents = new HashMap<>();
-        Map<String, Object> respondentCaseData = new HashMap<>();
 
-        respondentCaseData.put("respondent1ResponseLanguage", "BOTH");
-        documents.put("documents", "ENGLISH");
-        data.put("claimantBilingualLanguagePreference", "ENGLISH");
-        data.put("applicant1DQLanguage", documents);
-        data.put("respondent1LiPResponse", respondentCaseData);
+        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", respondentLang));
+        data.put("respondent1DQLanguage",Map.of("documents", respondentDqDocLang));
+
+        data.put("claimantBilingualLanguagePreference", claimantLang);
+        data.put("applicant1DQLanguage", Map.of("documents", claimantDqDocLang));
+
         data.put("featureToggleWA", "CUI_WELSH");
 
         Map<String, Object> caseData = new HashMap<>();
@@ -757,17 +766,21 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
 
-    @Test
-    void given_english_to_welsh_input_should_return_review_respondent_welsh_request_decision() {
+    @ParameterizedTest
+    @CsvSource({
+        "WELSH, BOTH, ENGLISH",
+        "ENGLISH, WELSH, ENGLISH",
+        "WELSH, ENGLISH, ENGLISH",
+        "ENGLISH, ENGLISH, WELSH"
+    })
+    void given_english_to_welsh_input_should_return_review_respondent_welsh_request_decision(String respondentLang,
+                                                                                             String respondentDqDocLang,
+                                                                                             String claimantLang) {
         Map<String, Object> data = new HashMap<>();
-        Map<String, Object> documents = new HashMap<>();
-        Map<String, Object> respondentCaseData = new HashMap<>();
+        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", respondentLang));
+        data.put("respondent1DQLanguage",Map.of("documents", respondentDqDocLang));
+        data.put("claimantBilingualLanguagePreference", claimantLang);
 
-        respondentCaseData.put("respondent1ResponseLanguage", "ENGLISH");
-        documents.put("documents", "ENGLISH");
-        data.put("claimantBilingualLanguagePreference", "BOTH");
-        data.put("respondent1DQLanguage", documents);
-        data.put("respondent1LiPResponse", respondentCaseData);
         data.put("featureToggleWA", "CUI_WELSH");
 
         Map<String, Object> caseData = new HashMap<>();
@@ -2236,7 +2249,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(384));
+        assertThat(logic.getRules().size(), is(389));
     }
 
     @ParameterizedTest
