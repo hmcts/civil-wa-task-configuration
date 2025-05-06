@@ -37,7 +37,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
 
-        assertThat(logic.getRules().size(), is(173));
+        assertThat(logic.getRules().size(), is(175));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2702,7 +2702,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "routine_work",
+            "value", "query_work",
             "canReconfigure", "false"
         )));
         List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
@@ -2719,6 +2719,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "false",
             "name", "description",
             "value", "[Respond to a query](/query-management/query/${[CASE_REFERENCE]}/3/" + queryId + ")"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "20"
         )));
     }
 
@@ -2749,7 +2755,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertTrue(workTypeResultList.contains(Map.of(
             "name", "workType",
-            "value", "routine_work",
+            "value", "query_work",
             "canReconfigure", "false"
         )));
         List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
@@ -2772,6 +2778,12 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "false",
             "name", "majorPriority",
             "value", "2000"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "2"
         )));
     }
 }
