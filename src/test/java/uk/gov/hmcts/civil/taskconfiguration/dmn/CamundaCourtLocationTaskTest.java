@@ -68,7 +68,7 @@ class CamundaCourtLocationTaskTest extends DmnDecisionTableBaseUnitTest {
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(280));
+        assertThat(logic.getRules().size(), is(179));
     }
 
 }
