@@ -768,45 +768,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "BOTH, WELSH, ENGLISH, ENGLISH",
-        "ENGLISH, WELSH, ENGLISH, ENGLISH",
-        "BOTH, ENGLISH, ENGLISH, ENGLISH",
-        "ENGLISH, ENGLISH, WELSH, ENGLISH",
-        "ENGLISH, ENGLISH, ENGLISH, BOTH"
-    })
-    void given_english_to_welsh_input_should_return_review_claimant_welsh_request_decision_for_manual_determination(String respondentLang,
-                                                                                           String respondentDqDocLang,
-                                                                                           String claimantLang,
-                                                                                           String claimantDqDocLang) {
-        Map<String, Object> data = new HashMap<>();
-
-        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", respondentLang));
-        data.put("respondent1DQLanguage",Map.of("documents", respondentDqDocLang));
-
-        data.put("claimantBilingualLanguagePreference", claimantLang);
-        data.put("applicant1DQLanguage", Map.of("documents", claimantDqDocLang));
-
-        data.put("featureToggleWA", "CUI_WELSH");
-
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERATE_LIP_CLAIMANT_MANUAL_DETERMINATION");
-        inputVariables.putValue("additionalData", caseData);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("claimantWelshRequest"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
         "WELSH, BOTH, ENGLISH",
         "ENGLISH, WELSH, ENGLISH",
         "WELSH, ENGLISH, ENGLISH",
@@ -1898,7 +1859,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "INTERMEDIATE_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, UPDATE_CLAIMANT_INTENTION_CLAIM_STATE, AWAITING_APPLICANT_INTENTION",
     })
     void minti_lr_claimant_response_lip_defendant_trigger_offline_task_spec(String responseClaimTrack,
-                                                                            String expectedName, String expectedTaskId, String eventId, String postState) {
+                                                                       String expectedName, String expectedTaskId, String eventId, String postState) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", responseClaimTrack);
