@@ -2249,7 +2249,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(388));
+        assertThat(logic.getRules().size(), is(394));
     }
 
     @ParameterizedTest
@@ -4007,4 +4007,44 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(0));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+        "BOTH, WELSH, ENGLISH, ENGLISH",
+        "ENGLISH, WELSH, ENGLISH, ENGLISH",
+        "BOTH, ENGLISH, ENGLISH, ENGLISH",
+        "ENGLISH, ENGLISH, WELSH, ENGLISH",
+        "ENGLISH, ENGLISH, ENGLISH, BOTH"
+    })
+    void given_english_to_welsh_input_should_return_review_claimant_welsh_request_decision_for_manual_determination(String respondentLang,
+                                                                                                                    String respondentDqDocLang,
+                                                                                                                    String claimantLang,
+                                                                                                                    String claimantDqDocLang) {
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", respondentLang));
+        data.put("respondent1DQLanguage",Map.of("documents", respondentDqDocLang));
+
+        data.put("claimantBilingualLanguagePreference", claimantLang);
+        data.put("applicant1DQLanguage", Map.of("documents", claimantDqDocLang));
+
+        data.put("featureToggleWA", "CUI_WELSH");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_LIP_CLAIMANT_MANUAL_DETERMINATION");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("claimantWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
 }
