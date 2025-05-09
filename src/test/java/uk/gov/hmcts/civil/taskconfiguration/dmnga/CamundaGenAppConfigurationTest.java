@@ -206,7 +206,10 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "JudgeDecideOnApplication", "JudgeRevisitApplication",
         "LegalAdvisorDecideOnApplication", "LegalAdvisorRevisitApplication",
         "ScheduleApplicationHearing", "ReviewStayTheClaimApplicationOrder",
-        "ReviewUnlessOrderApplication", "ReviewApplicationOrder","applicationDocumentsWelshRequestAppSum",
+        "ReviewUnlessOrderApplication", "ReviewApplicationOrder", "applicationDocumentsWelshRequestAppSum",
+         "applicationDocumentsWelshRequestAppSumResponded",
+        "applicationDocumentsWelshRequestRespondToMoreInfoRespondent",
+        "applicationDocumentsWelshRequestRespondToWrittenRepRespondent",
         "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
         "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
         "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
@@ -344,7 +347,8 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo",
         "applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule",
         "applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection",
-        "applicationDocumentsWelshRequestFinalOrder"
+        "applicationDocumentsWelshRequestFinalOrder","applicationDocumentsWelshRequestRespondToMoreInfoRespondent",
+        "applicationDocumentsWelshRequestRespondToWrittenRepRespondent"
     })
     void when_applicationDocumentsWelshRequest_then_return_output_attributes(String taskTypeId) {
         Map<String, Object> caseData = new HashMap<>();
