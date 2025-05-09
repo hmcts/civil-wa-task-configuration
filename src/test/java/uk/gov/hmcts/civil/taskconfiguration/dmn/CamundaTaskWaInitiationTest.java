@@ -2249,7 +2249,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(388));
+        assertThat(logic.getRules().size(), is(391));
     }
 
     @ParameterizedTest
@@ -3971,6 +3971,38 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "ENGLISH, BOTH",
+        "BOTH, ENGLISH",
+        "WELSH, WELSH"
+    })
+    void given_input_should_return_upload_interlocutory_judgment_document(
+        String claimantLanguage, String documentLanguage) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CUI_WELSH");
+        data.put("claimantBilingualLanguagePreference", claimantLanguage);
+        data.put("applicant1DQLanguage", Map.of("documents", documentLanguage));
+        data.put("preTranslationDocumentType", "INTERLOCUTORY_JUDGMENT");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_INTERLOCUTORY_JUDGEMENT_DOCUMENT");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
