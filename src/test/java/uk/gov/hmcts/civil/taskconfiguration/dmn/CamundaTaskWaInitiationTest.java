@@ -3984,23 +3984,26 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "ENGLISH, BOTH",
-        "BOTH, ENGLISH",
-        "WELSH, WELSH"
+        "ENGLISH, BOTH, GENERATE_INTERLOCUTORY_JUDGEMENT_DOCUMENT, INTERLOCUTORY_JUDGMENT",
+        "BOTH, ENGLISH, GENERATE_INTERLOCUTORY_JUDGEMENT_DOCUMENT, INTERLOCUTORY_JUDGMENT",
+        "WELSH, WELSH, GENERATE_INTERLOCUTORY_JUDGEMENT_DOCUMENT, INTERLOCUTORY_JUDGMENT",
+        "ENGLISH, BOTH, GENERATE_LIP_CLAIMANT_MANUAL_DETERMINATION, MANUAL_DETERMINATION_DOCUMENT",
+        "BOTH, ENGLISH, GENERATE_LIP_CLAIMANT_MANUAL_DETERMINATION, MANUAL_DETERMINATION_DOCUMENT",
+        "WELSH, WELSH, GENERATE_LIP_CLAIMANT_MANUAL_DETERMINATION, MANUAL_DETERMINATION_DOCUMENT",
     })
     void given_input_should_return_upload_interlocutory_judgment_document(
-        String claimantLanguage, String documentLanguage) {
+        String claimantLanguage, String documentLanguage, String event, String documentName) {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CUI_WELSH");
         data.put("claimantBilingualLanguagePreference", claimantLanguage);
         data.put("applicant1DQLanguage", Map.of("documents", documentLanguage));
-        data.put("preTranslationDocumentType", "INTERLOCUTORY_JUDGMENT");
+        data.put("preTranslationDocumentType", documentName);
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERATE_INTERLOCUTORY_JUDGEMENT_DOCUMENT");
+        inputVariables.putValue("eventId", event);
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
 
