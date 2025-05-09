@@ -3994,6 +3994,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("featureToggleWA", "CUI_WELSH");
         data.put("claimantBilingualLanguagePreference", claimantLanguage);
         data.put("applicant1DQLanguage", Map.of("documents", documentLanguage));
+        data.put("preTranslationDocumentType", "INTERLOCUTORY_JUDGMENT");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
