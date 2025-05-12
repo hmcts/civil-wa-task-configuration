@@ -1064,7 +1064,8 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "ClaimDiscontinuedDivergenceTakeCaseOffline"
+        "ClaimDiscontinuedDivergenceTakeCaseOffline",
+        "ValidateDiscontinuanceCTSC"
     })
     void given_ValidateDiscontinuance_taskType_when_evaluate_dmn_then_return_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();

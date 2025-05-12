@@ -1436,17 +1436,18 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_courtPermissionNeededisTrue_createValidateDiscontinuance() {
+    void given_courtPermissionNeededisTrue_preSdo_True_createValidateDiscontinuance() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "SD");
         data.put("courtPermissionNeeded", "YES");
-
+        data.put("preStayState", "AWAITING_APPLICANT_INTENTION");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
 
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("postEventState", "CASE_STAYED");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -1454,7 +1455,31 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("ValidateDiscontinuance")
+                       .get(0).get("taskId"), is("ValidateDiscontinuanceCTSC")
+        );
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
+    }
+
+    @Test
+    void given_courtPermissionNeededisTrue_preSdo_false_createValidateDiscontinuance() {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "SD");
+        data.put("courtPermissionNeeded", "YES");
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "DISCONTINUE_CLAIM_CLAIMANT");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("ValidateDiscontinuanceAdmin")
         );
         assertThat(workTypeResultList.get(0).get("processCategories"), is("discontinued"));
     }
@@ -2249,7 +2274,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(388));
+        assertThat(logic.getRules().size(), is(389));
     }
 
     @ParameterizedTest
