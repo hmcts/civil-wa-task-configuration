@@ -1635,7 +1635,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void when_taskId_ValidateDiscontinuanceCTSC_then_return_config() {
+    void when_taskId_ValidateDiscontinuanceCtsc_then_return_config() {
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
