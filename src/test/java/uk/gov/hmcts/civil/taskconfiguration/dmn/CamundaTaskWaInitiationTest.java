@@ -4039,4 +4039,35 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(0));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+        "ENGLISH, BOTH",
+        "BOTH, ENGLISH",
+        "WELSH, WELSH"
+    })
+    void given_input_should_return_upload_settlement_agreement_document(
+        String claimantLanguage, String documentLanguage) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CUI_WELSH");
+        data.put("claimantBilingualLanguagePreference", claimantLanguage);
+        data.put("applicant1DQLanguage", Map.of("documents", documentLanguage));
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_LIP_SIGN_SETTLEMENT_AGREEMENT_FORM");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
 }
