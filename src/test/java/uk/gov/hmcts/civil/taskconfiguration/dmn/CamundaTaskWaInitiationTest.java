@@ -780,6 +780,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", respondentLang));
         data.put("respondent1DQLanguage",Map.of("documents", respondentDqDocLang));
         data.put("claimantBilingualLanguagePreference", claimantLang);
+        data.put("respondent1Represented", false);
 
         data.put("featureToggleWA", "CUI_WELSH");
 
@@ -2249,7 +2250,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(363));
+        assertThat(logic.getRules().size(), is(360));
     }
 
     @ParameterizedTest
@@ -3953,17 +3954,20 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CREATE_SDO, WELSH, ENGLISH, prod",
-        "CREATE_SDO, ENGLISH, BOTH, CUI_WELSH",
-        "REQUEST_FOR_RECONSIDERATION, WELSH, ENGLISH, CUI_WELSH",
-        "REQUEST_FOR_RECONSIDERATION, ENGLISH, BOTH, CUI_WELSH"
+        "CREATE_SDO, ENGLISH, BOTH",
+        "CREATE_SDO, BOTH, ENGLISH",
+        "CREATE_SDO, WELSH, WELSH",
+        "REQUEST_FOR_RECONSIDERATION, ENGLISH, BOTH",
+        "REQUEST_FOR_RECONSIDERATION, BOTH, ENGLISH",
+        "REQUEST_FOR_RECONSIDERATION, WELSH, WELSH"
     })
     void given_input_should_return_upload_translated_order_document(
-        String eventId, String dqLanguage, String lipBilingual, String toggle) {
+        String eventId, String dqLanguage, String lipBilingual) {
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", toggle);
+        data.put("featureToggleWA", "CUI_WELSH");
         data.put("claimantBilingualLanguagePreference", lipBilingual);
         data.put("applicant1DQLanguage", Map.of("documents", dqLanguage));
+        data.put("applicant1Represented", false);
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
