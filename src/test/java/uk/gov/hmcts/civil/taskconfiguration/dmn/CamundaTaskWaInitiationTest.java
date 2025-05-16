@@ -2249,7 +2249,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(281));
+        assertThat(logic.getRules().size(), is(287));
     }
 
     @ParameterizedTest
@@ -3994,6 +3994,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "ENGLISH, BOTH, GENERATE_JUDGMENT_BY_ADMISSION_RESPONSE_DOC, CCJ_REQUEST_ADMISSION",
         "BOTH, ENGLISH, GENERATE_JUDGMENT_BY_ADMISSION_RESPONSE_DOC, CCJ_REQUEST_ADMISSION",
         "WELSH, WELSH, GENERATE_JUDGMENT_BY_ADMISSION_RESPONSE_DOC, CCJ_REQUEST_ADMISSION",
+        "ENGLISH, BOTH, GENERATE_JUDGMENT_BY_DETERMINATION_RESPONSE_DOC, CCJ_REQUEST_DETERMINATION",
+        "BOTH, ENGLISH, GENERATE_JUDGMENT_BY_DETERMINATION_RESPONSE_DOC, CCJ_REQUEST_DETERMINATION",
+        "WELSH, WELSH, GENERATE_JUDGMENT_BY_DETERMINATION_RESPONSE_DOC, CCJ_REQUEST_DETERMINATION",
     })
     void given_input_should_return_upload_interlocutory_judgment_or_manual_determination_document(
         String claimantLanguage, String documentLanguage, String event, String documentName) {
