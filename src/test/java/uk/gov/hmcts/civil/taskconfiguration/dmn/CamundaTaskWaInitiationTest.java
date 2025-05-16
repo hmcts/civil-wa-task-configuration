@@ -1549,7 +1549,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                         }
                         return true;
                     }));
-            ;
+
         }
     }
 
@@ -2252,7 +2252,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(360));
+        assertThat(logic.getRules().size(), is(278));
     }
 
     @ParameterizedTest
@@ -3978,6 +3978,41 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("eventId", eventId);
         inputVariables.putValue("additionalData", caseData);
         inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "ENGLISH, BOTH, GENERATE_INTERLOCUTORY_JUDGEMENT_DOCUMENT, INTERLOCUTORY_JUDGMENT",
+        "BOTH, ENGLISH, GENERATE_INTERLOCUTORY_JUDGEMENT_DOCUMENT, INTERLOCUTORY_JUDGMENT",
+        "WELSH, WELSH, GENERATE_INTERLOCUTORY_JUDGEMENT_DOCUMENT, INTERLOCUTORY_JUDGMENT",
+        "ENGLISH, BOTH, GENERATE_LIP_CLAIMANT_MANUAL_DETERMINATION, MANUAL_DETERMINATION_DOCUMENT",
+        "BOTH, ENGLISH, GENERATE_LIP_CLAIMANT_MANUAL_DETERMINATION, MANUAL_DETERMINATION_DOCUMENT",
+        "WELSH, WELSH, GENERATE_LIP_CLAIMANT_MANUAL_DETERMINATION, MANUAL_DETERMINATION_DOCUMENT",
+    })
+    void given_input_should_return_upload_interlocutory_judgment_or_manual_determination_document(
+        String claimantLanguage, String documentLanguage, String event, String documentName) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CUI_WELSH");
+        data.put("claimantBilingualLanguagePreference", claimantLanguage);
+        data.put("applicant1DQLanguage", Map.of("documents", documentLanguage));
+        data.put("preTranslationDocumentType", documentName);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", event);
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 

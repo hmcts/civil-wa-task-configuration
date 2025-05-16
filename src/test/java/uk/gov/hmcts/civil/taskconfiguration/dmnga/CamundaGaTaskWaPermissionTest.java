@@ -488,7 +488,8 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
             "applicationDocumentsWelshRequestRespondToJudge", "applicationDocumentsWelshRequestMoreInfo",
             "applicationDocumentsWelshRequestWrittenResp", "applicationDocumentsWelshRequestHearingSchedule",
             "applicationDocumentsWelshRequestAppDismissed", "applicationDocumentsWelshRequestJudgeDirection",
-            "applicationDocumentsWelshRequestFinalOrder"
+            "applicationDocumentsWelshRequestFinalOrder","applicationDocumentsWelshRequestRespondToMoreInfoRespondent",
+            "applicationDocumentsWelshRequestRespondToWrittenRepRespondent"
         })
         void given_taskType_when_evaluate_dmn_it_returns_expected_rule_welsh_documents(String taskType) {
             VariableMap inputVariables = new VariableMapImpl();
