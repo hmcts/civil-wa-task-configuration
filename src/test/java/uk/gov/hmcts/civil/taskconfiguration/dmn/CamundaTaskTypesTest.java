@@ -453,7 +453,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(99));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(100));
     }
 
 }
