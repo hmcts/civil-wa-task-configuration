@@ -432,6 +432,10 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "taskTypeId", "reviewMessageLA",
                 "taskTypeName", "Review message"
+            ),
+            Map.of(
+                "taskTypeId", "uploadTranslatedOrderDocument",
+                "taskTypeName", "Upload Translated Order Document"
             )
         );
 
