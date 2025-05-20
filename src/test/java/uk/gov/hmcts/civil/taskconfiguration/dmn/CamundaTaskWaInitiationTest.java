@@ -2274,7 +2274,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(282));
+        assertThat(logic.getRules().size(), is(285));
     }
 
     @ParameterizedTest
@@ -4041,6 +4041,38 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "ENGLISH, BOTH, GENERATE_DIRECTIONS_ORDER",
+        "WELSH, ENGLISH, GENERATE_DIRECTIONS_ORDER",
+        "BOTH, WELSH, GENERATE_DIRECTIONS_ORDER"
+    })
+    void given_input_should_return_upload_final_order_document(
+        String claimantDocLanguage, String defendantDocLanguage, String event) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CUI_WELSH");
+        data.put("applicant1DQLanguage", Map.of("documents", claimantDocLanguage));
+        data.put("respondent1DQLanguage", Map.of("documents", defendantDocLanguage));
+        data.put("applicant1Represented", false);
+        data.put("respondent1Represented", false);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", event);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList
+                       .get(1).get("taskId"), is("finalOrderIssuedWelshRequest"));
+        assertThat(workTypeResultList.get(1).get("processCategories"), is("requestTranslation"));
     }
 
     @ParameterizedTest
