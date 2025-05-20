@@ -4102,8 +4102,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
         assertThat(workTypeResultList.size(), is(0));
-        assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+      
     }
 }
