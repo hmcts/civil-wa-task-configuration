@@ -4051,7 +4051,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void shouldCreateWATaskForWelshTranslationForDiscontinuanceTask() {
+    void shouldCreateWaTaskForWelshTranslationForDiscontinuanceTask() {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CUI_WELSH");
         data.put("preTranslationDocumentType", "NOTICE_OF_DISCONTINUANCE");
