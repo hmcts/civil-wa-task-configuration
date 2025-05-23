@@ -2277,7 +2277,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(285));
+        assertThat(logic.getRules().size(), is(288));
     }
 
     @ParameterizedTest
@@ -4137,6 +4137,39 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "ENGLISH, BOTH",
+        "BOTH, ENGLISH",
+        "WELSH, WELSH"
+    })
+    void given_input_should_return_upload_court_officer_order(
+        String claimantLanguage, String documentLanguage) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CUI_WELSH");
+        data.put("claimantBilingualLanguagePreference", claimantLanguage);
+        data.put("applicant1DQLanguage", Map.of("documents", documentLanguage));
+        data.put("applicant1Represented", false);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "COURT_OFFICER_ORDER");
+        inputVariables.putValue("additionalData", caseData);
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Upload Translated Court Officer Order"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
 }
