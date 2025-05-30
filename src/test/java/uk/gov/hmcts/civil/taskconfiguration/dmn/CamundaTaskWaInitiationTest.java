@@ -1881,10 +1881,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "MULTI_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, CLAIMANT_RESPONSE_SPEC, AWAITING_APPLICANT_INTENTION",
-        "INTERMEDIATE_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, CLAIMANT_RESPONSE_SPEC, AWAITING_APPLICANT_INTENTION",
-        "MULTI_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, UPDATE_CLAIMANT_INTENTION_CLAIM_STATE, AWAITING_APPLICANT_INTENTION",
-        "INTERMEDIATE_CLAIM, Transfer Case Offline, transferCaseOfflineMinti, UPDATE_CLAIMANT_INTENTION_CLAIM_STATE, AWAITING_APPLICANT_INTENTION",
+        "MULTI_CLAIM, Multi/Intermediate Track - Transfer Case Offline, transferCaseOfflineMinti, CLAIMANT_RESPONSE_SPEC, AWAITING_APPLICANT_INTENTION",
+        "INTERMEDIATE_CLAIM, Multi/Intermediate Track - Transfer Case Offline, transferCaseOfflineMinti, CLAIMANT_RESPONSE_SPEC, AWAITING_APPLICANT_INTENTION",
+        "MULTI_CLAIM, Multi/Intermediate Track - Transfer Case Offline, transferCaseOfflineMinti, UPDATE_CLAIMANT_INTENTION_CLAIM_STATE, AWAITING_APPLICANT_INTENTION",
+        "INTERMEDIATE_CLAIM, Multi/Intermediate Track - Transfer Case Offline, transferCaseOfflineMinti, UPDATE_CLAIMANT_INTENTION_CLAIM_STATE, AWAITING_APPLICANT_INTENTION",
     })
     void minti_lr_claimant_response_lip_defendant_trigger_offline_task_spec(String responseClaimTrack,
                                                                        String expectedName, String expectedTaskId, String eventId, String postState) {
