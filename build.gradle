@@ -157,6 +157,9 @@ task runSmokeTests(type: Exec, description: 'Runs smoke tests.') {
 }
 
 task runCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
+  onlyIf {
+    return System.env.NIGHTLY_RUN != 'true'
+  }
   commandLine './bin/run-civil-ccd-task-tests.sh'
 }
 
