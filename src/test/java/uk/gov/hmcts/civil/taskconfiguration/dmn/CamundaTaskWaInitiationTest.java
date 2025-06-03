@@ -4196,7 +4196,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void given_input_should_return_upload_manual_hearing_notice_task() {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CUI_WELSH");
-        data.put("preTranslationDocumentType", "HEARING_FORM");
+        data.put("preTranslationDocumentType", "HEARING_NOTICE");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
