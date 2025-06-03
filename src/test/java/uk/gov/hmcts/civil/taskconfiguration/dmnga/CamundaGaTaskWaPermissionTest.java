@@ -456,14 +456,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
 
         @ParameterizedTest
         @CsvSource(value = {
-            "HelpWithFeesApplicationFee", "HelpWithFeesAdditionalApplicationFee", "applicationDocumentsWelshRequestAppSum",
-            "applicationDocumentsWelshRequestOrderMade", "applicationDocumentsWelshRequestHearingOrder",
-            "applicationDocumentsWelshRequestWithNotice", "applicationDocumentsWelshRequestRespondToMoreInfo",
-            "applicationDocumentsWelshRequestRespondToWrittenRep", "applicationDocumentsWelshRequestAddlDoc",
-            "applicationDocumentsWelshRequestRespondToJudge", "applicationDocumentsWelshRequestMoreInfo",
-            "applicationDocumentsWelshRequestWrittenResp", "applicationDocumentsWelshRequestHearingSchedule",
-            "applicationDocumentsWelshRequestAppDismissed", "applicationDocumentsWelshRequestJudgeDirection",
-            "applicationDocumentsWelshRequestFinalOrder"
+            "HelpWithFeesApplicationFee", "HelpWithFeesAdditionalApplicationFee"
         })
         void given_taskType_when_evaluate_dmn_it_returns_expected_rule(String taskType) {
             VariableMap inputVariables = new VariableMapImpl();
@@ -480,6 +473,39 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                     "name", "ctsc-team-leader",
                     "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                     "roleCategory", "CTSC",
+                    "assignmentPriority", 1,
+                    "autoAssignable", false
+                )
+            )));
+        }
+
+        @ParameterizedTest
+        @CsvSource(value = {
+            "applicationDocumentsWelshRequestAppSum",
+            "applicationDocumentsWelshRequestOrderMade", "applicationDocumentsWelshRequestHearingOrder",
+            "applicationDocumentsWelshRequestWithNotice", "applicationDocumentsWelshRequestRespondToMoreInfo",
+            "applicationDocumentsWelshRequestRespondToWrittenRep", "applicationDocumentsWelshRequestAddlDoc",
+            "applicationDocumentsWelshRequestRespondToJudge", "applicationDocumentsWelshRequestMoreInfo",
+            "applicationDocumentsWelshRequestWrittenResp", "applicationDocumentsWelshRequestHearingSchedule",
+            "applicationDocumentsWelshRequestAppDismissed", "applicationDocumentsWelshRequestJudgeDirection",
+            "applicationDocumentsWelshRequestFinalOrder","applicationDocumentsWelshRequestRespondToMoreInfoRespondent",
+            "applicationDocumentsWelshRequestRespondToWrittenRepRespondent"
+        })
+        void given_taskType_when_evaluate_dmn_it_returns_expected_rule_welsh_documents(String taskType) {
+            VariableMap inputVariables = new VariableMapImpl();
+            inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+            DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+            MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+                Map.of(
+                    "autoAssignable", false,
+                    "name", "task-supervisor",
+                    "value", "Read,Manage,Unassign,Assign,Cancel"
+                ),
+                Map.of(
+                    "name", "wlu-admin",
+                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                    "roleCategory", "ADMIN",
                     "assignmentPriority", 1,
                     "autoAssignable", false
                 )

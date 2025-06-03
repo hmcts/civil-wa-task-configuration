@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.20.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.33.1">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN" camunda:historyTimeToLive="P90D">
     <informationRequirement id="InformationRequirement_0z900ts">
       <requiredDecision href="#Decision_1l2j3wj" />
@@ -1944,7 +1944,7 @@ else ""</text>
           <text>"SD"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0uujn9i">
-          <text>"ClaimSettledDivergenceTakeCaseOffline","ClaimDiscontinuedDivergenceTakeCaseOffline", "ValidateDiscontinuance"</text>
+          <text>"ClaimSettledDivergenceTakeCaseOffline","ClaimDiscontinuedDivergenceTakeCaseOffline", "ValidateDiscontinuanceCTSC"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_12ppk5i">
           <text>"workType"</text>
@@ -1964,7 +1964,7 @@ else ""</text>
           <text>"SD"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1qan92m">
-          <text>"ClaimSettledDivergenceTakeCaseOffline","ClaimDiscontinuedDivergenceTakeCaseOffline", "ValidateDiscontinuance"</text>
+          <text>"ClaimSettledDivergenceTakeCaseOffline","ClaimDiscontinuedDivergenceTakeCaseOffline", "ValidateDiscontinuanceCTSC"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0hdefep">
           <text>"roleCategory"</text>
@@ -1984,7 +1984,7 @@ else ""</text>
           <text>"SD"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1e45mu2">
-          <text>"ClaimSettledDivergenceTakeCaseOffline","ClaimDiscontinuedDivergenceTakeCaseOffline", "ValidateDiscontinuance"</text>
+          <text>"ClaimSettledDivergenceTakeCaseOffline","ClaimDiscontinuedDivergenceTakeCaseOffline", "ValidateDiscontinuanceCTSC"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0cpcp1q">
           <text>"majorPriority"</text>
@@ -2064,7 +2064,7 @@ else ""</text>
           <text>"SD"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1i4txoq">
-          <text>"ValidateDiscontinuance"</text>
+          <text>"ValidateDiscontinuanceCTSC"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0fdszyr">
           <text>"description"</text>
@@ -2073,6 +2073,86 @@ else ""</text>
           <text>"[Validate Discontinuance](/cases/case-details/${[CASE_REFERENCE]}/trigger/VALIDATE_DISCONTINUE_CLAIM_CLAIMANT/VALIDATE_DISCONTINUE_CLAIM_CLAIMANT)"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1l8df8g">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02do7rt">
+        <inputEntry id="UnaryTests_1fd0yvj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ecxcf3">
+          <text>"SD"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e14q82">
+          <text>"ValidateDiscontinuanceAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1crfzsm">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vc9w5w">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1w2zoav">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10w94kb">
+        <inputEntry id="UnaryTests_1iqdypi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12pwmq3">
+          <text>"SD"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1swf1m6">
+          <text>"ValidateDiscontinuanceAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vn45xr">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ek0sx3">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xeo3wg">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dkcd7g">
+        <inputEntry id="UnaryTests_0sivlrj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06e7pus">
+          <text>"SD"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uswpg8">
+          <text>"ValidateDiscontinuanceAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1y8hskm">
+          <text>"majorPriority"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1eifuu4">
+          <text>3000</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14t03gz">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_063idr1">
+        <inputEntry id="UnaryTests_015bzk3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0m74slk">
+          <text>"SD"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l3acvn">
+          <text>"ValidateDiscontinuanceAdmin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0i6y2t6">
+          <text>"description"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pj0nga">
+          <text>"[Validate Discontinuance](/cases/case-details/${[CASE_REFERENCE]}/trigger/VALIDATE_DISCONTINUE_CLAIM_CLAIMANT/VALIDATE_DISCONTINUE_CLAIM_CLAIMANT)"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kwmziv">
           <text>true</text>
         </outputEntry>
       </rule>
@@ -2753,7 +2833,7 @@ else ""</text>
           <text>"roleCategory"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_014xf1r">
-          <text>"ADMINISTRATOR"</text>
+          <text>"ADMIN"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0gd1rmm">
           <text>true</text>
@@ -3556,6 +3636,26 @@ else ""</text>
           <text>20</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_04w3xr0">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0d7e11j">
+        <inputEntry id="UnaryTests_0dmkbk0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0319ix5">
+          <text>"CUI_WELSH"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gxizhk">
+          <text>"defendantWelshRequest","claimantWelshRequest","uploadTranslatedOrderDocument"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gn0jdh">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vh15c3">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vku8hx">
           <text>false</text>
         </outputEntry>
       </rule>

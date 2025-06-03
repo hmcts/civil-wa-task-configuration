@@ -359,7 +359,11 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
                 "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT",
                 asList(
                     Map.of(
-                        "taskType", "ValidateDiscontinuance",
+                        "taskType", "ValidateDiscontinuanceCTSC",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "ValidateDiscontinuanceAdmin",
                         "completionMode", "Auto"
                     )
                 )
@@ -721,6 +725,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(78));
+        assertThat(logic.getRules().size(), is(79));
     }
 }

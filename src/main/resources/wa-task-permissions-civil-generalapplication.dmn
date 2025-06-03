@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-ga-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.29.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-ga-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
   <decision id="wa-task-permissions-civil-generalapplication" name="Civil GA Permissions DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_1pr5oic" hitPolicy="RULE ORDER">
       <input id="InputClause_12crj6e" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
@@ -625,7 +625,7 @@ else
       <rule id="DecisionRule_0oathqn">
         <description>CTSC Case Worker Task Permissions</description>
         <inputEntry id="UnaryTests_116p2xc">
-          <text>"HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee","applicationDocumentsWelshRequestAppSum","applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder","applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo","applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc","applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo","applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule","applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection","applicationDocumentsWelshRequestFinalOrder"</text>
+          <text>"HelpWithFeesApplicationFee","HelpWithFeesAdditionalApplicationFee"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0axwpqk">
           <text></text>
@@ -652,6 +652,39 @@ else
           <text>1</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1bjda8r">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_120zauc">
+        <description>WLU staff member</description>
+        <inputEntry id="UnaryTests_0b9l53o">
+          <text>"applicationDocumentsWelshRequestAppSum","applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder","applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo","applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc","applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo","applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule","applicationDocumentsWelshRequestAppDismissed","applicationDocumentsWelshRequestJudgeDirection","applicationDocumentsWelshRequestFinalOrder","applicationDocumentsWelshRequestAppSumResponded","applicationDocumentsWelshRequestRespondToMoreInfoRespondent","applicationDocumentsWelshRequestRespondToWrittenRepRespondent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pb1qad">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06wlzhi">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ygd4tt">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1n3k3uz">
+          <text>"wlu-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18prf2p">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0x7nesa">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0t40h2z">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x0o0u9">
+          <text>1</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ugmy6s">
           <text>false</text>
         </outputEntry>
       </rule>

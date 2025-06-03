@@ -157,7 +157,17 @@ task runSmokeTests(type: Exec, description: 'Runs smoke tests.') {
 }
 
 task runCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
-  commandLine '/usr/bin/yarn', '--silent', 'run' , 'test:wa-task'
+  onlyIf {
+    return (System.env.ENVIRONMENT == 'preview' || System.env.ENVIRONMENT == 'aat') && System.env.NIGHTLY_RUN != 'true'
+  }
+  commandLine './bin/run-civil-ccd-task-tests.sh'
+}
+
+task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs additional multiparty nightly tests.') {
+  onlyIf {
+    return System.env.NIGHTLY_RUN == 'true'
+  }
+  commandLine './bin/run-nightly-civil-ccd-task-tests.sh'
 }
 
 task runNightlyGenAppCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
@@ -179,7 +189,7 @@ task smoke(description: 'Runs the smoke tests.') {
 }
 
 task functional(description: 'Runs the functional tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, runCivilCCDTaskTests,
+  dependsOn(inStrictOrder(awaitApplicationReadiness, runNightlyCivilCCDTaskTests, runCivilCCDTaskTests,
   pullGeneralAppAsset, runNightlyGenAppCCDTaskTests))
 }
 
@@ -273,8 +283,8 @@ dependencies {
 
   implementation 'org.yaml:snakeyaml:2.0'
 
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.83'
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.16'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.104'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.40'
   implementation group: 'com.github.hmcts', name: 'java-logging', version: '6.0.1'
   implementation group: 'org.camunda.bpm', name: 'camunda-external-task-client', version: versions.camunda
     implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
