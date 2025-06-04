@@ -761,7 +761,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
+            "canReconfigure", "false",
             "name", "description",
             "value", "[Transfer Case Offline](/cases/case-details/${[CASE_REFERENCE]}"
                 + "/trigger/CASE_PROCEEDS_IN_CASEMAN/CASE_PROCEEDS_IN_CASEMAN)"
