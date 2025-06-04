@@ -811,6 +811,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
     void given_finalOrderWelshRequest_taskType_when_evaluate_dmn_then_returns_expected_rule(String taskType) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
+        inputVariables.putValue("caseData",Map.of("featureToggleWA", "CUI-WELSH"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
@@ -827,6 +828,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "hearing-centre-admin-team-leader",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "wlu-admin",
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
