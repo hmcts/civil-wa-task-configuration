@@ -811,7 +811,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "WELSH, ENGLISH, ENGLISH",
         "ENGLISH, ENGLISH, WELSH"
     })
-    void given_english_to_welsh_input_should_return_review_respondent_welsh_request_decision_claimant_intention(String respondentLang,
+    void given_english_to_welsh_input_should_return_review_claimant_welsh_request_decision_claimant_intention(String respondentLang,
                                                                                              String respondentDqDocLang,
                                                                                              String claimantLang) {
         Map<String, Object> data = new HashMap<>();
@@ -836,7 +836,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("defendantWelshRequest"));
+                       .get(0).get("taskId"), is("claimantWelshRequest"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
 
