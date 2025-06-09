@@ -2277,7 +2277,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(290));
+        assertThat(logic.getRules().size(), is(267));
     }
 
     @ParameterizedTest
@@ -3989,11 +3989,11 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "REQUEST_FOR_RECONSIDERATION, WELSH, WELSH"
     })
     void given_input_should_return_upload_translated_order_document(
-        String eventId, String dqLanguage, String lipBilingual) {
+        String eventId, String claimantLanguage, String defendantLanguage) {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CUI_WELSH");
-        data.put("claimantBilingualLanguagePreference", lipBilingual);
-        data.put("applicant1DQLanguage", Map.of("documents", dqLanguage));
+        data.put("claimantBilingualLanguagePreference", claimantLanguage);
+        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", defendantLanguage));
         data.put("applicant1Represented", false);
 
         Map<String, Object> caseData = new HashMap<>();
@@ -4024,11 +4024,11 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "WELSH, WELSH, GENERATE_LIP_CLAIMANT_MANUAL_DETERMINATION, MANUAL_DETERMINATION_DOCUMENT",
     })
     void given_input_should_return_upload_interlocutory_judgment_or_manual_determination_document(
-        String claimantLanguage, String documentLanguage, String event, String documentName) {
+        String claimantLanguage, String defendantLanguage, String event, String documentName) {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CUI_WELSH");
         data.put("claimantBilingualLanguagePreference", claimantLanguage);
-        data.put("applicant1DQLanguage", Map.of("documents", documentLanguage));
+        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", defendantLanguage));
         data.put("preTranslationDocumentType", documentName);
         data.put("applicant1Represented", false);
 
@@ -4057,11 +4057,11 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "BOTH, WELSH, GENERATE_DIRECTIONS_ORDER"
     })
     void given_input_should_return_upload_final_order_document(
-        String claimantDocLanguage, String defendantDocLanguage, String event) {
+        String claimantLanguage, String defendantLanguage, String event) {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CUI_WELSH");
-        data.put("applicant1DQLanguage", Map.of("documents", claimantDocLanguage));
-        data.put("respondent1DQLanguage", Map.of("documents", defendantDocLanguage));
+        data.put("claimantBilingualLanguagePreference", claimantLanguage);
+        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", defendantLanguage));
         data.put("applicant1Represented", false);
         data.put("respondent1Represented", false);
 
@@ -4115,11 +4115,11 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "WELSH, WELSH"
     })
     void given_input_should_return_upload_settlement_agreement_document(
-        String claimantLanguage, String documentLanguage) {
+        String claimantLanguage, String defendantLanguage) {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CUI_WELSH");
         data.put("claimantBilingualLanguagePreference", claimantLanguage);
-        data.put("applicant1DQLanguage", Map.of("documents", documentLanguage));
+        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", defendantLanguage));
         data.put("applicant1Represented", false);
 
         Map<String, Object> caseData = new HashMap<>();
@@ -4147,11 +4147,11 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "WELSH, WELSH"
     })
     void given_input_should_return_upload_court_officer_order(
-        String claimantLanguage, String documentLanguage) {
+        String claimantLanguage, String respondentLanguage) {
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "CUI_WELSH");
         data.put("claimantBilingualLanguagePreference", claimantLanguage);
-        data.put("applicant1DQLanguage", Map.of("documents", documentLanguage));
+        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", respondentLanguage));
         data.put("applicant1Represented", false);
 
         Map<String, Object> caseData = new HashMap<>();
