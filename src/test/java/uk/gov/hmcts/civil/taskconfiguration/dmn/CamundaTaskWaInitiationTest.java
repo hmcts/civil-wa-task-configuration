@@ -2277,7 +2277,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(289));
+        assertThat(logic.getRules().size(), is(290));
     }
 
     @ParameterizedTest
@@ -4190,5 +4190,29 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Upload Translated Notice Of Discontinuance Defendant"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
+    }
+
+    @Test
+    void given_input_should_return_upload_manual_hearing_notice_task() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CUI_WELSH");
+        data.put("preTranslationDocumentType", "HEARING_NOTICE");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "GENERATE_HEARING_FORM");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
+        assertThat(workTypeResultList.get(0).get("name"), is("Upload Translated Manual Hearing Notice"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
 }
