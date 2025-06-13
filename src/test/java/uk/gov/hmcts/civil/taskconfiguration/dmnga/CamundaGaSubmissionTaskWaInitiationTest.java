@@ -4837,14 +4837,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void given_input_should_return_applicationDocumentsWelshRequest_ifRespondentResponds() {
         Map<String, Object> data = new HashMap<>();
-        data.put("isGaApplicantLip", true);
-        data.put("applicantBilingualLanguagePreference", true);
-        data.put("respondentsResponses", new Object());
+        data.put("preTranslationGaDocumentType", "RESPOND_TO_APPLICATION_SUMMARY_DOC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
-        inputVariables.putValue("postEventState", "APPLICATION_SUBMITTED_AWAITING_JUDICIAL_DECISION");
+        inputVariables.putValue("eventId", "GENERATE_DRAFT_DOCUMENT");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
