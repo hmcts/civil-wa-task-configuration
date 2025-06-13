@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
@@ -805,19 +806,10 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @ParameterizedTest
-    @CsvSource({
-        "WELSH, BOTH, ENGLISH",
-        "ENGLISH, WELSH, ENGLISH",
-        "WELSH, ENGLISH, ENGLISH",
-        "ENGLISH, ENGLISH, WELSH"
-    })
-    void given_english_to_welsh_input_should_return_review_claimant_welsh_request_decision_claimant_intention(String respondentLang,
-                                                                                             String respondentDqDocLang,
-                                                                                             String claimantLang) {
+    @ValueSource(strings = {"BOTH", "WELSH"})
+    void given_english_to_welsh_input_should_return_review_claimant_welsh_request_decision_claimant_intention(String respondentLang) {
         Map<String, Object> data = new HashMap<>();
         data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", respondentLang));
-        data.put("respondent1DQLanguage",Map.of("documents", respondentDqDocLang));
-        data.put("claimantBilingualLanguagePreference", claimantLang);
         data.put("respondent1Represented", false);
 
         data.put("featureToggleWA", "CUI_WELSH");
@@ -2313,7 +2305,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(293));
+        assertThat(logic.getRules().size(), is(291));
     }
 
     @ParameterizedTest
