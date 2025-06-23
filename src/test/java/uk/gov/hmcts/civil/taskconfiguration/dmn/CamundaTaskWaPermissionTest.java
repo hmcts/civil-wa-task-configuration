@@ -1185,7 +1185,8 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         "reviewMessageCW;nbc-team-leader,national-business-centre,hearing-centre-team-leader,hearing-centre-admin;"
             + "ADMIN",
         "reviewMessageLA;tribunal-caseworker,senior-tribunal-caseworker;LEGAL_OPERATIONS",
-        "reviewMessageJudicial;judge;JUDICIAL"
+        "reviewMessageJudicial;judge;JUDICIAL",
+        "reviewMessageWLU;wlu-admin;ADMIN"
         }, delimiter = ';')
     void given_reviewMessage_taskType_when_evaluate_dmn_then_returns_expected_role_permission(String taskType,
                                                                                               String roles,
@@ -1230,16 +1231,28 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                     )
                 ));
         } else {
-            expectedResults.add(
-                Map.of(
-                    "autoAssignable", false,
-                    "assignmentPriority", 1,
-                    "authorisations", "294",
-                    "name", "judge",
-                    "roleCategory", "JUDICIAL",
-                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
-                )
-            );
+            String role = rolesList[0];
+            if ("judge".equals(role)) {
+                expectedResults.add(
+                    Map.of(
+                        "autoAssignable", false,
+                        "assignmentPriority", 1,
+                        "authorisations", "294",
+                        "name", "judge",
+                        "roleCategory", "JUDICIAL",
+                        "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+                    )
+                );
+            } else {
+                expectedResults.add(
+                    Map.of(
+                        "name", role,
+                        "roleCategory", roleCategory,
+                        "autoAssignable", false,
+                        "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+                    )
+                );
+            }
         }
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
