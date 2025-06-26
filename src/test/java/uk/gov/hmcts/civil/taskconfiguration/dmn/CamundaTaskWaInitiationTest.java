@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTable;
 import uk.gov.hmcts.civil.taskconfiguration.DmnDecisionTableBaseUnitTest;
 
@@ -792,6 +793,33 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("defendantWelshRequest"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"BOTH", "WELSH"})
+    void given_english_to_welsh_input_should_return_review_claimant_welsh_request_decision_claimant_intention(String respondentLang) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("respondent1LiPResponse", Map.of("respondent1ResponseLanguage", respondentLang));
+        data.put("respondent1Represented", false);
+
+        data.put("featureToggleWA", "CUI_WELSH");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList
+                       .get(0).get("taskId"), is("claimantWelshRequest"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
 
@@ -2268,7 +2296,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(269));
+        assertThat(logic.getRules().size(), is(270));
     }
 
     @ParameterizedTest
