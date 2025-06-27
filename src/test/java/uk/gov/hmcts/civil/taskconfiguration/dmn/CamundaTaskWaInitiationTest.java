@@ -742,6 +742,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("claimantBilingualLanguagePreference", claimantLang);
         data.put("applicant1Represented", false);
         data.put("respondent1Represented", false);
+        data.put("preTranslationDocumentType", "LIP_CLAIMANT_DQ");
 
         data.put("featureToggleWA", "CUI_WELSH");
 
