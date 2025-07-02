@@ -373,7 +373,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "workType",
-            "value", "routine_work",
+            "value", "welsh_translation_work",
             "canReconfigure","false"
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
