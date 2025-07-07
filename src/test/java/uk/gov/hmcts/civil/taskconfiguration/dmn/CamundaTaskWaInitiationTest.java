@@ -742,6 +742,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("claimantBilingualLanguagePreference", claimantLang);
         data.put("applicant1Represented", false);
         data.put("respondent1Represented", false);
+        data.put("preTranslationDocumentType", "LIP_CLAIMANT_DQ");
 
         data.put("featureToggleWA", "CUI_WELSH");
 
@@ -2296,7 +2297,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(270));
+        assertThat(logic.getRules().size(), is(271));
     }
 
     @ParameterizedTest
@@ -4252,5 +4253,28 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Upload Translated Defendant Sealed Claim Form"));
         assertThat(workTypeResultList.get(0).get("taskId"), is("uploadTranslatedOrderDocument"));
+    }
+
+    @Test
+    void shouldCreateWaTaskForFastTrackDirectionsOnceAfterTranslatedDocUploaded() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("featureToggleWA", "CUI_WELSH");
+        data.put("totalClaimAmount", "12000");
+        data.put("responseClaimTrack", "FAST_CLAIM");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+
+        inputVariables.putValue("eventId", "UPDATE_CLAIM_STATE_AFTER_DOC_UPLOADED");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Fast Track Directions"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("FastTrackDirections"));
     }
 }
