@@ -32,6 +32,7 @@ class CamundaTaskWaCancelAllTest {
     private static final String cancelActionName = "\"Cancel\"";
 
     private static final List<String> categoriesExcludedFromCancellation = List.of(
+        "qmResponseTasks",
         "queryResponseTasks",
         "queryManagement_queryID"
     );
