@@ -4856,22 +4856,19 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void given_input_should_return_applicationDocumentsWelshRequest_ifJudgeMakesOrder() {
         Map<String, Object> data = new HashMap<>();
-        data.put("isGaApplicantLip", true);
-        data.put("respondentBilingualLanguagePreference", true);
-        data.put("applicationIsCloaked", false);
+        data.put("preTranslationGaDocumentType", "GENERAL_ORDER_DOC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_JUDGE_BUSINESS_PROCESS_GASPEC");
-        inputVariables.putValue("postEventState", "ORDER_MADE");
+        inputVariables.putValue("eventId", "GENERATE_JUDGES_FORM");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("name"), is("Application Documents Welsh Request - General Order"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("applicationDocumentsWelshRequestOrderMade"));
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Application Documents Welsh Request - General Order"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestOrderMade"));
     }
 
     @Test
@@ -5111,13 +5108,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void given_input_should_return_applicationDocumentsWelshRequest_judgeWrittenRep() {
         Map<String, Object> data = new HashMap<>();
-        data.put("isGaApplicantLip", true);
-        data.put("applicantBilingualLanguagePreference", true);
+        data.put("preTranslationGaDocumentType", "WRITTEN_REPRESENTATION_ORDER_DOC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_JUDGE_BUSINESS_PROCESS_GASPEC");
-        inputVariables.putValue("postEventState", "AWAITING_WRITTEN_REPRESENTATIONS");
+        inputVariables.putValue("eventId", "GENERATE_JUDGES_FORM");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -5198,13 +5193,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void given_input_should_return_applicationDocumentsWelshRequest_judgeMakesDirectionOrder() {
         Map<String, Object> data = new HashMap<>();
-        data.put("isGaApplicantLip", true);
-        data.put("applicantBilingualLanguagePreference", true);
+        data.put("preTranslationGaDocumentType", "DIRECTIONS_ORDER_DOC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_JUDGE_BUSINESS_PROCESS_GASPEC");
-        inputVariables.putValue("postEventState", "AWAITING_DIRECTIONS_ORDER_DOCS");
+        inputVariables.putValue("eventId", "GENERATE_JUDGES_FORM");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
