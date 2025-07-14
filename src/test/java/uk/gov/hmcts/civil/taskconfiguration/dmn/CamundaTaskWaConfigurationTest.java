@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(180));
+        assertThat(logic.getRules().size(), is(186));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -1859,7 +1859,11 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "reviewMessageJudicial; Small Claim; Judge; "
             + "[Small Claim, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         "reviewMessageJudicial; Fast Track; Judge; "
-            + "[Fast Track, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No"
+            + "[Fast Track, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageWLU; Fast Track; WLU; "
+            + "[Fast Track, WLU, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageWLU; Small Claim; WLU; "
+            + "[Small Claim, WLU, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         }, delimiter = ';')
     void when_reviewMessage_then_return_allocatedTrackAndDescription(
         String taskType, String allocatedTrack,
@@ -1893,10 +1897,13 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "name", "majorPriority",
             "value", isUrgent.equals("Yes") ? "2000" : "5000"
         )));
+
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "workType",
-            "value", taskType.equals("reviewMessageCW") ? "routine_work" : "decision_making_work"
+            "value", taskType.equals("reviewMessageCW") ? "routine_work" :
+                taskType.equals("reviewMessageWLU") ? "welsh_translation_work" :
+                    "decision_making_work"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
