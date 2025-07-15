@@ -101,20 +101,24 @@ withNightlyPipeline(type, product, component) {
 
   enableFullFunctionalTest(200)
 
-  before('fullFunctionalTest') {
-    if(runPrevFailedAndNotExecutedTestFiles) {
-      copyPrevFailedAndNotExecutedTestFilesJson()
+  if(!forceGreenBuild) {
+    afterAlways('DependencyCheckNightly') {
+      sh """
+          ./bin/pull-latest-civil-ccd-files.sh ${ccdBranch}
+      """
+      yarnBuilder.yarn('yarn-update')
+      yarnBuilder.yarn('install-dependencies')
     }
-    sh """
-        ./bin/pull-latest-civil-ccd-files.sh ${ccdBranch}
-    """
-    yarnBuilder.yarn('yarn-update')
-    yarnBuilder.yarn('install-dependencies')
-    yarnBuilder.yarn('playwright install')
-  }
 
-  afterAlways('fullFunctionalTest') {
-    archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
+    before('fullFunctionalTest') {
+      if(runPrevFailedAndNotExecutedTestFiles) {
+        copyPrevFailedAndNotExecutedTestFilesJson()
+      }
+    }
+
+    afterAlways('fullFunctionalTest') {
+      archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
+    }
   }
 }
 
