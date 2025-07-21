@@ -44,7 +44,7 @@ else
     export PREV_NOT_EXECUTED_TEST_FILES="$PREV_NOT_EXECUTED_TEST_FILES"
       
     yarn playwright install
-    yarn test:test:wa-task
+    yarn test:wa-task
   fi
 fi
 

@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(185));
+        assertThat(logic.getRules().size(), is(186));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -2785,6 +2785,59 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void when_taskId_respondToQueryWlu_then_return_config() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        String queryId = "query-id";
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", "respondToQueryWLU",
+            "__processCategory__queryManagement_queryID_" + queryId, true
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "query_work",
+            "canReconfigure", "false"
+        )));
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "ADMIN",
+            "canReconfigure", "false"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Respond to a query](/query-management/query/${[CASE_REFERENCE]}/3/" + queryId + ")"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "20"
+        )));
+    }
+
+    @Test
     void when_taskId_respondToQueryAdmin_then_return_config() {
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("applicant1", Map.of(
@@ -2800,6 +2853,65 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType", "respondToQueryAdmin",
+            "__processCategory__queryManagement_queryID_" + queryId, true
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("workType"))
+            .collect(Collectors.toList());
+
+        System.out.println(workTypeResultList);
+        assertThat(workTypeResultList.size(), is(1));
+        assertTrue(workTypeResultList.contains(Map.of(
+            "name", "workType",
+            "value", "query_work",
+            "canReconfigure", "false"
+        )));
+        List<Map<String, Object>> roleCategoryResultList = dmnDecisionTableResult.getResultList().stream()
+            .filter((r) -> r.containsValue("roleCategory"))
+            .collect(Collectors.toList());
+
+        assertTrue(roleCategoryResultList.contains(Map.of(
+            "name", "roleCategory",
+            "value", "ADMIN",
+            "canReconfigure", "false"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "description",
+            "value", "[Respond to a query](/query-management/query/${[CASE_REFERENCE]}/3/" + queryId + ")"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "majorPriority",
+            "value", "2000"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "false",
+            "name", "dueDateIntervalDays",
+            "value", "2"
+        )));
+    }
+
+    @Test
+    void when_taskId_respondToHearingQueryWlu_then_return_config() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        String queryId = "query-id";
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", "respondToHearingQueryWLU",
             "__processCategory__queryManagement_queryID_" + queryId, true
         ));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
