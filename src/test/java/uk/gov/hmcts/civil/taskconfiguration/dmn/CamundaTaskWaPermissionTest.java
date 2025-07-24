@@ -1186,7 +1186,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             + "ADMIN",
         "reviewMessageLA;tribunal-caseworker,senior-tribunal-caseworker;LEGAL_OPERATIONS",
         "reviewMessageJudicial;judge;JUDICIAL",
-        "reviewMessageWLU;wlu-admin;ADMIN"
+        "reviewMessageWLU;wlu-admin,wlu-team-leader;ADMIN"
         }, delimiter = ';')
     void given_reviewMessage_taskType_when_evaluate_dmn_then_returns_expected_role_permission(String taskType,
                                                                                               String roles,
