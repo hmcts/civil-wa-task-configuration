@@ -4299,131 +4299,65 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "CASE_ISSUED,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "CASE_ISSUED,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "CASE_ISSUED,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "CASE_ISSUED,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
+        "CASE_ISSUED,false,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_CASE_DETAILS,false,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_APPLICANT_INTENTION,false,false,respondToQueryCTSC,Respond to a query",
+        "IN_MEDIATION,false,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,false,false,respondToQueryCTSC,Respond to a query",
+        "CASE_SETTLED,false,false,respondToQueryCTSC,Respond to a query",
+        "CASE_DISCONTINUED,false,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,false,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,true,false,respondToQueryAdmin,Respond to a hearing related query",
+        "CASE_PROGRESSION,No,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,true,false,respondToQueryAdmin,Respond to a hearing related query",
+        "HEARING_READINESS,false,false,respondToQueryCTSC,Respond to a query",
+        "HEARING_READINESS,true,false,respondToQueryAdmin,Respond to a hearing related query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,false,respondToQueryCTSC,Respond to a query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,false,respondToQueryAdmin,Respond to a hearing related query",
+        "DECISION_OUTCOME,false,false,respondToQueryCTSC,Respond to a query",
+        "DECISION_OUTCOME,true,false,respondToQueryAdmin,Respond to a hearing related query",
+        "All_FINAL_ORDERS_ISSUED,false,false,respondToQueryCTSC,Respond to a query",
+        "All_FINAL_ORDERS_ISSUED,true,false,respondToQueryAdmin,Respond to a hearing related query",
 
-        "AWAITING_CASE_DETAILS,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "AWAITING_CASE_DETAILS,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "AWAITING_CASE_DETAILS,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "AWAITING_CASE_DETAILS,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "IN_MEDIATION,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "IN_MEDIATION,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "IN_MEDIATION,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "IN_MEDIATION,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "CASE_SETTLED,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "CASE_SETTLED,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "CASE_SETTLED,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "CASE_SETTLED,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "CASE_DISCONTINUED,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "CASE_DISCONTINUED,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "CASE_DISCONTINUED,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "CASE_DISCONTINUED,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "JUDICIAL_REFERRAL,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH','ENGLISH'",
-        "JUDICIAL_REFERRAL,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,'ENGLISH'",
-        "JUDICIAL_REFERRAL,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,NULL_VALUE",
-
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH','ENGLISH'",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,'ENGLISH'",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH',NULL_VALUE",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,NULL_VALUE",
-
-        "HEARING_READINESS,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "HEARING_READINESS,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "HEARING_READINESS,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "HEARING_READINESS,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "HEARING_READINESS,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH','ENGLISH'",
-        "HEARING_READINESS,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,'ENGLISH'",
-        "HEARING_READINESS,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH',NULL_VALUE",
-        "HEARING_READINESS,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,NULL_VALUE",
-
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH','ENGLISH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,'ENGLISH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH',NULL_VALUE",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,NULL_VALUE",
-
-        "DECISION_OUTCOME,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "DECISION_OUTCOME,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "DECISION_OUTCOME,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "DECISION_OUTCOME,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "DECISION_OUTCOME,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH','ENGLISH'",
-        "DECISION_OUTCOME,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,'ENGLISH'",
-        "DECISION_OUTCOME,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH',NULL_VALUE",
-        "DECISION_OUTCOME,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,NULL_VALUE",
-
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "All_FINAL_ORDERS_ISSUED,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH','ENGLISH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,'ENGLISH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH',NULL_VALUE",
-        "All_FINAL_ORDERS_ISSUED,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,NULL_VALUE"
-        }, nullValues = "NULL_VALUE")
-    void given_input_should_return_expected_qm_task_whenQmToggle(String state, boolean isHearingRelated, String expectedTaskId, String expectedTaskName, String claimantLanguagePreference, String defendantLanguagePreference) {
-
-        Map<String, Object> caseData = new HashMap<>();
-        String queryId = "query-id";
-        caseData.put(
-            "qmLatestQuery", Map.of(
-                "queryId", queryId,
-                "isHearingRelated", isHearingRelated
+        "CASE_ISSUED,false,true,respondToQueryWLU,Respond to a query",
+        "AWAITING_CASE_DETAILS,false,true,respondToQueryWLU,Respond to a query",
+        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,true,respondToQueryWLU,Respond to a query",
+        "AWAITING_APPLICANT_INTENTION,false,true,respondToQueryWLU,Respond to a query",
+        "IN_MEDIATION,false,true,respondToQueryWLU,Respond to a query",
+        "JUDICIAL_REFERRAL,false,true,respondToQueryWLU,Respond to a query",
+        "CASE_SETTLED,false,true,respondToQueryWLU,Respond to a query",
+        "CASE_DISCONTINUED,false,true,respondToQueryWLU,Respond to a query",
+        "JUDICIAL_REFERRAL,false,true,respondToQueryWLU,Respond to a query",
+        "JUDICIAL_REFERRAL,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
+        "CASE_PROGRESSION,false,true,respondToQueryWLU,Respond to a query",
+        "CASE_PROGRESSION,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
+        "HEARING_READINESS,false,true,respondToQueryWLU,Respond to a query",
+        "HEARING_READINESS,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,true,respondToQueryWLU,Respond to a query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
+        "DECISION_OUTCOME,false,true,respondToQueryWLU,Respond to a query",
+        "DECISION_OUTCOME,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
+        "All_FINAL_ORDERS_ISSUED,false,true,respondToQueryWLU,Respond to a query",
+        "All_FINAL_ORDERS_ISSUED,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
+            }, nullValues = "NULL_VALUE")
+    void given_input_should_return_expected_qm_task_whenQmToggle(String state, boolean isHearingRelated, boolean isWluQuery, String expectedTaskId, String expectedTaskName) {
+        Map<String, Object> data = Map.of(
+            "eventId", "queryManagementRaiseQuery",
+            "postEventState", state,
+            "additionalData", Map.of(
+                "Data", Map.of(
+                    "featureToggleWA", "PUBLIC_QM",
+                    "qmLatestQuery", Map.of(
+                        "queryId", "query-id",
+                        "isHearingRelated", isHearingRelated,
+                        "isWelsh", isWluQuery
+                    )
+                )
             )
         );
 
-        caseData.put("featureToggleWA", "PUBLIC_QM");
-        caseData.put("claimantBilingualLanguagePreference", claimantLanguagePreference);
-        var respondent1LiPResponse = new HashMap<String, String>();
-        respondent1LiPResponse.put("respondent1ResponseLanguage", defendantLanguagePreference);
-        caseData.put("respondent1LiPResponse", respondent1LiPResponse);
-        VariableMap inputVariables = new VariableMapImpl();
-        Map<String, Object> data = new HashMap<>();
-        data.put("Data", caseData);
-
-        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
-        inputVariables.putValue("postEventState", state);
-        inputVariables.putValue("additionalData", data);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(data);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
@@ -4435,432 +4369,79 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query,'ENGLISH','ENGLISH'",
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,'ENGLISH'",
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query,'ENGLISH',NULL_VALUE",
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query,NULL_VALUE,NULL_VALUE",
-
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH','ENGLISH'",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,'ENGLISH'",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query,'ENGLISH',NULL_VALUE",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query,NULL_VALUE,NULL_VALUE"
+        "CASE_ISSUED,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_CASE_DETAILS,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryCTSC,Respond to a query",
+        "AWAITING_APPLICANT_INTENTION,false,respondToQueryCTSC,Respond to a query",
+        "IN_MEDIATION,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
+        "CASE_SETTLED,false,respondToQueryCTSC,Respond to a query",
+        "CASE_DISCONTINUED,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
+        "JUDICIAL_REFERRAL,true,respondToQueryAdmin,Respond to a hearing related query",
+        "CASE_PROGRESSION,No,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
+        "HEARING_READINESS,false,respondToQueryCTSC,Respond to a query",
+        "HEARING_READINESS,true,respondToQueryAdmin,Respond to a hearing related query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryCTSC,Respond to a query",
+        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToQueryAdmin,Respond to a hearing related query",
+        "DECISION_OUTCOME,false,respondToQueryCTSC,Respond to a query",
+        "DECISION_OUTCOME,true,respondToQueryAdmin,Respond to a hearing related query",
+        "All_FINAL_ORDERS_ISSUED,false,respondToQueryCTSC,Respond to a query",
+        "All_FINAL_ORDERS_ISSUED,true,respondToQueryAdmin,Respond to a hearing related query",
         }, nullValues = "NULL_VALUE")
-    void given_input_should_return_expected_qm_task_for_stayed_case_whenQmToggle(String preStayState, boolean isHearingRelated, String expectedTaskId, String expectedTaskName, String claimantLanguagePreference, String defendantLanguagePreference) {
-
-        Map<String, Object> caseData = new HashMap<>();
-        String queryId = "query-id";
-        caseData.put("preStayState", preStayState);
-        caseData.put(
-            "qmLatestQuery", Map.of(
-                "queryId", queryId,
-                "isHearingRelated", isHearingRelated
+    void given_input_should_return_expected_qm_task_withoutQmToggleAndIsWelshFlag(String state, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
+        Map<String, Object> data = Map.of(
+            "eventId", "queryManagementRaiseQuery",
+            "postEventState", state,
+            "additionalData", Map.of(
+                "Data", Map.of(
+                    "featureToggleWA", "Prod",
+                    "qmLatestQuery", Map.of(
+                        "queryId", "query-id",
+                        "isHearingRelated", isHearingRelated
+                    )
+                )
             )
         );
-        caseData.put("featureToggleWA", "PUBLIC_QM");
-        caseData.put("claimantBilingualLanguagePreference", claimantLanguagePreference);
-        var respondent1LiPResponse = new HashMap<String, String>();
-        respondent1LiPResponse.put("respondent1ResponseLanguage", defendantLanguagePreference);
-        caseData.put("respondent1LiPResponse", respondent1LiPResponse);
-        Map<String, Object> data = new HashMap<>();
-        data.put("Data", caseData);
 
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
-        inputVariables.putValue("postEventState", "CASE_STAYED");
-        inputVariables.putValue("additionalData", data);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(data);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("taskId"), is(expectedTaskId));
-        assertThat(workTypeResultList.get(1).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
     }
 
     @ParameterizedTest
     @CsvSource(value = {
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "CASE_ISSUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
+        "JUDICIAL_REFERRAL,false,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,false,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,true,false,respondToQueryAdmin,Respond to a hearing related query",
 
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "AWAITING_CASE_DETAILS_NOTIFICATION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "IN_MEDIATION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "CASE_SETTLED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "CASE_DISCONTINUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'",
-
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'",
-
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "HEARING_READINESS,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "HEARING_READINESS,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'",
-
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'",
-
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "DECISION_OUTCOME,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "DECISION_OUTCOME,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'",
-
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "All_FINAL_ORDERS_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'",
-
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "PENDING_CASE_ISSUED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "PENDING_CASE_ISSUED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'",
-
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "CASE_DISMISSED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "CASE_DISMISSED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'",
-
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "PROCEEDS_IN_HERITAGE_SYSTEM,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'",
-
-        "CLOSED,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "CLOSED,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "CLOSED,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'"
+        "JUDICIAL_REFERRAL,false,true,respondToQueryWLU,Respond to a query",
+        "CASE_PROGRESSION,false,true,respondToQueryWLU,Respond to a query",
+        "CASE_PROGRESSION,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
         }, nullValues = "NULL_VALUE")
-    void given_input_should_return_expected_wlu_qm_task_whenQmToggle(String state, boolean isHearingRelated, String expectedTaskId, String expectedTaskName, String claimantLanguagePreference, String defendantLanguagePreference) {
-
-        Map<String, Object> caseData = new HashMap<>();
-        String queryId = "query-id";
-        caseData.put(
-            "qmLatestQuery", Map.of(
-                "queryId", queryId,
-                "isHearingRelated", isHearingRelated
+    void given_input_should_return_expected_qm_task_for_stayed_case_whenQmToggle(String preStayState, boolean isHearingRelated, boolean isWluQuery, String expectedTaskId, String expectedTaskName) {
+        Map<String, Object> data = Map.of(
+            "eventId", "queryManagementRaiseQuery",
+            "postEventState", "CASE_STAYED",
+            "additionalData", Map.of(
+                "Data", Map.of(
+                    "featureToggleWA", "PUBLIC_QM",
+                    "preStayState", preStayState,
+                    "qmLatestQuery", Map.of(
+                        "queryId", "query-id",
+                        "isHearingRelated", isHearingRelated,
+                        "isWelsh", isWluQuery
+                    )
+                )
             )
         );
 
-        caseData.put("featureToggleWA", "PUBLIC_QM");
-        caseData.put("claimantBilingualLanguagePreference", claimantLanguagePreference);
-        var respondent1LiPResponse = new HashMap<String, String>();
-        respondent1LiPResponse.put("respondent1ResponseLanguage", defendantLanguagePreference);
-        caseData.put("respondent1LiPResponse", respondent1LiPResponse);
-        Map<String, Object> data = new HashMap<>();
-        data.put("Data", caseData);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
-        inputVariables.putValue("postEventState", state);
-        inputVariables.putValue("additionalData", data);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(data);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
@@ -4872,75 +4453,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,NULL_VALUE,WELSH",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "JUDICIAL_REFERRAL,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'WELSH','ENGLISH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'ENGLISH','WELSH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'BOTH','WELSH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'WELSH','BOTH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'ENGLISH','BOTH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'BOTH','ENGLISH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'BOTH','BOTH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'WELSH'",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'WELSH',NULL_VALUE",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,WELSH",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,'BOTH',NULL_VALUE",
-        "CASE_PROGRESSION,false,respondToQueryWLU,Respond to a query,NULL_VALUE,'BOTH'",
-
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','ENGLISH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','WELSH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','WELSH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH','BOTH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'ENGLISH','BOTH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','ENGLISH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH','BOTH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'WELSH'",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'WELSH',NULL_VALUE",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,WELSH",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,'BOTH',NULL_VALUE",
-        "CASE_PROGRESSION,true,respondToHearingQueryWLU,Respond to a hearing related query,NULL_VALUE,'BOTH'"
+        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
         }, nullValues = "NULL_VALUE")
-    void given_input_should_return_expected_wlu_qm_task_for_stayed_case_whenQmToggle(String preStayState, boolean isHearingRelated, String expectedTaskId, String expectedTaskName, String claimantLanguagePreference, String defendantLanguagePreference) {
-
-        Map<String, Object> caseData = new HashMap<>();
-        String queryId = "query-id";
-        caseData.put("preStayState", preStayState);
-        caseData.put(
-            "qmLatestQuery", Map.of(
-                "queryId", queryId,
-                "isHearingRelated", isHearingRelated
+    void given_input_should_return_expected_qm_task_for_stayed_case_withoutQmToggleAndIsWelshFlag(String preStayState, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
+        Map<String, Object> data = Map.of(
+            "eventId", "queryManagementRaiseQuery",
+            "postEventState", "CASE_STAYED",
+            "additionalData", Map.of(
+                "Data", Map.of(
+                    "featureToggleWA", "Prod",
+                    "preStayState", preStayState,
+                    "qmLatestQuery", Map.of(
+                        "queryId", "query-id",
+                        "isHearingRelated", isHearingRelated
+                    )
+                )
             )
         );
-        caseData.put("featureToggleWA", "PUBLIC_QM");
-        caseData.put("claimantBilingualLanguagePreference", claimantLanguagePreference);
-        var respondent1LiPResponse = new HashMap<String, String>();
-        respondent1LiPResponse.put("respondent1ResponseLanguage", defendantLanguagePreference);
-        caseData.put("respondent1LiPResponse", respondent1LiPResponse);
-        Map<String, Object> data = new HashMap<>();
-        data.put("Data", caseData);
 
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
-        inputVariables.putValue("postEventState", "CASE_STAYED");
-        inputVariables.putValue("additionalData", data);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(data);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("taskId"), is(expectedTaskId));
-        assertThat(workTypeResultList.get(1).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
     }
 }
