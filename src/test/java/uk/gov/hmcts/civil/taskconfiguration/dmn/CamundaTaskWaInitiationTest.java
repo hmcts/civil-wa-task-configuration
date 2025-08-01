@@ -1832,9 +1832,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "JUDICIAL, reviewMessageJudicial",
-        "JUDICIAL_DISTRICT, reviewMessageJudicial",
-        "JUDICIAL_CIRCUIT, reviewMessageJudicial",
         "LEGAL_OPERATIONS, reviewMessageLA",
         "WLU_ADMIN, reviewMessageWLU",
     })
@@ -1856,6 +1853,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Review message"));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "JUDICIAL, reviewMessageJudicial",
+        "JUDICIAL_DISTRICT, reviewMessageJudicial",
+        "JUDICIAL_CIRCUIT, reviewMessageJudicial"
+    })
+    void given_input_rolePool_should_return_correct_review_message_judicial_task(String rolePool, String expectedTaskId) {
+        Map<String, Object> data = new HashMap<>();
+        String messageId = "message-id";
+        data.put("lastMessage", Map.of("recipientRoleType", rolePool, "messageId", messageId));
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "SEND_AND_REPLY");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Review message"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("sendReplyMessage,messageID_" + messageId));
     }
 
     @ParameterizedTest

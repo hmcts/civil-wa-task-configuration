@@ -1848,18 +1848,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             + "[Small Claim, LA, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         "reviewMessageLA; Fast Track;; "
             + "[Fast Track, LA, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
-        "reviewMessageJudicial; Small Claim; CJ; "
-            + "[Small Claim, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
-        "reviewMessageJudicial; Fast Track; CJ; "
-            + "[Fast Track, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
-        "reviewMessageJudicial; Small Claim; DJ; "
-            + "[Small Claim, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
-        "reviewMessageJudicial; Fast Track; DJ; "
-            + "[Fast Track, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
-        "reviewMessageJudicial; Small Claim; Judge; "
-            + "[Small Claim, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
-        "reviewMessageJudicial; Fast Track; Judge; "
-            + "[Fast Track, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
         "reviewMessageWLU; Fast Track; WLU; "
             + "[Fast Track, WLU, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
         "reviewMessageWLU; Small Claim; WLU; "
@@ -1910,6 +1898,76 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "true",
             "name", "description",
             "value", expectedDescription
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "reviewMessageJudicial; Small Claim; CJ; "
+            + "[Small Claim, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageJudicial; Fast Track; CJ; "
+            + "[Fast Track, CJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageJudicial; Small Claim; DJ; "
+            + "[Small Claim, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageJudicial; Fast Track; DJ; "
+            + "[Fast Track, DJ, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageJudicial; Small Claim; Judge; "
+            + "[Small Claim, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageJudicial; Fast Track; Judge; "
+            + "[Fast Track, Judge, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        }, delimiter = ';')
+    void when_reviewMessageJudicial_then_return_allocatedTrackAndDescriptionAndMessageId(
+        String taskType, String allocatedTrack,
+        String judgeLabel, String expectedDescription, String isUrgent) {
+
+        Map<String, Object> caseData = new HashMap<>();
+
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+
+        caseData.put("lastMessage", Map.of(
+            "isUrgent", isUrgent
+        ));
+        caseData.put("lastMessageAllocatedTrack", allocatedTrack);
+        caseData.put("lastMessageJudgeLabel", judgeLabel);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        String messageId = "messageId";
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", taskType,
+            "__processCategory__messageID_" + messageId, true
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "majorPriority",
+            "value", isUrgent.equals("Yes") ? "2000" : "5000"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", taskType.equals("reviewMessageCW") ? "routine_work" :
+                taskType.equals("reviewMessageWLU") ? "welsh_translation_work" :
+                    "decision_making_work"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", expectedDescription
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "additionalProperties_messageId",
+            "value", messageId
         )));
     }
 
