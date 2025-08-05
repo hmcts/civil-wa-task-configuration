@@ -211,7 +211,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "applicationDocumentsWelshRequestRespondToMoreInfoRespondent",
         "applicationDocumentsWelshRequestRespondToWrittenRepRespondent",
         "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
-        "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
+        "applicationDocumentsWelshRequestRespondToMoreInfo",
         "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
         "applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo",
         "applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule",
@@ -342,7 +342,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource(value = {
         "applicationDocumentsWelshRequestAppSum",
         "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
-        "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
+        "applicationDocumentsWelshRequestRespondToMoreInfo",
         "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
         "applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo",
         "applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule",

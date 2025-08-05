@@ -483,7 +483,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         @CsvSource(value = {
             "applicationDocumentsWelshRequestAppSum",
             "applicationDocumentsWelshRequestOrderMade", "applicationDocumentsWelshRequestHearingOrder",
-            "applicationDocumentsWelshRequestWithNotice", "applicationDocumentsWelshRequestRespondToMoreInfo",
+            "applicationDocumentsWelshRequestRespondToMoreInfo",
             "applicationDocumentsWelshRequestRespondToWrittenRep", "applicationDocumentsWelshRequestAddlDoc",
             "applicationDocumentsWelshRequestRespondToJudge", "applicationDocumentsWelshRequestMoreInfo",
             "applicationDocumentsWelshRequestWrittenResp", "applicationDocumentsWelshRequestHearingSchedule",

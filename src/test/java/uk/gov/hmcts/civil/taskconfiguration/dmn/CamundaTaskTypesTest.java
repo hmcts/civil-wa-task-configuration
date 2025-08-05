@@ -202,10 +202,6 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Application Documents Welsh Request - Hearing Order"
             ),
             Map.of(
-                "taskTypeId", "applicationDocumentsWelshRequestWithNotice",
-                "taskTypeName", "Application Documents Welsh Request - Without notice to notice document"
-            ),
-            Map.of(
                 "taskTypeId", "applicationDocumentsWelshRequestRespondToMoreInfo",
                 "taskTypeName", "Application Documents Welsh Request - Response to the Request for more information"
             ),
@@ -469,7 +465,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(104));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(103));
     }
 
 }
