@@ -34,7 +34,8 @@ class CamundaTaskWaCancelAllTest {
     private static final List<String> categoriesExcludedFromCancellation = List.of(
         "qmResponseTasks",
         "queryResponseTasks",
-        "queryManagement_queryID"
+        "queryManagement_queryID",
+        "messageID"
     );
 
     private static DmnDecision cancelDecision;
