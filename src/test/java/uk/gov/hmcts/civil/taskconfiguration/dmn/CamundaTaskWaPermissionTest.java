@@ -837,6 +837,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
+            ),
+            Map.of(
+                "name", "wlu-team-leader",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false
             )
         )));
     }
@@ -917,6 +923,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "wlu-admin",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false,
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
+            ),
+            Map.of(
+                "name", "wlu-team-leader",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false,
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"
@@ -1186,7 +1198,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             + "ADMIN",
         "reviewMessageLA;tribunal-caseworker,senior-tribunal-caseworker;LEGAL_OPERATIONS",
         "reviewMessageJudicial;judge;JUDICIAL",
-        "reviewMessageWLU;wlu-admin;ADMIN"
+        "reviewMessageWLU;wlu-admin,wlu-team-leader;ADMIN"
         }, delimiter = ';')
     void given_reviewMessage_taskType_when_evaluate_dmn_then_returns_expected_role_permission(String taskType,
                                                                                               String roles,
@@ -1793,6 +1805,12 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "wlu-admin",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "ADMIN",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "wlu-team-leader",
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "ADMIN",
                 "autoAssignable", false
