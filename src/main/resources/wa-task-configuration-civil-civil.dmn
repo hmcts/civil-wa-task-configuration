@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.33.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN" camunda:historyTimeToLive="P90D">
     <informationRequirement id="InformationRequirement_0z900ts">
       <requiredDecision href="#Decision_1l2j3wj" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_17qs39h">
+      <requiredDecision href="#Decision_021yrs4" />
     </informationRequirement>
     <decisionTable id="DecisionTable_14cx0791" hitPolicy="COLLECT">
       <input id="InputClause_1gxyo7fa" label="CCD Case Data" camunda:inputVariable="caseData">
@@ -2719,6 +2722,26 @@ else ""</text>
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0t633bf">
+        <inputEntry id="UnaryTests_1pumesb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03pftr2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n2dvpe">
+          <text>"reviewMessageJudicial"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ugivyj">
+          <text>"additionalProperties_messageId"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m25h4b">
+          <text>messageId</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xivmif">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_19anfjs">
         <inputEntry id="UnaryTests_0z0hvxc">
           <text></text>
@@ -3795,6 +3818,20 @@ else ""</text>
 }.__nullable_query_id</text>
     </literalExpression>
   </decision>
+  <decision id="Decision_021yrs4" name="messageId">
+    <variable id="InformationItem_0krgtut" name="messageId" typeRef="string" />
+    <literalExpression id="LiteralExpression_0yi999s" expressionLanguage="feel">
+      <text>if taskAttributes = null then null else
+{
+  "__prefix" : "__processCategory__messageID_",
+  "__attribute_entries" : get entries(taskAttributes),
+  "__matching_keys" : for __item in __attribute_entries return if starts with(__item.key, __prefix) then substring(__item.key, string length(__prefix) + 1) else null,
+  "__filtered_keys" : __matching_keys[item != null],
+  "__nonempty_keys" : append(__filtered_keys, null),
+  "__nullable_message_id" : __nonempty_keys[1]
+}.__nullable_message_id</text>
+    </literalExpression>
+  </decision>
   <dmndi:DMNDI>
     <dmndi:DMNDiagram id="DMNDiagram_1ifewa31">
       <dmndi:DMNShape id="DMNShape_0ijg0ora" dmnElementRef="wa-task-configuration-civil-civil">
@@ -3805,8 +3842,16 @@ else ""</text>
       </dmndi:DMNShape>
       <dmndi:DMNEdge id="DMNEdge_0hggy1p" dmnElementRef="InformationRequirement_0z900ts">
         <di:waypoint x="240" y="220" />
-        <di:waypoint x="240" y="180" />
-        <di:waypoint x="240" y="160" />
+        <di:waypoint x="210" y="180" />
+        <di:waypoint x="210" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0fix953" dmnElementRef="Decision_021yrs4">
+        <dc:Bounds height="80" width="180" x="400" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1sjvt96" dmnElementRef="InformationRequirement_17qs39h">
+        <di:waypoint x="490" y="220" />
+        <di:waypoint x="270" y="180" />
+        <di:waypoint x="270" y="160" />
       </dmndi:DMNEdge>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
