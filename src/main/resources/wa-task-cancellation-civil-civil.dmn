@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.0">
   <decision id="wa-task-cancellation-civil-civil" name="Civil Task cancellation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_0z3jx1ga" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -2217,6 +2217,198 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_1mlat35">
           <text>"queryResponseTasks"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jb0la9">
+        <description>"If Claimant settle event is run and case moves into CASE_STAYED state, then caseProgression and standardDorectionsOrder tasks should display a warning"</description>
+        <inputEntry id="UnaryTests_1lcq7uo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fvx8qe">
+          <text>"SETTLE_CLAIM_MARK_PAID_FULL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nwmf9f">
+          <text>"CASE_STAYED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04hqn53">
+          <text>"Warn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vxoh2w">
+          <text>"caseSettled"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1aae6zn">
+          <text>"This claim has been settled. Please review the claim before completing any tasks."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vehkfp">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c5yuyu">
+        <description>"If Claimant settle event is run and case moves into CASE_STAYED state, then caseProgression and standardDorectionsOrder tasks should display a warning"</description>
+        <inputEntry id="UnaryTests_0plxydm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_150ec7w">
+          <text>"SETTLE_CLAIM_MARK_PAID_FULL"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0adlqmt">
+          <text>"CASE_STAYED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dqy863">
+          <text>"Warn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1g4bxas">
+          <text>"caseSettled"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0khtyp5">
+          <text>"This claim has been settled. Please review the claim before completing any tasks."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0grhhkj">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0aukrnn">
+        <description>"If Claimant settle event is run and case moves into CASE_STAYED state, then caseProgression and standardDorectionsOrder tasks should display a warning"</description>
+        <inputEntry id="UnaryTests_1u4tu43">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j100o2">
+          <text>"SETTLE_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pksecb">
+          <text>"CASE_STAYED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14bh3be">
+          <text>"Warn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nzja3k">
+          <text>"caseSettled"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0x7bfrk">
+          <text>"This claim has been settled. Please review the claim before completing any tasks."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1eh2l5p">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ph1bma">
+        <description>"If Claimant settle event is run and case moves into CASE_STAYED state, then caseProgression and standardDorectionsOrder tasks should display a warning"</description>
+        <inputEntry id="UnaryTests_0cayitt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qtl0xk">
+          <text>"SETTLE_CLAIM"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ffw8cv">
+          <text>"CASE_STAYED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uwr5dk">
+          <text>"Warn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1htjvwx">
+          <text>"caseSettled"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16bttqz">
+          <text>"This claim has been settled. Please review the claim before completing any tasks."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vfmcd3">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16ild0m">
+        <description>"If Claimant discontinue event is run and case moves into CASE_DISCONTINUED state, then caseProgression and standardDorectionsOrder tasks should display a warning"</description>
+        <inputEntry id="UnaryTests_1hatnh7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hie591">
+          <text>"DISCONTINUE_CLAIM_CLAIMANT"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15gvdr9">
+          <text>"CASE_DISCONTINUED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1t7vhcf">
+          <text>"Warn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lj5q8d">
+          <text>"caseDiscontinued"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ne5hms">
+          <text>"This claim has been discontinued. Please review the claim before completing any tasks."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1h41o3g">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1i1gjzz">
+        <description>"If Claimant discontinue event is run and case moves into CASE_DISCONTINUED state, then caseProgression and standardDorectionsOrder tasks should display a warning"</description>
+        <inputEntry id="UnaryTests_0yjg47r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19v3n7d">
+          <text>"DISCONTINUE_CLAIM_CLAIMANT"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pvdate">
+          <text>"CASE_DISCONTINUED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06dx3s8">
+          <text>"Warn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19l79so">
+          <text>"caseDiscontinued"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ftlsci">
+          <text>"This claim has been discontinued. Please review the claim before completing any tasks."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1sx5qd9">
+          <text>"standardDirectionsOrder"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0j56j2v">
+        <description>"If Claimant discontinue event is run and case moves into CASE_DISCONTINUED state, then caseProgression and standardDorectionsOrder tasks should display a warning"</description>
+        <inputEntry id="UnaryTests_1msv1jm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ovjcfb">
+          <text>"VALIDATE_DISCONTINUE_CLAIM_CLAIMANT"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h3y8o9">
+          <text>"CASE_DISCONTINUED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0axpg8z">
+          <text>"Warn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_147erxw">
+          <text>"caseDiscontinued"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qjpjb8">
+          <text>"This claim has been discontinued. Please review the claim before completing any tasks."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04zbicq">
+          <text>"caseProgression"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_176sb4x">
+        <description>"If Claimant discontinue event is run and case moves into CASE_DISCONTINUED state, then caseProgression and standardDorectionsOrder tasks should display a warning"</description>
+        <inputEntry id="UnaryTests_16sg7wl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xicfgy">
+          <text>"VALIDATE_DISCONTINUE_CLAIM_CLAIMANT"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00yjjer">
+          <text>"CASE_DISCONTINUED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s8u3g9">
+          <text>"Warn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bdabr6">
+          <text>"caseDiscontinued"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0euxjld">
+          <text>"This claim has been discontinued. Please review the claim before completing any tasks."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0f6zd6k">
+          <text>"standardDirectionsOrder"</text>
         </outputEntry>
       </rule>
     </decisionTable>
