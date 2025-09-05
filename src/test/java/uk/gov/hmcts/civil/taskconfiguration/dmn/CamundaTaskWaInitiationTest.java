@@ -1832,9 +1832,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "JUDICIAL, reviewMessageJudicial",
-        "JUDICIAL_DISTRICT, reviewMessageJudicial",
-        "JUDICIAL_CIRCUIT, reviewMessageJudicial",
         "LEGAL_OPERATIONS, reviewMessageLA",
         "WLU_ADMIN, reviewMessageWLU",
     })
@@ -1856,6 +1853,32 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is("Review message"));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "JUDICIAL, reviewMessageJudicial",
+        "JUDICIAL_DISTRICT, reviewMessageJudicial",
+        "JUDICIAL_CIRCUIT, reviewMessageJudicial"
+    })
+    void given_input_rolePool_should_return_correct_review_message_judicial_task(String rolePool, String expectedTaskId) {
+        Map<String, Object> data = new HashMap<>();
+        String messageId = "message-id";
+        data.put("lastMessage", Map.of("recipientRoleType", rolePool, "messageId", messageId));
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "SEND_AND_REPLY");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Review message"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("sendReplyMessage,messageID_" + messageId));
     }
 
     @ParameterizedTest
@@ -2297,7 +2320,8 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(280));
+        assertThat(logic.getRules().size(), is(282));
+
     }
 
     @ParameterizedTest
@@ -3095,6 +3119,62 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
         assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleHMCHearing"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Schedule a Fast Track Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Schedule a Fast Track Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Schedule a Fast Track Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Schedule a Fast Track Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Schedule a Fast Track Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Schedule a Small Claims Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Schedule a Small Claims Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Schedule a Small Claims Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Schedule a Small Claims Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing - HMC",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing - HMC",
+    })
+    void given_input_should_return_correct_scheduleHmcHearingTask_lip_welsh_enabled(
+        String eventId,
+        String postEventState,
+        String allocatedTrack,
+        String responseClaimTrack,
+        boolean applicant1Represented,
+        boolean respondent1Represented,
+        String orderType,
+        String caseManagementOrderSelection,
+        String expectedTaskName
+    ) {
+
+        Map<String, Object> data = new HashMap<>();
+
+        addNonNullField(data, "applicant1Represented", applicant1Represented);
+        addNonNullField(data, "respondent1Represented", respondent1Represented);
+        addNonNullField(data, "allocatedTrack", allocatedTrack);
+        addNonNullField(data, "responseClaimTrack", responseClaimTrack);
+        addNonNullField(data, "orderType", orderType);
+        addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
+        data.put("eaCourtLocation", "true");
+        data.put("featureToggleWA", "CUI_WELSH");
+
+        Map<String, Object> caseData = Map.of("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", eventId);
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(2));
+        assertThat(workTypeResultList.get(1).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleHMCHearing"));
     }
 
     @ParameterizedTest
@@ -4004,9 +4084,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "CREATE_SDO, ENGLISH, BOTH",
         "CREATE_SDO, BOTH, ENGLISH",
         "CREATE_SDO, WELSH, WELSH",
-        "REQUEST_FOR_RECONSIDERATION, ENGLISH, BOTH",
-        "REQUEST_FOR_RECONSIDERATION, BOTH, ENGLISH",
-        "REQUEST_FOR_RECONSIDERATION, WELSH, WELSH"
     })
     void given_input_should_return_upload_translated_order_document(
         String eventId, String claimantLanguage, String defendantLanguage) {

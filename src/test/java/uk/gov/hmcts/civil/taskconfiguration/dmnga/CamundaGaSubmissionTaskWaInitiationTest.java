@@ -4846,37 +4846,14 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     }
 
     @Test
-    void given_input_should_return_applicationDocumentsWelshRequest_ifAdditionalFeePaid() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("isGaApplicantLip", true);
-        data.put("applicantBilingualLanguagePreference", true);
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_JUDGE_BUSINESS_PROCESS_GASPEC");
-        inputVariables.putValue("postEventState", "APPLICATION_ADD_PAYMENT");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"),
-                   is("Application Documents Welsh Request - Without notice to notice document"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestWithNotice"));
-    }
-
-    @Test
     void given_input_should_return_applicationDocumentsWelshRequest_respondToMoreInfo() {
         Map<String, Object> data = new HashMap<>();
-        data.put("isGaApplicantLip", true);
         data.put("isApplicantResponded", true);
-        data.put("applicantBilingualLanguagePreference", true);
+        data.put("preTranslationGaDocumentType", "MORE_INFO_RESPONSE_DOC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
-        inputVariables.putValue("postEventState", "AWAITING_ADDITIONAL_INFORMATION");
+        inputVariables.putValue("eventId", "RESPOND_TO_JUDGE_ADDITIONAL_INFO");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -4893,12 +4870,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         Map<String, Object> data = new HashMap<>();
         data.put("isGaApplicantLip", true);
         data.put("isRespondentResponded", true);
-        data.put("applicantBilingualLanguagePreference", true);
+        data.put("preTranslationGaDocumentType", "MORE_INFO_RESPONSE_DOC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
-        inputVariables.putValue("postEventState", "AWAITING_ADDITIONAL_INFORMATION");
+        inputVariables.putValue("eventId", "RESPOND_TO_JUDGE_ADDITIONAL_INFO");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -4915,12 +4891,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         Map<String, Object> data = new HashMap<>();
         data.put("isGaApplicantLip", true);
         data.put("isApplicantResponded", true);
-        data.put("applicantBilingualLanguagePreference", true);
+        data.put("preTranslationGaDocumentType", "WRITTEN_REPS_RESPONSE_DOC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
-        inputVariables.putValue("postEventState", "AWAITING_WRITTEN_REPRESENTATIONS");
+        inputVariables.putValue("eventId", "RESPOND_TO_JUDGE_WRITTEN_REPRESENTATION");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -4937,12 +4912,11 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
         Map<String, Object> data = new HashMap<>();
         data.put("isGaApplicantLip", true);
         data.put("isRespondentResponded", true);
-        data.put("applicantBilingualLanguagePreference", true);
+        data.put("preTranslationGaDocumentType", "WRITTEN_REPS_RESPONSE_DOC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
-        inputVariables.putValue("postEventState", "AWAITING_WRITTEN_REPRESENTATIONS");
+        inputVariables.putValue("eventId", "RESPOND_TO_JUDGE_WRITTEN_REPRESENTATION");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
