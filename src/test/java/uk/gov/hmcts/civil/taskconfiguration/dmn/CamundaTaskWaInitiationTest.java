@@ -4329,7 +4329,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "DECISION_OUTCOME,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
         "All_FINAL_ORDERS_ISSUED,false,true,respondToQueryWLU,Respond to a query",
         "All_FINAL_ORDERS_ISSUED,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
-            }, nullValues = "NULL_VALUE")
+    }, nullValues = "NULL_VALUE")
     void given_input_should_return_expected_qm_task_whenQmToggle(String state, boolean isHearingRelated, boolean isWluQuery, String expectedTaskId, String expectedTaskName) {
         Map<String, Object> data = Map.of(
             "eventId", "queryManagementRaiseQuery",
