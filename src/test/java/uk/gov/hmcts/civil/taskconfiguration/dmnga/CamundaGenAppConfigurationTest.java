@@ -207,7 +207,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "LegalAdvisorDecideOnApplication", "LegalAdvisorRevisitApplication",
         "ScheduleApplicationHearing", "ReviewStayTheClaimApplicationOrder",
         "ReviewUnlessOrderApplication", "ReviewApplicationOrder", "applicationDocumentsWelshRequestAppSum",
-         "applicationDocumentsWelshRequestAppSumResponded",
+        "applicationDocumentsWelshRequestAppSumResponded",
         "applicationDocumentsWelshRequestRespondToMoreInfoRespondent",
         "applicationDocumentsWelshRequestRespondToWrittenRepRespondent",
         "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
