@@ -127,6 +127,73 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                         "completionMode", "Auto"
                     ))),
             Arguments.of(
+                "UPLOAD_TRANSLATED_DOCUMENT",
+                asList(
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestAppSum",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestAppSumResponded",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestOrderMade",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestHearingOrder",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestRespondToMoreInfo",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestRespondToWrittenRep",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestAddlDoc",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestRespondToJudge",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestMoreInfo",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestWrittenResp",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestHearingSchedule",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestAppDismissed",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestJudgeDirection",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestFinalOrder",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestRespondToWrittenRepRespondent",
+                        "completionMode", "Auto"
+                    ),
+                    Map.of(
+                        "taskType", "applicationDocumentsWelshRequestRespondToMoreInfoRespondent",
+                        "completionMode", "Auto"
+                    ))),
+            Arguments.of(
                 "FEE_PAYMENT_OUTCOME_GA",
                 asList(
                     Map.of(
@@ -155,7 +222,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(26));
+        assertThat(logic.getRules().size(), is(28));
 
     }
 }
