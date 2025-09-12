@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.14.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-permissions-civil-civil" name="Civil Permissions DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_1pr5oica" hitPolicy="RULE ORDER">
       <input id="InputClause_12crj6ea" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
@@ -2543,10 +2543,43 @@ else
           <text>false</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_15wuojc">
+        <description>Judge task permissions</description>
+        <inputEntry id="UnaryTests_0grabs7">
+          <text>"allocateMultiTrack","allocateIntermediateTrack"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lztg0t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uy0mrw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11z633o">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01bm3nk">
+          <text>"district-judge"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fxvtmt">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1snrrrz">
+          <text>"JUDICIAL"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xyxni6">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wxeu2w">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1rukhw9">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_1keaeg0">
         <description>Judge task permissions</description>
         <inputEntry id="UnaryTests_1x8hki2">
-          <text>"allocateMultiTrack","allocateIntermediateTrack"</text>
+          <text>"allocateIntermediateTrack"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0niwxzm">
           <text></text>
@@ -2558,7 +2591,7 @@ else
           <text></text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0uiuoe1">
-          <text>"district-judge"</text>
+          <text>"deputy-district-judge"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_106qv49">
           <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
