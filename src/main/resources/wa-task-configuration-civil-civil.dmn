@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="wa-configuration-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1">
   <decision id="wa-task-configuration-civil-civil" name="Civil Task configuration DMN" camunda:historyTimeToLive="P90D">
     <informationRequirement id="InformationRequirement_0z900ts">
       <requiredDecision href="#Decision_1l2j3wj" />
@@ -1146,7 +1146,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_145xe7l">
-          <text>"manualDetermination","defendantWelshRequest","claimantWelshRequest","transferCaseOfflineLiP", "uploadTranslatedOrderDocument","HelpWithFeesClaimIssue","transferCaseOfflineMinti"</text>
+          <text>"manualDetermination","HelpWithFeesClaimIssue","transferCaseOfflineMinti","transferCaseOfflineLiP"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_18mg429">
           <text>"roleCategory"</text>
@@ -1186,7 +1186,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1y63v8x">
-          <text>"manualDetermination","defendantWelshRequest","claimantWelshRequest","transferCaseOfflineLiP","HelpWithFeesClaimIssue", "uploadTranslatedOrderDocument"</text>
+          <text>"manualDetermination","transferCaseOfflineLiP","HelpWithFeesClaimIssue"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_04rz5bp">
           <text>"workType"</text>
@@ -1198,12 +1198,52 @@ else ""</text>
           <text>true</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1c8sy41">
+        <inputEntry id="UnaryTests_04dhbvl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q68wv1">
+          <text>"POST_CLEANUP_CUI_WELSH"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uhskbk">
+          <text>"defendantWelshRequest","claimantWelshRequest","uploadTranslatedOrderDocument"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13p10ro">
+          <text>"workType"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1i22400">
+          <text>"routine_work"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0i6tt34">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hhyt3s">
+        <inputEntry id="UnaryTests_0elunt4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lec0cl">
+          <text>"POST_CLEANUP_CUI_WELSH"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ysww09">
+          <text>"defendantWelshRequest","claimantWelshRequest","uploadTranslatedOrderDocument"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0335gju">
+          <text>"roleCategory"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12m47kq">
+          <text>"CTSC"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1txg0wg">
+          <text>true</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_00vfte6">
         <inputEntry id="UnaryTests_10a571q">
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_15108i6">
-          <text>"CUI_WELSH"</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0d9lwbi">
           <text>"defendantWelshRequest","claimantWelshRequest","uploadTranslatedOrderDocument","finalOrderIssuedWelshRequest"</text>
@@ -1303,7 +1343,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1fyyh3p">
-          <text></text>
+          <text>"POST_CLEANUP_CUI_WELSH"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_04azsxe">
           <text>"finalOrderIssuedWelshRequest"</text>
@@ -3787,7 +3827,7 @@ else ""</text>
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0319ix5">
-          <text>"CUI_WELSH"</text>
+          <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1gxizhk">
           <text>"defendantWelshRequest","claimantWelshRequest","uploadTranslatedOrderDocument"</text>
@@ -3799,7 +3839,7 @@ else ""</text>
           <text>"ADMIN"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1vku8hx">
-          <text>false</text>
+          <text>true</text>
         </outputEntry>
       </rule>
     </decisionTable>

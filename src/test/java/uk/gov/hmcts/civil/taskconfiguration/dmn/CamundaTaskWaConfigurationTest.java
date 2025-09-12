@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(187));
+        assertThat(logic.getRules().size(), is(189));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -1324,12 +1324,22 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     @Test
     void when_taskId_claimant_welsh_request() {
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
+        caseData.put("applicant2", Map.of(
+            "partyName", "Firstname LastName"
+
+        ));
         VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
             "claimantWelshRequest"
         ));
-
+        caseData.put("featureToggleWA", "POST_CLEANUP_CUI_WELSH");
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
@@ -1500,6 +1510,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
         ));
+        caseData.put("featureToggleWA", "POST_CLEANUP_CUI_WELSH");
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
         ));
@@ -3022,13 +3033,14 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
         ));
-        caseData.put("featureToggleWA", "CUI_WELSH");
+        caseData.put("featureToggleWA", "POST_CLEANUP_CUI_WELSH");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
             "taskType",
             "uploadTranslatedOrderDocument"
         ));
+
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -3046,7 +3058,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "false",
+            "canReconfigure", "true",
             "name", "roleCategory",
             "value", "ADMIN"
         )));
