@@ -33,7 +33,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioProceedsInHeritageSystem",
         "scenarioUpdateNextHearingDetailsCasesReconfigure", "scenarioUpdateNextHearingInfoCasesReconfigure",
         "scenarioNotSuitableSdoCancelTasks", "scenarioWhenCaseIsStayed", "scenarioWhenManageStay", "scenarioDismissCase",
-        "scenarioAllFinalOrdersIssued", "scenarioNoc", "scenarioProviderCaseSettledMarkPaidInFull"})
+        "scenarioAllFinalOrdersIssued", "scenarioNoc"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -820,29 +820,12 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
-    public static Stream<Arguments> scenarioProviderCaseSettledMarkPaidInFull() {
-        List<Map<String, String>> outcome = List.of(
-            Map.of(
-                "action", "Warn",
-                "warningCode", "caseSettled",
-                "warningText", "This claim has been settled. Please review the claim before completing any tasks.",
-                "processCategories", "multiOrIntermediateClaim"
-            )
-        );
-        return Stream.of(
-            Arguments.of(
-                "", "SETTLE_CLAIM_MARK_PAID_FULL", "CASE_STAYED",
-                outcome
-            )
-        );
-    }
-
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(93));
+        assertThat(logic.getRules().size(), is(92));
     }
 }
