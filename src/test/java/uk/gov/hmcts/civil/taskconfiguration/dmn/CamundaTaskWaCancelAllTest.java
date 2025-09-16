@@ -34,7 +34,8 @@ class CamundaTaskWaCancelAllTest {
     private static final List<String> categoriesExcludedFromCancellation = List.of(
         "qmResponseTasks",
         "queryResponseTasks",
-        "queryManagement_queryID"
+        "queryManagement_queryID",
+        "messageID"
     );
 
     private static DmnDecision cancelDecision;
@@ -114,7 +115,6 @@ class CamundaTaskWaCancelAllTest {
      * @return set of process identifiers cancelled by the event
      */
     private static Set<String> getCancelledProcessIdentifiers(String eventName) {
-        Set<String> cancelled = new HashSet<>();
         DmnDecisionTableImpl cancelLogic = (DmnDecisionTableImpl) cancelDecision.getDecisionLogic();
         Assertions.assertEquals("Event", cancelLogic.getInputs()
             .get(cancelEventIndex).getName());
@@ -122,6 +122,7 @@ class CamundaTaskWaCancelAllTest {
             .get(cancelActionIndex).getName());
         Assertions.assertEquals("Process Categories Identifiers", cancelLogic.getOutputs()
             .get(cancelProcessCategoryIndex).getName());
+        Set<String> cancelled = new HashSet<>();
         for (DmnDecisionTableRuleImpl rule : cancelLogic.getRules()) {
             if (eventName.equals(rule.getConditions().get(cancelEventIndex).getExpression())
                 && cancelActionName.equals(rule.getConclusions().get(cancelActionIndex).getExpression())
