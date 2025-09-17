@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.33.1">
+  <decision id="wa-task-completion-civil-generalapplication" name="Civil GA Task completion DMN" camunda:historyTimeToLive="P90D">
+    <decisionTable id="DecisionTable_01re27m" hitPolicy="COLLECT">
+      <input id="eventId" label="Event ID" biodi:width="226">
+        <inputExpression id="LiteralExpression_1ngg489" typeRef="string">
+          <text>eventId</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Task Type" name="taskType" typeRef="string" biodi:width="548" />
+      <output id="OutputClause_1mldd9e" label="Completion Mode" name="completionMode" typeRef="string" />
+      <rule id="DecisionRule_062u01q">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated
+
+</description>
+        <inputEntry id="UnaryTests_0ndqddc">
+          <text>"HEARING_SCHEDULED_GA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wxsp1h">
+          <text>"ScheduleApplicationHearing"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kj4xdm">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hbpifj">
+        <description>Left empty so event can be triggered without a task
+</description>
+        <inputEntry id="UnaryTests_0hzufd0">
+          <text>"HEARING_SCHEDULED_GA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mq73ma">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1sfce8x">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0uicn59">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1y1xfq7">
+          <text>"MAKE_DECISION"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wolzkq">
+          <text>"JudgeDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cpsdq0">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15s2dpi">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1pv1bm9">
+          <text>"MAKE_DECISION","REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uy9dr4">
+          <text>"LegalAdvisorDecideOnApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k2xegf">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ieczx4">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0oj62uv">
+          <text>"MAKE_DECISION"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rlmdua">
+          <text>"JudgeRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1s9avtt">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16fdtra">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1jl7uqu">
+          <text>"MAKE_DECISION","REFER_TO_JUDGE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_042afcg">
+          <text>"LegalAdvisorRevisitApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0smorje">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12eenty">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_17cg7de">
+          <text>"MAKE_DECISION"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lk4wxe">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ap1s9l">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0a9q4m4">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0urp13z">
+          <text>"REFER_TO_JUDGE","REFER_TO_LEGAL_ADVISOR","APPROVE_CONSENT_ORDER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vvb3ou">
+          <text>
+
+"ReviewApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1w49e9a">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04s544z">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1w0cuw8">
+          <text>"REFER_TO_JUDGE","REFER_TO_LEGAL_ADVISOR","APPROVE_CONSENT_ORDER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xf9otr">
+          <text>
+
+"ReviewRevisitedApplication"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cxu6ws">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cnbgex">
+        <description>Any of the HWF Case Worker events will mark this task as complete. The subsequent work will be driven by the citizen responding via email or phone.</description>
+        <inputEntry id="UnaryTests_00nsv92">
+          <text>"FEE_PAYMENT_OUTCOME_GA","INITIATE_GENERAL_APPLICATION_AFTER_PAYMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07tjdvm">
+          <text>"HelpWithFeesApplicationFee"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tf6k7w">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12qkox0">
+        <description>Any of the HWF Case Worker events will mark this task as complete. The subsequent work will be driven by the citizen responding via email or phone.</description>
+        <inputEntry id="UnaryTests_0tf6z4d">
+          <text>"FEE_PAYMENT_OUTCOME_GA","MODIFY_STATE_AFTER_ADDITIONAL_FEE_PAID"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wsvhvt">
+          <text>"HelpWithFeesAdditionalApplicationFee"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hwfulg">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xv2hrw">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_01mydpf">
+          <text>"MODIFY_STATE_AFTER_ADDITIONAL_FEE_PAID","INITIATE_GENERAL_APPLICATION_AFTER_PAYMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gwhk4a">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ree68j">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1grd1k5">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0fxihr1">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07jtutu">
+          <text>"applicationDocumentsWelshRequestAppSum"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0j38yvc">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k8glsn">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1kt84wv">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p26jn0">
+          <text>"applicationDocumentsWelshRequestAppSumResponded"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1eds0jp">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13qk4f0">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0y5tzxz">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0m0cgss">
+          <text>"applicationDocumentsWelshRequestOrderMade"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k5e051">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07s18a3">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0ev57cy">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0q4uwwl">
+          <text>"applicationDocumentsWelshRequestHearingOrder"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08f1hby">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vm776o">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_15i59g1">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1seylkx">
+          <text>"applicationDocumentsWelshRequestWithNotice"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0s4aken">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ivazzr">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1n4f2mi">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uggzag">
+          <text>"applicationDocumentsWelshRequestRespondToMoreInfo"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1q5kjzf">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bd2vg9">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1s62nk7">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1brv91k">
+          <text>"applicationDocumentsWelshRequestRespondToWrittenRep"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qdt708">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00ipqpv">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_17a3tl2">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07p81qc">
+          <text>"applicationDocumentsWelshRequestAddlDoc"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1q0cija">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kyvw38">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1r9nyro">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1iwouoq">
+          <text>"applicationDocumentsWelshRequestRespondToJudge"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0iy3atq">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kc1bgn">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_1spnm6s">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xd5123">
+          <text>"applicationDocumentsWelshRequestMoreInfo"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0769a9o">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1i2vlv2">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_18lamvf">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qj48sh">
+          <text>"applicationDocumentsWelshRequestWrittenResp"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xg8ueh">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0iwlsv8">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0nmkgcm">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yizdkr">
+          <text>"applicationDocumentsWelshRequestHearingSchedule"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ff2865">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0geb3nh">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_16pd9kg">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z3lv0s">
+          <text>"applicationDocumentsWelshRequestAppDismissed"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1iw0xbf">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ymdvpi">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0d42zr2">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ufoox7">
+          <text>"applicationDocumentsWelshRequestJudgeDirection"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1m9tuhm">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wthgia">
+        <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
+        <inputEntry id="UnaryTests_0f6epe4">
+          <text>"UPLOAD_TRANSLATED_DOCUMENT"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14pvxck">
+          <text>"applicationDocumentsWelshRequestFinalOrder"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_043e3uv">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="wa-task-completion-civil-generalapplication">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
