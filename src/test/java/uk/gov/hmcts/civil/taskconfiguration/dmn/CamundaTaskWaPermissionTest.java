@@ -1383,14 +1383,10 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         )));
     }
 
-    @ParameterizedTest
-    @CsvSource(value = {
-        "allocateMultiTrack",
-        "allocateIntermediateTrack"
-    })
-    void given_allocateMultiTrack_or_allocateIntermediateTrack_taskType_when_evaluate_dmn_then_it_returns_expected_rule(String taskName) {
+    @Test
+    void given_allocateMultiTrack_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("taskAttributes", Map.of("taskType", taskName));
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "allocateMultiTrack"));
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
@@ -1407,6 +1403,45 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "name", "district-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "leadership-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "autoAssignable", false
+            )
+        )));
+    }
+
+    @Test
+    void given_allocateIntermediateTrack_taskType_when_evaluate_dmn_then_it_returns_expected_rule() {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "allocateIntermediateTrack"));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
+            Map.of(
+                "name", "task-supervisor",
+                "autoAssignable", false,
+                "value", "Read,Manage,Cancel,Unassign,Assign"
+            ),
+            Map.of(
+                "name", "circuit-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "district-judge",
+                "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                "roleCategory", "JUDICIAL",
+                "autoAssignable", false
+            ),
+            Map.of(
+                "name", "deputy-district-judge",
                 "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                 "roleCategory", "JUDICIAL",
                 "autoAssignable", false
