@@ -5092,22 +5092,21 @@ public class CamundaGaSubmissionTaskWaInitiationTest extends DmnDecisionTableBas
     @Test
     void given_input_should_return_applicationDocumentsWelshRequest_judgeMakesFinalOrder() {
         Map<String, Object> data = new HashMap<>();
-        data.put("isGaApplicantLip", true);
-        data.put("applicantBilingualLanguagePreference", true);
+        data.put("preTranslationGaDocumentType", "FINAL_ORDER_DOC");
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "END_BUSINESS_PROCESS_GASPEC");
+        inputVariables.putValue("eventId", "GENERATE_JUDGES_FORM");
         inputVariables.putValue("postEventState", "ORDER_MADE");
         inputVariables.putValue("additionalData", caseData);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("name"),
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"),
                    is("Application Documents Welsh Request - Final Order"));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("applicationDocumentsWelshRequestFinalOrder"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("applicationDocumentsWelshRequestFinalOrder"));
     }
 
     @Test
