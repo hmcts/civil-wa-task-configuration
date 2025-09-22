@@ -33,7 +33,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioProceedsInHeritageSystem",
         "scenarioUpdateNextHearingDetailsCasesReconfigure", "scenarioUpdateNextHearingInfoCasesReconfigure",
         "scenarioNotSuitableSdoCancelTasks", "scenarioWhenCaseIsStayed", "scenarioWhenManageStay", "scenarioDismissCase",
-        "scenarioAllFinalOrdersIssued", "scenarioNoc", "scenarioProviderCaseSettledMarkPaidInFull", "scenarioProviderCaseSettled",
+        "scenarioAllFinalOrdersIssued", "scenarioProviderCaseSettledMarkPaidInFull", "scenarioProviderCaseSettled",
         "scenarioProviderCaseDiscontinued"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
@@ -823,6 +823,12 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
 
     public static Stream<Arguments> scenarioProviderCaseSettledMarkPaidInFull() {
         List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Warn",
+                "warningCode", "caseSettled",
+                "warningText", "This claim has been settled. Please review the claim before completing any tasks.",
+                "processCategories", "multiOrIntermediateClaim"
+            ),
             Map.of(
                 "action", "Warn",
                 "warningCode", "caseSettled",
