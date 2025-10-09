@@ -75,51 +75,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
-    void given_input_should_not_return_schedule_hearing_sdo_outcome_dmn_prod() {
-
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", false);
-        data.put("featureToggleWA", "Prod");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CREATE_SDO");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Transfer Case Offline"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
-    }
-
-    @Test
-    void given_input_should_return_transfer_offline_sdo_outcome_dmn() {
-
-        /*if(caseData.generalAppUrgencyRequirement.generalAppUrgency != "Yes") then 2 else 10*/
-        Map<String, Object> data = new HashMap<>();
-        data.put("eaCourtLocation", false);
-        data.put("featureToggleWA", "Prod");
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "CREATE_SDO");
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
-        inputVariables.putValue("additionalData", caseData);
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("name"), is("Transfer Case Offline"));
-        assertThat(workTypeResultList.get(0).get("taskId"), is("transferCaseOffline"));
-    }
-
-    @Test
     void when_not_suitable_sdo_change_location_create_transfer_online_task() {
 
         Map<String, Object> data = new HashMap<>();
@@ -704,29 +659,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("taskId"), is("reviewHearingException"));
     }
 
-    @Test
-    void given_input_should_return_review_claimant_welsh_request_decision() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("claimantBilingualLanguagePreference", "BOTH");
-
-        Map<String, Object> caseData = new HashMap<>();
-        caseData.put("Data", data);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "GENERATE_RESPONSE_DQ_LIP_SEALED");
-        inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "AWAITING_APPLICANT_INTENTION");
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList
-                       .get(0).get("taskId"), is("claimantWelshRequest"));
-        assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
-    }
-
     @ParameterizedTest
     @CsvSource({
         "BOTH, ENGLISH",
@@ -743,8 +675,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         data.put("applicant1Represented", false);
         data.put("respondent1Represented", false);
         data.put("preTranslationDocumentType", "LIP_CLAIMANT_DQ");
-
-        data.put("featureToggleWA", "CUI_WELSH");
 
         Map<String, Object> caseData = new HashMap<>();
         caseData.put("Data", data);
@@ -2320,8 +2250,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(282));
-
+        assertThat(logic.getRules().size(), is(272));
     }
 
     @ParameterizedTest
@@ -3159,8 +3088,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         addNonNullField(data, "responseClaimTrack", responseClaimTrack);
         addNonNullField(data, "orderType", orderType);
         addNonNullField(data, "caseManagementOrderSelection", caseManagementOrderSelection);
-        data.put("eaCourtLocation", "true");
-        data.put("featureToggleWA", "CUI_WELSH");
 
         Map<String, Object> caseData = Map.of("Data", data);
         VariableMap inputVariables = new VariableMapImpl();
@@ -3172,9 +3099,9 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
 
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("name"), is(expectedTaskName));
-        assertThat(workTypeResultList.get(1).get("taskId"), is("ScheduleHMCHearing"));
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("ScheduleHMCHearing"));
     }
 
     @ParameterizedTest
@@ -3629,22 +3556,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Schedule a Small Claims Hearing - HMC, true",
         "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing - HMC, true",
         "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Schedule a Disposal Hearing - HMC, true",
-        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing - HMC, true",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, true,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, true, false,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION, FAST_CLAIM,, false, false,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, true,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION,, FAST_CLAIM, false, false,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, true,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, true, false,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION, SMALL_CLAIM,, false, false,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, true,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION,, SMALL_CLAIM, false, false,,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION,,, false, true, DISPOSAL,, Transfer Case Offline, false",
-        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Transfer Case Offline, false",
+        "CREATE_SDO, CASE_PROGRESSION,,, false, false, DISPOSAL,, Schedule a Disposal Hearing - HMC, true"
     })
     void given_input_should_return_correct_scheduleHmcHearingTaskForSdo_EaCourt(
         String eventId,
@@ -3660,7 +3572,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     ) {
 
         Map<String, Object> data = new HashMap<>();
-        data.put("featureToggleWA", "HMC_LIP");
         addNonNullField(data, "applicant1Represented", applicant1Represented);
         addNonNullField(data, "respondent1Represented", respondent1Represented);
         addNonNullField(data, "allocatedTrack", allocatedTrack);
@@ -4001,86 +3912,6 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "CASE_ISSUED,false,respondToQueryCTSC,Respond to a query",
-        "AWAITING_CASE_DETAILS,false,respondToQueryCTSC,Respond to a query",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryCTSC,Respond to a query",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryCTSC,Respond to a query",
-        "IN_MEDIATION,false,respondToQueryCTSC,Respond to a query",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
-        "CASE_SETTLED,false,respondToQueryCTSC,Respond to a query",
-        "CASE_DISCONTINUED,false,respondToQueryCTSC,Respond to a query",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
-        "JUDICIAL_REFERRAL,true,respondToQueryAdmin,Respond to a hearing related query",
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
-        "HEARING_READINESS,false,respondToQueryCTSC,Respond to a query",
-        "HEARING_READINESS,true,respondToQueryAdmin,Respond to a hearing related query",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryCTSC,Respond to a query",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToQueryAdmin,Respond to a hearing related query",
-        "DECISION_OUTCOME,false,respondToQueryCTSC,Respond to a query",
-        "DECISION_OUTCOME,true,respondToQueryAdmin,Respond to a hearing related query",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryCTSC,Respond to a query",
-        "All_FINAL_ORDERS_ISSUED,true,respondToQueryAdmin,Respond to a hearing related query",
-    })
-    void given_input_should_return_expected_qm(String state, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
-
-        VariableMap inputVariables = new VariableMapImpl();
-        Map<String, Object> data = new HashMap<>();
-        Map<String, Object> caseData = new HashMap<>();
-        String queryId = "query-id";
-        data.put("qmLatestQuery", Map.of(
-            "queryId", queryId,
-            "isHearingRelated", isHearingRelated
-        ));
-        caseData.put("Data", data);
-
-        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
-        inputVariables.putValue("postEventState", state);
-        inputVariables.putValue("additionalData", caseData);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
-        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
-    })
-    void given_input_should_return_expected_qm_task_for_stayed_case(String preStayState, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
-
-        Map<String, Object> data = new HashMap<>();
-        Map<String, Object> caseData = new HashMap<>();
-        String queryId = "query-id";
-        data.put("preStayState", preStayState);
-        data.put("qmLatestQuery", Map.of(
-            "queryId", queryId,
-            "isHearingRelated", isHearingRelated
-        ));
-        caseData.put("Data", data);
-
-        VariableMap inputVariables = new VariableMapImpl();
-        inputVariables.putValue("eventId", "queryManagementRaiseQuery");
-        inputVariables.putValue("postEventState", "CASE_STAYED");
-        inputVariables.putValue("additionalData", caseData);
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        assertThat(workTypeResultList.size(), is(1));
-        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
-        assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
         "CREATE_SDO, ENGLISH, BOTH",
         "CREATE_SDO, BOTH, ENGLISH",
         "CREATE_SDO, WELSH, WELSH",
@@ -4417,66 +4248,17 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "DECISION_OUTCOME,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
         "All_FINAL_ORDERS_ISSUED,false,true,respondToQueryWLU,Respond to a query",
         "All_FINAL_ORDERS_ISSUED,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
-            }, nullValues = "NULL_VALUE")
-    void given_input_should_return_expected_qm_task_whenQmToggle(String state, boolean isHearingRelated, boolean isWluQuery, String expectedTaskId, String expectedTaskName) {
+    }, nullValues = "NULL_VALUE")
+    void given_input_should_return_expected_qm_task(String state, boolean isHearingRelated, boolean isWluQuery, String expectedTaskId, String expectedTaskName) {
         Map<String, Object> data = Map.of(
             "eventId", "queryManagementRaiseQuery",
             "postEventState", state,
             "additionalData", Map.of(
                 "Data", Map.of(
-                    "featureToggleWA", "PUBLIC_QM",
                     "qmLatestQuery", Map.of(
                         "queryId", "query-id",
                         "isHearingRelated", isHearingRelated,
                         "isWelsh", isWluQuery
-                    )
-                )
-            )
-        );
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(data);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        //On QM Lip release this will be updated to 1 when old live qm initiation tasks are removed
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("taskId"), is(expectedTaskId));
-        assertThat(workTypeResultList.get(1).get("name"), is(expectedTaskName));
-    }
-
-    @ParameterizedTest
-    @CsvSource(value = {
-        "CASE_ISSUED,false,respondToQueryCTSC,Respond to a query",
-        "AWAITING_CASE_DETAILS,false,respondToQueryCTSC,Respond to a query",
-        "AWAITING_RESPONDENT_ACKNOWLEDGEMENT,false,respondToQueryCTSC,Respond to a query",
-        "AWAITING_APPLICANT_INTENTION,false,respondToQueryCTSC,Respond to a query",
-        "IN_MEDIATION,false,respondToQueryCTSC,Respond to a query",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
-        "CASE_SETTLED,false,respondToQueryCTSC,Respond to a query",
-        "CASE_DISCONTINUED,false,respondToQueryCTSC,Respond to a query",
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
-        "JUDICIAL_REFERRAL,true,respondToQueryAdmin,Respond to a hearing related query",
-        "CASE_PROGRESSION,No,respondToQueryCTSC,Respond to a query",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
-        "HEARING_READINESS,false,respondToQueryCTSC,Respond to a query",
-        "HEARING_READINESS,true,respondToQueryAdmin,Respond to a hearing related query",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,false,respondToQueryCTSC,Respond to a query",
-        "PREPARE_FOR_HEARING_CONDUCT_HEARING,true,respondToQueryAdmin,Respond to a hearing related query",
-        "DECISION_OUTCOME,false,respondToQueryCTSC,Respond to a query",
-        "DECISION_OUTCOME,true,respondToQueryAdmin,Respond to a hearing related query",
-        "All_FINAL_ORDERS_ISSUED,false,respondToQueryCTSC,Respond to a query",
-        "All_FINAL_ORDERS_ISSUED,true,respondToQueryAdmin,Respond to a hearing related query",
-        }, nullValues = "NULL_VALUE")
-    void given_input_should_return_expected_qm_task_withoutQmToggleAndIsWelshFlag(String state, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
-        Map<String, Object> data = Map.of(
-            "eventId", "queryManagementRaiseQuery",
-            "postEventState", state,
-            "additionalData", Map.of(
-                "Data", Map.of(
-                    "featureToggleWA", "Prod",
-                    "qmLatestQuery", Map.of(
-                        "queryId", "query-id",
-                        "isHearingRelated", isHearingRelated
                     )
                 )
             )
@@ -4501,50 +4283,17 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "CASE_PROGRESSION,false,true,respondToQueryWLU,Respond to a query",
         "CASE_PROGRESSION,true,true,respondToHearingQueryWLU,Respond to a hearing related query",
         }, nullValues = "NULL_VALUE")
-    void given_input_should_return_expected_qm_task_for_stayed_case_whenQmToggle(String preStayState, boolean isHearingRelated, boolean isWluQuery, String expectedTaskId, String expectedTaskName) {
+    void given_input_should_return_expected_qm_task_for_stayed_case(String preStayState, boolean isHearingRelated, boolean isWluQuery, String expectedTaskId, String expectedTaskName) {
         Map<String, Object> data = Map.of(
             "eventId", "queryManagementRaiseQuery",
             "postEventState", "CASE_STAYED",
             "additionalData", Map.of(
                 "Data", Map.of(
-                    "featureToggleWA", "PUBLIC_QM",
                     "preStayState", preStayState,
                     "qmLatestQuery", Map.of(
                         "queryId", "query-id",
                         "isHearingRelated", isHearingRelated,
                         "isWelsh", isWluQuery
-                    )
-                )
-            )
-        );
-
-        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(data);
-
-        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
-
-        //On QM Lip release this will be updated to 1 when old live qm initiation tasks are removed
-        assertThat(workTypeResultList.size(), is(2));
-        assertThat(workTypeResultList.get(1).get("taskId"), is(expectedTaskId));
-        assertThat(workTypeResultList.get(1).get("name"), is(expectedTaskName));
-    }
-
-    @ParameterizedTest
-    @CsvSource(value = {
-        "JUDICIAL_REFERRAL,false,respondToQueryCTSC,Respond to a query",
-        "CASE_PROGRESSION,false,respondToQueryCTSC,Respond to a query",
-        "CASE_PROGRESSION,true,respondToQueryAdmin,Respond to a hearing related query",
-        }, nullValues = "NULL_VALUE")
-    void given_input_should_return_expected_qm_task_for_stayed_case_withoutQmToggleAndIsWelshFlag(String preStayState, boolean isHearingRelated, String expectedTaskId, String expectedTaskName) {
-        Map<String, Object> data = Map.of(
-            "eventId", "queryManagementRaiseQuery",
-            "postEventState", "CASE_STAYED",
-            "additionalData", Map.of(
-                "Data", Map.of(
-                    "featureToggleWA", "Prod",
-                    "preStayState", preStayState,
-                    "qmLatestQuery", Map.of(
-                        "queryId", "query-id",
-                        "isHearingRelated", isHearingRelated
                     )
                 )
             )

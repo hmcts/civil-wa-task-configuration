@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(187));
+        assertThat(logic.getRules().size(), is(186));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -1342,13 +1342,13 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "workType",
-            "value", "routine_work"
+            "value", "welsh_translation_work"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
-            "canReconfigure", "true",
+            "canReconfigure", "false",
             "name", "roleCategory",
-            "value", "CTSC"
+            "value", "ADMIN"
         )));
     }
 
@@ -1523,7 +1523,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "workType",
-            "value", "routine_work"
+            "value", "welsh_translation_work"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
@@ -3022,7 +3022,6 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
         ));
-        caseData.put("featureToggleWA", "CUI_WELSH");
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("caseData", caseData);
         inputVariables.putValue("taskAttributes", Map.of(
@@ -3042,7 +3041,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "workType",
-            "value", "routine_work"
+            "value", "welsh_translation_work"
         )));
 
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
