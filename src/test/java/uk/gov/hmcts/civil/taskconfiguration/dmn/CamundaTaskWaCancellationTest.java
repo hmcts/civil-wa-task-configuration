@@ -33,7 +33,8 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         "scenarioTakesCaseOfflineEventProceedsInHeritageSystem_ForMci", "scenarioProceedsInHeritageSystem",
         "scenarioUpdateNextHearingDetailsCasesReconfigure", "scenarioUpdateNextHearingInfoCasesReconfigure",
         "scenarioNotSuitableSdoCancelTasks", "scenarioWhenCaseIsStayed", "scenarioWhenManageStay", "scenarioDismissCase",
-        "scenarioAllFinalOrdersIssued", "scenarioNoc"})
+        "scenarioAllFinalOrdersIssued", "scenarioProviderCaseSettledMarkPaidInFull", "scenarioProviderCaseSettled",
+        "scenarioProviderCaseDiscontinued"})
     void given_multiple_event_ids_should_evaluate_dmn(String fromState,
                                                       String eventId,
                                                       String state,
@@ -816,21 +817,95 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
                 "APPLY_NOC_DECISION",
                 null,
                 outcome
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioProviderCaseSettledMarkPaidInFull() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Warn",
+                "warningCode", "caseSettled",
+                "warningText", "This claim has been settled. Please review the claim before completing any tasks.",
+                "processCategories", "multiOrIntermediateClaim"
             ),
-            Arguments.of(
-                null,
-                "APPLY_NOC_DECISION_LIP",
-                null,
-                outcome
+            Map.of(
+                "action", "Warn",
+                "warningCode", "caseSettled",
+                "warningText", "This claim has been settled. Please review the claim before completing any tasks.",
+                "processCategories", "caseProgression"
             ),
+            Map.of(
+                "action", "Warn",
+                "warningCode", "caseSettled",
+                "warningText", "This claim has been settled. Please review the claim before completing any tasks.",
+                "processCategories", "standardDirectionsOrder"
+            )
+        );
+        return Stream.of(
             Arguments.of(
-                null,
-                "APPLY_NOC_DECISION_DEFENDANT_LIP",
-                null,
+                "", "SETTLE_CLAIM_MARK_PAID_FULL", "CASE_STAYED",
                 outcome
             )
         );
+    }
 
+    public static Stream<Arguments> scenarioProviderCaseSettled() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "multiOrIntermediateClaim"
+            ),
+            Map.of(
+                "action", "Warn",
+                "warningCode", "caseSettled",
+                "warningText", "This claim has been settled. Please review the claim before completing any tasks.",
+                "processCategories", "caseProgression"
+            ),
+            Map.of(
+                "action", "Warn",
+                "warningCode", "caseSettled",
+                "warningText", "This claim has been settled. Please review the claim before completing any tasks.",
+                "processCategories", "standardDirectionsOrder"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "", "SETTLE_CLAIM", "CASE_SETTLED",
+                outcome
+            )
+        );
+    }
+
+    public static Stream<Arguments> scenarioProviderCaseDiscontinued() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "multiOrIntermediateClaim"
+            ),
+            Map.of(
+                "action", "Warn",
+                "warningCode", "caseDiscontinued",
+                "warningText", "This claim has been discontinued. Please review the claim before completing any tasks.",
+                "processCategories", "caseProgression"
+            ),
+            Map.of(
+                "action", "Warn",
+                "warningCode", "caseDiscontinued",
+                "warningText", "This claim has been discontinued. Please review the claim before completing any tasks.",
+                "processCategories", "standardDirectionsOrder"
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "", "DISCONTINUE_CLAIM_CLAIMANT", "CASE_DISCONTINUED",
+                outcome
+            ),
+            Arguments.of(
+                "", "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT", "CASE_DISCONTINUED",
+                outcome
+            )
+        );
     }
 
     @Test
@@ -839,6 +914,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(94));
+        assertThat(logic.getRules().size(), is(100));
     }
 }

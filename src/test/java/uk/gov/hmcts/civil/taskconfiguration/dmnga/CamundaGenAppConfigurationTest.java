@@ -207,11 +207,11 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         "LegalAdvisorDecideOnApplication", "LegalAdvisorRevisitApplication",
         "ScheduleApplicationHearing", "ReviewStayTheClaimApplicationOrder",
         "ReviewUnlessOrderApplication", "ReviewApplicationOrder", "applicationDocumentsWelshRequestAppSum",
-         "applicationDocumentsWelshRequestAppSumResponded",
+        "applicationDocumentsWelshRequestAppSumResponded",
         "applicationDocumentsWelshRequestRespondToMoreInfoRespondent",
         "applicationDocumentsWelshRequestRespondToWrittenRepRespondent",
         "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
-        "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
+        "applicationDocumentsWelshRequestRespondToMoreInfo",
         "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
         "applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo",
         "applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule",
@@ -342,7 +342,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
     @CsvSource(value = {
         "applicationDocumentsWelshRequestAppSum",
         "applicationDocumentsWelshRequestOrderMade","applicationDocumentsWelshRequestHearingOrder",
-        "applicationDocumentsWelshRequestWithNotice","applicationDocumentsWelshRequestRespondToMoreInfo",
+        "applicationDocumentsWelshRequestRespondToMoreInfo",
         "applicationDocumentsWelshRequestRespondToWrittenRep","applicationDocumentsWelshRequestAddlDoc",
         "applicationDocumentsWelshRequestRespondToJudge","applicationDocumentsWelshRequestMoreInfo",
         "applicationDocumentsWelshRequestWrittenResp","applicationDocumentsWelshRequestHearingSchedule",
@@ -373,7 +373,7 @@ class CamundaGenAppConfigurationTest extends DmnDecisionTableBaseUnitTest {
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "name", "workType",
-            "value", "routine_work",
+            "value", "welsh_translation_work",
             "canReconfigure","false"
         )));
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(

@@ -10,7 +10,9 @@ plugins {
   id 'org.sonarqube' version '3.4.0.2513'
   id 'info.solidsoft.pitest' version '1.5.2'
   id 'io.freefair.lombok' version '5.3.3.3'
+  id 'maven-publish'
 }
+
 
 group = 'uk.gov.hmcts.reform'
 version = '0.0.1'
@@ -39,15 +41,6 @@ sourceSets {
     resources.srcDir file('src/functionalTest/resources')
   }
 
-//  integrationTest {
-//    java {
-//      compileClasspath += main.output
-//      runtimeClasspath += main.output
-//      srcDir file('src/integrationTest/java')
-//    }
-//    resources.srcDir file('src/integrationTest/resources')
-//  }
-
   smokeTest {
     java {
       compileClasspath += main.output
@@ -58,11 +51,11 @@ sourceSets {
   }
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
   options.compilerArgs << "-Xlint:unchecked" << "-Werror"
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
   useJUnitPlatform()
 
   testLogging {
@@ -76,7 +69,7 @@ test {
 
 checkstyle {
   maxWarnings = 0
-  toolVersion = '8.29'
+  toolVersion = '11.0.1'
   getConfigDirectory().set(new File(rootDir, 'config/checkstyle'))
 }
 
@@ -100,8 +93,8 @@ jacocoTestCoverageVerification {
 jacocoTestReport {
   executionData(test)
   reports {
-    xml.enabled = true
-    csv.enabled = false
+    xml.required = true
+    csv.required = false
     xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
   }
 }
@@ -136,61 +129,61 @@ sonarqube {
   }
 }
 
-task awaitApplicationReadiness(type: Exec, description: 'Awaits until application is ready.') {
+tasks.register('awaitApplicationReadiness', Exec) {
   commandLine './bin/wait-for.sh'
   commandLine './bin/wait-for.sh', 'manage-case'
 }
 
-task pullGeneralAppAsset(type: Exec, description: 'Installs Yarn dependencies.') {
+tasks.register('pullGeneralAppAsset', Exec) {
   commandLine './bin/pull-latest-general-app-ccd-files.sh', 'master'
 }
 
-task lintUserInterfaceTests(type: Exec, description: 'Runs linting of E2E tests.') {
+tasks.register('lintUserInterfaceTests', Exec) {
   onlyIf {
     return System.env.ENVIRONMENT == 'preview'
   }
   commandLine '/usr/bin/yarn', '--silent', 'lint'
 }
 
-task runSmokeTests(type: Exec, description: 'Runs smoke tests.') {
-  commandLine '/usr/bin/yarn', '--silent','run' , 'test:smoke'
+tasks.register('runSmokeTests', Exec) {
+  commandLine '/usr/bin/yarn', '--silent', 'run', 'test:smoke'
 }
 
-task runCivilCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
+tasks.register('runCivilCCDTaskTests', Exec) {
   onlyIf {
-    return (System.env.ENVIRONMENT == 'preview' || System.env.ENVIRONMENT == 'aat') && System.env.NIGHTLY_RUN != 'true'
+    return System.env.NIGHTLY_RUN != 'true'
   }
   commandLine './bin/run-civil-ccd-task-tests.sh'
 }
 
-task runNightlyCivilCCDTaskTests(type: Exec, description: 'Runs additional multiparty nightly tests.') {
+tasks.register('runNightlyCivilCCDTaskTests', Exec) {
   onlyIf {
     return System.env.NIGHTLY_RUN == 'true'
   }
   commandLine './bin/run-nightly-civil-ccd-task-tests.sh'
 }
 
-task runNightlyGenAppCCDTaskTests(type: Exec, description: 'Runs Api WA functional tests.') {
+tasks.register('runNightlyGenAppCCDTaskTests', Exec) {
   onlyIf {
     return System.env.ENVIRONMENT == 'demo'
   }
-  commandLine '/usr/bin/yarn', '--silent','run' , 'test:api-ga-wa'
+  commandLine '/usr/bin/yarn', '--silent', 'run', 'test:api-ga-wa'
 }
 
-def inStrictOrder(Task... tasks) {
+static def inStrictOrder(Task... tasks) {
   for (int i = 0; i < tasks.size() - 1; i++) {
     tasks[i + 1].mustRunAfter(tasks[i])
   }
   return tasks
 }
 
-task smoke(description: 'Runs the smoke tests.') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness,  runSmokeTests))
+tasks.register('smoke') {
+  dependsOn(inStrictOrder(awaitApplicationReadiness, runSmokeTests))
 }
 
-task functional(description: 'Runs the functional tests.') {
+tasks.register('functional') {
   dependsOn(inStrictOrder(awaitApplicationReadiness, runNightlyCivilCCDTaskTests, runCivilCCDTaskTests,
-  pullGeneralAppAsset, runNightlyGenAppCCDTaskTests))
+    pullGeneralAppAsset, runNightlyGenAppCCDTaskTests))
 }
 
 // before committing a change, make sure task still works
@@ -231,22 +224,24 @@ dependencyManagement {
     }
 
     //Solves CVE-2023-35116
-    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.0'
-    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.17.0'
-    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:  '2.17.0'
+    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.20.0'
+    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.20.0'
+    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:  '2.20'
   }
 }
 
 repositories {
   mavenLocal()
-  maven { url 'https://jitpack.io' }
   mavenCentral()
+  maven {
+    url 'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
+  }
 }
 
 def versions = [
   junit           : '5.9.2',
   junitPlatform   : '1.9.2',
-  reformLogging   : '6.0.1',
+  reformLogging   : '6.1.9',
   springBoot         : springBoot.class.package.implementationVersion,
   springfoxSwagger: '2.9.2',
   camunda         : '7.15.0',
@@ -277,26 +272,24 @@ dependencies {
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
   implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.reformLogging
   implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.0.1'
-
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.18.0'
   implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.18.0'
+  implementation group: 'org.yaml', name: 'snakeyaml', version: '2.5'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.109'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.45'
 
-  implementation 'org.yaml:snakeyaml:2.0'
 
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.104'
-  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.40'
-  implementation group: 'com.github.hmcts', name: 'java-logging', version: '6.0.1'
   implementation group: 'org.camunda.bpm', name: 'camunda-external-task-client', version: versions.camunda
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-  implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-  implementation 'junit:junit:4.13.1'
-  implementation 'org.testng:testng:7.1.0'
+  implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.8.1'
+  implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.8.1'
+  implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.8.1'
+  implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version:'5.8.1'
+  implementation group: 'junit', name: 'junit', version: '4.13.1'
+  implementation group: 'org.testng', name: 'testng', version :'7.11.0'
   implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.12.0'
 
-  annotationProcessor 'org.projectlombok:lombok:1.18.24'
-  compileOnly 'org.projectlombok:lombok:1.18.24'
+  annotationProcessor 'org.projectlombok:lombok:1.18.40'
+  compileOnly 'org.projectlombok:lombok:1.18.40'
 
   testImplementation libraries.junit5
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
@@ -308,14 +301,8 @@ dependencies {
   testImplementation group: 'org.camunda.bpm', name: 'camunda-engine', version: versions.camunda
   testImplementation group: 'com.h2database', name: 'h2', version: '1.4.200'
 
-//  integrationTestImplementation sourceSets.main.runtimeClasspath
-//  integrationTestImplementation sourceSets.test.runtimeClasspath
-
   functionalTestImplementation sourceSets.main.runtimeClasspath
-
   smokeTestImplementation sourceSets.main.runtimeClasspath
-
-
 }
 
 mainClassName = 'uk.gov.hmcts.civil.taskconfiguration.Application'
@@ -330,6 +317,15 @@ bootJar {
   }
 }
 
-wrapper {
-  distributionType = Wrapper.DistributionType.ALL
+publishing {
+  repositories {
+    maven {
+      name = "AzureArtifacts"
+      url = uri("https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1")
+      credentials {
+        username = System.getenv("AZURE_DEVOPS_ARTIFACT_USERNAME")
+        password = System.getenv("AZURE_DEVOPS_ARTIFACT_TOKEN")
+      }
+    }
+  }
 }

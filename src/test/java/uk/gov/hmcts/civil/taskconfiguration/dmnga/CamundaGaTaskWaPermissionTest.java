@@ -483,7 +483,7 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         @CsvSource(value = {
             "applicationDocumentsWelshRequestAppSum",
             "applicationDocumentsWelshRequestOrderMade", "applicationDocumentsWelshRequestHearingOrder",
-            "applicationDocumentsWelshRequestWithNotice", "applicationDocumentsWelshRequestRespondToMoreInfo",
+            "applicationDocumentsWelshRequestRespondToMoreInfo",
             "applicationDocumentsWelshRequestRespondToWrittenRep", "applicationDocumentsWelshRequestAddlDoc",
             "applicationDocumentsWelshRequestRespondToJudge", "applicationDocumentsWelshRequestMoreInfo",
             "applicationDocumentsWelshRequestWrittenResp", "applicationDocumentsWelshRequestHearingSchedule",
@@ -504,6 +504,13 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                 ),
                 Map.of(
                     "name", "wlu-admin",
+                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                    "roleCategory", "ADMIN",
+                    "assignmentPriority", 1,
+                    "autoAssignable", false
+                ),
+                Map.of(
+                    "name", "wlu-team-leader",
                     "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
                     "roleCategory", "ADMIN",
                     "assignmentPriority", 1,
