@@ -21,7 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 class CamundaCourtLocationTaskTest extends DmnDecisionTableBaseUnitTest {
 
     @BeforeAll
-    public static void initialization() {
+    static void initialization() {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_COURT_LOCATION_FOR_TASKS;
     }
 
@@ -36,14 +36,14 @@ class CamundaCourtLocationTaskTest extends DmnDecisionTableBaseUnitTest {
             .build()
             .parse(reader);
 
-        records.forEach(record -> {
-            String courtName = record.get("CourtName");
-            String caseManagementLocation = record.get("caseManagementLocation");
-            String claimTrack = record.get("claimTrack");
-            String expectedCmc = record.get("CMC");
-            String expectedCcmc = record.get("CCMC");
-            String expectedTrial = record.get("Trial");
-            String expectedPtr = record.get("PTR");
+        records.forEach(cscRecord -> {
+            String courtName = cscRecord.get("CourtName");
+            String caseManagementLocation = cscRecord.get("caseManagementLocation");
+            String claimTrack = cscRecord.get("claimTrack");
+            String expectedCmc = cscRecord.get("CMC");
+            String expectedCcmc = cscRecord.get("CCMC");
+            String expectedTrial = cscRecord.get("Trial");
+            String expectedPtr = cscRecord.get("PTR");
 
             VariableMap inputVariables = new VariableMapImpl();
             inputVariables.putValue("caseManagementLocation", caseManagementLocation);
