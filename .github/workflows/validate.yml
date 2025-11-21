@@ -12,7 +12,7 @@ jobs:
     if: "!contains(github.event.pull_request.head.ref, 'renovate') && !contains(github.event.pull_request.head.ref, 'dependabot')"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
     - name: Check DMN processes have camunda:historyTimeToLive
       run: |
         export missing_files=$(grep -L 'historyTimeToLive' src/main/resources/*.dmn)
