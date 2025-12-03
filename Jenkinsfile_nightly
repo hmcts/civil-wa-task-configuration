@@ -23,14 +23,11 @@ properties([
                   'https://manage-case-caa-assigned-case-view.demo.platform.hmcts.net',
                   'https://civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                   'https://xui-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                  'https://wa-task-monitor-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                  'https://wa-task-mng-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                  'https://wa-case-event-handler-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                  'https://ccd-message-publisher-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                  'https://ccd-definition-store-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                  'https://gateway-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                  'https://camunda-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net'
-
+                  'https://xui-civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                  'https://xui-civil-service-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                  'https://xui-civil-citizen-ui-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                  'https://xui-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                  'https://xui-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                 ],
       description: 'The URL you want to run the full functional tests against'),
     choice(name: 'IDAM_API_URL', choices: ['https://idam-api.aat.platform.hmcts.net', 'https://idam-api.demo.platform.hmcts.net'],
@@ -41,11 +38,21 @@ properties([
       description: 'The URL of service auth provider'),
     choice(name: 'CCD_DATA_STORE_URL', choices: ['http://ccd-data-store-api-aat.service.core-compute-aat.internal',
                                                  'http://ccd-data-store-api-demo.service.core-compute-demo.internal',
-                                                 'https://ccd-data-store-api-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net'],
+                                                 'https://ccd-data-store-api-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                 'https://ccd-data-store-api-civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                 'https://ccd-data-store-api-civil-service-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                 'https://ccd-data-store-api-civil-citizen-ui-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                 'https://ccd-data-store-api-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                 'https://ccd-data-store-api-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',],
       description: 'The URL of ccd data store'),
     choice(name: 'CIVIL_SERVICE_URL', choices: ['http://civil-service-aat.service.core-compute-aat.internal',
                                                 'http://civil-service-demo.service.core-compute-demo.internal',
-                                                'https://civil-task-configuration-pr-{PR_NUMBER}-civil-service.preview.platform.hmcts.net'],
+                                                'https://civil-task-configuration-pr-{PR_NUMBER}-civil-service.preview.platform.hmcts.net',
+                                                'https://civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                'https://civil-service-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                'https://civil-citizen-ui-pr-{PR_NUMBER}-civil-service.preview.platform.hmcts.net',
+                                                'https://civil-service-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                'https://civil-service-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net'],
       description: 'The URL of civil service'),
     choice(name: 'CIVIL_GENERAL_APPLICATIONS_URL', choices: ['http://civil-general-applications-aat.service.core-compute-aat.internal',
                                                              'http://civil-general-applications-demo.service.core-compute-demo.internal'],
@@ -122,11 +129,9 @@ withNightlyPipeline(type, product, component) {
     return value
   }
 
-
   def frontendUrl = resolvePreviewUrl(params.FRONTEND_URL, 'FRONTEND_URL')
   def ccdDataStoreUrl = resolvePreviewUrl(params.CCD_DATA_STORE_URL, 'CCD_DATA_STORE_URL')
   def civilServiceUrl = resolvePreviewUrl(params.CIVIL_SERVICE_URL, 'CIVIL_SERVICE_URL')
-  def civilGeneralApplicationsUrl = resolvePreviewUrl(params.CIVIL_GENERAL_APPLICATIONS_URL, 'CIVIL_GENERAL_APPLICATIONS_URL')
   def waTaskMgmtUrl = resolvePreviewUrl(params.WA_TASK_MGMT_URL, 'WA_TASK_MGMT_URL')
 
   env.URL=frontendUrl
@@ -135,7 +140,7 @@ withNightlyPipeline(type, product, component) {
   env.SERVICE_AUTH_PROVIDER_API_BASE_URL = params.SERVICE_AUTH_PROVIDER_API_BASE_URL
   env.CCD_DATA_STORE_URL = ccdDataStoreUrl
   env.CIVIL_SERVICE_URL = civilServiceUrl
-  env.CIVIL_GENERAL_APPLICATIONS_URL = civilGeneralApplicationsUrl
+  env.CIVIL_GENERAL_APPLICATIONS_URL = params.CIVIL_GENERAL_APPLICATIONS_URL
   env.WAIT_FOR_TIMEOUT_MS = params.WAIT_FOR_TIMEOUT_MS
   env.WA_TASK_MGMT_URL = waTaskMgmtUrl
   env.TESTS_FOR_ACCESSIBILITY = false
@@ -163,7 +168,6 @@ withNightlyPipeline(type, product, component) {
         copyPrevFailedAndNotExecutedTestFilesJson()
       }
     }
-
     afterAlways('fullFunctionalTest') {
       archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
     }
