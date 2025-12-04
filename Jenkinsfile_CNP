@@ -41,6 +41,10 @@ def getFunctionalTestsGroups() {
   return functionalTestGroups.join(",")
 }
 
+def checkForRunAllFunctionalTests(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "runAllFunctionalTests").contains("runAllFunctionalTests")
+}
+
 static Map<String, Object> secret(String secretName, String envVariable) {
   [$class     : 'AzureKeyVaultSecret',
    secretType : 'Secret',
@@ -183,7 +187,6 @@ withPipeline(type, product, component) {
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
     env.CIVIL_SERVICE_URL="https://civil-task-configuration-pr-${CHANGE_ID}-civil-service.preview.platform.hmcts.net"
     env.WA_TASK_MGMT_URL="https://wa-task-mng-civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
-    yarnBuilder.yarn('yarn-update')
     yarnBuilder.yarn('install-dependencies')
   }
 
@@ -193,7 +196,11 @@ withPipeline(type, product, component) {
 
   before('functionalTest:preview') {
     uploadDmnDiagrams('preview',"${CHANGE_ID}")
-    copyPrevFailedAndNotExecutedTestFilesJson();
+    if(checkForRunAllFunctionalTests(env.BRANCH_NAME)) {
+      env.RUN_ALL_FUNCTIONAL_TESTS = true
+    } else {
+      copyPrevFailedAndNotExecutedTestFilesJson();
+    }
   }
 
   afterAlways('functionalTest:preview') {
@@ -212,7 +219,6 @@ withPipeline(type, product, component) {
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
     env.CIVIL_SERVICE_URL="http://civil-service-aat.service.core-compute-aat.internal"
     env.WA_TASK_MGMT_URL="http://wa-task-management-api-aat.service.core-compute-aat.internal"
-    yarnBuilder.yarn('yarn-update')
     yarnBuilder.yarn('install-dependencies')
   }
 
