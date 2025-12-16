@@ -21,7 +21,10 @@ properties([
                   'https://manage-case-int2.demo.platform.hmcts.net',
                   'https://manage-case-wa-int.demo.platform.hmcts.net',
                   'https://manage-case-caa-assigned-case-view.demo.platform.hmcts.net',
-                  'https://civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                  'https://xui-civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                  'https://xui-civil-citizen-ui-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                  'https://xui-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                  'https://xui-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                 ],
       description: 'The URL you want to run the full functional tests against'),
     choice(name: 'IDAM_API_URL', choices: ['https://idam-api.aat.platform.hmcts.net', 'https://idam-api.demo.platform.hmcts.net'],
@@ -30,13 +33,37 @@ properties([
       description: 'The URL of dm store'),
     choice(name: 'SERVICE_AUTH_PROVIDER_API_BASE_URL', choices: ['http://rpe-service-auth-provider-aat.service.core-compute-aat.internal', 'http://rpe-service-auth-provider-demo.service.core-compute-demo.internal'],
       description: 'The URL of service auth provider'),
-    choice(name: 'CCD_DATA_STORE_URL', choices: ['http://ccd-data-store-api-aat.service.core-compute-aat.internal', 'http://ccd-data-store-api-demo.service.core-compute-demo.internal', 'https://ccd-data-store-api-civil-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net'],
+    choice(name: 'CCD_DATA_STORE_URL', choices: [
+                                                  'http://ccd-data-store-api-aat.service.core-compute-aat.internal',
+                                                  'http://ccd-data-store-api-demo.service.core-compute-demo.internal',
+                                                  'https://ccd-data-store-api-civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'https://ccd-data-store-api-civil-citizen-ui-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'https://ccd-data-store-api-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'https://ccd-data-store-api-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                ],
       description: 'The URL of ccd data store'),
-    choice(name: 'CIVIL_SERVICE_URL', choices: ['http://civil-service-aat.service.core-compute-aat.internal', 'http://civil-service-demo.service.core-compute-demo.internal', 'http://civil-service-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net'],
+    choice(name: 'CIVIL_SERVICE_URL', choices: [
+                                                  'http://civil-service-aat.service.core-compute-aat.internal',
+                                                  'http://civil-service-demo.service.core-compute-demo.internal',
+                                                  'https://civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'https://civil-citizen-ui-pr-{PR_NUMBER}-civil-service.preview.platform.hmcts.net',
+                                                  'https://civil-service-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'https://civil-service-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                ],
       description: 'The URL of civil service'),
-    choice(name: 'CIVIL_GENERAL_APPLICATIONS_URL', choices: ['http://civil-service-aat.service.core-compute-aat.internal', 'http://civil-service-demo.service.core-compute-demo.internal', 'http://civil-service-task-configuration-pr-{PR_NUMBER}.preview.platform.hmcts.net'],
+    choice(name: 'CIVIL_GENERAL_APPLICATIONS_URL', choices: [
+                                                  'http://civil-service-aat.service.core-compute-aat.internal',
+                                                  'http://civil-service-demo.service.core-compute-demo.internal',
+                                                  'https://civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'https://civil-citizen-ui-pr-{PR_NUMBER}-civil-service.preview.platform.hmcts.net',
+                                                  'https://civil-service-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'https://civil-service-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                            ],
       description: 'The URL of GA service'),
-    choice(name: 'WA_TASK_MGMT_URL', choices: ['http://wa-task-management-api-aat.service.core-compute-aat.internal', 'http://wa-task-management-api-demo.service.core-compute-demo.internal','http://wa-task-management-api-{PR_NUMBER}.service.core-compute-{PR_NUMBER}.internal'],
+    choice(name: 'WA_TASK_MGMT_URL', choices: [
+                                                'http://wa-task-management-api-aat.service.core-compute-aat.internal',
+                                                'http://wa-task-management-api-demo.service.core-compute-demo.internal',
+                                              ],
        description: 'The URL of wa task management'),
     string(name: 'WAIT_FOR_TIMEOUT_MS',
       defaultValue: '120000',
@@ -121,9 +148,9 @@ withNightlyPipeline(type, product, component) {
   env.WAIT_FOR_TIMEOUT_MS = params.WAIT_FOR_TIMEOUT_MS
   env.WA_TASK_MGMT_URL = waTaskMgmtUrl
   env.TESTS_FOR_ACCESSIBILITY = false
-  env.RUN_WA_API_TEST = true
+  env.RUN_WA_API_TEST = params.ENVIRONMENT == 'preview' ? false : true
   overrideVaultEnvironments([
-    'aat': params.ENVIRONMENT
+    'aat': params.ENVIRONMENT == 'preview' ? 'aat' : params.ENVIRONMENT
   ])
   loadVaultSecrets(secrets)
 
@@ -145,7 +172,6 @@ withNightlyPipeline(type, product, component) {
         copyPrevFailedAndNotExecutedTestFilesJson()
       }
     }
-
     afterAlways('fullFunctionalTest') {
       archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
     }
