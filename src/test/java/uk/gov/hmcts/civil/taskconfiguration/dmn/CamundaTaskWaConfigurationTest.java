@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
     @BeforeAll
-    public static void initialization() {
+    static void initialization() {
         CURRENT_DMN_DECISION_TABLE = DmnDecisionTable.WA_TASK_CONFIGURATION_CIVIL_DAMAGES;
     }
 
@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(186));
+        assertThat(logic.getRules().size(), is(187));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -48,10 +48,8 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
     void when_caseData_then_return_expected_name_and_value_rows(String appealType, String expectedAppealType) {
 
         Map<String, Object> caseData = new HashMap<>(); // allow null values
-        //caseData.put("appealType", appealType);
         caseData.put("applicant1", Map.of(
             "partyName", "Firstname LastName"
-
         ));
         caseData.put("applicant2", Map.of(
             "partyName", "Firstname LastName"
