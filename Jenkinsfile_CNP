@@ -41,6 +41,14 @@ def getFunctionalTestsGroups() {
   return functionalTestGroups.join(",")
 }
 
+def getCivilServiceImage() {
+  def githubApi = new GithubAPI(this)
+  for (label in githubApi.getLabelsbyPattern(env.BRANCH_NAME, "civilServicePr:") ) {
+    return "pr-" + label.minus("civilServicePr:").trim()
+  }
+  return "latest"
+}
+
 def checkForRunAllFunctionalTests(branch_name) {
   return new GithubAPI(this).getLabelsbyPattern(branch_name, "runAllFunctionalTests").contains("runAllFunctionalTests")
 }
@@ -130,6 +138,7 @@ withPipeline(type, product, component) {
     env.RUN_WA_API_TEST = true
     loadVaultSecrets(secrets)
     env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    env.CIVIL_SERVICE_IMAGE = getCivilServiceImage()
   }
   onMaster {
     env.ENVIRONMENT = "aat"

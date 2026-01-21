@@ -52,12 +52,12 @@ properties([
                                                 ],
       description: 'The URL of civil service'),
     choice(name: 'CIVIL_GENERAL_APPLICATIONS_URL', choices: [
-                                                              'http://civil-general-applications-aat.service.core-compute-aat.internal',
-                                                              'http://civil-general-applications-demo.service.core-compute-demo.internal',
-                                                              'https://ga-civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                                                              'https://civil-citizen-ui-pr-{PR_NUMBER}-general-applications.preview.platform.hmcts.net',
-                                                              'https://civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                                                              'https://civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'http://civil-service-aat.service.core-compute-aat.internal',
+                                                  'http://civil-service-demo.service.core-compute-demo.internal',
+                                                  'https://civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'https://civil-citizen-ui-pr-{PR_NUMBER}-civil-service.preview.platform.hmcts.net',
+                                                  'https://civil-service-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
+                                                  'https://civil-service-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                                                             ],
       description: 'The URL of GA service'),
     choice(name: 'WA_TASK_MGMT_URL', choices: [
@@ -136,7 +136,6 @@ withNightlyPipeline(type, product, component) {
   def frontendUrl = resolvePreviewUrl(params.FRONTEND_URL, 'FRONTEND_URL')
   def ccdDataStoreUrl = resolvePreviewUrl(params.CCD_DATA_STORE_URL, 'CCD_DATA_STORE_URL')
   def civilServiceUrl = resolvePreviewUrl(params.CIVIL_SERVICE_URL, 'CIVIL_SERVICE_URL')
-  def civilGeneralApplicationsUrl = resolvePreviewUrl(params.CIVIL_GENERAL_APPLICATIONS_URL, 'CIVIL_GENERAL_APPLICATIONS_URL')
   def waTaskMgmtUrl = resolvePreviewUrl(params.WA_TASK_MGMT_URL, 'WA_TASK_MGMT_URL')
 
   env.URL=frontendUrl
@@ -145,7 +144,7 @@ withNightlyPipeline(type, product, component) {
   env.SERVICE_AUTH_PROVIDER_API_BASE_URL = params.SERVICE_AUTH_PROVIDER_API_BASE_URL
   env.CCD_DATA_STORE_URL = ccdDataStoreUrl
   env.CIVIL_SERVICE_URL = civilServiceUrl
-  env.CIVIL_GENERAL_APPLICATIONS_URL = civilGeneralApplicationsUrl
+  env.CIVIL_GENERAL_APPLICATIONS_URL = civilServiceUrl
   env.WAIT_FOR_TIMEOUT_MS = params.WAIT_FOR_TIMEOUT_MS
   env.WA_TASK_MGMT_URL = waTaskMgmtUrl
   env.TESTS_FOR_ACCESSIBILITY = false
