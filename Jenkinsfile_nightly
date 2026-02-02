@@ -24,7 +24,6 @@ properties([
                   'https://xui-civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                   'https://xui-civil-citizen-ui-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                   'https://xui-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                  'https://xui-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                 ],
       description: 'The URL you want to run the full functional tests against'),
     choice(name: 'IDAM_API_URL', choices: ['https://idam-api.aat.platform.hmcts.net', 'https://idam-api.demo.platform.hmcts.net'],
@@ -39,7 +38,6 @@ properties([
                                                   'https://ccd-data-store-api-civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                                                   'https://ccd-data-store-api-civil-citizen-ui-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                                                   'https://ccd-data-store-api-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                                                  'https://ccd-data-store-api-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                                                 ],
       description: 'The URL of ccd data store'),
     choice(name: 'CIVIL_SERVICE_URL', choices: [
@@ -48,18 +46,8 @@ properties([
                                                   'https://civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                                                   'https://civil-citizen-ui-pr-{PR_NUMBER}-civil-service.preview.platform.hmcts.net',
                                                   'https://civil-service-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                                                  'https://civil-service-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
                                                 ],
       description: 'The URL of civil service'),
-    choice(name: 'CIVIL_GENERAL_APPLICATIONS_URL', choices: [
-                                                  'http://civil-service-aat.service.core-compute-aat.internal',
-                                                  'http://civil-service-demo.service.core-compute-demo.internal',
-                                                  'https://civil-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                                                  'https://civil-citizen-ui-pr-{PR_NUMBER}-civil-service.preview.platform.hmcts.net',
-                                                  'https://civil-service-civil-ga-ccd-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                                                  'https://civil-service-civil-general-applications-pr-{PR_NUMBER}.preview.platform.hmcts.net',
-                                                            ],
-      description: 'The URL of GA service'),
     choice(name: 'WA_TASK_MGMT_URL', choices: [
                                                 'http://wa-task-management-api-aat.service.core-compute-aat.internal',
                                                 'http://wa-task-management-api-demo.service.core-compute-demo.internal',
@@ -154,8 +142,8 @@ withNightlyPipeline(type, product, component) {
   ])
   loadVaultSecrets(secrets)
 
-  boolean forceGreenBuild = env.FORCE_GREEN_BUILD.toBoolean();
-  boolean runPrevFailedAndNotExecutedTestFiles = env.RUN_PREV_FAILED_AND_NOT_EXECUTED_TEST_FILES.toBoolean();
+  boolean forceGreenBuild = env.FORCE_GREEN_BUILD.toBoolean()
+  boolean runPrevFailedAndNotExecutedTestFiles = env.RUN_PREV_FAILED_AND_NOT_EXECUTED_TEST_FILES.toBoolean()
 
   enableFullFunctionalTest(200)
 
