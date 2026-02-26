@@ -1,11 +1,23 @@
 #!/usr/bin/env bash
 
-set -eu
+branchName=$1
 
-branchName=${1:-master}
+#Checkout specific branch pf  civil general apps ccd definition
+git clone https://github.com/hmcts/civil-ccd-definition.git
+cd civil-general-apps-ccd-definition
 
-echo "civil-general-apps-ccd-definition has been merged into civil-ccd-definition."
-echo "Pulling from civil-ccd-definition instead."
+echo "Switch to ${branchName} branch on civil-general-apps-ccd-definition"
+git checkout ${branchName}
+cd ..
 
-exec "$(dirname "$0")/pull-latest-civil-ccd-files.sh" "${branchName}"
+#Clear previous files before we pull latest
+rm -rf e2e package.json yarn.lock codecept.conf.js
+
+cp -r ./civil-general-apps-ccd-definition/e2e .
+cp -r ./civil-general-apps-ccd-definition/package.json .
+cp -r ./civil-general-apps-ccd-definition/yarn.lock .
+cp -r ./civil-general-apps-ccd-definition/codecept.conf.js .
+echo *
+rm -rf ./civil-general-apps-ccd-definition
+
 
