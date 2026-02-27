@@ -27,7 +27,7 @@ compare_ft_groups() {
 }
 
 run_functional_test_groups() {
-  command="yarn test:wa-task --grep "
+  command="yarn test:civil-wa-pr --grep "
   pr_ft_groups=$(echo "$PR_FT_GROUPS" | awk '{print tolower($0)}')
   
   regex_pattern=""
@@ -38,7 +38,7 @@ run_functional_test_groups() {
       if [ -n "$regex_pattern" ]; then
           regex_pattern+="|"
       fi
-      regex_pattern+="@wa-$ft_group"
+      regex_pattern+="@$ft_group"
   done
 
   command+="'$regex_pattern'"
@@ -49,7 +49,7 @@ run_functional_test_groups() {
 run_functional_tests() {
   echo "Running all functional tests on ${ENVIRONMENT} env"
   if [ -z "$PR_FT_GROUPS" ]; then
-    yarn test:wa-task
+    yarn test:civil-wa-master
   else
     run_functional_test_groups
   fi
