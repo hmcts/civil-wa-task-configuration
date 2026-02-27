@@ -1,53 +1,29 @@
 #!/usr/bin/env bash
 
-set -eu
+branchName=$1
 
-ccdRepoName="civil-ccd-definition"
-branchName=${1:-master}
+#Checkout specific branch pf  civil ccd definition
+git clone https://github.com/hmcts/civil-ccd-definition.git
+cd civil-ccd-definition
 
-find_first_existing_dir() {
-  for candidate in "$@"; do
-    if [ -d "${candidate}" ]; then
-      echo "${candidate}"
-      return 0
-    fi
-  done
-  return 1
-}
-
-# Checkout specific branch of CCD definitions.
-git clone https://github.com/hmcts/${ccdRepoName}.git
-cd "${ccdRepoName}"
-
-echo "Switch to ${branchName} branch on ${ccdRepoName}"
-git checkout "${branchName}"
+echo "Switch to ${branchName} branch on civil-ccd-definition"
+git checkout ${branchName}
 cd ..
 
-mergedDefinitionsDir=$(find_first_existing_dir \
-  "./${ccdRepoName}/ccd-definition" \
-  "./${ccdRepoName}/civil-ccd-definition/ccd-definition" || true)
+#Clear previous files before we pull latest
+rm -rf e2e playwright-e2e wa plugins package.json yarn.lock codecept.conf.js playwright.config.ts
 
-if [ -z "${mergedDefinitionsDir:-}" ]; then
-  echo "Unable to locate merged CCD definition directory in ${ccdRepoName}."
-  exit 1
-fi
-
-# Clear previous files before we pull latest.
-rm -rf ./ccd-definition ./e2e ./playwright-e2e ./wa ./plugins \
-  ./package.json ./yarn.lock ./.yarnrc.yml ./.yarn \
-  ./codecept.conf.js ./playwright.config.ts ./saucelabs.conf.js
-
-cp -r "${mergedDefinitionsDir}" ./ccd-definition
-cp -r "./${ccdRepoName}/e2e" .
-cp -r "./${ccdRepoName}/wa" .
-cp -r "./${ccdRepoName}/playwright-e2e" .
-cp -r "./${ccdRepoName}/plugins" .
-cp -r "./${ccdRepoName}/package.json" .
-cp -r "./${ccdRepoName}/yarn.lock" .
-cp -r "./${ccdRepoName}/.yarnrc.yml" .
-cp -r "./${ccdRepoName}/.yarn" .
-cp -r "./${ccdRepoName}/codecept.conf.js" .
-cp -r "./${ccdRepoName}/playwright.config.ts" .
-cp -r "./${ccdRepoName}/saucelabs.conf.js" .
-
-rm -rf "./${ccdRepoName}"
+cp -r ./civil-ccd-definition/ccd-definition .
+cp -r ./civil-ccd-definition/e2e .
+cp -r ./civil-ccd-definition/wa .
+cp -r ./civil-ccd-definition/playwright-e2e .
+cp -r ./civil-ccd-definition/plugins .
+cp -r ./civil-ccd-definition/package.json .
+cp -r ./civil-ccd-definition/yarn.lock .
+cp -r ./civil-ccd-definition/.yarnrc.yml .
+cp -r ./civil-ccd-definition/.yarn .
+cp -r ./civil-ccd-definition/codecept.conf.js .
+cp -r ./civil-ccd-definition/playwright.config.ts .
+cp -r ./civil-ccd-definition/saucelabs.conf.js .
+echo *
+rm -rf ./civil-ccd-definition
