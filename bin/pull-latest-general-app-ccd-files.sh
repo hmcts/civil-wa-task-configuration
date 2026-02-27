@@ -2,10 +2,18 @@
 
 set -eu
 
+ccdRepoName="civil-general-apps-ccd-definition"
 branchName=${1:-master}
 
-echo "civil-general-apps-ccd-definition has been merged into civil-ccd-definition."
-echo "Pulling from civil-ccd-definition instead."
+# Checkout specific branch of GA CCD definitions.
+git clone https://github.com/hmcts/${ccdRepoName}.git
+cd "${ccdRepoName}"
 
-exec "$(dirname "$0")/pull-latest-civil-ccd-files.sh" "${branchName}"
+echo "Switch to ${branchName} branch on ${ccdRepoName}"
+git checkout "${branchName}"
+cd ..
 
+rm -rf ./ga-ccd-definition
+cp -r "./${ccdRepoName}/ga-ccd-definition" .
+
+rm -rf "./${ccdRepoName}"
