@@ -25,16 +25,31 @@ if [[ "${ENVIRONMENT}" == "preview" ]]; then
   echo "Current version is ${version}"
 fi
 
-uploadResponse=$(curl --insecure --silent -w "\n%{http_code}" --show-error --max-time 60  -X POST \
-  ${CCD_DEFINITION_STORE_API_BASE_URL:-http://localhost:4451}/import \
-  -H "Authorization: Bearer ${userToken}" \
-  -H "ServiceAuthorization: Bearer ${serviceToken}" \
-  -F "file=@${filepath};filename=${uploadFilename}" || echo 'bypass-if-error')
+upload_http_code="n/a"
+upload_response_content="n/a"
 
-echo "Definition Upload response is ${uploadResponse}"
+for attempt in {1..5}
+do
+  uploadResponse=$(curl --insecure --silent -w "\n%{http_code}" --show-error --max-time 60  -X POST \
+    ${CCD_DEFINITION_STORE_API_BASE_URL:-http://localhost:4451}/import \
+    -H "Authorization: Bearer ${userToken}" \
+    -H "ServiceAuthorization: Bearer ${serviceToken}" \
+    -F "file=@${filepath};filename=${uploadFilename}" || echo 'bypass-if-error')
 
-upload_http_code=$(echo "$uploadResponse" | tail -n1)
-upload_response_content=$(echo "$uploadResponse" | sed '$d')
+  echo "Definition Upload response is ${uploadResponse}"
+
+  upload_http_code=$(echo "$uploadResponse" | tail -n1)
+  upload_response_content=$(echo "$uploadResponse" | sed '$d')
+
+  if [[ "${upload_http_code}" != "502" && "${upload_http_code}" != "503" && "${upload_http_code}" != "504" ]]; then
+    break
+  fi
+
+  if [ "${attempt}" -lt 5 ]; then
+    echo "Definition store returned ${upload_http_code}. Retrying in 10s (attempt ${attempt}/5)..."
+    sleep 10
+  fi
+done
 
 if [ "${ENVIRONMENT}" == "preview" ] && [ "${upload_http_code}" != "201" ]; then
   echo "Bypassing audit check as on preview - will wait 45s and then verify the version has changed"
