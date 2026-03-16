@@ -2,18 +2,15 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "local>hmcts/.github:renovate-config",
-    "local>hmcts/.github//renovate/automerge-minor"
+    "local>hmcts/.github//renovate/automerge-all"
   ],
   "labels": [
     "dependencies"
   ],
-  "automergeSchedule": [
-    "after 8am and before 11am every weekday"
-  ],
-  "schedule": [
-    "after 8am and before 11am every weekday"
-  ],
+  "automergeSchedule": ["after 8am and before 4pm every weekday"],
+  "schedule": ["after 8am and before 11am every weekday"],
   "rebaseWhen": "conflicted",
+  "automergeStrategy": "squash",
   "prConcurrentLimit": 5,
   "helmv3": {
     "bumpVersion": "patch"
@@ -30,21 +27,61 @@
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "groupName": "All non-major updates",
-      "groupSlug": "all-non-major",
-      "automerge": true
-    },
-    {
-      "matchManagers": [
-        "helmv3"
-      ],
+      "matchManagers": ["helmv3"],
       "groupName": "Helm chart updates",
       "groupSlug": "helm-charts",
-      "automerge": true
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeSchedule": ["before 4pm every weekday"]
+    },
+    {
+      "matchPackagePatterns": ["^org\\.junit\\.", "^org\\.junit:"],
+      "groupName": "JUnit",
+      "groupSlug": "junit",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeSchedule": ["before 4pm every weekday"]
+    },
+    {
+      "matchPackagePatterns": ["^org\\.springframework\\.", "^io\\.spring\\."],
+      "groupName": "Spring",
+      "groupSlug": "spring",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeSchedule": ["before 4pm every weekday"]
+    },
+    {
+      "matchPackagePatterns": ["^org\\.camunda\\."],
+      "groupName": "Camunda",
+      "groupSlug": "camunda",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeSchedule": ["before 4pm every weekday"]
+    },
+    {
+      "matchPackagePatterns": ["^org\\.apache\\.logging\\.log4j:"],
+      "groupName": "Log4j",
+      "groupSlug": "log4j",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeSchedule": ["before 4pm every weekday"]
+    },
+    {
+      "matchPackageNames": ["gradle"],
+      "matchPackagePatterns": ["^com\\.github\\.ben-manes\\.versions", "^org\\.owasp\\.dependencycheck", "^org\\.sonarqube", "^io\\.freefair\\."],
+      "groupName": "Gradle build tools",
+      "groupSlug": "gradle-build-tools",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeSchedule": ["before 4pm every weekday"]
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "All non-major updates",
+      "groupSlug": "all-non-major",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeSchedule": ["before 4pm every weekday"]
     }
   ]
 }
