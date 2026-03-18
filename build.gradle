@@ -99,11 +99,14 @@ jacocoTestCoverageVerification {
 
 jacocoTestReport {
   executionData(test)
+  executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
   reports {
-    xml.required = true
-    csv.required = false
-    xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+    xml.required.set(true)
+    csv.required.set(false)
+    xml.outputLocation.set(file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml"))
   }
+  dependsOn tasks.named('bootStartScripts')
+  dependsOn tasks.named('startScripts')
 }
 
 pitest {
@@ -128,11 +131,16 @@ sonarqube {
   properties {
     property "sonar.projectName", "civil-wa-task-configuration"
     property "sonar.projectKey", "civil-wa-task-configuration"
-    property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.destination.path}"
+    property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.outputLocation}"
     property "sonar.pitest.mode", "reuseReport"
     property "sonar.pitest.reportsDirectory", "build/reports/pitest"
     property "sonar.exclusions", "src/main/java/uk/gov/hmcts/civil/taskconfiguration/config/**," +
       "src/main/java/uk/gov/hmcts/civil/taskconfiguration/Application.java"
+    property "sonar.host.url", "https://sonar.reform.hmcts.net/"
+    property "sonar.web.javaOpts", "-Xmx2G"
+    property "sonar.gradle.skipCompile", System.getenv("SONAR_SKIP_COMPILE") ?: "false"
+    property "sonar.branch.cache.enabled", "true"
+    property "sonar.working.directory", "${buildDir}/sonar"
   }
 }
 
