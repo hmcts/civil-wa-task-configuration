@@ -228,6 +228,7 @@ withPipeline(type, product, component) {
     env.CIVIL_SERVICE_URL="https://civil-task-configuration-pr-${CHANGE_ID}-civil-service.preview.platform.hmcts.net"
     env.WA_TASK_MGMT_URL="https://wa-task-mng-civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
     yarnBuilder.yarn('install-dependencies')
+    env.PR_FT_GROUPS = getFunctionalTestsGroups()
   }
 
   afterAlways('smoketest:preview') {
