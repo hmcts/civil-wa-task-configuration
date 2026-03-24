@@ -3,13 +3,13 @@ plugins {
   id 'checkstyle'
   id 'pmd'
   id 'jacoco'
-  id 'io.spring.dependency-management' version '1.1.7'
-  id 'org.springframework.boot' version '3.3.7'
-  id 'com.github.ben-manes.versions' version '0.53.0'
-  id 'org.owasp.dependencycheck' version '12.2.0'
-  id 'org.sonarqube' version '6.3.1.5724'
+  id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+  id 'org.springframework.boot' version '2.7.18'
+  id 'com.github.ben-manes.versions' version '0.43.0'
+  id 'org.owasp.dependencycheck' version '9.0.4'
+  id 'org.sonarqube' version '3.4.0.2513'
   id 'info.solidsoft.pitest' version '1.5.2'
-  id 'io.freefair.lombok' version '8.14.4'
+  id 'io.freefair.lombok' version '5.3.3.3'
   id 'maven-publish'
 }
 
@@ -20,9 +20,15 @@ version = '0.0.1'
 allprojects {
   java {
     toolchain {
-      languageVersion = JavaLanguageVersion.of(21)
+      languageVersion = JavaLanguageVersion.of(17)
     }
   }
+}
+
+lombok {
+  config['config.stopBubbling'] = 'true'
+  config['lombok.addLombokGeneratedAnnotation'] = 'true'
+  config['lombok.anyConstructor.addConstructorProperties'] = 'true'
 }
 
 sourceSets {
@@ -52,20 +58,13 @@ tasks.withType(JavaCompile).configureEach {
 tasks.withType(Test).configureEach {
   useJUnitPlatform()
 
-  failFast = true
-  maxParallelForks = Runtime.runtime.availableProcessors() / 2 ?: 1
-  forkEvery = 100
-
-  // Use Parallel GC for faster, short-lived test forks
-  jvmArgs '-XX:+UseParallelGC'
-
-  // Keep within typical Jenkins container limits
-  minHeapSize = "256m"
-  maxHeapSize = "1536m"
-
   testLogging {
     exceptionFormat = 'full'
   }
+}
+
+test {
+  failFast = true
 }
 
 checkstyle {
@@ -93,14 +92,11 @@ jacocoTestCoverageVerification {
 
 jacocoTestReport {
   executionData(test)
-  executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
   reports {
-    xml.required.set(true)
-    csv.required.set(false)
-    xml.outputLocation.set(file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml"))
+    xml.required = true
+    csv.required = false
+    xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
   }
-  dependsOn tasks.named('bootStartScripts')
-  dependsOn tasks.named('startScripts')
 }
 
 pitest {
@@ -125,16 +121,11 @@ sonarqube {
   properties {
     property "sonar.projectName", "civil-wa-task-configuration"
     property "sonar.projectKey", "civil-wa-task-configuration"
-    property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.outputLocation}"
+    property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.destination.path}"
     property "sonar.pitest.mode", "reuseReport"
     property "sonar.pitest.reportsDirectory", "build/reports/pitest"
     property "sonar.exclusions", "src/main/java/uk/gov/hmcts/civil/taskconfiguration/config/**," +
       "src/main/java/uk/gov/hmcts/civil/taskconfiguration/Application.java"
-    property "sonar.host.url", "https://sonar.reform.hmcts.net/"
-    property "sonar.web.javaOpts", "-Xmx2G"
-    property "sonar.gradle.skipCompile", System.getenv("SONAR_SKIP_COMPILE") ?: "false"
-    property "sonar.branch.cache.enabled", "true"
-    property "sonar.working.directory", "${buildDir}/sonar"
   }
 }
 
@@ -227,15 +218,14 @@ dependencyManagement {
       entry 'guava'
     }
 
-    // Use Logback version compatible with Spring Boot 3.3.7
-    dependencySet(group: 'ch.qos.logback', version: '1.5.12') {
+    dependencySet(group: 'ch.qos.logback', version: '1.2.13') {
       entry 'logback-classic'
       entry 'logback-core'
     }
 
     //Solves CVE-2023-35116
-    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.20.2'
-    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.20.2'
+    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.20.0'
+    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.20.0'
     dependency group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:  '2.20'
   }
 }
@@ -285,10 +275,15 @@ dependencies {
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.25.3'
   implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.25.3'
   implementation group: 'org.yaml', name: 'snakeyaml', version: '2.5'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.109'
+  implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: '10.1.45'
 
 
   implementation group: 'org.camunda.bpm', name: 'camunda-external-task-client', version: versions.camunda
-  implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.10.5'
+  implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.8.1'
+  implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.8.1'
+  implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.8.1'
+  implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version:'5.8.1'
   implementation group: 'junit', name: 'junit', version: '4.13.1'
   implementation group: 'org.testng', name: 'testng', version :'7.11.0'
   implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.12.0'
