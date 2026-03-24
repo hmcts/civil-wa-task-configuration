@@ -52,17 +52,20 @@ tasks.withType(JavaCompile).configureEach {
 tasks.withType(Test).configureEach {
   useJUnitPlatform()
 
-  maxParallelForks = Runtime.runtime.availableProcessors() - 1 ?: 1
+  failFast = true
+  maxParallelForks = Runtime.runtime.availableProcessors() / 2 ?: 1
+  forkEvery = 100
+
   // Use Parallel GC for faster, short-lived test forks
   jvmArgs '-XX:+UseParallelGC'
+
+  // Keep within typical Jenkins container limits
+  minHeapSize = "256m"
+  maxHeapSize = "1536m"
 
   testLogging {
     exceptionFormat = 'full'
   }
-}
-
-test {
-  failFast = true
 }
 
 checkstyle {
@@ -231,8 +234,8 @@ dependencyManagement {
     }
 
     //Solves CVE-2023-35116
-    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.20.0'
-    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.20.0'
+    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.20.1'
+    dependency group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.20.1'
     dependency group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:  '2.20'
   }
 }
