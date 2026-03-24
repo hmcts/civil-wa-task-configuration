@@ -224,10 +224,12 @@ withPipeline(type, product, component) {
     env.SERVICE_AUTH_PROVIDER_API_BASE_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
     env.CCD_DATA_STORE_URL = "https://ccd-data-store-api-civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
     env.DM_STORE_URL = "http://dm-store-aat.service.core-compute-aat.internal"
+    env.PR_FT_GROUPS = getFunctionalTestsGroups()
     env.PAYMENT_API_URL = "http://payment-api-aat.service.core-compute-aat.internal"
     env.CIVIL_SERVICE_URL="https://civil-task-configuration-pr-${CHANGE_ID}-civil-service.preview.platform.hmcts.net"
     env.WA_TASK_MGMT_URL="https://wa-task-mng-civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
     yarnBuilder.yarn('install-dependencies')
+
   }
 
   afterAlways('smoketest:preview') {
@@ -242,6 +244,7 @@ withPipeline(type, product, component) {
     } else {
       copyPrevFailedAndNotExecutedTestFilesJson();
     }
+    env.UNASSIGN_CASES = true
   }
 
   afterAlways('functionalTest:preview') {
@@ -283,6 +286,7 @@ withPipeline(type, product, component) {
     uploadDmnDiagrams('aat','')
     copyPrevFailedAndNotExecutedTestFilesJson();
     copyPreviousAllureHistory();
+    env.UNASSIGN_CASES = true
   }
 
   afterSuccess('functionalTest:aat') {
