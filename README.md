@@ -1,4 +1,4 @@
-# Spring Boot application template
+# Spring Boot application templat e
 
 [![Build Status](https://travis-ci.org/hmcts/spring-boot-template.svg?branch=master)](https://travis-ci.org/hmcts/spring-boot-template)
 
