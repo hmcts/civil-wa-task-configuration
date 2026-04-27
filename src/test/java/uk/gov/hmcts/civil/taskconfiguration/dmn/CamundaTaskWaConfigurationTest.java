@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(187));
+        assertThat(logic.getRules().size(), is(190));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -1896,6 +1896,53 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "true",
             "name", "description",
             "value", expectedDescription
+        )));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "SEND, UNSPEC_CLAIM",
+        "REPLY, UNSPEC_CLAIM",
+        "REPLY, SPEC_CLAIM"
+    })
+    void when_reviewMessageCW_then_return_location_depending_on_send_or_reply(
+        String sendAndReplyOption, String caseAccessCategory) {
+
+        Map<String, Object> caseData = new HashMap<>(); // allow null values
+        caseData.put("applicant1", Map.of(
+            "partyName", "Firstname LastName"
+        ));
+        caseData.put("CaseAccessCategory", caseAccessCategory);
+        caseData.put("sendAndReplyOption", sendAndReplyOption);
+        caseData.put("caseManagementLocation", Map.of(
+            "region", "regionFromCaseData",
+            "baseLocation", "caseManagementLocationFromCaseData"
+        ));
+        caseData.put("locationName", "locationNameFromCaseData");
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("caseData", caseData);
+        inputVariables.putValue("taskAttributes", Map.of(
+            "taskType", "reviewMessageCW"
+        ));
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "region",
+            "value", sendAndReplyOption.equals("SEND") ? "regionFromCaseData" : caseAccessCategory.equals("UNSPEC_CLAIM") ? "4" : "2"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "location",
+            "value", sendAndReplyOption.equals("SEND") ? "caseManagementLocationFromCaseData" : caseAccessCategory.equals("UNSPEC_CLAIM") ? "366774" : "283922"
+        )));
+
+        assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "locationName",
+            "value", sendAndReplyOption.equals("SEND") ? "locationNameFromCaseData" : caseAccessCategory.equals("UNSPEC_CLAIM") ? "CTSC Salford" : "CTSC Stoke"
         )));
     }
 
