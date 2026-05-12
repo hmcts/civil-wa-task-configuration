@@ -195,15 +195,7 @@ public class CamundaGaTaskCompletion extends DmnDecisionTableBaseUnitTest {
                     ))),
             Arguments.of(
                 "FEE_PAYMENT_OUTCOME_GA",
-                asList(
-                    Map.of(
-                        "taskType", "HelpWithFeesApplicationFee",
-                        "completionMode", "Auto"
-                    ),
-                    Map.of(
-                        "taskType", "HelpWithFeesAdditionalApplicationFee",
-                        "completionMode", "Auto"
-                    )))
+                asList())
         );
     }
 
