@@ -1174,7 +1174,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
                                                                                               String roleCategory) {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-
         List<Map> expectedResults = new ArrayList<>();
         expectedResults.add(
             Map.of(
@@ -1185,6 +1184,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
         );
 
         if (taskType.equals("reviewMessageCW")) {
+            inputVariables.putValue("caseData", Map.of("sendAndReplyOption", "SEND"));
             expectedResults.addAll(List.of(
                 Map.of(
                     "name", "ctsc",
