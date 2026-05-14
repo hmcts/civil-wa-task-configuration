@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(187));
+        assertThat(logic.getRules().size(), is(188));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -1842,6 +1842,10 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             + "[Small Claim, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         "reviewMessageCW; Fast Track;; "
             + "[Fast Track, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
+        "reviewMessageCTSC; Small Claim;; "
+            + "[Small Claim, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
+        "reviewMessageCTSC; Fast Track;; "
+            + "[Fast Track, CW, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); No",
         "reviewMessageLA; Small Claim;; "
             + "[Small Claim, LA, Review message](/cases/case-details/${[CASE_REFERENCE]}#Messages); Yes",
         "reviewMessageLA; Fast Track;; "
@@ -1887,7 +1891,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
         assertTrue(dmnDecisionTableResult.getResultList().contains(Map.of(
             "canReconfigure", "true",
             "name", "workType",
-            "value", taskType.equals("reviewMessageCW") ? "routine_work" :
+            "value", taskType.equals("reviewMessageCW") || taskType.equals("reviewMessageCTSC") ? "routine_work" :
                 taskType.equals("reviewMessageWLU") ? "welsh_translation_work" :
                     "decision_making_work"
         )));

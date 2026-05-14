@@ -430,6 +430,10 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Review message"
             ),
             Map.of(
+                "taskTypeId", "reviewMessageCTSC",
+                "taskTypeName", "Review message"
+            ),
+            Map.of(
                 "taskTypeId", "reviewMessageLA",
                 "taskTypeName", "Review message"
             ),
@@ -469,7 +473,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(104));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(105));
     }
 
 }

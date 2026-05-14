@@ -1787,6 +1787,30 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
+        "ADMIN, reviewMessageCW",
+        "CTSC, reviewMessageCTSC",
+    })
+    void given_input_rolePool_should_return_correct_review_message_admin_task(String rolePool, String expectedTaskId) {
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("lastMessage", Map.of("recipientRoleType", rolePool));
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "SEND_AND_REPLY");
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("name"), is("Review message"));
+        assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "JUDICIAL, reviewMessageJudicial",
         "JUDICIAL_DISTRICT, reviewMessageJudicial",
         "JUDICIAL_CIRCUIT, reviewMessageJudicial"
@@ -2250,7 +2274,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(271));
+        assertThat(logic.getRules().size(), is(272));
     }
 
     @ParameterizedTest
