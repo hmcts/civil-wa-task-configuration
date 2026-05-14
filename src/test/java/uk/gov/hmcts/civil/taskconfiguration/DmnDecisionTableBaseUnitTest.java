@@ -1,6 +1,5 @@
 package uk.gov.hmcts.civil.taskconfiguration;
 
-import com.microsoft.applicationinsights.web.dependencies.apachecommons.io.IOUtils;
 import org.camunda.bpm.dmn.engine.DmnDecision;
 import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.dmn.engine.DmnEngine;
@@ -26,7 +25,7 @@ public abstract class DmnDecisionTableBaseUnitTest {
         InputStream inputStream = contextClassLoader.getResourceAsStream(decisionTable.getFileName());
         StringWriter writer = new StringWriter();
         try {
-            IOUtils.copy(new InputStreamReader(inputStream), writer);
+            new InputStreamReader(inputStream).transferTo(writer);
             // nbsp is not accepted by the default parser, but Camunda does not have any actual problem
             inputStream = new ByteArrayInputStream(
                 writer.toString()
