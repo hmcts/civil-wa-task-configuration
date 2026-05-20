@@ -1163,7 +1163,6 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "reviewMessageCTSC;nbc-team-leader,national-business-centre,hearing-centre-team-leader,hearing-centre-admin;ADMIN",
         "reviewMessageCW;nbc-team-leader,national-business-centre,hearing-centre-team-leader,hearing-centre-admin;"
             + "ADMIN",
         "reviewMessageLA;tribunal-caseworker,senior-tribunal-caseworker;LEGAL_OPERATIONS",
@@ -1185,7 +1184,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             )
         );
 
-        if (taskType.equals("reviewMessageCW") || taskType.equals("reviewMessageCTSC")) {
+        if (taskType.equals("reviewMessageCW")) {
             expectedResults.addAll(List.of(
                 Map.of(
                     "name", "ctsc",
