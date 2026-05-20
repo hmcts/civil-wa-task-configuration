@@ -1163,7 +1163,7 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "reviewMessageCTSC;nbc-team-leader,national-business-centre;ADMIN",
+        "reviewMessageCTSC;nbc-team-leader,national-business-centre,hearing-centre-team-leader,hearing-centre-admin;ADMIN",
         "reviewMessageCW;nbc-team-leader,national-business-centre,hearing-centre-team-leader,hearing-centre-admin;"
             + "ADMIN",
         "reviewMessageLA;tribunal-caseworker,senior-tribunal-caseworker;LEGAL_OPERATIONS",
