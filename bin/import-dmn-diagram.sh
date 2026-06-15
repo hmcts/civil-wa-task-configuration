@@ -12,8 +12,8 @@ if [[ "${env}" == 'prod' ]]; then
   s2sSecret=${S2S_SECRET_PROD}
 fi
 
-serviceToken=$($(realpath $workspace)/bin/utils/idam-lease-service-token.sh civil_service \
-  $(docker run --rm toolbelt/oathtool --totp -b ${s2sSecret}))
+serviceToken=$($(realpath $workspace)/bin/shared/idam-lease-service-token.sh civil_service \
+  $(docker run --rm hmctspublic.azurecr.io/imported/toolbelt/oathtool --totp -b ${s2sSecret}))
 
 dmnFilepath="$(realpath $workspace)/src/main/resources"
 echo "Uploading prod DMNs..."
