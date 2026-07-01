@@ -10,10 +10,7 @@ def type = "java"
 def component = "task-configuration"
 def branchesToSync = ['demo', 'perftest','ithc']
 def product = "civil"
-def ccdBranch = "master"
-def camundaBranch = "master"
 def waStandaloneBranch = "master"
-
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
@@ -95,7 +92,7 @@ def getCivilServiceCamundaRef() {
   for (label in githubApi.getLabelsbyPattern(env.BRANCH_NAME, "civilServicePr:")) {
     return "pr-" + label.minus("civilServicePr:").trim()
   }
-  return camundaBranch
+  return "master"
 }
 
 def checkForSkipFunctionalTests(branch_name) {
