@@ -41,7 +41,12 @@ if [ ! -d "${TEMP_DIR}/${SPARSE_PATH}" ]; then
   exit 1
 fi
 
-./bin/import-bpmn-diagram.sh "${TEMP_DIR}/${SPARSE_PATH}/.."
+# Copy camunda dir to workspace root so import-bpmn-diagram.sh can find
+# both bin/shared/ and camunda/ relative to the same workspace path.
+cp -r "${TEMP_DIR}/${SPARSE_PATH}" ./camunda
 rm -rf "${TEMP_DIR}"
+
+./bin/import-bpmn-diagram.sh .
+rm -rf ./camunda
 
 echo "Done: camunda files imported from civil-service@${REF_NAME}"
