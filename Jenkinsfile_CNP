@@ -314,9 +314,14 @@ withPipeline(type, product, component) {
     env.UNASSIGN_CASES = true
   }
 
-  afterSuccess('functionalTest:aat') {
-    //Release dmns on to prod
-    uploadDmnDiagrams('prod', '')
+  afterSuccess('buildinfra:prod') {
+      withAzureKeyvault(
+      azureKeyVaultSecrets: secretsProd['civil-prod'],
+      keyVaultURLOverride: 'https://civil-prod.vault.azure.net/'
+    ) {
+      //Release dmns on to prod
+      uploadDmnDiagrams('prod', '')
+    }
   }
 
   afterAlways('functionalTest:aat') {
