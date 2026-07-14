@@ -179,7 +179,7 @@ def uploadDmnDiagrams(String env, String changeID) {
     product = "civil"
     sh """
       eval \$(./variables/load-${env}-environment-variables.sh ${changeID})
-      ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
+      ./bin/import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
     """
   }
 }
@@ -215,10 +215,8 @@ withPipeline(type, product, component) {
   }
 
 
-  syncBranchesWithMaster(branchesToSync)
   afterSuccess('checkout') {
-
-    if ( env.ENVIRONMENT == 'ithc' || env.ENVIRONMENT == 'demo' || env.ENVIRONMENT == 'perftest') {
+    if (env.ENVIRONMENT in ['ithc', 'demo', 'perftest']) {
       def subscriptions = [
         demo    : env.DEMO_SUBSCRIPTION_NAME ?: 'nonprod',
         perftest: env.PERFTEST_SUBSCRIPTION_NAME ?: 'qa',
@@ -227,11 +225,14 @@ withPipeline(type, product, component) {
 
       withSubscription(subscriptions[env.ENVIRONMENT], product, env.ENVIRONMENT) {
         withTeamSecrets(pipelineConf, env.ENVIRONMENT) {
-          uploadDmnDiagrams(env.ENVIRONMENT,'')
+          uploadBpmnDiagrams(env.ENVIRONMENT)
         }
       }
     }
   }
+
+
+  syncBranchesWithMaster(branchesToSync)
 
   before('smoketest:preview') {
     retry (3) {
