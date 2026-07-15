@@ -215,17 +215,24 @@ withPipeline(type, product, component) {
   }
 
 
-  syncBranchesWithMaster(branchesToSync)
   afterSuccess('checkout') {
-    def subscription = 'nonprod'
-    if ( env.ENVIRONMENT == 'ithc' || env.ENVIRONMENT == 'demo' || env.ENVIRONMENT == 'perftest') {
-      withSubscription(subscription) {
+    if (env.ENVIRONMENT in ['ithc', 'demo', 'perftest']) {
+      def subscriptions = [
+        demo    : env.DEMO_SUBSCRIPTION_NAME ?: 'nonprod',
+        perftest: env.PERFTEST_SUBSCRIPTION_NAME ?: 'qa',
+        ithc    : env.ITHC_SUBSCRIPTION_NAME ?: 'qa'
+      ]
+
+      withSubscription(subscriptions[env.ENVIRONMENT], product, env.ENVIRONMENT) {
         withTeamSecrets(pipelineConf, env.ENVIRONMENT) {
-          uploadDmnDiagrams(env.ENVIRONMENT,'')
+          uploadBpmnDiagrams(env.ENVIRONMENT)
         }
       }
     }
   }
+
+
+  syncBranchesWithMaster(branchesToSync)
 
   before('smoketest:preview') {
     retry (3) {
