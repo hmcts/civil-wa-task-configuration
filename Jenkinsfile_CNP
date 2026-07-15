@@ -179,7 +179,7 @@ def uploadDmnDiagrams(String env, String changeID) {
     product = "civil"
     sh """
       eval \$(./variables/load-${env}-environment-variables.sh ${changeID})
-      ./bin/pull-latest-civil-shared.sh ${getCivilServiceSharedBranch()}
+      ./pull-latest-civil-shared.sh ${getCivilServiceSharedBranch()}
       ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
     """
   }
