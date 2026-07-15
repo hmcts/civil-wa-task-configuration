@@ -224,6 +224,7 @@ withPipeline(type, product, component) {
 
       withSubscription(subscriptions[env.ENVIRONMENT], product, env.ENVIRONMENT) {
         withTeamSecrets(pipelineConf, env.ENVIRONMENT) {
+          sh "./bin/pull-latest-civil-shared.sh ${getCivilServiceSharedBranch()}"
           uploadDmnDiagrams(env.ENVIRONMENT, '')
         }
       }
