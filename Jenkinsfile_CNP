@@ -215,8 +215,10 @@ withPipeline(type, product, component) {
   }
 
 
+  syncBranchesWithMaster(branchesToSync)
   afterSuccess('checkout') {
-    if (env.ENVIRONMENT in ['ithc', 'demo', 'perftest']) {
+
+    if ( env.ENVIRONMENT == 'ithc' || env.ENVIRONMENT == 'demo' || env.ENVIRONMENT == 'perftest') {
       def subscriptions = [
         demo    : env.DEMO_SUBSCRIPTION_NAME ?: 'nonprod',
         perftest: env.PERFTEST_SUBSCRIPTION_NAME ?: 'qa',
@@ -225,14 +227,11 @@ withPipeline(type, product, component) {
 
       withSubscription(subscriptions[env.ENVIRONMENT], product, env.ENVIRONMENT) {
         withTeamSecrets(pipelineConf, env.ENVIRONMENT) {
-          uploadBpmnDiagrams(env.ENVIRONMENT)
+          uploadDmnDiagrams(env.ENVIRONMENT,'')
         }
       }
     }
   }
-
-
-  syncBranchesWithMaster(branchesToSync)
 
   before('smoketest:preview') {
     retry (3) {
