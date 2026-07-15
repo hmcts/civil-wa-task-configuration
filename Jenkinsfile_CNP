@@ -3,7 +3,7 @@ properties([
   copyArtifactPermission('/HMCTS_a_to_c/civil-wa-task-configuration/*'),
 ]);
 
-@Library('Infrastructure@2.4.2')
+@Library('Infrastructure@2.4.5')
 import uk.gov.hmcts.contino.GithubAPI
 
 def type = "java"
@@ -179,6 +179,7 @@ def uploadDmnDiagrams(String env, String changeID) {
     product = "civil"
     sh """
       eval \$(./variables/load-${env}-environment-variables.sh ${changeID})
+      ./pull-latest-civil-shared.sh ${getCivilServiceSharedBranch()}
       ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
     """
   }
@@ -214,7 +215,6 @@ withPipeline(type, product, component) {
     loadVaultSecrets(secretsIthc)
   }
 
-
   afterSuccess('checkout') {
     if (env.ENVIRONMENT in ['ithc', 'demo', 'perftest']) {
       def subscriptions = [
@@ -225,7 +225,7 @@ withPipeline(type, product, component) {
 
       withSubscription(subscriptions[env.ENVIRONMENT], product, env.ENVIRONMENT) {
         withTeamSecrets(pipelineConf, env.ENVIRONMENT) {
-          uploadBpmnDiagrams(env.ENVIRONMENT)
+          uploadDmnDiagrams(env.ENVIRONMENT)
         }
       }
     }
