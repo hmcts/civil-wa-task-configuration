@@ -174,12 +174,12 @@ def secretsIthc = [
 ]
 
 def uploadDmnDiagrams = { String environment, String changeID ->
-  dir("${WORKSPACE}/bin") {
+   {
     def tenantId = "civil"
     sh """
-      eval \$(./variables/load-${environment}-environment-variables.sh ${changeID})
-      ./pull-latest-civil-shared.sh ${getCivilServiceSharedBranch()}
-      ./import-dmn-diagram.sh ${WORKSPACE} ${environment} ${tenantId} ${product}
+      eval \$(./bin/variables/load-${environment}-environment-variables.sh ${changeID})
+      ./bin/pull-latest-civil-shared.sh ${getCivilServiceSharedBranch()}
+      ./bin/import-dmn-diagram.sh ${WORKSPACE} ${environment} ${tenantId} ${product}
     """
   }
 }
