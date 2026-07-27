@@ -3,7 +3,7 @@ properties([
   copyArtifactPermission('/HMCTS_a_to_c/civil-wa-task-configuration/*'),
 ]);
 
-@Library('Infrastructure@2.4.2')
+@Library('Infrastructure@2.4.4')
 import uk.gov.hmcts.contino.GithubAPI
 
 def type = "java"
@@ -68,7 +68,7 @@ def getCivilCcdDefinitionBranch() {
   for (label in githubApi.getLabelsbyPattern(env.BRANCH_NAME, "civilDefinitionBranch:")) {
     return label.minus("civilDefinitionBranch:").trim()
   }
-  return "DTSCCI-5809"
+  return "master"
 }
 
 def getCivilServiceSharedBranch() {
@@ -174,12 +174,13 @@ def secretsIthc = [
 ]
 
 def uploadDmnDiagrams(String env, String changeID) {
-  dir("${WORKSPACE}/bin") {
+  dir("${WORKSPACE}") {
     tenantId = "civil"
     product = "civil"
     sh """
-      eval \$(./variables/load-${env}-environment-variables.sh ${changeID})
-      ./import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
+      eval \$(./bin/variables/load-${env}-environment-variables.sh ${changeID})
+      ./bin/pull-latest-civil-shared.sh ${getCivilServiceSharedBranch()}
+      ./bin/import-dmn-diagram.sh ${WORKSPACE} ${env} ${tenantId} ${product}
     """
   }
 }
@@ -214,18 +215,23 @@ withPipeline(type, product, component) {
     loadVaultSecrets(secretsIthc)
   }
 
-
-  syncBranchesWithMaster(branchesToSync)
   afterSuccess('checkout') {
-    def subscription = 'nonprod'
-    if ( env.ENVIRONMENT == 'ithc' || env.ENVIRONMENT == 'demo' || env.ENVIRONMENT == 'perftest') {
-      withSubscription(subscription) {
+    if (env.ENVIRONMENT in ['ithc', 'demo', 'perftest']) {
+      def subscriptions = [
+        demo    : env.DEMO_SUBSCRIPTION_NAME ?: 'nonprod',
+        perftest: env.PERFTEST_SUBSCRIPTION_NAME ?: 'qa',
+        ithc    : env.ITHC_SUBSCRIPTION_NAME ?: 'qa'
+      ]
+
+      withSubscription(subscriptions[env.ENVIRONMENT], product, env.ENVIRONMENT) {
         withTeamSecrets(pipelineConf, env.ENVIRONMENT) {
-          uploadDmnDiagrams(env.ENVIRONMENT,'')
+          uploadDmnDiagrams(env.ENVIRONMENT, '')
         }
       }
     }
   }
+
+  syncBranchesWithMaster(branchesToSync)
 
   before('smoketest:preview') {
     retry (3) {
