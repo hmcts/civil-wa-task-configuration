@@ -70,34 +70,11 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
         @SuppressWarnings("checkstyle:indentation")
         @ParameterizedTest
         @CsvSource(value = {
-            "ScheduleApplicationHearing", "ReviewRevisitedApplication", "ReviewOfflineApplication"
+            "ScheduleApplicationHearing", "ReviewApplication", "ReviewRevisitedApplication", "ReviewOfflineApplication"
         })
         void given_taskType_when_evaluate_dmn_it_returns_expected_rule_withCcmcc(String taskType) {
             VariableMap inputVariables = new VariableMapImpl();
             inputVariables.putValue("taskAttributes", Map.of("taskType", taskType));
-            inputVariables.putValue("caseData", Map.of("isCcmccLocation", "Yes"));
-            DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
-
-            MatcherAssert.assertThat(dmnDecisionTableResult.getResultList(), is(List.of(
-                Map.of(
-                    "autoAssignable", false,
-                    "name", "task-supervisor",
-                    "value", "Read,Manage,Unassign,Assign,Cancel"
-                ),
-                Map.of(
-                    "name", "national-business-centre",
-                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
-                    "roleCategory", "ADMIN",
-                    "assignmentPriority", 1,
-                    "autoAssignable", false
-                )
-            )));
-        }
-
-        @Test
-        void given_taskType_ReviewApplication_when_evaluate_dmn_it_returns_expected_rule_withCcmcc() {
-            VariableMap inputVariables = new VariableMapImpl();
-            inputVariables.putValue("taskAttributes", Map.of("taskType", "ReviewApplication"));
             inputVariables.putValue("caseData", Map.of("isCcmccLocation", "Yes"));
             DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
