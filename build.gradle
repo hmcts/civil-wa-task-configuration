@@ -254,7 +254,6 @@ def versions = [
   springBoot         : springBoot.class.package.implementationVersion,
   springfoxSwagger: '2.10.5',
   camunda         : '7.24.0',
-  pitest          : '1.5.2',
   log4j           : '2.17.1'
 
 ]
@@ -304,7 +303,9 @@ dependencies {
   smokeTestImplementation sourceSets.main.runtimeClasspath
 }
 
-mainClassName = 'uk.gov.hmcts.civil.taskconfiguration.Application'
+application {
+  mainClass = 'uk.gov.hmcts.civil.taskconfiguration.Application'
+}
 
 bootJar {
   getArchiveFileName().set(provider {
