@@ -7,9 +7,9 @@ plugins {
   id 'org.springframework.boot' version '3.5.16'
   id 'com.github.ben-manes.versions' version '0.61.0'
   id 'org.owasp.dependencycheck' version '12.2.2'
-  id 'org.sonarqube' version '6.3.1.5724'
+  id 'org.sonarqube' version '7.4.0.8496'
   id 'info.solidsoft.pitest' version '1.19.0'
-  id 'io.freefair.lombok' version '8.14.4'
+  id 'io.freefair.lombok' version '9.5.0'
   id 'maven-publish'
 }
 
@@ -254,7 +254,6 @@ def versions = [
   springBoot         : springBoot.class.package.implementationVersion,
   springfoxSwagger: '2.10.5',
   camunda         : '7.24.0',
-  pitest          : '1.5.2',
   log4j           : '2.17.1'
 
 ]
@@ -304,7 +303,9 @@ dependencies {
   smokeTestImplementation sourceSets.main.runtimeClasspath
 }
 
-mainClassName = 'uk.gov.hmcts.civil.taskconfiguration.Application'
+application {
+  mainClass = 'uk.gov.hmcts.civil.taskconfiguration.Application'
+}
 
 bootJar {
   getArchiveFileName().set(provider {
