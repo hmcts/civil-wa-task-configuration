@@ -16,14 +16,11 @@
   "helmv3": {
     "bumpVersion": "patch"
   },
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sARG .*?_VERSION=(?<currentValue>.*)\\s"
-      ]
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": ["datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sARG .*?_VERSION=(?<currentValue>.*)\\s"]
     }
   ],
   "packageRules": [
@@ -36,40 +33,49 @@
       "automergeSchedule": ["before 4pm every weekday"]
     },
     {
-      "matchPackagePatterns": ["^org\\.junit\\.", "^org\\.junit:"],
       "groupName": "JUnit",
       "groupSlug": "junit",
       "automerge": true,
       "automergeType": "pr",
-      "automergeSchedule": ["before 4pm every weekday"]
+      "automergeSchedule": ["before 4pm every weekday"],
+      "matchPackageNames": [
+        "/^org\\.junit\\./",
+        "/^org\\.junit:/"
+      ]
     },
     {
-      "matchPackagePatterns": ["^org\\.springframework\\.", "^io\\.spring\\."],
       "groupName": "Spring",
       "groupSlug": "spring",
       "automerge": true,
       "automergeType": "pr",
-      "automergeSchedule": ["before 4pm every weekday"]
+      "automergeSchedule": ["before 4pm every weekday"],
+      "matchPackageNames": [
+        "/^org\\.springframework\\./",
+        "/^io\\.spring\\./"
+      ]
     },
     {
-      "matchPackagePatterns": ["^org\\.camunda\\."],
       "groupName": "Camunda",
       "groupSlug": "camunda",
       "automerge": true,
       "automergeType": "pr",
-      "automergeSchedule": ["before 4pm every weekday"]
+      "automergeSchedule": ["before 4pm every weekday"],
+      "matchPackageNames": [
+        "/^org\\.camunda\\./"
+      ]
     },
     {
-      "matchPackagePatterns": ["^org\\.apache\\.logging\\.log4j:"],
       "groupName": "Log4j",
       "groupSlug": "log4j",
       "automerge": true,
       "automergeType": "pr",
-      "automergeSchedule": ["before 4pm every weekday"]
+      "automergeSchedule": ["before 4pm every weekday"],
+      "matchPackageNames": [
+        "/^org\\.apache\\.logging\\.log4j:/"
+      ]
     },
     {
-      "matchPackageNames": ["gradle"],
-      "matchPackagePatterns": ["^com\\.github\\.ben-manes\\.versions", "^org\\.owasp\\.dependencycheck", "^org\\.sonarqube", "^io\\.freefair\\."],
+      "matchPackageNames": ["gradle", "/^com\\.github\\.ben-manes\\.versions/", "/^org\\.owasp\\.dependencycheck/", "/^org\\.sonarqube/", "/^io\\.freefair\\./"],
       "groupName": "Gradle build tools",
       "groupSlug": "gradle-build-tools",
       "automerge": true,
