@@ -4217,7 +4217,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         "CASE_DISCONTINUED,false,false,respondToQueryCTSC,Respond to a query",
         "JUDICIAL_REFERRAL,false,false,respondToQueryCTSC,Respond to a query",
         "JUDICIAL_REFERRAL,true,false,respondToQueryCTSC,Respond to a hearing related query",
-        "CASE_PROGRESSION,No,false,respondToQueryCTSC,Respond to a query",
+        "CASE_PROGRESSION,false,false,respondToQueryCTSC,Respond to a query",
         "CASE_PROGRESSION,true,false,respondToQueryCTSC,Respond to a hearing related query",
         "HEARING_READINESS,false,false,respondToQueryCTSC,Respond to a query",
         "HEARING_READINESS,true,false,respondToQueryCTSC,Respond to a hearing related query",
