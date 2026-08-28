@@ -12,8 +12,6 @@ def branchesToSync = ['demo', 'perftest','ithc']
 def product = "civil"
 def waStandaloneBranch = "master"
 
-def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
-
 def copyPrevTestFilesReport(reportFilePath) {
   def buildFound = false
   def buildNumber = currentBuild.previousBuild ? currentBuild.previousBuild.number : 0
@@ -196,6 +194,7 @@ def uploadDmnDiagrams(String env, String changeID) {
 }
 
 withPipeline(type, product, component) {
+  def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
   pipelineConf = config
 
   onPR {
