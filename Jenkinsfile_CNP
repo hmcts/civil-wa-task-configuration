@@ -294,7 +294,7 @@ withPipeline(type, product, component) {
       return
     }
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
-    sh "allure generate allure-functional-results --clean -o allure-functional-report"
+    sh "npx allure generate allure-functional-results --clean -o allure-functional-report"
     publishAllureReport('allure-functional-report', 'Allure Functional Report', 'allure-functional-history')
   }
 
@@ -339,7 +339,7 @@ withPipeline(type, product, component) {
 
   afterAlways('functionalTest:aat') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
-    sh "allure generate allure-functional-results --clean -o allure-functional-report"
+    sh "npx allure generate allure-functional-results --clean -o allure-functional-report"
     publishAllureReport('allure-functional-report', 'Allure Functional Report', 'allure-functional-history')
   }
 }
