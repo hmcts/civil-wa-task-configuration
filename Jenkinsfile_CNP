@@ -294,7 +294,7 @@ withPipeline(type, product, component) {
       return
     }
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'test-results/functional/**/*'
-    yarnBuilder.yarn('test:generate-report')
+    sh "allure generate allure-functional-results --clean -o allure-functional-report"
     publishAllureReport('allure-functional-report', 'Allure Functional Report', 'allure-functional-history')
   }
 
