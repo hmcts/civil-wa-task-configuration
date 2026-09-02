@@ -443,7 +443,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "taskTypeId", "finalOrderIssuedWelshRequest",
-                "taskTypeName", "Final Order Issued Welsh Request"
+                "taskTypeName", "Order Issued Welsh Request"
             ),
             Map.of(
                 "taskTypeId", "respondToQueryWLU",
