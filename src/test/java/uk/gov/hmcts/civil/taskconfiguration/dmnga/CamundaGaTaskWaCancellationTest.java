@@ -258,6 +258,12 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
             Map.of(
                 "action", "Cancel",
                 "processCategories", "uploadTranslatedDocuments"
+            ),
+            Map.of(
+                "warningCode", "claimOffline",
+                "action", "Warn",
+                "processCategories", "generalApplications",
+                "warningText", "This claim has been taken offline. Please review the claim before completing any tasks."
             )
         );
         return Stream.of(
@@ -284,7 +290,7 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(11));
+        assertThat(logic.getRules().size(), is(12));
     }
 
 
