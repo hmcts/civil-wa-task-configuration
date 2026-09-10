@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-cancellation-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.27.0">
   <decision id="wa-task-cancellation-civil-generalapplication" name="Civil GA Task cancellation DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_0z3jx1g" hitPolicy="COLLECT">
       <input id="Input_1" label="From State">
@@ -12,7 +12,7 @@
           <text>event</text>
         </inputExpression>
       </input>
-      <input id="InputClause_0bomy63" label="To State">
+      <input id="InputClause_0bomy63" label="To State" biodi:width="229">
         <inputExpression id="LiteralExpression_1g5glfi" typeRef="string">
           <text>state</text>
         </inputExpression>
@@ -250,6 +250,30 @@
         </outputEntry>
         <outputEntry id="LiteralExpression_0j01w8l">
           <text>"uploadTranslatedDocuments"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pb6h0k">
+        <description>"If applicant proceeds in heritage event is run and case moves into PROCEEDS_IN_HERITAGE state, then outstanding tasks should display a warning"</description>
+        <inputEntry id="UnaryTests_0xqua4h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wuc7gp">
+          <text>"APPLICATION_PROCEEDS_IN_HERITAGE"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18scqig">
+          <text>"PROCEEDS_IN_HERITAGE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00mu64w">
+          <text>"Warn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1y4urv2">
+          <text>"claimOffline"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wid4xw">
+          <text>"This claim has been taken offline. Please review the claim before completing any tasks."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0oqx2xf">
+          <text>"generalApplications"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_10jpvij">
