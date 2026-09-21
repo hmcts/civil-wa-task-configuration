@@ -155,14 +155,14 @@ tasks.register('lintUserInterfaceTests', Exec) {
 }
 
 tasks.register('runSmokeTests', Exec) {
-  commandLine '/usr/bin/yarn', '--silent', 'run', 'test:civil-wa-smoke'
+  commandLine './playwright-e2e/scripts/civil-wa-master-pr/playwright-run-civil-wa-smoke.sh'
 }
 
 tasks.register('runCivilCCDTaskTests', Exec) {
   onlyIf {
     return System.env.NIGHTLY_RUN != 'true'
   }
-  commandLine './bin/run-civil-ccd-task-tests.sh'
+  commandLine './playwright-e2e/scripts/civil-wa-master-pr/playwright-run-civil-wa-master-pr-tests.sh'
 }
 
 tasks.register('runNightlyCivilCCDTaskTests', Exec) {
