@@ -379,6 +379,37 @@ withPipeline(type, product, component) {
   syncBranchesWithMaster(branchesToSync)
 
   before('smoketest:preview') {
+    sh '''
+      echo "Workspace:"
+      pwd
+
+      echo "Git HEAD:"
+      git rev-parse HEAD || true
+
+      echo "Branch info:"
+      git branch --show-current || true
+      git status --short || true
+
+      echo "Top level files:"
+      ls -la
+
+      echo "Playwright scripts:"
+      find playwright-e2e/scripts -maxdepth 4 -type f -print || true
+
+      echo "Civil WA master PR scripts:"
+      ls -la playwright-e2e/scripts/civil-wa-master-pr || true
+
+      echo "Smoke script details:"
+      stat playwright-e2e/scripts/civil-wa-master-pr/playwright-run-civil-wa-smoke.sh || true
+      head -n 20 playwright-e2e/scripts/civil-wa-master-pr/playwright-run-civil-wa-smoke.sh || true
+
+      echo "Tracked playwright script files:"
+      git ls-files | grep '^playwright-e2e/scripts' || true
+
+      echo "Specific smoke script tracked?"
+      git ls-files playwright-e2e/scripts/civil-wa-master-pr/playwright-run-civil-wa-smoke.sh || true
+    '''
+
     retry (3) {
     sh """
       eval \$(./bin/variables/load-preview-environment-variables.sh ${CHANGE_ID})
