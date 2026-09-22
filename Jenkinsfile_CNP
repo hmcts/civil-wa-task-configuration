@@ -77,7 +77,7 @@ def publishPlaywrightSmokeReports(yarnBuilder) {
       if (reportFlags.PLAYWRIGHT_SETUP_TESTS_FAILED == 'true') {
         copyPreviousAllureHistory('playwright-allure-bootstrap-history', 'playwright-allure-bootstrap-results');
         sh 'cp playwright-categories.json playwright-allure-bootstrap-results/categories.json'
-        yarnBuilder.yarn('test:playwright:bootstrap:generate-report')
+        sh "npx allure generate playwright-allure-bootstrap-results --clean -o playwright-allure-bootstrap-report"
         publishAllureReport(
           'playwright-allure-bootstrap-report',
           'Playwright Allure Bootstrap Report',
@@ -88,7 +88,7 @@ def publishPlaywrightSmokeReports(yarnBuilder) {
       if (reportFlags.PLAYWRIGHT_SMOKE_TESTS_FAILED == 'true') {
         copyPreviousAllureHistory('playwright-allure-functional-history', 'playwright-allure-functional-results');
         sh 'cp playwright-categories.json playwright-allure-functional-results/categories.json'
-        yarnBuilder.yarn('test:playwright:functional:generate-report')
+        sh "npx allure generate playwright-allure-functional-results --clean -o playwright-allure-functional-report"
         publishAllureReport(
           'playwright-allure-functional-report',
           'Playwright Allure Functional Report',
