@@ -170,6 +170,24 @@ def getFunctionalTestsGroups() {
   return functionalTestGroups.join(",")
 }
 
+
+def checkForRunFailingSetupTests(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "runFailingSetupTests").contains("runFailingSetupTests")
+}
+
+def checkForRunFailingFunctionalTests(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "runFailingFunctionalTests").contains("runFailingFunctionalTests")
+}
+
+def checkForRunFailingSmokeTests(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "runFailingSmokeTests").contains("runFailingSmokeTests")
+}
+
+def checkForRunFailingTeardownTests(branch_name) {
+  return new GithubAPI(this).getLabelsbyPattern(branch_name, "runFailingTeardownTests").contains("runFailingTeardownTests")
+}
+
+
 def getCivilCcdDefinitionBranch() {
   def githubApi = new GithubAPI(this)
   for (label in githubApi.getLabelsbyPattern(env.BRANCH_NAME, "civilDefinitionBranch:")) {
@@ -384,6 +402,10 @@ withPipeline(type, product, component) {
     env.WA_TASK_MGMT_URL="https://wa-task-mng-civil-task-configuration-pr-${CHANGE_ID}.preview.platform.hmcts.net"
     yarnBuilder.yarn('install-dependencies')
     copyPrevPlaywrightLastRunAndTestFilesReport()
+    env.RUN_FAILING_FUNCTIONAL_TESTS = checkForRunFailingFunctionalTests(env.BRANCH_NAME)
+    env.RUN_FAILING_SETUP_TESTS = checkForRunFailingSetupTests(env.BRANCH_NAME)
+    env.RUN_FAILING_TEARDOWN_TESTS = checkForRunFailingTeardownTests(env.BRANCH_NAME)
+    env.RUN_FAILING_SMOKE_TESTS = checkForRunFailingSmokeTests(env.BRANCH_NAME)
   }
 
   afterAlways('smoketest:preview') {
