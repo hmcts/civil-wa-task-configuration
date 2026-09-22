@@ -159,17 +159,7 @@ tasks.register('runSmokeTests', Exec) {
 }
 
 tasks.register('runCivilCCDTaskTests', Exec) {
-  onlyIf {
-    return System.env.NIGHTLY_RUN != 'true'
-  }
   commandLine 'bash', "${projectDir}/playwright-e2e/scripts/civil-master-pr/civil-wa/playwright-run-civil-wa-master-pr-tests.sh"
-}
-
-tasks.register('runNightlyCivilCCDTaskTests', Exec) {
-  onlyIf {
-    return System.env.NIGHTLY_RUN == 'true'
-  }
-  commandLine './bin/run-nightly-civil-ccd-task-tests.sh'
 }
 
 tasks.register('runNightlyGenAppCCDTaskTests', Exec) {
@@ -191,7 +181,7 @@ tasks.register('smoke') {
 }
 
 tasks.register('functional') {
-  dependsOn(inStrictOrder(awaitApplicationReadiness, runNightlyCivilCCDTaskTests, runCivilCCDTaskTests,
+  dependsOn(inStrictOrder(awaitApplicationReadiness, runCivilCCDTaskTests,
     pullGeneralAppAsset, runNightlyGenAppCCDTaskTests))
 }
 
