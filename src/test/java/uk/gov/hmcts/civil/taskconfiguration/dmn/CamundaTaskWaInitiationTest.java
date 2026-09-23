@@ -901,6 +901,83 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     }
 
     @Test
+    void given_claimant_response_spec_when_small_claim_and_create_sdo_reconsideration_then_judge_sdo_task() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalClaimAmount", 10000);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("respondent1ClaimResponseTypeForSpec", "FULL_DEFENCE");
+        data.put("decisionOnRequestReconsiderationOptions", "CREATE_SDO");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.getFirst().get("taskId"), is("SmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.getFirst().get("name"), is("Small Claims Track Directions"));
+        assertThat(workTypeResultList.getFirst().get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_claimant_response_spec_when_small_claim_and_no_reconsideration_then_legal_advisor_sdo_task() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalClaimAmount", 10000);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("respondent1ClaimResponseTypeForSpec", "FULL_DEFENCE");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.getFirst().get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.getFirst().get("name"), is("Legal Advisor Small Claims Track Directions"));
+        assertThat(workTypeResultList.getFirst().get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_retrigger_claimant_response_spec_when_small_claim_and_create_sdo_reconsideration_then_judge_sdo_task() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalClaimAmount", 10000);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("respondent1ClaimResponseTypeForSpec", "FULL_DEFENCE");
+        data.put("decisionOnRequestReconsiderationOptions", "CREATE_SDO");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "RETRIGGER_CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.getFirst().get("taskId"), is("SmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.getFirst().get("name"), is("Small Claims Track Directions"));
+        assertThat(workTypeResultList.getFirst().get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
     void given_input_should_create_sdo_task_for_lip_vs_lip_fast_claim_in_judicial_referral_claimIssue_in_bilingual() {
         Map<String, Object> data = new HashMap<>();
         data.put("responseClaimTrack", "FAST_CLAIM");
@@ -2250,7 +2327,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(272));
+        assertThat(logic.getRules().size(), is(274));
     }
 
     @ParameterizedTest
