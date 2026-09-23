@@ -290,7 +290,7 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
                 "warningCode", "claimSettled",
                 "action", "Warn",
                 "processCategories", "generalApplications",
-                "warningText", "Main claim has been settled. Please review the claim before completing any tasks."
+                "warningText", "This claim has been settled. Please review the claim before completing any tasks."
             )
         );
         return Stream.of(
@@ -308,7 +308,7 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
                 "warningCode", "claimDiscontinued",
                 "action", "Warn",
                 "processCategories", "generalApplications",
-                "warningText", "Main claim has been discontinued. Please review the claim before completing any tasks."
+                "warningText", "This claim has been discontinued. Please review the claim before completing any tasks."
             )
         );
         return Stream.of(
