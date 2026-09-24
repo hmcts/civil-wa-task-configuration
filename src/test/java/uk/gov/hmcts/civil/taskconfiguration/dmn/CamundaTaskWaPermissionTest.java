@@ -1815,4 +1815,19 @@ class CamundaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest {
             )
         )));
     }
+
+    @Test
+    void given_invalid_hearing_notice_task_type_when_evaluate_dmn_then_return_hearing_centre_admin_permissions() {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "invalidHearingNotice"));
+
+        DmnDecisionTableResult result = evaluateDmnTable(inputVariables);
+
+        MatcherAssert.assertThat(result.getResultList(), org.hamcrest.Matchers.hasItem(Map.of(
+            "name", "hearing-centre-admin",
+            "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+            "roleCategory", "ADMIN",
+            "autoAssignable", false
+        )));
+    }
 }

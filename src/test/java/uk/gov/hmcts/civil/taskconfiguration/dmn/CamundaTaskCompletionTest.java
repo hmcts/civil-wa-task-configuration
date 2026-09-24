@@ -247,6 +247,21 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
         );
     }
 
+    @Test
+    void given_invalid_hearing_notice_completed_event_should_complete_invalid_hearing_notice_task() {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "INVALID_HEARING_NOTICE_COMPLETED");
+
+        DmnDecisionTableResult result = evaluateDmnTable(inputVariables);
+
+        assertThat(result.getResultList(), is(List.of(
+            Map.of(
+                "taskType", "invalidHearingNotice",
+                "completionMode", "Auto"
+            )
+        )));
+    }
+
     static Stream<Arguments> scenarioProviderToC() {
 
         return Stream.of(
@@ -733,6 +748,6 @@ class CamundaTaskCompletionTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(81));
+        assertThat(logic.getRules().size(), is(82));
     }
 }

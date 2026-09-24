@@ -142,6 +142,10 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
                 "taskTypeName", "Review Hearing Exception"
             ),
             Map.of(
+                "taskTypeId", "invalidHearingNotice",
+                "taskTypeName", "Invalid Hearing Notice"
+            ),
+            Map.of(
                 "taskTypeId", "sendCvpHearingLink",
                 "taskTypeName", "Send CVP Hearing Link"
             ),
@@ -469,7 +473,7 @@ class CamundaTaskTypesTest extends DmnDecisionTableBaseUnitTest {
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
-        assertThat(dmnDecisionTableResult.getResultList().size(), is(104));
+        assertThat(dmnDecisionTableResult.getResultList().size(), is(105));
     }
 
 }
