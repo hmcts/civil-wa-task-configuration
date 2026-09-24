@@ -36,7 +36,7 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
 
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(187));
+        assertThat(logic.getRules().size(), is(190));
     }
 
     @SuppressWarnings("checkstyle:indentation")
@@ -3046,6 +3046,31 @@ class CamundaTaskWaConfigurationTest extends DmnDecisionTableBaseUnitTest {
             "canReconfigure", "false",
             "name", "roleCategory",
             "value", "ADMIN"
+        )));
+    }
+
+    @Test
+    void when_taskId_invalidHearingNotice_then_return_manual_relisting_config() {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("taskAttributes", Map.of("taskType", "invalidHearingNotice"));
+        inputVariables.putValue("caseData", Map.of("featureToggleWA", "Prod"));
+
+        DmnDecisionTableResult result = evaluateDmnTable(inputVariables);
+
+        assertTrue(result.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "workType",
+            "value", "hearing_work"
+        )));
+        assertTrue(result.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "roleCategory",
+            "value", "ADMIN"
+        )));
+        assertTrue(result.getResultList().contains(Map.of(
+            "canReconfigure", "true",
+            "name", "description",
+            "value", "Please cancel the hearing in the Hearings tab and list the hearing manually via the Next steps dropdown"
         )));
     }
 }
