@@ -90,6 +90,13 @@ public class CamundaGaTaskWaPermissionTest extends DmnDecisionTableBaseUnitTest 
                     "roleCategory", "ADMIN",
                     "assignmentPriority", 1,
                     "autoAssignable", false
+                ),
+                Map.of(
+                    "name", "ctsc-team-leader",
+                    "value", "Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn",
+                    "roleCategory", "CTSC",
+                    "assignmentPriority", 1,
+                    "autoAssignable", false
                 )
             )));
         }
