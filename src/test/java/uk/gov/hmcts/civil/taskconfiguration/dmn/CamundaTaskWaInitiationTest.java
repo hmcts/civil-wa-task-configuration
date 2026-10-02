@@ -2250,7 +2250,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(272));
+        assertThat(logic.getRules().size(), is(273));
     }
 
     @ParameterizedTest
@@ -4306,5 +4306,21 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.size(), is(1));
         assertThat(workTypeResultList.get(0).get("taskId"), is(expectedTaskId));
         assertThat(workTypeResultList.get(0).get("name"), is(expectedTaskName));
+    }
+
+    @Test
+    void when_invalid_hearing_notice_event_then_create_dedicated_task() {
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "INVALID_HEARING_NOTICE");
+
+        DmnDecisionTableResult result = evaluateDmnTable(inputVariables);
+
+        assertThat(result.getResultList(), is(List.of(
+            Map.of(
+                "taskId", "invalidHearingNotice",
+                "name", "Invalid Hearing Notice - Cancel and relist manually",
+                "processCategories", "caseProgression"
+            )
+        )));
     }
 }

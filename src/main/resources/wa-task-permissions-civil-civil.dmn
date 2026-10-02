@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.43.1">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0"
+             xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-permissions-definition" name="DRD"
+             namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.43.1">
   <decision id="wa-task-permissions-civil-civil" name="Civil Permissions DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_1pr5oica" hitPolicy="RULE ORDER">
       <input id="InputClause_12crj6ea" label="Task Type" biodi:width="207" camunda:inputVariable="taskType">
         <inputExpression id="LiteralExpression_11cu08da" typeRef="string" expressionLanguage="feel">
           <text>if(taskAttributes != null and taskAttributes.taskType != null) then
             taskAttributes. taskType
-else
-"r1"</text>
+            else
+            "r1"
+          </text>
         </inputExpression>
       </input>
       <input id="Input_1" label="Case Data" camunda:inputVariable="case">
@@ -18,21 +23,22 @@ else
       <input id="InputClause_1i7qcjp" label="Toggle">
         <inputExpression id="LiteralExpression_0ncxr3h" typeRef="string">
           <text>if(caseData != null
-  and caseData != null
-  and caseData.featureToggleWA != null)
-  then
-  caseData.featureToggleWA
-else
-  null</text>
+            and caseData != null
+            and caseData.featureToggleWA != null)
+            then
+            caseData.featureToggleWA
+            else
+            null
+          </text>
         </inputExpression>
       </input>
-      <output id="OutputClause_1q156cea" label="Case Access Category" name="caseAccessCategory" typeRef="string" />
-      <output id="Output_1" label="Name" name="name" typeRef="string" />
-      <output id="OutputClause_1mzxe7ia" label="Value" name="value" typeRef="string" biodi:width="297" />
-      <output id="OutputClause_05whhwfa" label="RoleCategory" name="roleCategory" typeRef="string" />
-      <output id="OutputClause_16bocera" label="Authorisations" name="authorisations" typeRef="string" />
-      <output id="OutputClause_1n914lwa" label="Assignment Priority" name="assignmentPriority" typeRef="integer" />
-      <output id="OutputClause_04cbxc11" label="Auto Assignable" name="autoAssignable" typeRef="boolean" />
+      <output id="OutputClause_1q156cea" label="Case Access Category" name="caseAccessCategory" typeRef="string"/>
+      <output id="Output_1" label="Name" name="name" typeRef="string"/>
+      <output id="OutputClause_1mzxe7ia" label="Value" name="value" typeRef="string" biodi:width="297"/>
+      <output id="OutputClause_05whhwfa" label="RoleCategory" name="roleCategory" typeRef="string"/>
+      <output id="OutputClause_16bocera" label="Authorisations" name="authorisations" typeRef="string"/>
+      <output id="OutputClause_1n914lwa" label="Assignment Priority" name="assignmentPriority" typeRef="integer"/>
+      <output id="OutputClause_04cbxc11" label="Auto Assignable" name="autoAssignable" typeRef="boolean"/>
       <rule id="DecisionRule_1qgauo91">
         <inputEntry id="UnaryTests_11b5xoqa">
           <text></text>
@@ -69,9 +75,10 @@ else
         <description>Judge task permissions</description>
         <inputEntry id="UnaryTests_1ossj9oa">
           <text>"summaryJudgmentDirections",
-"FastTrackDirections",
-"SmallClaimsTrackDirections",
-"SmallClaimsTrackDirectionsReferral"</text>
+            "FastTrackDirections",
+            "SmallClaimsTrackDirections",
+            "SmallClaimsTrackDirectionsReferral"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_0occzooa">
           <text></text>
@@ -137,7 +144,9 @@ else
       <rule id="DecisionRule_0br43ui">
         <description>Listing Officer task permissions</description>
         <inputEntry id="UnaryTests_1up6pmj">
-          <text>"ScheduleAHearing","transferCaseOfflineNotSuitableSDO","removeHearing","scheduleHearing","removeHearing","preHearingContact","transferCaseOffline"</text>
+          <text>
+            "ScheduleAHearing","transferCaseOfflineNotSuitableSDO","removeHearing","scheduleHearing","removeHearing","preHearingContact","transferCaseOffline"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_064vtmc">
           <text></text>
@@ -1025,6 +1034,39 @@ else
           <text>false</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_16b6s4h_invalidHearingNotice">
+        <description>Access request for Listing Officers</description>
+        <inputEntry id="UnaryTests_1muz22f_invalidHearingNotice">
+          <text>"invalidHearingNotice"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gebd45_invalidHearingNotice">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hvsx2p_invalidHearingNotice">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13b4kt6_invalidHearingNotice">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1twzcry_invalidHearingNotice">
+          <text>"hearing-centre-admin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1200rj5_invalidHearingNotice">
+          <text>"Read,Own,Claim,Unclaim,UnclaimAssign,CompleteOwn,CancelOwn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jk28jh_invalidHearingNotice">
+          <text>"ADMIN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1uex49n_invalidHearingNotice">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0juvqs7_invalidHearingNotice">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1j9nr93_invalidHearingNotice">
+          <text>false</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_1uki10i">
         <description>Work Allocation User Task Permissions</description>
         <inputEntry id="UnaryTests_1de7hwm">
@@ -1193,7 +1235,9 @@ else
       <rule id="DecisionRule_1gbi1jj">
         <description>Caseworker task permissions</description>
         <inputEntry id="UnaryTests_0798s31">
-          <text>"ClaimSettledDivergenceTakeCaseOffline", "ClaimDiscontinuedDivergenceTakeCaseOffline", "ValidateDiscontinuanceCTSC"</text>
+          <text>"ClaimSettledDivergenceTakeCaseOffline", "ClaimDiscontinuedDivergenceTakeCaseOffline",
+            "ValidateDiscontinuanceCTSC"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_1tih9jw">
           <text></text>
@@ -1226,7 +1270,9 @@ else
       <rule id="DecisionRule_01k66pi">
         <description>Caseworker task permissions</description>
         <inputEntry id="UnaryTests_0iq0330">
-          <text>"ClaimSettledDivergenceTakeCaseOffline","ClaimDiscontinuedDivergenceTakeCaseOffline", "ValidateDiscontinuanceCTSC"</text>
+          <text>"ClaimSettledDivergenceTakeCaseOffline","ClaimDiscontinuedDivergenceTakeCaseOffline",
+            "ValidateDiscontinuanceCTSC"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_1906hl1">
           <text></text>
@@ -2644,7 +2690,10 @@ else
       <rule id="DecisionRule_00ml90u">
         <description>Available to all Admin roles</description>
         <inputEntry id="UnaryTests_1tvr0l5">
-          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder", "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase", "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"</text>
+          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder",
+            "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase",
+            "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_13yzuvh">
           <text></text>
@@ -2677,7 +2726,10 @@ else
       <rule id="DecisionRule_0ngyulv">
         <description>Available to all Admin roles</description>
         <inputEntry id="UnaryTests_1w2tk2m">
-          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder", "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase", "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"</text>
+          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder",
+            "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase",
+            "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_0600dwf">
           <text></text>
@@ -2710,7 +2762,10 @@ else
       <rule id="DecisionRule_19ez2fj">
         <description>Available to all Admin roles</description>
         <inputEntry id="UnaryTests_1ixoji5">
-          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder", "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase", "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"</text>
+          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder",
+            "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase",
+            "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ek3yzf">
           <text></text>
@@ -2743,7 +2798,10 @@ else
       <rule id="DecisionRule_14c9ggj">
         <description>Available to all Admin roles</description>
         <inputEntry id="UnaryTests_0k7rfo6">
-          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder", "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase", "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"</text>
+          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder",
+            "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase",
+            "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_1rfqcxi">
           <text></text>
@@ -2776,7 +2834,10 @@ else
       <rule id="DecisionRule_0sq2gjm">
         <description>Available to all CTSC roles</description>
         <inputEntry id="UnaryTests_1sk3oyg">
-          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder", "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase", "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"</text>
+          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder",
+            "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase",
+            "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_0fqhknd">
           <text></text>
@@ -2809,7 +2870,10 @@ else
       <rule id="DecisionRule_09byya3">
         <description>Available to all CTSC roles</description>
         <inputEntry id="UnaryTests_1hbxi2j">
-          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder", "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase", "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"</text>
+          <text>"confirmOrderReviewUnlessOrder", "confirmOrderReviewFreeTrial", "confirmOrderReviewGeneralOrder",
+            "confirmOrderReviewReserveJudgement", "confirmOrderReviewOther", "confirmOrderReviewDismissCase",
+            "confirmOrderReviewManageStay", "confirmOrderReviewStayCase"
+          </text>
         </inputEntry>
         <inputEntry id="UnaryTests_1sh8p8u">
           <text></text>
@@ -3328,7 +3392,7 @@ else
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
       <dmndi:DMNShape dmnElementRef="wa-task-permissions-civil-civil">
-        <dc:Bounds height="80" width="180" x="160" y="100" />
+        <dc:Bounds height="80" width="180" x="160" y="100"/>
       </dmndi:DMNShape>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
