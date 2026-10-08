@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0"
+             xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="wa-completion-definition" name="DRD"
+             namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
   <decision id="wa-task-completion-civil-civil" name="Civil  Task completion DMN" camunda:historyTimeToLive="P90D">
     <decisionTable id="DecisionTable_01re27ma" hitPolicy="COLLECT">
       <input id="eventId" label="Event ID" biodi:width="614">
@@ -7,8 +11,8 @@
           <text>eventId</text>
         </inputExpression>
       </input>
-      <output id="Output_1" label="Task Type" name="taskType" typeRef="string" biodi:width="282" />
-      <output id="OutputClause_1mldd9ea" label="Completion Mode" name="completionMode" typeRef="string" />
+      <output id="Output_1" label="Task Type" name="taskType" typeRef="string" biodi:width="282"/>
+      <output id="OutputClause_1mldd9ea" label="Completion Mode" name="completionMode" typeRef="string"/>
       <rule id="DecisionRule_12eentya">
         <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
         <inputEntry id="UnaryTests_17cg7dea">
@@ -83,7 +87,7 @@
       <rule id="DecisionRule_0oz7l62">
         <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
         <inputEntry id="UnaryTests_1ldf9yk">
-          <text> "NotSuitable_SDO"</text>
+          <text>"NotSuitable_SDO"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1t5g80q">
           <text>"FastTrackDirections"</text>
@@ -107,7 +111,7 @@
       <rule id="DecisionRule_1erhqjt">
         <description>Event that is completed by the user in ExUI. Values can be listed as comma separated</description>
         <inputEntry id="UnaryTests_1xqmq48">
-          <text> "NotSuitable_SDO"</text>
+          <text>"NotSuitable_SDO"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1yhukfk">
           <text>"SmallClaimsTrackDirections"</text>
@@ -273,7 +277,8 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1umluft">
-        <description>This Task is completed once the user has completed the CASE_PROCEEDS_IN_CASEMAN event.</description>
+        <description>This Task is completed once the user has completed the CASE_PROCEEDS_IN_CASEMAN event.
+        </description>
         <inputEntry id="UnaryTests_1p4pwpw">
           <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
         </inputEntry>
@@ -285,7 +290,8 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1nh3po7">
-        <description>This Task is completed once the user has completed the CASE_PROCEEDS_IN_CASEMAN event.</description>
+        <description>This Task is completed once the user has completed the CASE_PROCEEDS_IN_CASEMAN event.
+        </description>
         <inputEntry id="UnaryTests_0bdikja">
           <text>"CASE_PROCEEDS_IN_CASEMAN"</text>
         </inputEntry>
@@ -381,7 +387,9 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0b5juoq">
-        <description>The event will be triggered via the system when the hearing date is within 10 days and the hearing channel for 1 or more hearing partcipants is CVP</description>
+        <description>The event will be triggered via the system when the hearing date is within 10 days and the hearing
+          channel for 1 or more hearing partcipants is CVP
+        </description>
         <inputEntry id="UnaryTests_0l5odj7">
           <text>"ADD_CASE_NOTE"</text>
         </inputEntry>
@@ -393,7 +401,8 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_08y6woy">
-        <description>The event will be triggered via the system based when a HMC request failure is triggered.</description>
+        <description>The event will be triggered via the system based when a HMC request failure is triggered.
+        </description>
         <inputEntry id="UnaryTests_12jyfh0">
           <text>"ADD_CASE_NOTE"</text>
         </inputEntry>
@@ -401,6 +410,19 @@
           <text>"reviewHearingException"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1p7jndx">
+          <text>"Auto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08y6woy_invalidHearingNotice">
+        <description>The event is completed when an invalid hearing notice has been cancelled and manually relisted.
+        </description>
+        <inputEntry id="UnaryTests_12jyfh0_invalidHearingNotice">
+          <text>"INVALID_HEARING_NOTICE_COMPLETED"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17qbds7_invalidHearingNotice">
+          <text>"invalidHearingNotice"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1p7jndx_invalidHearingNotice">
           <text>"Auto"</text>
         </outputEntry>
       </rule>
@@ -560,7 +582,10 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_038epiw">
-        <description>This Task is completed once the CW has moved any documents that caused ‘Create bundle’ event to fail, or that are not required in the bundle into ‘Unbundled folder’ in CFV and successfully completed the ‘Amend and restich bundle’ event and bundle has been created/re-stitched</description>
+        <description>This Task is completed once the CW has moved any documents that caused ‘Create bundle’ event to
+          fail, or that are not required in the bundle into ‘Unbundled folder’ in CFV and successfully completed the
+          ‘Amend and restich bundle’ event and bundle has been created/re-stitched
+        </description>
         <inputEntry id="UnaryTests_0s398mf">
           <text>"AMEND_RESTITCH_BUNDLE"</text>
         </inputEntry>
@@ -984,7 +1009,7 @@
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
       <dmndi:DMNShape dmnElementRef="wa-task-completion-civil-civil">
-        <dc:Bounds height="80" width="180" x="160" y="80" />
+        <dc:Bounds height="80" width="180" x="160" y="80"/>
       </dmndi:DMNShape>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
