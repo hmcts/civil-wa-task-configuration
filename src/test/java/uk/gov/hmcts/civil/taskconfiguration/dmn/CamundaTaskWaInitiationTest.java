@@ -4318,7 +4318,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(result.getResultList(), is(List.of(
             Map.of(
                 "taskId", "invalidHearingNotice",
-                "name", "Invalid Hearing Notice - Cancel and relist manually",
+                "name", "Invalid Hearing Notice - Cancel and relist using the manual hearing notice",
                 "processCategories", "caseProgression"
             )
         )));
