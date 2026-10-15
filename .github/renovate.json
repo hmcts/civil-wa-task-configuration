@@ -7,12 +7,16 @@
   "labels": [
     "dependencies"
   ],
-"automergeSchedule": [
-  "after 7am and before 8am every weekday",
-  "after 6pm and before 8pm every weekday"
-],
-"platformAutomerge": false,
-  "schedule": ["after 8am and before 11am every weekday"],
+  "timezone": "Europe/London",
+  "automergeSchedule": [
+    "after 7am and before 8am every weekday",
+    "after 6pm and before 8pm every weekday"
+  ],
+  "platformAutomerge": false,
+  "schedule": [
+    "after 7am and before 8am every weekday",
+    "after 6pm and before 8pm every weekday"
+  ],
   "rebaseWhen": "behind-base-branch",
   "automergeStrategy": "squash",
   "prConcurrentLimit": 5,
@@ -31,8 +35,12 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["helmv3"],
-      "matchDatasources": ["docker"],
+      "matchManagers": [
+        "helmv3"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
       "versioning": "helm",
       "groupName": "Helm chart updates",
       "groupSlug": "helm-charts",
@@ -40,43 +48,63 @@
       "automergeType": "pr"
     },
     {
-      "matchPackagePatterns": ["^org\\.junit\\.", "^org\\.junit:"],
+      "matchPackagePatterns": [
+        "^org\\.junit\\.",
+        "^org\\.junit:"
+      ],
       "groupName": "JUnit",
       "groupSlug": "junit",
       "automerge": true,
       "automergeType": "pr"
     },
     {
-      "matchPackagePatterns": ["^org\\.springframework\\.", "^io\\.spring\\."],
+      "matchPackagePatterns": [
+        "^org\\.springframework\\.",
+        "^io\\.spring\\."
+      ],
       "groupName": "Spring",
       "groupSlug": "spring",
       "automerge": true,
       "automergeType": "pr"
     },
     {
-      "matchPackagePatterns": ["^org\\.camunda\\."],
+      "matchPackagePatterns": [
+        "^org\\.camunda\\."
+      ],
       "groupName": "Camunda",
       "groupSlug": "camunda",
       "automerge": true,
       "automergeType": "pr"
     },
     {
-      "matchPackagePatterns": ["^org\\.apache\\.logging\\.log4j:"],
+      "matchPackagePatterns": [
+        "^org\\.apache\\.logging\\.log4j:"
+      ],
       "groupName": "Log4j",
       "groupSlug": "log4j",
       "automerge": true,
       "automergeType": "pr"
     },
     {
-      "matchPackageNames": ["gradle"],
-      "matchPackagePatterns": ["^com\\.github\\.ben-manes\\.versions", "^org\\.owasp\\.dependencycheck", "^org\\.sonarqube", "^io\\.freefair\\."],
+      "matchPackageNames": [
+        "gradle"
+      ],
+      "matchPackagePatterns": [
+        "^com\\.github\\.ben-manes\\.versions",
+        "^org\\.owasp\\.dependencycheck",
+        "^org\\.sonarqube",
+        "^io\\.freefair\\."
+      ],
       "groupName": "Gradle build tools",
       "groupSlug": "gradle-build-tools",
       "automerge": true,
       "automergeType": "pr"
     },
     {
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "groupName": "All non-major updates",
       "groupSlug": "all-non-major",
       "automerge": true,
