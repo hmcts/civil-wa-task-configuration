@@ -99,6 +99,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             ),
             Map.of(
                 "action", "Cancel",
+                "processCategories", "helpWithFeesClaimIssue"
+            ),
+            Map.of(
+                "action", "Cancel",
                 "processCategories", "claimantIntention"
             ),
             Map.of(
@@ -219,6 +223,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "helpWithFees"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "helpWithFeesClaimIssue"
             ),
             Map.of(
                 "action", "Cancel",
@@ -458,6 +466,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "helpWithFees"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "helpWithFeesClaimIssue"
             ),
             Map.of(
                 "action", "Cancel",
@@ -773,6 +785,10 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
             Map.of(
                 "action", "Cancel",
                 "processCategories", "requestTranslation"
+            ),
+            Map.of(
+                "action", "Cancel",
+                "processCategories", "helpWithFeesClaimIssue"
             )
         );
         return Stream.of(
@@ -789,6 +805,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(102));
+        assertThat(logic.getRules().size(), is(105));
     }
 }
