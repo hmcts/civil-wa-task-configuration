@@ -3,7 +3,7 @@ properties([
   copyArtifactPermission('/HMCTS_a_to_c/civil-wa-task-configuration/*'),
 ]);
 
-@Library('Infrastructure@2.12.2')
+@Library('Infrastructure@2.13.1')
 import uk.gov.hmcts.contino.GithubAPI
 
 def type = "java"
@@ -460,13 +460,21 @@ withPipeline(type, product, component) {
     uploadDmnDiagrams('aat','')
   }
 
-  afterSuccess('buildinfra:prod') {
-      withAzureKeyvault(
-      azureKeyVaultSecrets: secretsProd['civil-prod'],
-      keyVaultURLOverride: 'https://civil-prod.vault.azure.net/'
-    ) {
-      //Release dmns on to prod
-      uploadDmnDiagrams('prod', '')
+  before('prod:promotion') {
+    withEnv([
+      'ENVIRONMENT_AGENT_STASH_INCLUDES=bin/**,src/main/resources/camunda/**',
+      'ENVIRONMENT_AGENT_STASH_BACK=false'
+    ]) {
+      withSubscription(
+        env.PROD_SUBSCRIPTION_NAME ?: 'prod', product, 'prod'
+      ) {
+        withAzureKeyvault(
+          azureKeyVaultSecrets: secretsProd['civil-prod'],
+          keyVaultURLOverride: 'https://civil-prod.vault.azure.net/'
+        ) {
+          uploadDmnDiagrams('prod', '')
+        }
+      }
     }
   }
 
