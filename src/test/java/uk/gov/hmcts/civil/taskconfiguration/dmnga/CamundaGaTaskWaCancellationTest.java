@@ -239,7 +239,7 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
     }
 
     @ParameterizedTest
-    @MethodSource("scenarioProviderProceedsInHeritage")
+    @MethodSource({"scenarioProviderProceedsInHeritage", "scenarioProviderParentClaimSettled", "scenarioProviderParentClaimDiscontinued"})
     void given_multiple_event_ids_should_evaluate_dmn_for_proceeds_in_heritage(String fromState,
                                                                       String eventId, String state,
                                                                       List<Map<String, Object>> expectedDmnOutcome) {
@@ -284,13 +284,49 @@ public class CamundaGaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTes
     }
 
 
+    public static Stream<Arguments> scenarioProviderParentClaimSettled() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "warningCode", "claimSettled",
+                "action", "Warn",
+                "processCategories", "generalApplications",
+                "warningText", "This claim has been settled. Please review the claim before completing any tasks."
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "any state", "PARENT_CLAIM_SETTLED", "any state",
+                outcome
+            )
+        );
+    }
+
+
+    public static Stream<Arguments> scenarioProviderParentClaimDiscontinued() {
+        List<Map<String, String>> outcome = List.of(
+            Map.of(
+                "warningCode", "claimDiscontinued",
+                "action", "Warn",
+                "processCategories", "generalApplications",
+                "warningText", "This claim has been discontinued. Please review the claim before completing any tasks."
+            )
+        );
+        return Stream.of(
+            Arguments.of(
+                "any state", "PARENT_CLAIM_DISCONTINUED", "any state",
+                outcome
+            )
+        );
+    }
+
+
     @Test
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(12));
+        assertThat(logic.getRules().size(), is(14));
     }
 
 
