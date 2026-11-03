@@ -253,6 +253,8 @@ ccd:
         IDAM_SERVICE_KEY: ${CCD_API_GATEWAY_S2S_SECRET}
         IDAM_OAUTH2_CLIENT_SECRET: ${CCD_API_GATEWAY_IDAM_CLIENT_SECRET}
         PROXY_DOCUMENT_MANAGEMENT: http://dm-store-aat.service.core-compute-aat.internal
+        IDAM_WEB_PUBLIC_URL: https://idam-web-public.aat.platform.hmcts.net
+        IDAM_HMCTS_ACCESS_URL: https://hmcts-access.aat.platform.hmcts.net
       ingressHost: gateway-${SERVICE_FQDN}
       ingressIP: ${INGRESS_IP}
       disableKeyVaults: true
@@ -272,6 +274,7 @@ ccd:
         IDAM_API_BASE_URL: https://idam-api.aat.platform.hmcts.net
         IDAM_OIDC_URL:  https://idam-web-public.aat.platform.hmcts.net
         OIDC_ISSUER: https://forgerock-am.service.core-compute-idam-aat2.internal:8443/openam/oauth2/realms/root/realms/hmcts
+        OIDC_ALLOWED_ISSUERS: "https://idam-web-public.aat.platform.hmcts.net/o,https://hmcts-access.aat.platform.hmcts.net/o,https://forgerock-am.service.core-compute-idam-aat2.internal:8443/openam/oauth2/realms/root/realms/hmcts"
         CCD_S2S_AUTHORISED_SERVICES_CASE_USER_ROLES: civil_service,aac_manage_case_assignment
         CASE_DOCUMENT_AM_URL: http://ccd-case-document-am-api-aat.service.core-compute-aat.internal
         IDAM_OAUTH2_DATA_STORE_CLIENT_SECRET: ${IDAM_OAUTH2_DATA_STORE_CLIENT_SECRET}
@@ -353,6 +356,9 @@ wa:
     java:
       ingressHost: wa-task-monitor-${SERVICE_FQDN}
       environment:
+        # wa-chart #33 (30 Oct) turned this on, but the preview Camunda has no S2S secret,
+        # so pushing tasks to task management fails with 401. Keep the task monitor initiating.
+        WA_INITIATE_TASKS_ON_CREATE_ENABLED: false
         WA_TASK_MANAGEMENT_API_URL: http://{{ .Release.Name }}-wa-task-management-api
         ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
 
@@ -410,6 +416,9 @@ wa:
   camunda-bpm:
     java:
       environment:
+        # wa-chart #33 (30 Oct) turned this on, but the preview Camunda has no S2S secret,
+        # so pushing tasks to task management fails with 401. Keep the task monitor initiating.
+        WA_INITIATE_TASKS_ON_CREATE_ENABLED: false
         CAMUNDA_DB_USER_NAME: "hmcts"
         CAMUNDA_DB_PASSWORD: ${POSTGRES_PASSWORD}
         CAMUNDA_DB_CONN_OPTIONS: "?stringtype=unspecified"
