@@ -784,10 +784,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         List<Map<String, String>> outcome = List.of(
             Map.of(
                 "action", "Cancel",
-                "processCategories", "requestTranslation"
-            ),
-            Map.of(
-                "action", "Cancel",
                 "processCategories", "helpWithFeesClaimIssue"
             )
         );
@@ -805,6 +801,6 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
         assertThat(logic.getInputs().size(), is(3));
         assertThat(logic.getOutputs().size(), is(4));
-        assertThat(logic.getRules().size(), is(105));
+        assertThat(logic.getRules().size(), is(104));
     }
 }
