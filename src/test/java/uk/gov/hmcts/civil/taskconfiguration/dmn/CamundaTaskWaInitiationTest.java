@@ -694,6 +694,28 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList.get(0).get("processCategories"), is("requestTranslation"));
     }
 
+    @Test
+    void given_lip_claim_with_help_with_fees_should_create_hwf_claim_issue_task_with_process_category() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("helpWithFees", Map.of("helpWithFee", true));
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CREATE_LIP_CLAIM");
+        inputVariables.putValue("postEventState", "PENDING_CASE_ISSUED");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.get(0).get("taskId"), is("HelpWithFeesClaimIssue"));
+        assertThat(workTypeResultList.get(0).get("processCategories"), is("helpWithFeesClaimIssue"));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "WELSH, ENGLISH",
