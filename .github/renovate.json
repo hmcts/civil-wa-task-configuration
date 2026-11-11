@@ -9,13 +9,13 @@
   ],
   "timezone": "Europe/London",
   "automergeSchedule": [
-    "after 7am and before 8am every weekday",
-    "after 6pm and before 8pm every weekday"
+    "after 7am and before 9am every weekday",
+    "after 5pm and before 8pm every weekday"
   ],
   "platformAutomerge": false,
   "schedule": [
-    "after 7am and before 8am every weekday",
-    "after 6pm and before 8pm every weekday"
+    "after 7am and before 9am every weekday",
+    "after 5pm and before 8pm every weekday"
   ],
   "rebaseWhen": "behind-base-branch",
   "automergeStrategy": "squash",
@@ -23,14 +23,11 @@
   "helmv3": {
     "bumpVersion": "patch"
   },
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sARG .*?_VERSION=(?<currentValue>.*)\\s"
-      ]
+      "customType": "regex",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": ["datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sARG .*?_VERSION=(?<currentValue>.*)\\s"]
     }
   ],
   "packageRules": [
@@ -48,52 +45,50 @@
       "automergeType": "pr"
     },
     {
-      "matchPackagePatterns": [
-        "^org\\.junit\\.",
-        "^org\\.junit:"
-      ],
       "groupName": "JUnit",
       "groupSlug": "junit",
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "matchPackageNames": [
+        "/^org\\.junit\\./",
+        "/^org\\.junit:/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "^org\\.springframework\\.",
-        "^io\\.spring\\."
-      ],
       "groupName": "Spring",
       "groupSlug": "spring",
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "matchPackageNames": [
+        "/^org\\.springframework\\./",
+        "/^io\\.spring\\./"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "^org\\.camunda\\."
-      ],
       "groupName": "Camunda",
       "groupSlug": "camunda",
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "matchPackageNames": [
+        "/^org\\.camunda\\./"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "^org\\.apache\\.logging\\.log4j:"
-      ],
       "groupName": "Log4j",
       "groupSlug": "log4j",
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "matchPackageNames": [
+        "/^org\\.apache\\.logging\\.log4j:/"
+      ]
     },
     {
       "matchPackageNames": [
-        "gradle"
-      ],
-      "matchPackagePatterns": [
-        "^com\\.github\\.ben-manes\\.versions",
-        "^org\\.owasp\\.dependencycheck",
-        "^org\\.sonarqube",
-        "^io\\.freefair\\."
+        "gradle",
+        "/^com\\.github\\.ben-manes\\.versions/",
+        "/^org\\.owasp\\.dependencycheck/",
+        "/^org\\.sonarqube/",
+        "/^io\\.freefair\\./"
       ],
       "groupName": "Gradle build tools",
       "groupSlug": "gradle-build-tools",
@@ -109,6 +104,26 @@
       "groupSlug": "all-non-major",
       "automerge": true,
       "automergeType": "pr"
+    },
+    {
+      "description": "Keep the Terraform CLI version (infrastructure/.terraform-version) out of the npm non-major group; large jumps can affect state and providers, so review and merge manually",
+      "matchManagers": [
+        "terraform-version"
+      ],
+      "groupName": "Terraform version",
+      "groupSlug": "terraform-version",
+      "automerge": false
+    },
+    {
+      "description": "Keep the cnp-jenkins-library @Library bump in Jenkinsfiles out of the npm non-major group so pipeline changes are tested on their own",
+      "matchDatasources": [
+        "github-tags"
+      ],
+      "matchPackageNames": [
+        "hmcts/cnp-jenkins-library"
+      ],
+      "groupName": "Jenkins library",
+      "groupSlug": "jenkins-library"
     }
   ]
 }
