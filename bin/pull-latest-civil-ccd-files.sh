@@ -1,16 +1,28 @@
 #!/usr/bin/env bash
 
-branchName=$1
+# civil-ccd-definition branch for the test code (and for the definitions while civil-ccd-definition is their
+# source of truth). An empty value, from a civilDefinitionBranch: label with nothing after it, means master.
+branchName=${1:-master}
 # The civil-service ref whose ccd-definition/SOURCE_OF_TRUTH decides where the CCD definitions come from
 # (see below). Branch, tag, full commit SHA, or pr-N for the head of pull request N.
 civilServiceRef=${2:-master}
 
-#Checkout specific branch pf  civil ccd definition
-git clone https://github.com/hmcts/civil-ccd-definition.git
+# Fails if the clone or the checkout fails, so a deleted or misspelt branch can't quietly run the default
+# branch's tests. The clone is removed first, so a Jenkins retry starts fresh.
+fail_clone() {
+  echo "ERROR: $1" >&2
+  cd "${startDir}"
+  rm -rf ./civil-ccd-definition
+  exit 1
+}
+startDir=$(pwd)
+
+#Checkout specific branch of civil ccd definition
+git clone https://github.com/hmcts/civil-ccd-definition.git || fail_clone "could not clone civil-ccd-definition."
 cd civil-ccd-definition
 
 echo "Switch to ${branchName} branch on civil-ccd-definition"
-git checkout ${branchName}
+git checkout "${branchName}" || fail_clone "could not check out ${branchName} in civil-ccd-definition."
 cd ..
 
 #Clear previous files before we pull latest
