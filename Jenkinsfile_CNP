@@ -208,12 +208,9 @@ def getCivilServiceImage() {
 
 // The civil-service ref whose ccd-definition/SOURCE_OF_TRUTH decides where the CCD definitions come from.
 // Absent: civil-ccd-definition at getCivilCcdDefinitionBranch(), as today. Present: civil-service at this ref.
+// The same ref as the Camunda files: civilServicePr:N gives pr-N, otherwise master.
 def getCivilServiceDefinitionRef() {
-  def githubApi = new GithubAPI(this)
-  for (label in githubApi.getLabelsbyPattern(env.BRANCH_NAME, "civilServicePr:")) {
-    return "pr-" + label.minus("civilServicePr:").trim()
-  }
-  return "master"
+  return getCivilServiceCamundaRef()
 }
 
 def getCivilServiceCamundaRef() {

@@ -32,11 +32,22 @@ rm -rf e2e playwright-e2e wa plugins package.json yarn.lock codecept.conf.js pla
 # bin/shared/pull-ccd-definitions.sh copies ccd-definition/civil and ccd-definition/generalapplication from
 # whichever repo is their source of truth at civilServiceRef: civil-ccd-definition at branchName while
 # ccd-definition/SOURCE_OF_TRUTH is absent from civil-service (as before the move), civil-service once it
-# is present. It is fetched from civil-service master, and if anything fails this script fails rather than
-# carry on without definitions. The test code below still comes from civil-ccd-definition at branchName.
+# is present. The copy in ./bin/shared, which bin/pull-latest-civil-shared.sh pulls from the civilShared:
+# ref, is used when it is there, so a change to it can be tried out with that label. Otherwise (the AAT
+# stage, which doesn't pull bin/shared, or a civilShared: ref from before the script existed) it is fetched
+# from civil-service master. If anything fails this script fails rather than carry on without definitions.
+# The test code below still comes from civil-ccd-definition at branchName.
 pullScript=$(mktemp)
-if ! curl -fsSL --retry 3 "https://raw.githubusercontent.com/hmcts/civil-service/master/bin/shared/pull-ccd-definitions.sh" -o "${pullScript}" \
-  || ! bash "${pullScript}" "${civilServiceRef}" "${branchName}" ./ccd-definition; then
+pullScriptReady=false
+if [ -f ./bin/shared/pull-ccd-definitions.sh ]; then
+  echo "Using ./bin/shared/pull-ccd-definitions.sh, pulled from civil-service by bin/pull-latest-civil-shared.sh."
+  cp ./bin/shared/pull-ccd-definitions.sh "${pullScript}" && pullScriptReady=true
+else
+  echo "No ./bin/shared/pull-ccd-definitions.sh; fetching it from civil-service master."
+  curl -fsSL --retry 3 "https://raw.githubusercontent.com/hmcts/civil-service/master/bin/shared/pull-ccd-definitions.sh" \
+    -o "${pullScript}" && pullScriptReady=true
+fi
+if [ "${pullScriptReady}" != true ] || ! bash "${pullScript}" "${civilServiceRef}" "${branchName}" ./ccd-definition; then
   echo "ERROR: could not copy the CCD definitions." >&2
   rm -f "${pullScript}"
   rm -rf ./civil-ccd-definition
