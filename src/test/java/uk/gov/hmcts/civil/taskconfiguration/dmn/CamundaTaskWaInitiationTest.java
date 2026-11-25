@@ -509,10 +509,15 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "Applicant gives reason,,,", ",Respondent 1 gives reason,,",",,Respondent2 gives Reason"
+        "Applicant gives reason,,,CASE_PROGRESSION",
+        ",Respondent 1 gives reason,,CASE_PROGRESSION",
+        ",,Respondent2 gives Reason,CASE_PROGRESSION",
+        "Applicant gives reason,,,HEARING_READINESS",
+        ",Respondent 1 gives reason,,HEARING_READINESS",
+        ",,Respondent2 gives Reason,HEARING_READINESS"
     })
     void when_request_for_reconsideration_create_judge_decide_on_reconsider_request_spec(
-        String applicantReason, String respondent1Reason, String respondent2Reason) {
+        String applicantReason, String respondent1Reason, String respondent2Reason, String postEventState) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "WA3.5");
@@ -527,7 +532,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REQUEST_FOR_RECONSIDERATION");
         inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("postEventState", postEventState);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -540,12 +545,15 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "Applicant gives reason,Respondent 1 gives reason,,",
-        ",Respondent 1 gives reason,Respondent2 gives Reason,",
-        "Applicant gives reason,,Respondent2 gives Reason"
+        "Applicant gives reason,Respondent 1 gives reason,,CASE_PROGRESSION",
+        ",Respondent 1 gives reason,Respondent2 gives Reason,CASE_PROGRESSION",
+        "Applicant gives reason,,Respondent2 gives Reason,CASE_PROGRESSION",
+        "Applicant gives reason,Respondent 1 gives reason,,HEARING_READINESS",
+        ",Respondent 1 gives reason,Respondent2 gives Reason,HEARING_READINESS",
+        "Applicant gives reason,,Respondent2 gives Reason,HEARING_READINESS"
     })
     void when_multiple_request_for_reconsideration_do_not_create_judge_decide_on_reconsider_request_spec(
-        String applicantReason, String respondent1Reason, String respondent2Reason) {
+        String applicantReason, String respondent1Reason, String respondent2Reason, String postEventState) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "WA3.5");
@@ -560,7 +568,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REQUEST_FOR_RECONSIDERATION");
         inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("postEventState", postEventState);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
