@@ -588,12 +588,14 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "850,SMALL_CLAIM,standardClaim,CREATE_SDO"
+        "850,SMALL_CLAIM,standardClaim,CREATE_SDO,CASE_PROGRESSION",
+        "850,SMALL_CLAIM,standardClaim,CREATE_SDO,HEARING_READINESS"
     })
     void when_decision_on_reconsideration_create_sdo_create_small_track_directions_test(Integer claimAmount,
                                                                                         String responseTrack,
                                                                                         String claimType,
-                                                                                        String respToReconsideration) {
+                                                                                        String respToReconsideration,
+                                                                                        String postEventState) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "WA3.5");
@@ -608,7 +610,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "DECISION_ON_RECONSIDERATION_REQUEST");
         inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("postEventState", postEventState);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
