@@ -20,10 +20,11 @@ Groups, in the order they appear in `packageRules`:
 | All non-major updates | every minor and patch update not taken by a group below | yes |
 | Helm chart updates | `helmv3` manager, `docker` datasource | yes |
 | JUnit | `org.junit.*` | yes |
-| Spring | `org.springframework.*`, `io.spring.*` | yes |
-| Camunda | `org.camunda.*` | yes |
+| Spring | `org.springframework.*`, `io.spring.*` | minor and patch only |
+| Camunda | `org.camunda.*` | minor and patch only |
 | Log4j | `org.apache.logging.log4j` | yes |
 | Gradle build tools | Gradle, ben-manes versions, OWASP dependency-check, SonarQube, Freefair | yes |
+| Spring and Camunda majors (not a group) | majors of the Spring and Camunda packages | no |
 | Terraform version | `infrastructure/.terraform-version` | no |
 | Jenkins library | `hmcts/cnp-jenkins-library` | yes (from the preset) |
 
@@ -33,9 +34,13 @@ When several package rules match, Renovate applies them in order and later value
 
 Until this was fixed, "All non-major updates" came after the named groups and replaced their `groupName`. Minor and patch updates for Helm charts, JUnit, Spring, Camunda, Log4j and the Gradle build tools all landed in the "All non-major updates" PR, and the named groups only ever received majors. For example, Helm image tag bumps such as `civil-service` v0.0.133 and v0.0.134 arrived on `renovate/all-non-major`.
 
-### Major updates automerge
+### Major updates
 
-The `automerge-all` preset sets `automerge: true` for every update, majors included, and no rule here turns it off except for the Terraform version. **Major Spring, Camunda, JUnit, Log4j, Gradle tool and Helm updates therefore automerge** once their checks pass. `civil-service` keeps Camunda updates and Spring majors for manual review; consider doing the same here.
+The `automerge-all` preset sets `automerge: true` for every update, majors included.
+
+Spring and Camunda majors are held for manual review by a rule placed after their groups. It has to stay after them, because the groups set `automerge: true` and the later rule wins. These PRs are still raised on their `renovate/major-spring` and `renovate/major-camunda` branches, but someone has to merge them.
+
+The other majors still automerge once their checks pass: JUnit, Log4j, the Gradle build tools, Helm charts and anything in no group. Only the Terraform version is also kept for review.
 
 ## Code-owner review
 

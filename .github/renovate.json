@@ -107,6 +107,18 @@
       "automergeType": "pr"
     },
     {
+      "description": "Hold Spring and Camunda major updates for manual review. Must come after the Spring and Camunda groups, which set automerge: true, so this rule wins",
+      "matchPackageNames": [
+        "/^org\\.springframework\\./",
+        "/^io\\.spring\\./",
+        "/^org\\.camunda\\./"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false
+    },
+    {
       "description": "Keep the Terraform CLI version (infrastructure/.terraform-version) out of the npm non-major group; large jumps can affect state and providers, so review and merge manually",
       "matchManagers": [
         "terraform-version"
