@@ -777,7 +777,7 @@ class CamundaTaskWaCancellationTest extends DmnDecisionTableBaseUnitTest {
         );
         return Stream.of(
             Arguments.of(
-                "", "DECISION_ON_RECONSIDERATION_REQUEST", "",
+                "", "CANCEL_RECONSIDERATION_HEARING_TASK", "",
                 outcome
             )
         );
