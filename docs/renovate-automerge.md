@@ -17,21 +17,21 @@ Groups, in the order they appear in `packageRules`:
 
 | Group | Matches | Automerge |
 |---|---|---|
+| All non-major updates | every minor and patch update not taken by a group below | yes |
 | Helm chart updates | `helmv3` manager, `docker` datasource | yes |
 | JUnit | `org.junit.*` | yes |
 | Spring | `org.springframework.*`, `io.spring.*` | yes |
 | Camunda | `org.camunda.*` | yes |
 | Log4j | `org.apache.logging.log4j` | yes |
 | Gradle build tools | Gradle, ben-manes versions, OWASP dependency-check, SonarQube, Freefair | yes |
-| All non-major updates | every minor and patch update | yes |
 | Terraform version | `infrastructure/.terraform-version` | no |
 | Jenkins library | `hmcts/cnp-jenkins-library` | yes (from the preset) |
 
-### Group order problem
+### Group order
 
-When several package rules match, Renovate applies them in order and later values win. "All non-major updates" comes after the named groups and matches every minor and patch update, so it replaces their `groupName`. Minor and patch updates for Helm charts, JUnit, Spring, Camunda, Log4j and the Gradle build tools therefore all land in the "All non-major updates" PR. The named groups only ever receive major updates. The PR history shows this: Helm image tag bumps such as `civil-service` v0.0.133 and v0.0.134 arrive on `renovate/all-non-major`.
+When several package rules match, Renovate applies them in order and later values win. "All non-major updates" must stay first, so each named group below it takes its own packages out of the catch-all and gets its own PR for every update type. Renovate still raises majors on a separate branch (for example `renovate/major-spring`).
 
-To make the named groups work as intended, move the "All non-major updates" rule above them, as `civil-service` and `civil-ccd-definition` do.
+Until this was fixed, "All non-major updates" came after the named groups and replaced their `groupName`. Minor and patch updates for Helm charts, JUnit, Spring, Camunda, Log4j and the Gradle build tools all landed in the "All non-major updates" PR, and the named groups only ever received majors. For example, Helm image tag bumps such as `civil-service` v0.0.133 and v0.0.134 arrived on `renovate/all-non-major`.
 
 ### Major updates automerge
 
