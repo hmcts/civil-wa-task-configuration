@@ -356,9 +356,6 @@ wa:
     java:
       ingressHost: wa-task-monitor-${SERVICE_FQDN}
       environment:
-        # wa-chart #33 (30 Oct) turned this on, but the preview Camunda has no S2S secret,
-        # so pushing tasks to task management fails with 401. Keep the task monitor initiating.
-        WA_INITIATE_TASKS_ON_CREATE_ENABLED: false
         WA_TASK_MANAGEMENT_API_URL: http://{{ .Release.Name }}-wa-task-management-api
         ROLE_ASSIGNMENT_URL: http://am-role-assignment-service-aat.service.core-compute-aat.internal
 
@@ -416,9 +413,7 @@ wa:
   camunda-bpm:
     java:
       environment:
-        # wa-chart #33 (30 Oct) turned this on, but the preview Camunda has no S2S secret,
-        # so pushing tasks to task management fails with 401. Keep the task monitor initiating.
-        WA_INITIATE_TASKS_ON_CREATE_ENABLED: false
+        S2S_SECRET_CAMUNDA_BPM: ${S2S_SECRET_CAMUNDA_BPM}
         CAMUNDA_DB_USER_NAME: "hmcts"
         CAMUNDA_DB_PASSWORD: ${POSTGRES_PASSWORD}
         CAMUNDA_DB_CONN_OPTIONS: "?stringtype=unspecified"
