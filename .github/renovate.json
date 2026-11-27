@@ -32,6 +32,17 @@
   ],
   "packageRules": [
     {
+      "description": "Catch-all group for minor and patch updates. Kept first: later rules win, so the named groups below take their own packages out of it",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "All non-major updates",
+      "groupSlug": "all-non-major",
+      "automerge": true,
+      "automergeType": "pr"
+    },
+    {
       "matchManagers": [
         "helmv3"
       ],
@@ -96,14 +107,16 @@
       "automergeType": "pr"
     },
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
+      "description": "Hold Spring and Camunda major updates for manual review. Must come after the Spring and Camunda groups, which set automerge: true, so this rule wins",
+      "matchPackageNames": [
+        "/^org\\.springframework\\./",
+        "/^io\\.spring\\./",
+        "/^org\\.camunda\\./"
       ],
-      "groupName": "All non-major updates",
-      "groupSlug": "all-non-major",
-      "automerge": true,
-      "automergeType": "pr"
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false
     },
     {
       "description": "Keep the Terraform CLI version (infrastructure/.terraform-version) out of the npm non-major group; large jumps can affect state and providers, so review and merge manually",
