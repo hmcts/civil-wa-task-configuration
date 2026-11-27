@@ -509,10 +509,15 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "Applicant gives reason,,,", ",Respondent 1 gives reason,,",",,Respondent2 gives Reason"
+        "Applicant gives reason,,,CASE_PROGRESSION",
+        ",Respondent 1 gives reason,,CASE_PROGRESSION",
+        ",,Respondent2 gives Reason,CASE_PROGRESSION",
+        "Applicant gives reason,,,HEARING_READINESS",
+        ",Respondent 1 gives reason,,HEARING_READINESS",
+        ",,Respondent2 gives Reason,HEARING_READINESS"
     })
     void when_request_for_reconsideration_create_judge_decide_on_reconsider_request_spec(
-        String applicantReason, String respondent1Reason, String respondent2Reason) {
+        String applicantReason, String respondent1Reason, String respondent2Reason, String postEventState) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "WA3.5");
@@ -527,7 +532,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REQUEST_FOR_RECONSIDERATION");
         inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("postEventState", postEventState);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -540,12 +545,15 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "Applicant gives reason,Respondent 1 gives reason,,",
-        ",Respondent 1 gives reason,Respondent2 gives Reason,",
-        "Applicant gives reason,,Respondent2 gives Reason"
+        "Applicant gives reason,Respondent 1 gives reason,,CASE_PROGRESSION",
+        ",Respondent 1 gives reason,Respondent2 gives Reason,CASE_PROGRESSION",
+        "Applicant gives reason,,Respondent2 gives Reason,CASE_PROGRESSION",
+        "Applicant gives reason,Respondent 1 gives reason,,HEARING_READINESS",
+        ",Respondent 1 gives reason,Respondent2 gives Reason,HEARING_READINESS",
+        "Applicant gives reason,,Respondent2 gives Reason,HEARING_READINESS"
     })
     void when_multiple_request_for_reconsideration_do_not_create_judge_decide_on_reconsider_request_spec(
-        String applicantReason, String respondent1Reason, String respondent2Reason) {
+        String applicantReason, String respondent1Reason, String respondent2Reason, String postEventState) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "WA3.5");
@@ -560,7 +568,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "REQUEST_FOR_RECONSIDERATION");
         inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("postEventState", postEventState);
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
         List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
@@ -588,12 +596,14 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
 
     @ParameterizedTest
     @CsvSource({
-        "850,SMALL_CLAIM,standardClaim,CREATE_SDO"
+        "850,SMALL_CLAIM,standardClaim,CREATE_SDO,CASE_PROGRESSION",
+        "850,SMALL_CLAIM,standardClaim,CREATE_SDO,HEARING_READINESS"
     })
     void when_decision_on_reconsideration_create_sdo_create_small_track_directions_test(Integer claimAmount,
                                                                                         String responseTrack,
                                                                                         String claimType,
-                                                                                        String respToReconsideration) {
+                                                                                        String respToReconsideration,
+                                                                                        String postEventState) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("featureToggleWA", "WA3.5");
@@ -608,7 +618,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         VariableMap inputVariables = new VariableMapImpl();
         inputVariables.putValue("eventId", "DECISION_ON_RECONSIDERATION_REQUEST");
         inputVariables.putValue("additionalData", caseData);
-        inputVariables.putValue("postEventState", "CASE_PROGRESSION");
+        inputVariables.putValue("postEventState", postEventState);
 
         DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
 
@@ -898,6 +908,83 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
         assertThat(workTypeResultList
                        .get(0).get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
         assertThat(workTypeResultList.get(0).get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_claimant_response_spec_when_small_claim_and_create_sdo_reconsideration_then_judge_sdo_task() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalClaimAmount", 10000);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("respondent1ClaimResponseTypeForSpec", "FULL_DEFENCE");
+        data.put("decisionOnRequestReconsiderationOptions", "CREATE_SDO");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.getFirst().get("taskId"), is("SmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.getFirst().get("name"), is("Small Claims Track Directions"));
+        assertThat(workTypeResultList.getFirst().get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_claimant_response_spec_when_small_claim_and_no_reconsideration_then_legal_advisor_sdo_task() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalClaimAmount", 10000);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("respondent1ClaimResponseTypeForSpec", "FULL_DEFENCE");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.getFirst().get("taskId"), is("LegalAdvisorSmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.getFirst().get("name"), is("Legal Advisor Small Claims Track Directions"));
+        assertThat(workTypeResultList.getFirst().get("processCategories"), is("standardDirectionsOrder"));
+    }
+
+    @Test
+    void given_retrigger_claimant_response_spec_when_small_claim_and_create_sdo_reconsideration_then_judge_sdo_task() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("totalClaimAmount", 10000);
+        data.put("responseClaimTrack", "SMALL_CLAIM");
+        data.put("respondent1ClaimResponseTypeForSpec", "FULL_DEFENCE");
+        data.put("decisionOnRequestReconsiderationOptions", "CREATE_SDO");
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "RETRIGGER_CLAIMANT_RESPONSE_SPEC");
+        inputVariables.putValue("postEventState", "JUDICIAL_REFERRAL");
+        inputVariables.putValue("additionalData", caseData);
+
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.size(), is(1));
+        assertThat(workTypeResultList.getFirst().get("taskId"), is("SmallClaimsTrackDirections"));
+        assertThat(workTypeResultList.getFirst().get("name"), is("Small Claims Track Directions"));
+        assertThat(workTypeResultList.getFirst().get("processCategories"), is("standardDirectionsOrder"));
     }
 
     @Test
@@ -2250,7 +2337,7 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
     void if_this_test_fails_needs_updating_with_your_changes() {
         //The purpose of this test is to prevent adding new rows without being tested
         DmnDecisionTableImpl logic = (DmnDecisionTableImpl) decision.getDecisionLogic();
-        assertThat(logic.getRules().size(), is(272));
+        assertThat(logic.getRules().size(), is(275));
     }
 
     @ParameterizedTest
@@ -2889,6 +2976,33 @@ class CamundaTaskWaInitiationTest extends DmnDecisionTableBaseUnitTest {
                        .get(0).get("taskId"), is("RemoveHMCHearing"));
         assertThat(workTypeResultList
                        .get(0).get("name"), is("Remove Hearing - HMC"));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "CREATE_SDO,CASE_PROGRESSION",
+        "CREATE_SDO,HEARING_READINESS"
+    })
+    void when_create_sdo_post_reconsideration_create_review_order_task(String respToReconsideration, String postEventState) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("decisionOnRequestReconsiderationOptions", respToReconsideration);
+
+        Map<String, Object> caseData = new HashMap<>();
+        caseData.put("Data", data);
+
+        VariableMap inputVariables = new VariableMapImpl();
+        inputVariables.putValue("eventId", "CREATE_SDO");
+        inputVariables.putValue("postEventState", postEventState);
+        inputVariables.putValue("additionalData", caseData);
+        DmnDecisionTableResult dmnDecisionTableResult = evaluateDmnTable(inputVariables);
+
+        List<Map<String, Object>> workTypeResultList = dmnDecisionTableResult.getResultList();
+
+        assertThat(workTypeResultList.stream().anyMatch(result ->
+            "reviewOrder".equals(result.get("taskId"))
+                && "Order Made - Review case".equals(result.get("name"))
+                && "caseProgression".equals(result.get("processCategories"))
+        ), is(true));
     }
 
     @Test
